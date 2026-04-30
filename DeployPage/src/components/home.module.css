@@ -1,0 +1,73 @@
+@font-face {
+  font-family: "Beausite Classic";
+  src: url("/fonts/beausite-classic-regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Beausite Classic";
+  src: url("/fonts/beausite-classic-medium.ttf") format("truetype");
+  font-weight: 500;
+}
+
+* {
+  background-color: black;
+  color: white;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  /* overflow-y: hidden; */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  width: 100%;
+  font-family: "Beausite Classic";
+}
+
+.title {
+  /* line-height: 1; */
+  font-size: 96px;
+  font-weight: 400;
+}
+
+.subtitle {
+  font-size: 20px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.header {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 48px;
+  padding-right: 48px;
+  /* width: 100%; */
+  /* height: auto; */
+  font-family: "Beausite Classic";
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 48px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+ul {
+  display: flex;
+  gap: 48px;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0px;
+  font-family: "Beausite Classic";
+  font-size: 14px;
+  color: #727272;
+}

@@ -1,9 +1,10 @@
+import HOME from './components/Home'
 import { useState } from 'react'
 function App() {
 
   return (
     <>
-    <h1>COMING SOON</h1>
+    <HOME/>
     </>
   )
 }

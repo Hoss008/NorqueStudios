@@ -96,8 +96,14 @@ ul {
 }
 
 @media (max-width: 600px) {
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
   .container {
-    min-height: 70vh;
+    min-height: 100vh;
     padding: 0 16px;
   }
 

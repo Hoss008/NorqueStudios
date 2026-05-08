@@ -1,5 +1,15 @@
 import styles from "./home.module.css";
 import Logo from "../../public/assets/Logo.svg";
+import BlurText from "./BlurText";
+import SplitText from "./SplitText";
+
+const handleAnimationComplete = () => {
+  console.log("Animation completed!");
+};
+
+const handleAnimationComplete2 = () => {
+  console.log("All letters have animated!");
+};
 
 function Home() {
   return (
@@ -7,13 +17,29 @@ function Home() {
       <header className={styles.header}>
         <img src={Logo} alt="Logo" />
         <ul>
-            <ol>About</ol>
-            <ol>Contact</ol>
+          <ol>About</ol>
+          <ol>Contact</ol>
         </ul>
       </header>
       <div className={styles.container}>
-        <h1 className={styles.title}>COMING SOON!</h1>
-        <p className={styles.subtitle}>We are working on our website for now</p>
+        <h1 className={styles.title}>
+          <BlurText
+            text="COMING SOON!"
+            delay={90}
+            animateBy="letters"
+            direction="top"
+            onAnimationComplete={handleAnimationComplete}
+          />
+        </h1>
+        <p className={styles.subtitle}>
+          <SplitText
+            text="WE ARE WORKING ON OUR WEBSITE FOR NOW"
+            delay={30}
+            animateBy="letters"
+            direction="top"
+            onAnimationComplete={handleAnimationComplete2}
+          />
+        </p>
       </div>
       <footer className={styles.footer}>
         ©2026 NORQUESTUDIOS™ ALL RIGHTS RESERVED

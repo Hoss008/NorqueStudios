@@ -28,7 +28,8 @@ function Home() {
             delay={40}
             animateBy="words"
             direction="top"
-            duration={1.0}
+            duration={0.8}
+            ease="power4.out"
             onAnimationComplete={handleAnimationComplete}
           />
         </h1>
@@ -38,7 +39,8 @@ function Home() {
             delay={30}
             animateBy="words"
             direction="top"
-            duration={1.0}
+            duration={0.8}
+            ease="power4.out"
             onAnimationComplete={handleAnimationComplete2}
           />
         </p>

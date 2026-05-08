@@ -23,11 +23,12 @@ function Home() {
       </header>
       <div className={styles.container}>
         <h1 className={styles.title}>
-          <BlurText
+          <SplitText
             text="COMING SOON!"
-            delay={90}
-            animateBy="letters"
+            delay={40}
+            animateBy="words"
             direction="top"
+            duration={0.6}
             onAnimationComplete={handleAnimationComplete}
           />
         </h1>
@@ -35,8 +36,9 @@ function Home() {
           <SplitText
             text="WE ARE WORKING ON OUR WEBSITE FOR NOW"
             delay={30}
-            animateBy="letters"
+            animateBy="words"
             direction="top"
+            duration={0.6}
             onAnimationComplete={handleAnimationComplete2}
           />
         </p>

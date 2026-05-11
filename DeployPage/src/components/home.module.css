@@ -118,6 +118,10 @@ ul {
   gap: 48px;
 }
 
+.navMuted {
+  color: #7b7b7b;
+}
+
 .footer {
   display: flex;
   justify-content: center;

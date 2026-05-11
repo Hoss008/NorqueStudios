@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import styles from "./home.module.css";
 import Logo from "../assets/Logo.svg?react";
@@ -6,8 +6,10 @@ import Logo from "../assets/Logo.svg?react";
 const LOGO_STAGGER_STEP = 0.05;
 
 function Layout() {
+  const location = useLocation();
   const logoWrapRef = useRef(null);
   const [logoAnimated, setLogoAnimated] = useState(false);
+  const isAboutPage = location.pathname === "/about";
 
   useEffect(() => {
     const wrap = logoWrapRef.current;
@@ -35,7 +37,12 @@ function Layout() {
             <Link to="/about">About</Link>
           </li>
           <li>
-            <a href="mailto:contact@norquestudios.com">Contact</a>
+            <a
+              href="mailto:contact@norquestudios.com"
+              className={isAboutPage ? styles.navMuted : ""}
+            >
+              Contact
+            </a>
           </li>
         </ul>
       </header>

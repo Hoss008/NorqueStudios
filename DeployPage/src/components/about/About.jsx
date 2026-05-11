@@ -1,11 +1,16 @@
-import styles from "../home.module.css";
+import styles from "../about/about.module.css";
 
 function About() {
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>ABOUT</h1>
-      <p className={styles.subtitle}>NORQUE STUDIOS</p>
-    </div>
+    <>
+      <div className={styles["main-sec"]}>
+        <h1>NORQUE STUDIOS™</h1>
+        <p>
+          A MULTI DISCIPLINARY CREATIVE STUDIO THAT DELIVERS SOLUTIONS NOT JUST
+          GOOD DESIGNS
+        </p>
+      </div>
+    </>
   );
 }
 

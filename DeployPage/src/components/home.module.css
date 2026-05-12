@@ -9,27 +9,29 @@
   font-family: "Beausite Classic";
   src: url("/fonts/beausite-classic-regular.ttf") format("truetype");
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Beausite Classic";
   src: url("/fonts/beausite-classic-medium.ttf") format("truetype");
   font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
-@font-face {
-  font-family: "Beausite Classic";
-  src:
-    url("/fonts/beausite.woff2") format("woff2"),
-    url("/fonts/beausite.woff") format("woff");
-}
-
-* {
-  background-color: black;
-  color: white;
+:global(*),
+:global(*::before),
+:global(*::after) {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+:global(body) {
+  background-color: black;
+  color: white;
   /* overflow-y: hidden; */
 }
 

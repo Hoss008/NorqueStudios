@@ -119,8 +119,6 @@ const SplitText = ({
                 animationCompletedRef.current = true;
                 onCompleteRef.current?.();
               },
-              willChange: "transform, opacity",
-              force3D: true,
             },
           );
           return tween;

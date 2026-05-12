@@ -12,6 +12,6 @@ export default defineConfig({
     },
   },
   build: {
-    target: "es2020", // or lower like 'es2015' for older browsers
+    target: "es2020",
   },
 });

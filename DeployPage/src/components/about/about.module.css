@@ -17,6 +17,12 @@
   font-weight: 500;
 }
 
+@font-face {
+  font-family: "Beausite Classic";
+  src:
+    url("/fonts/beausite.woff2") format("woff2"),
+    url("/fonts/beausite.woff") format("woff");
+}
 
 .main-sec {
   display: flex;

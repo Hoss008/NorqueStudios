@@ -18,13 +18,16 @@ function Layout() {
     paths.forEach((path, index) => {
       path.style.animationDelay = `${index * LOGO_STAGGER_STEP}s`;
     });
-    setLogoAnimated(true);
-  }, []);
+    setLogoAnimated(false);
+    const raf = requestAnimationFrame(() => setLogoAnimated(true));
+    return () => cancelAnimationFrame(raf);
+  }, [location.pathname]);
 
   return (
     <div className={styles.page}>
       <header className={styles.header}>
         <Link
+          key={location.pathname}
           to="/"
           ref={logoWrapRef}
           className={`${styles.logo} ${logoAnimated ? styles.logoAnimated : ""}`}

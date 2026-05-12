@@ -1,3 +1,23 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
+
+@custom-variant dark (&:is(.dark *));
+
+@font-face {
+  font-family: "Beausite Classic";
+  src: url("/fonts/beausite-classic-regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Beausite Classic";
+  src: url("/fonts/beausite-classic-medium.ttf") format("truetype");
+  font-weight: 500;
+}
+
+
 .main-sec {
   display: flex;
   flex-direction: column;
@@ -12,6 +32,8 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
+  font-family: "Beausite Classic";
+
 }
 
 .container {

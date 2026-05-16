@@ -34,6 +34,7 @@ function Home() {
           ease="power4.out"
           onAnimationComplete={handleAnimationComplete2}
         />
+        <div className={styles.loader}></div>
       </p>
     </div>
   );

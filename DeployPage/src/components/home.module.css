@@ -108,6 +108,8 @@
   margin-left: 10px;
   margin-bottom: 11px;
   position: relative;
+  opacity: 0;
+  animation: fadeInLoader 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
 }
 
 .loader::before {
@@ -120,7 +122,19 @@
   border-radius: 50%;
   border: 1px solid #fff;
   transform: translate(-50%, -50%);
-  animation: pulseAnimate 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+  animation: pulseAnimate 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s
+    infinite;
+}
+
+@keyframes fadeInLoader {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes pulseAnimate {
@@ -192,6 +206,16 @@ ul {
     text-align: center;
   }
 
+  .loader {
+    width: 6px;
+    margin-left: 8px;
+    margin-bottom: 8px;
+  }
+
+  .loader::before {
+    width: 12px;
+  }
+
   .header {
     padding-left: 24px;
     padding-right: 24px;
@@ -223,6 +247,16 @@ ul {
   .subtitle {
     font-size: 14px;
     letter-spacing: 0.04em;
+  }
+
+  .loader {
+    width: 5px;
+    margin-left: 6px;
+    margin-bottom: 8px;
+  }
+
+  .loader::before {
+    width: 10px;
   }
 
   .header {

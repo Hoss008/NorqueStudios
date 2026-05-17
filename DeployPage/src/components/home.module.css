@@ -109,7 +109,8 @@
   margin-bottom: 11px;
   position: relative;
   opacity: 0;
-  animation: fadeInLoader 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
+  animation: fadeInLoader 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s
+    forwards;
 }
 
 .loader::before {
@@ -210,6 +211,7 @@ ul {
     width: 6px;
     margin-left: 8px;
     margin-bottom: 8px;
+    opacity: 0;
   }
 
   .loader::before {
@@ -253,10 +255,15 @@ ul {
     width: 5px;
     margin-left: 6px;
     margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeInLoader 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.2s
+      forwards;
   }
 
   .loader::before {
     width: 10px;
+    animation: pulseAnimate 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s
+      infinite;
   }
 
   .header {

@@ -22,7 +22,7 @@ function About() {
             <br />
             PROFESSION
           </h2>
-          <p className={styles.subtitle}>WE ARE GOOD AT</p>
+          <p className={styles.subtitle}>CORE CAPABILITIES</p>
 
           <ul className={styles.servicesList}>
             <li>

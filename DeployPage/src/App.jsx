@@ -7,14 +7,16 @@ import { SpeedInsights } from "@vercel/speed-insights/react"
 
 function App() {
   return (
+    <>
+    <SpeedInsights/>
     <Routes>
-      <SpeedInsights/>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
+    </>
   );
 }
 

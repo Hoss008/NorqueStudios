@@ -4,11 +4,13 @@ import About from "./components/about/About";
 import Layout from "./components/Layout";
 import NotFound from "./components/NotFound";
 import { SpeedInsights } from "@vercel/speed-insights/react"
+import { Analytics } from "@vercel/analytics/next"
 
 function App() {
   return (
     <>
     <SpeedInsights/>
+    <Analytics/>
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />

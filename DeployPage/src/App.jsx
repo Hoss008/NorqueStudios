@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import About from "./components/about/About";
-import Layout from "./components/Layout";
 import NotFound from "./components/NotFound";
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import { Analytics } from "@vercel/analytics/react"
@@ -12,10 +11,8 @@ function App() {
     <SpeedInsights/>
     <Analytics/>
     <Routes>
-      <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-      </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
     </>

@@ -3,24 +3,24 @@ const logo = "/assets/NRQstds.svg";
 
 function Nav() {
   return (
-    <nav>
+    <nav className={styles.navWrapper}>
       <div className={styles.logo}>
         <img src={logo} alt="Logo" />
       </div>
       <ul className={styles.navLinks}>
         <li>
-          <a href="#">About</a>
+          <a href="#">ABOUT</a>
         </li>
         <li>
-          <a href="#">Works</a>
+          <a href="#">WORKS</a>
         </li>
         <li>
-          <a href="#">Services</a>
+          <a href="#">SERVICES</a>
         </li>
       </ul>
-        <li>
-          <a href="mailto:hello@norquestudios.com">hello@norquestudios.com</a>
-        </li>
+      <div className={styles.contact}>
+        <a href="mailto:hello@norquestudios.com">hello@norquestudios.com</a>
+      </div>
     </nav>
   );
 }

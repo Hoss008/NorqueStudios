@@ -3,9 +3,9 @@ import Nav from "./layout/Nav";
 
 function Home() {
   return (
-    <>
+    <main className="grid-container">
       <Nav />
-    </>
+    </main>
   );
 }
 

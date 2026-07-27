@@ -38,4 +38,16 @@ body {
   margin-inline: auto;
   
   width: 100%;
+  position: relative;
+  min-height: 100dvh;
+  align-content: start;
+}
+
+/* Container for the animated main logo at the bottom of the page */
+.mainLogoContainer {
+  position: absolute;
+  bottom: 40px;
+  left: var(--grid-margin);
+  right: var(--grid-margin);
+  pointer-events: none; /* Allows clicking things underneath if needed */
 }

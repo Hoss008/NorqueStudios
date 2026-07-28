@@ -31,41 +31,106 @@ const MainLogoAnimation = () => {
   }, []);
 
   return (
-    <div className="mainLogoContainer">
-      {shouldAnimate && (
-        <motion.svg
-          width="100%"
-          viewBox="0 0 1392 105"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          style={{ overflow: "hidden", display: "block" }}
-          initial="hidden"
-          animate="visible"
+    <motion.div
+      className="mainLogoContainer"
+      initial="hidden"
+      animate={shouldAnimate ? "visible" : "hidden"}
+      variants={{
+        hidden: {},
+        visible: {
+          transition: { staggerChildren: 0.1 },
+        },
+      }}
+    >
+      <div className="logoTopTextContainer" style={{ overflow: "hidden" }}>
+        <motion.div
+  className="logoTopTextLeft"
+  variants={{
+    hidden: {},
+    visible: {
+      transition: {
+        delayChildren: 0.5, // Your initial delay
+        staggerChildren: 0.1, // Adds a slight delay between Line 1 and Line 2
+      },
+    },
+  }}
+>
+  {/* Line 1 Wrapper */}
+  <div style={{ overflow: "hidden" }}>
+    <motion.div
+      variants={{
+        hidden: { y: "100%", opacity: 1 },
+        visible: {
+          y: 0,
+          opacity: 1,
+          transition: { duration: 0.8, ease: [0, 0.8, 0.2, 1] },
+        },
+      }}
+    >
+      BUILT FOR BRANDS THAT WANT
+    </motion.div>
+  </div>
+
+  {/* Line 2 Wrapper */}
+  <div style={{ overflow: "hidden" }}>
+    <motion.div
+      variants={{
+        hidden: { y: "100%", opacity: 1 },
+        visible: {
+          y: 0,
+          opacity: 1,
+          transition: { duration: 0.8, ease: [0, 0.8, 0.2, 1] },
+        },
+      }}
+    >
+      SOMETHING REAL
+    </motion.div>
+  </div>
+</motion.div>
+        <motion.div
           variants={{
-            hidden: {},
+            hidden: { y: 20, opacity: 1 },
             visible: {
-              transition: { staggerChildren: 0.05 },
+              y: 0,
+              opacity: 1,
+              transition: { duration: 0.8, ease: [0, 0.8, 0.2, 1] , delay: 0.5  },
             },
           }}
         >
-          {mainLogoPaths.map((path, index) => (
-            <motion.path
-              key={index}
-              d={path}
-              fill="white"
-              variants={{
-                hidden: { y: 105, opacity: 1 },
-                visible: {
-                  y: 0,
-                  opacity: 1,
-                  transition: { duration: 0.8, ease: [0, 0.8, 0.2, 1] },
-                },
-              }}
-            />
-          ))}
-        </motion.svg>
-      )}
-    </div>
+          CREATING WORLDWIDE &reg;
+        </motion.div>
+      </div>
+
+      <motion.svg
+        width="100%"
+        viewBox="0 0 1392 105"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ overflow: "hidden", display: "block" }}
+        variants={{
+          hidden: {},
+          visible: {
+            transition: { staggerChildren: 0.05 },
+          },
+        }}
+      >
+        {mainLogoPaths.map((path, index) => (
+          <motion.path
+            key={index}
+            d={path}
+            fill="white"
+            variants={{
+              hidden: { y: 105, opacity: 1 },
+              visible: {
+                y: 0,
+                opacity: 1,
+                transition: { duration: 0.8, ease: [0, 0.8, 0.2, 1] },
+              },
+            }}
+          />
+        ))}
+      </motion.svg>
+    </motion.div>
   );
 };
 

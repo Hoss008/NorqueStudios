@@ -93,7 +93,7 @@ const MainLogoAnimation = () => {
             visible: {
               y: 0,
               opacity: 1,
-              transition: { duration: 0.8, ease: [0, 0.8, 0.2, 1] , delay: 0.5  },
+              transition: { duration: 0.8, ease: [0, 0.8, 0.2, 1] , delay: 0.9  },
             },
           }}
         >

@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+:root {
+  /* 
+   * Fluid sizing strategy based on a 1440px viewport.
+   * At 1440px, 1.666vw exactly equals 24px.
+   * We use clamp() to ensure it scales perfectly on mid-size screens,
+   * but never shrinks below 16px (1rem) on mobile, and never exceeds 24px (1.5rem) on huge screens.
+   */
+  --grid-gap: clamp(1rem, 1.666vw, 1.5rem);
+  --grid-margin: clamp(1rem, 1.666vw, 1.5rem);
+  --max-width: 1440px;
+}
+
+/* Global Reset (Optional, ensures grid behaves properly) */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* 
+ * The Global 12-Column Grid Wrapper 
+ * Add className="grid-container" to your <main> or section wrappers 
+ */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--grid-gap);
+  
+  /* padding-inline acts as your left and right margin safely */
+  padding-inline: var(--grid-margin);
+  
+  /* Center the container on very large screens */
+  max-width: var(--max-width);
+  margin-inline: auto;
+  
+  width: 100%;
+  position: relative;
+  min-height: 100dvh;
+  align-content: start;
+}
+
+/* Container for the animated main logo at the bottom of the page */
+.mainLogoContainer {
+  position: absolute;
+  bottom: 40px;
+  left: var(--grid-margin);
+  right: var(--grid-margin);
+  pointer-events: none; /* Allows clicking things underneath if needed */
+}
+
+.logoTopTextContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #fff;
+  line-height: 1.4;
+}
+
+.logoTopTextLeft {
+  max-width: 200px;
+}
+
+/* =========================================
+   Mobile Responsive Adjustments 
+   ========================================= */
+@media (max-width: 768px) {
+  /* Switch from 12 columns to 4 columns on mobile for better sizing */
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Stack the top text container so it doesn't overlap on narrow screens */
+  .logoTopTextContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 9px;
+  }
+}

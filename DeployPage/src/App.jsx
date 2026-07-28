@@ -1,23 +1,20 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
-import About from "./components/about/About";
-import Layout from "./components/Layout";
 import NotFound from "./components/NotFound";
-import { SpeedInsights } from "@vercel/speed-insights/react"
-import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/react";
+import { Analytics } from "@vercel/analytics/react";
+import Loading from "./components/Loading";
 
 function App() {
   return (
     <>
-    <SpeedInsights/>
-    <Analytics/>
-    <Routes>
-      <Route element={<Layout />}>
+      <Loading />
+      <SpeedInsights />
+      <Analytics />
+      <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-      </Route>
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </>
   );
 }

@@ -37,3 +37,37 @@
   text-decoration: none;
   color: inherit;
 }
+
+/* =========================================
+   Mobile Responsive Adjustments 
+   ========================================= */
+@media (max-width: 768px) {
+  .navWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 20px;
+  }
+
+  .logo {
+    grid-column: auto;
+    order: 1;
+  }
+
+  .contact {
+    grid-column: auto;
+    font-size: 10px;
+    order: 2;
+  }
+
+  .navLinks {
+    display: flex; 
+    width: 100%;
+    justify-content: space-between;
+    font-size: 10px;
+    order: 3;
+    gap: 0;
+  }
+}

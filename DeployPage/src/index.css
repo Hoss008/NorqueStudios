@@ -68,3 +68,21 @@ body {
 .logoTopTextLeft {
   max-width: 200px;
 }
+
+/* =========================================
+   Mobile Responsive Adjustments 
+   ========================================= */
+@media (max-width: 768px) {
+  /* Switch from 12 columns to 4 columns on mobile for better sizing */
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Stack the top text container so it doesn't overlap on narrow screens */
+  .logoTopTextContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 9px;
+  }
+}

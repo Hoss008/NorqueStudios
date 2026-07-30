@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import styles from "./nav.module.css";
 const logo = "/assets/NRQstds.svg";
 
@@ -20,9 +21,9 @@ function Nav() {
         <li>
           <a href="#">WORKS</a>
         </li>
-        <li>
-          <a href="#">SERVICES</a>
-        </li>
+        <Link to="/service">
+          SERVICES
+        </Link>
       </ul>
       <div className={styles.contact}>
         <a href="mailto:hello@norquestudios.com">hello@norquestudios.com</a>

@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Load custom local fonts from the public/fonts folder */
+@font-face {
+  font-family: "Beausite Classic";
+  src: url("/fonts/beausite-classic-semibold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: semibold;
+  font-display: swap;
+}
+
 :root {
   /* 
    * Fluid sizing strategy based on a 1440px viewport.
@@ -9,14 +18,20 @@
    */
   --grid-gap: clamp(1rem, 1.666vw, 1.5rem);
   --grid-margin: clamp(1rem, 1.666vw, 1.5rem);
-    /* Allow the global container to expand on very large displays
+  /* Primary display font used across the site */
+  --font-display:
+    "Beausite Classic", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
+  /* Allow the global container to expand on very large displays
       while keeping the original 1440px cap for mid-sized screens.
       It will scale with the viewport up to 2200px on very wide monitors. */
-    --max-width: clamp(1440px, 90vw, 2200px);
+  --max-width: clamp(1440px, 90vw, 2200px);
 }
 
 /* Global Reset (Optional, ensures grid behaves properly) */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 body {
@@ -34,14 +49,14 @@ body {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: var(--grid-gap);
-  
+
   /* padding-inline acts as your left and right margin safely */
   padding-inline: var(--grid-margin);
-  
+
   /* Center the container on very large screens */
   max-width: var(--max-width);
   margin-inline: auto;
-  
+
   width: 100%;
   position: relative;
   min-height: 100dvh;

@@ -13,8 +13,6 @@
   width: 100%;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
-  
-  /* PADDING REMOVED HERE - The infinite loop handles alignment natively */
 
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */

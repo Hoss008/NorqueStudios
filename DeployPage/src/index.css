@@ -9,7 +9,10 @@
    */
   --grid-gap: clamp(1rem, 1.666vw, 1.5rem);
   --grid-margin: clamp(1rem, 1.666vw, 1.5rem);
-  --max-width: 1440px;
+    /* Allow the global container to expand on very large displays
+      while keeping the original 1440px cap for mid-sized screens.
+      It will scale with the viewport up to 2200px on very wide monitors. */
+    --max-width: clamp(1440px, 90vw, 2200px);
 }
 
 /* Global Reset (Optional, ensures grid behaves properly) */

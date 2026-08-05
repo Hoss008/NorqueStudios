@@ -97,7 +97,7 @@ const MainLogoAnimation = () => {
             },
           }}
         >
-          CREATING WORLDWIDE &reg;
+          CREATING WORLDWIDE ©;
         </motion.div>
       </div>
 

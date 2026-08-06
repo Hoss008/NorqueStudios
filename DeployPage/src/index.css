@@ -79,7 +79,8 @@ body {
   margin-bottom: 3rem;
   text-transform: uppercase;
   font-size: 12px;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-weight: 600;
   letter-spacing: 0.02em;
   color: #fff;
   line-height: 1.4;

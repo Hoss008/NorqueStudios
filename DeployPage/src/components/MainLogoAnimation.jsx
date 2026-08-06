@@ -44,56 +44,56 @@ const MainLogoAnimation = () => {
     >
       <div className="logoTopTextContainer" style={{ overflow: "hidden" }}>
         <motion.div
-  className="logoTopTextLeft"
-  variants={{
-    hidden: {},
-    visible: {
-      transition: {
-        delayChildren: 0.5, // Your initial delay
-        staggerChildren: 0.1, // Adds a slight delay between Line 1 and Line 2
-      },
-    },
-  }}
->
-  {/* Line 1 Wrapper */}
-  <div style={{ overflow: "hidden" }}>
-    <motion.div
-      variants={{
-        hidden: { y: "100%", opacity: 1 },
-        visible: {
-          y: 0,
-          opacity: 1,
-          transition: { duration: 0.8, ease: [0, 0.8, 0.2, 1] },
-        },
-      }}
-    >
-      BUILT FOR BRANDS THAT WANT
-    </motion.div>
-  </div>
+          className="logoTopTextLeft"
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                delayChildren: 0.5, // Your initial delay
+                staggerChildren: 0.1, // Adds a slight delay between Line 1 and Line 2
+              },
+            },
+          }}
+        >
+          {/* Line 1 Wrapper */}
+          <div style={{ overflow: "hidden" }}>
+            <motion.div
+              variants={{
+                hidden: { y: "100%", opacity: 1 },
+                visible: {
+                  y: 0,
+                  opacity: 1,
+                  transition: { duration: 0.8, ease: [0, 0.8, 0.2, 1] },
+                },
+              }}
+            >
+              BUILT FOR BRANDS THAT WANT
+            </motion.div>
+          </div>
 
-  {/* Line 2 Wrapper */}
-  <div style={{ overflow: "hidden" }}>
-    <motion.div
-      variants={{
-        hidden: { y: "100%", opacity: 1 },
-        visible: {
-          y: 0,
-          opacity: 1,
-          transition: { duration: 0.8, ease: [0, 0.8, 0.2, 1] },
-        },
-      }}
-    >
-      SOMETHING REAL
-    </motion.div>
-  </div>
-</motion.div>
+          {/* Line 2 Wrapper */}
+          <div style={{ overflow: "hidden" }}>
+            <motion.div
+              variants={{
+                hidden: { y: "100%", opacity: 1 },
+                visible: {
+                  y: 0,
+                  opacity: 1,
+                  transition: { duration: 0.8, ease: [0, 0.8, 0.2, 1] },
+                },
+              }}
+            >
+              SOMETHING REAL
+            </motion.div>
+          </div>
+        </motion.div>
         <motion.div
           variants={{
             hidden: { y: 20, opacity: 1 },
             visible: {
               y: 0,
               opacity: 1,
-              transition: { duration: 0.8, ease: [0, 0.8, 0.2, 1] , delay: 0.9  },
+              transition: { duration: 0.8, ease: [0, 0.8, 0.2, 1], delay: 0.9 },
             },
           }}
         >

@@ -1,4 +1,3 @@
-import styles from "./home.module.css";
 import Nav from "./layout/Nav";
 import MainLogoAnimation from "./MainLogoAnimation";
 

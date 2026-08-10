@@ -1,0 +1,43 @@
+
+
+/* =========================================
+   Campaign Text Section
+   ========================================= */
+
+.campaignTextContainer {
+  grid-column: 1 / -1; 
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: absolute;
+  top: calc(100dvh + var(--grid-gap));
+  
+  /* Applying your global display font */
+  font-family: var(--font-display);
+}
+
+.campaignTextMain {
+  /* Fluid sizing that scales smoothly between mobile and desktop */
+  font-size: clamp(1.25rem, 2vw, 1.875rem); 
+  font-weight: 500;
+  line-height: 1.4;
+  color: #fff;
+  margin: 0;
+  letter-spacing: -3%;
+}
+
+.campaignTextSub {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Desktop layout matching your existing 768px breakpoint strategy */
+@media (min-width: 769px) {
+  .campaignTextContainer {
+    /* Aligns with the ABOUT nav link group. */
+    grid-column: 5 / -1; 
+  }
+}

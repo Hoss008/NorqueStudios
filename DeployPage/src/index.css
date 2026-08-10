@@ -19,9 +19,6 @@
 :root {
   --grid-gap: clamp(1rem, 1.666vw, 1.5rem);
   --grid-margin: clamp(0.75rem, 1.111vw, 1rem);
-  --font-display:
-    "Beausite Classic", system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial;
     
   /* Set to none so the container never stops growing to fit the screen */
   --max-width: none; 

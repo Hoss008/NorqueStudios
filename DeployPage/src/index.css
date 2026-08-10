@@ -8,16 +8,23 @@
   font-style: semibold;
   font-display: swap;
 }
+@font-face {
+  font-family: "Beausite Classic";
+  src: url("/fonts/beausite-classic-medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   /* 
    * Fluid sizing strategy based on a 1440px viewport.
-   * At 1440px, 1.666vw exactly equals 24px.
+   * At 1440px, 1.111vw is close to 16px.
    * We use clamp() to ensure it scales perfectly on mid-size screens,
-   * but never shrinks below 16px (1rem) on mobile, and never exceeds 24px (1.5rem) on huge screens.
+   * but never shrinks below 12px on mobile, and never exceeds 16px on huge screens.
    */
   --grid-gap: clamp(1rem, 1.666vw, 1.5rem);
-  --grid-margin: clamp(1rem, 1.666vw, 1.5rem);
+  --grid-margin: clamp(0.75rem, 1.111vw, 1rem);
   /* Primary display font used across the site */
   --font-display:
     "Beausite Classic", system-ui, -apple-system, "Segoe UI", Roboto,

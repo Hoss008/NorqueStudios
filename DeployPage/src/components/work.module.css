@@ -1,9 +1,4 @@
 
-
-/* =========================================
-   Campaign Text Section
-   ========================================= */
-
 .campaignTextContainer {
   grid-column: 1 / -1; 
   display: flex;

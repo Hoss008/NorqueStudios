@@ -17,22 +17,11 @@
 }
 
 :root {
-  /* 
-   * Fluid sizing strategy based on a 1440px viewport.
-   * At 1440px, 1.111vw is close to 16px.
-   * We use clamp() to ensure it scales perfectly on mid-size screens,
-   * but never shrinks below 12px on mobile, and never exceeds 16px on huge screens.
-   */
   --grid-gap: clamp(1rem, 1.666vw, 1.5rem);
   --grid-margin: clamp(0.75rem, 1.111vw, 1rem);
-  /* Primary display font used across the site */
-  --font-display:
-    "Beausite Classic", system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial;
-  /* Allow the global container to expand on very large displays
-      while keeping the original 1440px cap for mid-sized screens.
-      It will scale with the viewport up to 2200px on very wide monitors. */
-  --max-width: clamp(1440px, 90vw, 2200px);
+    
+  /* Set to none so the container never stops growing to fit the screen */
+  --max-width: none; 
 }
 
 /* Global Reset (Optional, ensures grid behaves properly) */

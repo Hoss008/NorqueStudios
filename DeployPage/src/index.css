@@ -13,6 +13,9 @@
   font-style: normal;
   font-display: swap;
 }
+html {
+  scroll-behavior: smooth;
+}
 
 :root {
   --grid-gap: clamp(1rem, 1.666vw, 1.5rem);

@@ -36,17 +36,17 @@ const projects = [
 
 function Work() {
   return (
-    <div className={styles.campaignTextContainer}>
+    <div  className={styles.campaignTextContainer}>
       <p className={styles.campaignTextMain}>
         NORQUE STUDIOS is a firm that was born in Cairo in 2026, we develop
         brands & websites to the whole world. We are proudly launching a
         DONE-BY-HUMANS Campaign because we still believe in human creativity.
       </p>
       <span className={styles.campaignTextSub}>BUILT FOR THE WHOLE WORLD</span>
-      <h2 className={styles.h2}>
+      <h2 id="work"  className={styles.h2}>
         SELECTED WORKS <span>(04)</span>
       </h2>
-      <div className={styles.workGrid}>
+      <div  className={styles.workGrid}>
         {projects.map((project) => (
           <div key={project.id} className={styles.workItem}>
             <a

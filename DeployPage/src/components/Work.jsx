@@ -3,23 +3,24 @@ import styles from "./work.module.css";
 const projects = [
   {
     id: 1,
-    image: "assets/axis.png", 
+    image: "assets/axis.png",
     title: "AXIS® - Real Estate Consultancy",
     service: "Brand Development",
     location: "EGYPT",
   },
   {
     id: 2,
-    image: "/images/fusion-form.jpg",
+    image: "assets/FF.png",
     title: "Fusion Form® - Architecture Development",
     service: "UI/UX Design & Web Development",
     location: "EGYPT",
+    link: "https://www.fusionformad.com",
   },
   {
     id: 3,
-    image: "/images/studio-juzenas.jpg",
+    image: "assets/shawmi.png",
     title: "STUDIO JUZĖNAS - Architecture Studio",
-    service: "Brand Development | UI/UX Design & Web Development",
+    service: "Brand Development | UI/UX Design ",
     location: "VILNIUS, LITHUANIA",
   },
   {
@@ -28,6 +29,7 @@ const projects = [
     title: "AMK",
     service: "Web Development",
     location: "EGYPT",
+    link: "https://amk-sol.com/",
   },
 ];
 
@@ -35,18 +37,23 @@ function Work() {
   return (
     <div className={styles.campaignTextContainer}>
       <p className={styles.campaignTextMain}>
-        NORQUE STUDIOS is a firm that was born in Cairo in 2026, we
-        develop brands & websites to the whole world. We are proudly
-        launching a DONE-BY-HUMANS Campaign because we still
-        believe in human creativity.
+        NORQUE STUDIOS is a firm that was born in Cairo in 2026, we develop
+        brands & websites to the whole world. We are proudly launching a
+        DONE-BY-HUMANS Campaign because we still believe in human creativity.
       </p>
-      <span className={styles.campaignTextSub}>
-        BUILT FOR THE WHOLE WORLD
-      </span>
-      <h2 className={styles.h2}>SELECTED WORKS <span>(04)</span></h2>
+      <span className={styles.campaignTextSub}>BUILT FOR THE WHOLE WORLD</span>
+      <h2 className={styles.h2}>
+        SELECTED WORKS <span>(04)</span>
+      </h2>
       <div className={styles.workGrid}>
         {projects.map((project) => (
           <div key={project.id} className={styles.workItem}>
+            <a
+              key={project.id}
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
             <img
               src={project.image}
               alt={project.title}
@@ -57,6 +64,7 @@ function Work() {
               <p className={styles.workService}>{project.service}</p>
               <p className={styles.workLocation}>{project.location}</p>
             </div>
+          </a>
           </div>
         ))}
       </div>

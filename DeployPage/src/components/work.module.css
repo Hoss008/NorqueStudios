@@ -29,11 +29,20 @@
   grid-template-columns: repeat(12, 1fr);
   gap: 2rem;
 }
+.workItem {
+  width: 100%;
+  grid-column: span 6; 
+}
 
+.workImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
 
 
 .campaignTextMain {
-  /* Fluid sizing that scales smoothly between mobile and desktop */
   font-size: clamp(1.25rem, 2vw, 1.875rem); 
   font-weight: 500;
   line-height: 1.4;

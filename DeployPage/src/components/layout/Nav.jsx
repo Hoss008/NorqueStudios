@@ -5,7 +5,7 @@ const logo = "/assets/NRQstds.svg";
 
 function Nav() {
   return (
-    <motion.nav 
+    <motion.nav
       className={styles.navWrapper}
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -18,12 +18,8 @@ function Nav() {
         <li>
           <a href="#">ABOUT</a>
         </li>
-        <li>
-          <a href="#">WORKS</a>
-        </li>
-        <Link to="/service">
-          SERVICES
-        </Link>
+        <a href="#work">WORK</a>
+        <Link to="/service">SERVICES</Link>
       </ul>
       <div className={styles.contact}>
         <a href="mailto:hello@norquestudios.com">hello@norquestudios.com</a>

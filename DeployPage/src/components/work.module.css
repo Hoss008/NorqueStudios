@@ -91,18 +91,24 @@
 
 /* Mobile layout adjustments */
 @media (max-width: 768px) {
+  /* 1. Push the entire section down further below the 100dvh mark */
+  .campaignTextContainer {
+    top: calc(100dvh + 5rem); /* Adjust the 5rem higher or lower to your liking */
+  }
+
   .campaignTextMain,
   .campaignTextSub {
     grid-column: 1 / -1;
-    padding-top: 2rem;
   }
   
   .h2 {
     grid-column: 1 / -1; 
     white-space: nowrap; 
+    
+    /* 2. Override the huge 10.25rem desktop margin with a tighter mobile gap */
+    margin-top: 3rem; 
   }
 
-  /* Add this new block to stack the projects */
   .workItem {
     grid-column: 1 / -1; 
   }

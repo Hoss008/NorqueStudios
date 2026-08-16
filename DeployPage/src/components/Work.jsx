@@ -7,6 +7,7 @@ const projects = [
     title: "AXIS® - Real Estate Consultancy",
     service: "Brand Development",
     location: "EGYPT",
+    link: "https://www.instagram.com/axisre.eg/",
   },
   {
     id: 2,

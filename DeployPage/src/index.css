@@ -1,6 +1,4 @@
-@import "tailwindcss";
 
-/* Load custom local fonts from the public/fonts folder */
 @font-face {
   font-family: "Beausite Classic";
   src: url("/fonts/beausite-classic-semibold.ttf") format("truetype");
@@ -19,12 +17,9 @@
 :root {
   --grid-gap: clamp(1rem, 1.666vw, 1.5rem);
   --grid-margin: clamp(0.75rem, 1.111vw, 1rem);
-    
-  /* Set to none so the container never stops growing to fit the screen */
-  --max-width: none; 
+  --font-display: "Beausite Classic", sans-serif;
+  --max-width: none;
 }
-
-/* Global Reset (Optional, ensures grid behaves properly) */
 *,
 *::before,
 *::after {
@@ -36,11 +31,6 @@ body {
   background-color: #000;
   color: #fff;
 }
-
-/* 
- * The Global 12-Column Grid Wrapper 
- * Add className="grid-container" to your <main> or section wrappers 
- */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(12, 1fr);

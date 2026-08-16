@@ -21,7 +21,7 @@ const projects = [
     image: "assets/shawmi.png",
     title: "STUDIO JUZĖNAS - Architecture Studio",
     service: "Brand Development | UI/UX Design ",
-    location: "VILNIUS, LITHUANIA",
+    location: "LITHUANIA",
   },
   {
     id: 4,
@@ -54,17 +54,19 @@ function Work() {
               target="_blank"
               rel="noopener noreferrer"
             >
-            <img
-              src={project.image}
-              alt={project.title}
-              className={styles.workImage}
-            />
-            <div className={styles.workInfo}>
-              <h3 className={styles.workTitle}>{project.title}</h3>
-              <p className={styles.workService}>{project.service}</p>
-              <p className={styles.workLocation}>{project.location}</p>
-            </div>
-          </a>
+              <img
+                src={project.image}
+                alt={project.title}
+                className={styles.workImage}
+              />
+              <div className={styles.workInfo}>
+                <div className={styles.workInfoLeft}>
+                  <h3 className={styles.workTitle}>{project.title}</h3>
+                  <p className={styles.workService}>{project.service}</p>
+                </div>
+                <p className={styles.workLocation}>{project.location}</p>
+              </div>
+            </a>
           </div>
         ))}
       </div>

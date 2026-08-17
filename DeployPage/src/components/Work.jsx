@@ -44,7 +44,7 @@ function Work() {
       </p>
       <span className={styles.campaignTextSub}>BUILT FOR THE WHOLE WORLD</span>
       <h2 id="work"  className={styles.h2}>
-        SELECTED WORKS <span>(04)</span>
+        SELECTED WORKS <sup>(04)</sup>
       </h2>
       <div  className={styles.workGrid}>
         {projects.map((project) => (

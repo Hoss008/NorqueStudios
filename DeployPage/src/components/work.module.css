@@ -95,7 +95,9 @@
   .campaignTextContainer {
     top: calc(100dvh + 5rem); /* Adjust the 5rem higher or lower to your liking */
   }
-
+  .workTitle{
+    max-width: 310px;
+  }
   .campaignTextMain,
   .campaignTextSub {
     grid-column: 1 / -1;

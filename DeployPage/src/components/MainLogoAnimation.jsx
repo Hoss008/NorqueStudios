@@ -120,7 +120,7 @@ const MainLogoAnimation = () => {
             d={path}
             fill="white"
             variants={{
-              hidden: { y: 105, opacity: 1 },
+              hidden: { y: 110, opacity: 1 },
               visible: {
                 y: 0,
                 opacity: 1,

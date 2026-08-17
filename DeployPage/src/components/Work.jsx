@@ -12,7 +12,7 @@ const projects = [
   {
     id: 2,
     image: "assets/FF.png",
-    title: "Fusion Form® - Architecture <br> Development",
+    title: "Fusion Form® - Architecture <br> Development </br>",
     service: "UI/UX Design & Web Development",
     location: "EGYPT",
     link: "https://www.fusionformad.com",

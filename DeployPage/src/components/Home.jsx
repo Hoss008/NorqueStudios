@@ -34,7 +34,7 @@ function Home() {
           muted
           loop
           playsInline
-          src="/assets/Background2.mp4"
+          src="/assets/Background.mp4"
         />
       </div>
 

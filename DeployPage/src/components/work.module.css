@@ -6,7 +6,8 @@
   gap: 2rem;
   position: absolute;
   top: calc(100dvh + var(--grid-gap));
-
+  padding-top:10vw;
+  line-height: 1.4;
   /* Applying your global display font */
   font-family: var(--font-display);
 }
@@ -71,7 +72,7 @@
 
 
 .campaignTextMain {
-  font-size: clamp(1.25rem, 2vw, 1.875rem); 
+  font-size: 2vw; 
   font-weight: 500;
   line-height: 1.4;
   color: #fff;

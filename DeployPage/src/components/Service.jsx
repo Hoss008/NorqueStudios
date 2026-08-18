@@ -1,183 +1,162 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import { motion, useMotionValue, useSpring, useTransform, useMotionValueEvent } from "framer-motion";
 import styles from "./service.module.css";
-import { motion, useScroll, useTransform, useMotionValueEvent, useSpring } from "framer-motion";
 import popSound from "../assets/zapsplatt.wav";
 
 const baseServices = [
+  "Consultancy",
   "Web Development",
   "UI/UX Design",
   "Brand Development",
-  "Consultancy",
   "Art Direction"
 ];
 
-const singleBlock = [...baseServices, ...baseServices, ...baseServices, ...baseServices];
+// Triple the array to cover massive screens from top to bottom
+const services = [...baseServices, ...baseServices, ...baseServices];
 
-const ServiceItem = ({ text, containerRef }) => {
-  const ref = useRef(null);
-  
-  const audioRef = useRef(typeof window !== "undefined" ? new Audio(popSound) : null);
-  const hasPlayedRef = useRef(false);
+// The magic formula: Wraps items infinitely without any visual jumping
+const wrap = (min, max, v) => {
+  const rangeSize = max - min;
+  return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
+};
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    container: containerRef,
-    offset: ["start end", "end start"],
+const ServiceItem = ({ text, index, smoothY, itemHeight, totalHeight }) => {
+  const initialY = index * itemHeight;
+
+  // Orbit math: Keeps the item perfectly wrapped around the center
+  const y = useTransform(smoothY, (currentScroll) => {
+    const max = totalHeight / 2;
+    const min = -max;
+    return wrap(min, max, currentScroll + initialY);
   });
 
-  // The visual spring stays active for that floating, fluid color/blur transition
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 150,  
-    damping: 25,     
-    mass: 0.5        
-  });
+  // Calculate pure distance from the center (0)
+  const absY = useTransform(y, Math.abs);
 
-  useMotionValueEvent(smoothProgress, "change", (latest) => {
-    if (latest > 0.45 && latest < 0.55) {
-      if (!hasPlayedRef.current) {
-        if (audioRef.current) {
-          audioRef.current.currentTime = 0;
-          audioRef.current.volume = 0.5;
-          audioRef.current.play().catch(err => console.log("Audio blocked:", err));
-        }
-        if (typeof window !== "undefined" && window.navigator && window.navigator.vibrate) {
-          window.navigator.vibrate(50);
-        }
-        hasPlayedRef.current = true;
-      }
-    } else {
-      hasPlayedRef.current = false;
-    }
-  });
-
-  const opacity = useTransform(smoothProgress, [0, 0.4, 0.5, 0.6, 1], [0.1, 0.4, 1, 0.4, 0.1]);
-  const scale = useTransform(smoothProgress, [0, 0.4, 0.5, 0.6, 1], [0.7, 0.9, 1.1, 0.9, 0.7]);
+  // Visuals tied directly to how far the item is from the exact center
+  const opacity = useTransform(absY, [0, itemHeight, itemHeight * 2.5], [1, 0.4, 0.05]);
+  const scale = useTransform(absY, [0, itemHeight, itemHeight * 2], [1.1, 0.9, 0.75]);
+  const filter = useTransform(absY, [0, itemHeight, itemHeight * 2], ["blur(0px)", "blur(4px)", "blur(12px)"]);
   const color = useTransform(
-    smoothProgress,
-    [0, 0.4, 0.5, 0.6, 1],
-    ["#222222", "#666666", "#ffffff", "#666666", "#222222"]
-  );
-  
-  const filter = useTransform(
-    smoothProgress,
-    [0, 0.4, 0.5, 0.6, 1],
-    ["blur(10px)", "blur(3px)", "blur(0px)", "blur(3px)", "blur(10px)"]
+    absY,
+    [0, itemHeight, itemHeight * 2],
+    ["#ffffff", "#666666", "#111111"]
   );
 
   return (
-    <motion.h2 ref={ref} style={{ opacity, scale, color, filter }} className={styles.item}>
-      {text}
-    </motion.h2>
+    <motion.div
+      style={{
+        y,
+        opacity,
+        scale,
+        filter,
+        color,
+        position: "absolute",
+        width: "100%",
+        height: itemHeight,
+        top: "50%",
+        marginTop: -(itemHeight / 2),
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <h2 className={styles.item}>{text}</h2>
+    </motion.div>
   );
 };
 
-function Service() {
-  const scrollContainerRef = useRef(null);
-  const blockRef = useRef(null);
+export default function Service() {
+  const containerRef = useRef(null);
+  const audioRef = useRef(typeof window !== "undefined" ? new Audio(popSound) : null);
+  const lastPlayedRef = useRef(null);
 
+  // Responsive slot height (120px desktop, 90px mobile)
+  const [itemHeight, setItemHeight] = useState(120);
+  
   useEffect(() => {
-    const el = scrollContainerRef.current;
-    const blockEl = blockRef.current;
-    if (!el || !blockEl) return;
+    const updateHeight = () => setItemHeight(window.innerWidth > 768 ? 120 : 90);
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
 
-    let reqId;
-    let target = 0;
-    let current = 0;
-    const ease = 0.08; // LOWER number = slower, smoother glide. HIGHER = faster snap.
+  const totalHeight = services.length * itemHeight;
 
-    // 1. Initial Centering setup
-    const screenHalf = el.clientHeight / 2;
-    const itemHalf = blockEl.children[0].clientHeight / 2;
-    const startPos = blockEl.offsetHeight - screenHalf + itemHalf;
-    
-    el.scrollTop = startPos;
-    target = startPos;
-    current = startPos;
+  // ⚡ CORE ENGINE: The raw scroll target
+  const virtualY = useMotionValue(0);
+  
+  // 🎛️ THE PHYSICS: Looser stiffness and heavier mass creates that long, smooth roulette glide
+  const smoothY = useSpring(virtualY, {
+    stiffness: 60,   // Lower = looser follow
+    damping: 30,     // High friction to stop it from bouncing at the end
+    mass: 1.5        // Heavy weight makes it slide away smoothly until it bleeds off speed
+  });
 
-    // 2. The Wheel Hijacker
+  // Crisp Audio Trigger
+  useMotionValueEvent(smoothY, "change", (latest) => {
+    const activeSlot = Math.round(-latest / itemHeight);
+    if (activeSlot !== lastPlayedRef.current) {
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.volume = 0.4;
+        audioRef.current.play().catch(() => {});
+      }
+      if (typeof window !== "undefined" && navigator.vibrate) navigator.vibrate(30);
+      lastPlayedRef.current = activeSlot;
+    }
+  });
+
+  // Trackpad, Mouse Wheel, and Mobile Swipe listeners
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    let touchStartY = 0;
+
     const handleWheel = (e) => {
-      // Check if it's a physical mouse wheel (larger delta values)
-      if (Math.abs(e.deltaY) > 20) {
-        e.preventDefault();
-        target += e.deltaY * 1.5; // Multiply for further travel per click
-      } else {
-        // If it's a trackpad, keep target perfectly synced with native scroll
-        target = el.scrollTop;
-      }
+      e.preventDefault();
+      // Increase the multiplier (2.5) if you want one mouse wheel click to throw it further
+      virtualY.set(virtualY.get() - e.deltaY * 2.5);
     };
 
-    // 3. The Continuous Lerp Engine
-    const lerp = (start, end, factor) => start + (end - start) * factor;
-
-    const updateScroll = () => {
-      if (!blockRef.current) return;
-      const blockHeight = blockRef.current.offsetHeight;
-
-      // Apply the momentum glide
-      if (Math.abs(target - current) > 0.5) {
-        current = lerp(current, target, ease);
-        el.scrollTop = current;
-      } else {
-        current = target;
-      }
-
-      // The Infinite Loop constraint (Keeps target & current perfectly in sync)
-      if (current <= 10) {
-        current += blockHeight;
-        target += blockHeight;
-        el.scrollTop = current;
-      } else if (current >= blockHeight * 2 - 10) {
-        current -= blockHeight;
-        target -= blockHeight;
-        el.scrollTop = current;
-      }
-
-      reqId = requestAnimationFrame(updateScroll);
+    const handleTouchStart = (e) => {
+      touchStartY = e.touches[0].clientY;
     };
 
-    // Initialize listeners and loop
+    const handleTouchMove = (e) => {
+      e.preventDefault();
+      const touchY = e.touches[0].clientY;
+      const delta = touchStartY - touchY;
+      touchStartY = touchY;
+      virtualY.set(virtualY.get() - delta * 2.5);
+    };
+
     el.addEventListener("wheel", handleWheel, { passive: false });
-    reqId = requestAnimationFrame(updateScroll);
+    el.addEventListener("touchstart", handleTouchStart, { passive: false });
+    el.addEventListener("touchmove", handleTouchMove, { passive: false });
 
     return () => {
       el.removeEventListener("wheel", handleWheel);
-      cancelAnimationFrame(reqId);
+      el.removeEventListener("touchstart", handleTouchStart);
+      el.removeEventListener("touchmove", handleTouchMove);
     };
-  }, []);
+  }, [virtualY]); 
 
   return (
     <section className={styles.service}>
-      <div className={styles.viewport} ref={scrollContainerRef}>
-        <div className={styles.list}>
-          
-          <div ref={blockRef} className={styles.setBlock}>
-            {singleBlock.map((service, index) => (
-              <div key={`block1-${index}`} className={styles.itemContainer}>
-                <ServiceItem text={service} containerRef={scrollContainerRef} />
-              </div>
-            ))}
-          </div>
-
-          <div className={styles.setBlock}>
-            {singleBlock.map((service, index) => (
-              <div key={`block2-${index}`} className={styles.itemContainer}>
-                <ServiceItem text={service} containerRef={scrollContainerRef} />
-              </div>
-            ))}
-          </div>
-
-          <div className={styles.setBlock}>
-            {singleBlock.map((service, index) => (
-              <div key={`block3-${index}`} className={styles.itemContainer}>
-                <ServiceItem text={service} containerRef={scrollContainerRef} />
-              </div>
-            ))}
-          </div>
-
-        </div>
+      <div className={styles.viewport} ref={containerRef}>
+        {services.map((service, index) => (
+          <ServiceItem
+            key={index}
+            text={service}
+            index={index}
+            smoothY={smoothY}
+            itemHeight={itemHeight}
+            totalHeight={totalHeight}
+          />
+        ))}
       </div>
     </section>
   );
 }
-
-export default Service;

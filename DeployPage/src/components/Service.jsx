@@ -11,10 +11,8 @@ const baseServices = [
   "Art Direction"
 ];
 
-// Triple the array to cover massive screens from top to bottom
 const services = [...baseServices, ...baseServices, ...baseServices];
 
-// The magic formula: Wraps items infinitely without any visual jumping
 const wrap = (min, max, v) => {
   const rangeSize = max - min;
   return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
@@ -23,17 +21,14 @@ const wrap = (min, max, v) => {
 const ServiceItem = ({ text, index, smoothY, itemHeight, totalHeight }) => {
   const initialY = index * itemHeight;
 
-  // Orbit math: Keeps the item perfectly wrapped around the center
   const y = useTransform(smoothY, (currentScroll) => {
     const max = totalHeight / 2;
     const min = -max;
     return wrap(min, max, currentScroll + initialY);
   });
 
-  // Calculate pure distance from the center (0)
   const absY = useTransform(y, Math.abs);
 
-  // Visuals tied directly to how far the item is from the exact center
   const opacity = useTransform(absY, [0, itemHeight, itemHeight * 2.5], [1, 0.4, 0.05]);
   const scale = useTransform(absY, [0, itemHeight, itemHeight * 2], [1.1, 0.9, 0.75]);
   const filter = useTransform(absY, [0, itemHeight, itemHeight * 2], ["blur(0px)", "blur(4px)", "blur(12px)"]);
@@ -71,7 +66,6 @@ export default function Service() {
   const audioRef = useRef(typeof window !== "undefined" ? new Audio(popSound) : null);
   const lastPlayedRef = useRef(null);
 
-  // Responsive slot height (120px desktop, 90px mobile)
   const [itemHeight, setItemHeight] = useState(120);
   
   useEffect(() => {
@@ -83,17 +77,15 @@ export default function Service() {
 
   const totalHeight = services.length * itemHeight;
 
-  // ⚡ CORE ENGINE: The raw scroll target
   const virtualY = useMotionValue(0);
   
-  // 🎛️ THE PHYSICS: Looser stiffness and heavier mass creates that long, smooth roulette glide
+  // Physics tuned for a nice glide that can still snap into place gracefully
   const smoothY = useSpring(virtualY, {
-    stiffness: 60,   // Lower = looser follow
-    damping: 30,     // High friction to stop it from bouncing at the end
-    mass: 1.5        // Heavy weight makes it slide away smoothly until it bleeds off speed
+    stiffness: 80,   
+    damping: 30,     
+    mass: 1.2        
   });
 
-  // Crisp Audio Trigger
   useMotionValueEvent(smoothY, "change", (latest) => {
     const activeSlot = Math.round(-latest / itemHeight);
     if (activeSlot !== lastPlayedRef.current) {
@@ -107,20 +99,34 @@ export default function Service() {
     }
   });
 
-  // Trackpad, Mouse Wheel, and Mobile Swipe listeners
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
     let touchStartY = 0;
+    let settleTimeout;
+
+    // The Soft Settle Function
+    const settleToNearest = () => {
+      clearTimeout(settleTimeout);
+      // Wait 300ms after the user stops scrolling to let the momentum start fading
+      settleTimeout = setTimeout(() => {
+        const current = virtualY.get();
+        // Calculate the mathematically perfect center of the closest item
+        const nearestSlot = Math.round(current / itemHeight) * itemHeight;
+        // Update the target. The spring physics will handle the smooth, magnetic pull to center.
+        virtualY.set(nearestSlot);
+      }, 300); 
+    };
 
     const handleWheel = (e) => {
       e.preventDefault();
-      // Increase the multiplier (2.5) if you want one mouse wheel click to throw it further
       virtualY.set(virtualY.get() - e.deltaY * 2.5);
+      settleToNearest(); // Trigger the settle timer
     };
 
     const handleTouchStart = (e) => {
+      clearTimeout(settleTimeout); // Cancel settling if they touch again
       touchStartY = e.touches[0].clientY;
     };
 
@@ -130,6 +136,7 @@ export default function Service() {
       const delta = touchStartY - touchY;
       touchStartY = touchY;
       virtualY.set(virtualY.get() - delta * 2.5);
+      settleToNearest(); // Trigger the settle timer
     };
 
     el.addEventListener("wheel", handleWheel, { passive: false });
@@ -140,8 +147,9 @@ export default function Service() {
       el.removeEventListener("wheel", handleWheel);
       el.removeEventListener("touchstart", handleTouchStart);
       el.removeEventListener("touchmove", handleTouchMove);
+      clearTimeout(settleTimeout);
     };
-  }, [virtualY]); 
+  }, [virtualY, itemHeight]); // Added itemHeight to dependencies so math stays perfect on resize
 
   return (
     <section className={styles.service}>

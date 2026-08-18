@@ -1,4 +1,3 @@
-
 @font-face {
   font-family: "Beausite Classic";
   src: url("/fonts/beausite-classic-semibold.ttf") format("truetype");
@@ -34,6 +33,30 @@ body {
   background-color: #000;
   color: #fff;
 }
+.introBackground {
+  position: absolute; /* ⚡ Changed from fixed */
+  top: 0;             /* ⚡ Anchors it to the very top of the page */
+  left: 0;
+  width: 100%;
+  height: 100vh;      /* ⚡ Restricts it to exactly one screen height */
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+}
+
+.introBackground.is-visible {
+  opacity: 1;
+}
+
+.introBackground video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.7);
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -48,6 +71,7 @@ body {
 
   width: 100%;
   position: relative;
+  z-index: 1;
   min-height: 100dvh;
   align-content: start;
 }

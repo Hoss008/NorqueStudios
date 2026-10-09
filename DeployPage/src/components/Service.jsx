@@ -4,8 +4,9 @@ import styles from "./service.module.css";
 import popSound from "../assets/zapsplatt.wav";
 
 const baseServices = [
-  "Consultancy",
   "Web Development",
+  "Software solution",
+  "Consultancy",
   "UI/UX Design",
   "Brand Development",
   "Art Direction"

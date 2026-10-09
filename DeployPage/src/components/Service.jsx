@@ -5,7 +5,7 @@ import popSound from "../assets/zapsplatt.wav";
 
 const baseServices = [
   "Web Development",
-  "Software solution",
+  "Software Solution",
   "Consultancy",
   "UI/UX Design",
   "Brand Development",

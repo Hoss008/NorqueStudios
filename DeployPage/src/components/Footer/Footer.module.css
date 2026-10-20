@@ -55,7 +55,7 @@
   gap: 10px;
   align-items: center;
   justify-content: flex-end;
-  padding-bottom: 0;
+  padding: 28px 0 0;
 }
 
 /* Giant Footer Logo */
@@ -191,6 +191,10 @@
     padding-top: 48px;
   }
 
+  .bottomSection {
+    padding-top: 24px;
+  }
+
   .col1 {
     grid-column: 1 / span 4;
   }
@@ -209,6 +213,10 @@
 @media (max-width: 768px) {
   .footerContainer {
     padding-top: 32px;
+  }
+
+  .bottomSection {
+    padding-top: 20px;
   }
 
   .contactPrompt {

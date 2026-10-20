@@ -1,0 +1,90 @@
+.serviceOverlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background-color: #000000;
+  z-index: 2000;
+  overflow: hidden;
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.viewport {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+}
+
+.viewport:active {
+  cursor: grabbing;
+}
+
+.item {
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  margin: 0;
+  cursor: default;
+  font-family: var(--font-family);
+  will-change: transform, opacity, filter, color;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.closeButton {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: none;
+  border: none;
+  color: #747474;
+  font-size: 14px;
+  font-family: var(--font-family);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  z-index: 2010;
+  padding: 8px 16px;
+  border-radius: 2px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.closeButton:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.hintText {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-family);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #555555;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .item {
+    font-size: 5.5rem;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

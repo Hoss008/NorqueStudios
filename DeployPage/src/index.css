@@ -1,122 +1,93 @@
 @font-face {
-  font-family: "Beausite Classic";
-  src: url("/fonts/beausite-classic-semibold.ttf") format("truetype");
-  font-weight: 600;
-  font-style: semibold;
-  font-display: swap;
+  font-family: 'Beausite Classic';
+  src: url('./assets/fonts/beausite-classic-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
 }
+
 @font-face {
-  font-family: "Beausite Classic";
-  src: url("/fonts/beausite-classic-medium.ttf") format("truetype");
+  font-family: 'Beausite Classic';
+  src: url('./assets/fonts/beausite-classic-medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
-  font-display: swap;
 }
-html {
-  scroll-behavior: smooth;
+
+@font-face {
+  font-family: 'Beausite Classic';
+  src: url('./assets/fonts/beausite-classic-semibold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Beausite Classic';
+  src: url('./assets/fonts/beausite-classic-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Beausite Classic';
+  src: url('./assets/fonts/beausite-classic-black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
 }
 
 :root {
-  --grid-gap: clamp(1rem, 1.666vw, 1.5rem);
-  --grid-margin: clamp(0.75rem, 1.111vw, 1rem);
-  --font-display: "Beausite Classic", sans-serif;
-  --max-width: none;
+  --bg-color: #000000;
+  --text-primary: #ffffff;
+  --text-muted: #747474;
+  --text-muted-alt: #797979;
+  --text-gray: #878787;
+  --border-color: #363636;
+  --font-family: 'Beausite Classic', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
-*,
-*::before,
-*::after {
+
+*, *::before, *::after {
   box-sizing: border-box;
-}
-body {
   margin: 0;
   padding: 0;
-  background-color: #000;
-  color: #fff;
-}
-.introBackground {
-  position: absolute; /* ⚡ Changed from fixed */
-  top: 0;             /* ⚡ Anchors it to the very top of the page */
-  left: 0;
-  width: 100%;
-  height: 100vh;      /* ⚡ Restricts it to exactly one screen height */
-  z-index: 0;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 1.2s ease;
 }
 
-.introBackground.is-visible {
-  opacity: 1;
+html {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
 }
 
-.introBackground video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+img, svg {
   display: block;
-  filter: brightness(0.7);
+  max-width: 100%;
 }
 
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: var(--grid-gap);
-
-  /* padding-inline acts as your left and right margin safely */
-  padding-inline: var(--grid-margin);
-
-  /* Center the container on very large screens */
-  max-width: var(--max-width);
-  margin-inline: auto;
-
-  width: 100%;
-  position: relative;
-  z-index: 1;
-  min-height: 100dvh;
-  align-content: start;
-}
-
-/* Container for the animated main logo at the bottom of the page */
-.mainLogoContainer {
-  position: absolute;
-  bottom: 40px;
-  left: var(--grid-margin);
-  right: var(--grid-margin);
-  pointer-events: none; /* Allows clicking things underneath if needed */
-}
-
-.logoTopTextContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 3rem;
-  text-transform: uppercase;
-  font-size: 12px;
-  font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: #fff;
-  line-height: 1.4;
-}
-
-.logoTopTextLeft {
-  max-width: 200px;
-}
-
-/* =========================================
-   Mobile Responsive Adjustments 
-   ========================================= */
-@media (max-width: 768px) {
-  /* Switch from 12 columns to 4 columns on mobile for better sizing */
-  .grid-container {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  /* Stack the top text container so it doesn't overlap on narrow screens */
-  .logoTopTextContainer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: 9px;
-  }
+::selection {
+  background: #ffffff;
+  color: #000000;
 }

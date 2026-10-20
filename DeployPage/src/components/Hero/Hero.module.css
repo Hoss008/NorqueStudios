@@ -1,0 +1,196 @@
+.heroSection {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
+  padding: 0 12px 40px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.introBackground {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+  overflow: hidden;
+}
+
+.introBackground.isVisible {
+  opacity: 1;
+}
+
+.bgVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.65);
+}
+
+.heroBottom {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.heroTextRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  align-items: flex-end;
+  padding-bottom: 3rem;
+  width: 100%;
+}
+
+.textCol1 {
+  display: flex;
+  flex-direction: column;
+}
+
+.tagline {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 10px;
+  line-height: normal;
+  text-transform: uppercase;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.textCol2, .textCol3 {
+  /* empty spacers in 4-column layout */
+}
+
+.textCol4 {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.subTagline {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 10px;
+  line-height: normal;
+  text-align: right;
+  text-transform: uppercase;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Giant Main Brand Logo */
+.logoWrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+}
+
+.mainLogo {
+  width: 100%;
+  aspect-ratio: 1416 / 106.147;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+}
+
+.logoNor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 45.513%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.logoQue {
+  position: absolute;
+  left: 49.02%;
+  top: 0;
+  width: 47.776%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.logoTm {
+  position: absolute;
+  left: 96.786%;
+  top: 1.964%;
+  width: 3.214%;
+  height: 18.691%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .heroSection {
+    min-height: 100vh;
+    min-height: 100dvh;
+    height: 100vh;
+    height: 100dvh;
+    padding-bottom: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    min-height: 100vh;
+    min-height: 100dvh;
+    height: 100vh;
+    height: 100dvh;
+    padding-bottom: 28px;
+  }
+
+  .heroTextRow {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding-bottom: 2rem;
+  }
+
+  .textCol2, .textCol3 {
+    display: none;
+  }
+
+  .tagline, .subTagline {
+    font-size: 8.5px;
+    letter-spacing: -0.2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroSection {
+    min-height: 100vh;
+    min-height: 100dvh;
+    height: 100vh;
+    height: 100dvh;
+    padding-bottom: 24px;
+  }
+
+  .heroTextRow {
+    padding-bottom: 1.5rem;
+  }
+
+  .tagline, .subTagline {
+    font-size: 7.5px;
+  }
+}

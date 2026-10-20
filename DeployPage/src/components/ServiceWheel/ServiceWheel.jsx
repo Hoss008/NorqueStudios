@@ -97,7 +97,7 @@ export default function ServiceWheel({ isOpen, onClose }) {
   }, [isOpen, onClose]);
 
   useEffect(() => {
-    const updateHeight = () => setItemHeight(window.innerWidth > 768 ? 120 : 90);
+    const updateHeight = () => setItemHeight(window.innerWidth > 768 ? 120 : window.innerWidth > 480 ? 80 : 64);
     updateHeight();
     window.addEventListener("resize", updateHeight);
     return () => window.removeEventListener("resize", updateHeight);

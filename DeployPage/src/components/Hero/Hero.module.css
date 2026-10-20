@@ -63,7 +63,7 @@
 .tagline {
   font-family: var(--font-family);
   font-weight: 600;
-  font-size: 10px;
+  font-size: 0.625rem;
   line-height: normal;
   text-transform: uppercase;
   color: #ffffff;

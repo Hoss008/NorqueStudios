@@ -131,6 +131,8 @@ export default function ServiceWheel({ isOpen, onClose }) {
     if (!el) return;
 
     let touchStartY = 0;
+    let lastTouchAt = 0;
+    let touchVelocity = 0;
     let settleTimeout;
 
     const settleToNearest = () => {
@@ -151,25 +153,46 @@ export default function ServiceWheel({ isOpen, onClose }) {
     const handleTouchStart = (e) => {
       clearTimeout(settleTimeout);
       touchStartY = e.touches[0].clientY;
+      lastTouchAt = performance.now();
+      touchVelocity = 0;
     };
 
     const handleTouchMove = (e) => {
       e.preventDefault();
       const touchY = e.touches[0].clientY;
       const delta = touchStartY - touchY;
+      const now = performance.now();
+      const elapsed = Math.max(now - lastTouchAt, 1);
+      const movement = -delta * 1.4;
+
+      touchVelocity = movement / elapsed;
       touchStartY = touchY;
-      virtualY.set(virtualY.get() - delta * 2.5);
+      lastTouchAt = now;
+      virtualY.set(virtualY.get() + movement);
+      settleToNearest();
+    };
+
+    const handleTouchEnd = () => {
+      clearTimeout(settleTimeout);
+      const glide = Math.max(-itemHeight * 2.5, Math.min(itemHeight * 2.5, touchVelocity * 170));
+      if (Math.abs(touchVelocity) > 0.08) {
+        virtualY.set(virtualY.get() + glide);
+      }
       settleToNearest();
     };
 
     el.addEventListener("wheel", handleWheel, { passive: false });
     el.addEventListener("touchstart", handleTouchStart, { passive: false });
     el.addEventListener("touchmove", handleTouchMove, { passive: false });
+    el.addEventListener("touchend", handleTouchEnd);
+    el.addEventListener("touchcancel", handleTouchEnd);
 
     return () => {
       el.removeEventListener("wheel", handleWheel);
       el.removeEventListener("touchstart", handleTouchStart);
       el.removeEventListener("touchmove", handleTouchMove);
+      el.removeEventListener("touchend", handleTouchEnd);
+      el.removeEventListener("touchcancel", handleTouchEnd);
       clearTimeout(settleTimeout);
     };
   }, [isOpen, virtualY, itemHeight]);

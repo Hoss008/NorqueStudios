@@ -19,29 +19,39 @@ export default function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [contactSubject, setContactSubject] = useState('');
   const [legalType, setLegalType] = useState(null);
-  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(() =>
+    window.location.pathname.replace(/\/$/, '').toLowerCase() === '/services'
+  );
 
   useEffect(() => {
-    const handleHash = () => {
+    const syncServicesRoute = () => {
+      const isServicesRoute = window.location.pathname.replace(/\/$/, '').toLowerCase() === '/services';
       const hash = window.location.hash.toLowerCase();
-      if (hash === '#service' || hash === '#services' || hash === '#services-wheel') {
-        setIsServicesOpen(true);
-      }
+      setIsServicesOpen(isServicesRoute || ['#service', '#services', '#services-wheel'].includes(hash));
     };
-    handleHash();
-    window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
+
+    syncServicesRoute();
+    window.addEventListener('popstate', syncServicesRoute);
+    window.addEventListener('hashchange', syncServicesRoute);
+    return () => {
+      window.removeEventListener('popstate', syncServicesRoute);
+      window.removeEventListener('hashchange', syncServicesRoute);
+    };
   }, []);
 
   const handleOpenServices = () => {
+    if (window.location.pathname.replace(/\/$/, '').toLowerCase() !== '/services') {
+      window.history.pushState({ servicesRoute: true }, '', '/services');
+    }
     setIsServicesOpen(true);
   };
 
   const handleCloseServices = () => {
     setIsServicesOpen(false);
     const hash = window.location.hash.toLowerCase();
-    if (hash === '#service' || hash === '#services-wheel') {
-      history.replaceState(null, '', window.location.pathname);
+    const isServicesRoute = window.location.pathname.replace(/\/$/, '').toLowerCase() === '/services';
+    if (isServicesRoute || ['#service', '#services', '#services-wheel'].includes(hash)) {
+      window.history.replaceState(null, '', '/');
     }
   };
 

@@ -1,0 +1,27 @@
+.legalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: #cccccc;
+}
+
+.title {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 20px;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.body {
+  font-family: var(--font-family);
+  font-size: 13px;
+  line-height: 1.6;
+  color: #aaaaaa;
+}
+
+.body p {
+  margin-bottom: 12px;
+}

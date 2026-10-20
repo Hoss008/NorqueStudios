@@ -1,0 +1,162 @@
+.navContainer {
+  width: 100%;
+  padding: clamp(16px, 1.666vw, 24px) 12px 12px 12px;
+  position: relative;
+  z-index: 50;
+  box-sizing: border-box;
+}
+
+.navGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+
+.col1 {
+  display: flex;
+  align-items: center;
+}
+
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+  transition: opacity 0.2s ease;
+  cursor: pointer;
+}
+
+.logoLink:hover {
+  opacity: 0.7;
+}
+
+.compactLogo {
+  position: relative;
+  width: 73.13px;
+  height: 8px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.logoPart1 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 24.661px;
+  height: 7.836px;
+}
+
+.logoPart2 {
+  position: absolute;
+  left: 27.36px;
+  top: 3.29px;
+  width: 9.716px;
+  height: 1.273px;
+}
+
+.logoPart3 {
+  position: absolute;
+  left: 39.79px;
+  top: 0;
+  width: 29.98px;
+  height: 7.813px;
+}
+
+.logoPart4 {
+  position: absolute;
+  left: 69.77px;
+  top: 0.15px;
+  width: 3.358px;
+  height: 1.467px;
+}
+
+.col2 {
+  display: flex;
+  align-items: center;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navLink {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 8px;
+  line-height: normal;
+  text-transform: uppercase;
+  color: #ffffff;
+  letter-spacing: 0;
+  transition: color 0.2s ease, opacity 0.2s ease;
+  cursor: pointer;
+}
+
+.navLink:hover {
+  color: #878787;
+}
+
+.col3 {
+  /* empty spacer in 4-column layout */
+}
+
+.col4 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.timeDisplay {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 8px;
+  line-height: normal;
+  text-align: right;
+  text-transform: uppercase;
+  color: #ffffff;
+  letter-spacing: -0.24px;
+  white-space: nowrap;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .navGrid {
+    grid-template-columns: auto 1fr auto;
+    gap: 8px;
+  }
+
+  .col3 {
+    display: none;
+  }
+
+  .col2 {
+    justify-content: center;
+  }
+
+  .navLinks {
+    gap: 8px;
+  }
+
+  .navLink {
+    font-size: 7.5px;
+  }
+
+  .timeDisplay {
+    font-size: 7.5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navGrid {
+    grid-template-columns: auto 1fr;
+  }
+
+  .col4 {
+    display: none;
+  }
+
+  .col2 {
+    justify-content: flex-end;
+  }
+}

@@ -110,7 +110,7 @@
 .timeDisplay {
   font-family: var(--font-family);
   font-weight: 600;
-  font-size: 8px;
+  font-size: 10px;
   line-height: normal;
   text-align: right;
   text-transform: uppercase;

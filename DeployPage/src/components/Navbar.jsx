@@ -100,9 +100,9 @@ export default function Navbar({
         const second = parts.find(p => p.type === 'second')?.value || '00';
         const dayPeriod = parts.find(p => p.type === 'dayPeriod')?.value?.toUpperCase() || 'PM';
         
-        setEgyptTime(`EGYPT, ${hour}:${minute}:${second} ${dayPeriod} GMT`);
+        setEgyptTime(`EGYPT, ${hour}:${minute}:${second} ${dayPeriod} GMT+2 `);
       } catch (e) {
-        setEgyptTime('EGYPT, 03:48:10 PM GMT');
+        setEgyptTime('EGYPT, 03:48:10 PM GMT+2');
       }
     }
     updateClock();

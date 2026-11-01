@@ -98,6 +98,7 @@ export default function MuteButton({ isMuted, onToggle }) {
           type="button"
           onClick={onToggle}
           aria-label={isMuted ? 'Unmute audio' : 'Mute audio'}
+          aria-pressed={isMuted}
           style={{
             backdropFilter: lensDataUrl 
               ? 'url(#norque-liquid-lens-circle) blur(6px) brightness(0.82) contrast(1.12)' 

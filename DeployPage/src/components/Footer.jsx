@@ -93,7 +93,7 @@ export default function Footer() {
               <a href="#services" className="hover:opacity-60 transition-opacity">services</a>
               <a href="#contact" className="hover:opacity-60 transition-opacity">contact</a>
               <a 
-                href="https://www.behance.net" 
+                href="" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="hover:opacity-60 transition-opacity"
@@ -101,7 +101,7 @@ export default function Footer() {
                 Behance
               </a>
               <a 
-                href="https://www.linkedin.com" 
+                href="https://www.linkedin.com/company/https-norquestudios.com-/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="hover:opacity-60 transition-opacity"
@@ -109,7 +109,7 @@ export default function Footer() {
                 Linked in
               </a>
               <a 
-                href="https://www.instagram.com" 
+                href="https://www.instagram.com/norquestudios/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="hover:opacity-60 transition-opacity"

@@ -5,7 +5,6 @@ import HomePage from './components/HomePage';
 import AboutPage from './components/AboutPage';
 import SplashScreen from './components/SplashScreen';
 import Navbar from './components/Navbar';
-import MuteButton from './components/MuteButton';
 
 /* ========================================================================= */
 /* 1. AUDIO ENGINE & GLOBAL SINGLETONS                                       */
@@ -42,7 +41,6 @@ export default function App() {
   const [hasIntroPlayed, setHasIntroPlayed] = useState(globalIntroHasPlayed);
   const [isIntroStarted, setIsIntroStarted] = useState(globalIntroHasPlayed);
   const [isBoxRevealComplete, setIsBoxRevealComplete] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
   const isMutedRef = useRef(false);
   const lenisRef = useRef(null);
 
@@ -62,17 +60,6 @@ export default function App() {
   const handleIntroComplete = () => {
     globalIntroHasPlayed = true;
     setHasIntroPlayed(true);
-  };
-
-  const toggleMute = () => {
-    setIsMuted((prev) => {
-      const next = !prev;
-      isMutedRef.current = next;
-      if (introAudioInstance) {
-        introAudioInstance.muted = next;
-      }
-      return next;
-    });
   };
 
   /* ======================================================================= */
@@ -326,8 +313,6 @@ export default function App() {
         </AnimatePresence>
       </main>
 
-      {/* Floating persistent Mute Button with Liquid Glass optical behavior */}
-      <MuteButton isMuted={isMuted} onToggle={toggleMute} />
     </div>
   );
 }

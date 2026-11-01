@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 1. Beausite Classic Font Faces */
+@font-face {
+  font-family: 'Beausite Classic';
+  src: url('./assets/fonts/beausite-classic-thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Beausite Classic';
+  src: url('./assets/fonts/beausite-classic-light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Beausite Classic';
+  src: url('./assets/fonts/beausite-classic-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Beausite Classic';
+  src: url('./assets/fonts/beausite-classic-medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Beausite Classic';
+  src: url('./assets/fonts/beausite-classic-semibold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Beausite Classic';
+  src: url('./assets/fonts/beausite-classic-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Beausite Classic';
+  src: url('./assets/fonts/beausite-classic-black.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Beausite Classic';
+  src: url('./assets/fonts/beausite-classic-ultrablack.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 2. Completely remove scrollbar for all browsers */
+* {
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  scrollbar-width: none !important;  /* Firefox */
+}
+
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+html, body {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+  overflow-x: clip;
+  background-color: #000000;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  font-family: 'Beausite Classic', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 3. Lenis Smooth Scroll CSS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* 4. Infinite Loop Marquee Carousel */
+@keyframes norqueMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-infinite-carousel {
+  display: flex;
+  width: max-content;
+  animation: norqueMarquee 28s linear infinite;
+  will-change: transform;
+}
+
+.animate-infinite-carousel:hover {
+  animation-play-state: paused;
+}
+
+/* 5. Directional Scroll Motion Blur (Excludes GIF, Nav & Mute Button) */
+body.is-scrolling .motion-blur-target {
+  filter: url(#scroll-motion-blur);
+  will-change: filter;
+}
+
+/* 6. Typography Vertical Trim (Cap Height to Baseline) */
+.vertical-trim {
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+  text-box: trim-both cap alphabetic;
+  leading-trim: both;
+  text-edge: cap alphabetic;
+}
+
+@supports not (text-box: trim-both cap alphabetic) {
+  .vertical-trim {
+    /* Fallback for browsers without native text-box-trim: trim 0.25em font ascent and descent */
+    margin-top: -0.25em;
+    margin-bottom: -0.25em;
+  }
+}
+
+
+

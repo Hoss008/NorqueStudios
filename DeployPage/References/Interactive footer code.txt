@@ -1,0 +1,61 @@
+/* ========================================================================= */
+/* REACT BITS: MAGNET LINES                                                  */
+/* URL: https://reactbits.dev/backgrounds/magnet-lines                       */
+/* ========================================================================= */
+
+// Usage Example:
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <MagnetLines
+    lineColor="#efefef"
+    spacing={30}
+    lineWidth={2}
+    lineHeight={18}
+    mode="orbit"
+    shape="line"
+    radius={200}
+    fade={0.65}
+    baseAngle={-10}
+    edgeFade={0}
+    stretch={0.4}
+    reach={0}
+    scatter={0}
+    inertia={0.35}
+    bounce={0.3}
+    ripple={0.3}
+    rainbow={false}
+    tiltX={0}
+    tiltY={0}
+    clickPulse
+    intro
+    idle={false}
+  />
+</div>
+
+// Configuration Variables & Options:
+/*
+  spacing: number (distance between lines, e.g. 30)
+  rows: number (optional fixed rows)
+  columns: number (optional fixed columns)
+  lineColor: string (e.g. '#ffffff' or '#efefef')
+  accentColor: string (optional emphasis color, e.g. '#f43f5e')
+  lineWidth: number (e.g. 2)
+  lineHeight: number (e.g. 18)
+  baseAngle: number (e.g. -10 degrees)
+  mode: 'orbit' | 'attract' | 'spiral' | 'dipole'
+  shape: 'line' | 'arrow' | 'needle'
+  radius: number (active cursor influence radius, e.g. 200)
+  fade: number (distance fade, e.g. 0.65)
+  edgeFade: number (edge vignette, e.g. 0)
+  stretch: number (length stretch, e.g. 0.4)
+  reach: number (e.g. 0)
+  scatter: number (random resting angle, e.g. 0)
+  inertia: number (e.g. 0.35)
+  bounce: number (e.g. 0.3)
+  ripple: number (wave ripple outward, e.g. 0.3)
+  rainbow: boolean (color cycle, e.g. false)
+  clickPulse: boolean (shockwave on click, e.g. true)
+  intro: boolean (reveal animation on load, e.g. true)
+  idle: boolean (wander when mouse is away, e.g. false)
+  tiltX: number (-70 to 70)
+  tiltY: number (-70 to 70)
+*/

@@ -93,7 +93,7 @@ export default function Footer() {
               <a href="#services" className="hover:opacity-60 transition-opacity">services</a>
               <a href="#contact" className="hover:opacity-60 transition-opacity">contact</a>
               <a 
-                href="" 
+                href="https://www.behance.net/norquestudios" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="hover:opacity-60 transition-opacity"

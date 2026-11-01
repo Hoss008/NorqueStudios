@@ -5,34 +5,11 @@ import HomePage from './components/HomePage';
 import AboutPage from './components/AboutPage';
 import SplashScreen from './components/SplashScreen';
 import Navbar from './components/Navbar';
-import MuteButton from './components/MuteButton';
 
-/* ========================================================================= */
-/* 1. AUDIO ENGINE & GLOBAL SINGLETONS                                       */
-/* ========================================================================= */
-// Persistent across StrictMode remounts and seamless page transitions
-let introAudioInstance = null;
-let introAudioHasStarted = false;
 let globalIntroHasPlayed = false;
 
-function playIntroAudio(isMuted = false) {
-  if (introAudioHasStarted) return;
-  if (!introAudioInstance) {
-    const base = import.meta.env.BASE_URL || './';
-    introAudioInstance = new Audio(encodeURI(`${base}audio/SFX Norque.mp3`));
-    introAudioInstance.loop = false;
-    introAudioInstance.volume = 0.25; // Subtle and atmospheric, but clearly listenable
-  }
-  introAudioInstance.muted = isMuted;
-  if (introAudioInstance.paused && !introAudioHasStarted) {
-    introAudioInstance.play().then(() => {
-      introAudioHasStarted = true;
-    }).catch(() => {});
-  }
-}
-
 /* ========================================================================= */
-/* 2. ROOT APPLICATION COMPONENT                                             */
+/* ROOT APPLICATION COMPONENT                                                */
 /* ========================================================================= */
 export default function App() {
   /* ─── State Management ─── */
@@ -42,8 +19,6 @@ export default function App() {
   const [hasIntroPlayed, setHasIntroPlayed] = useState(globalIntroHasPlayed);
   const [isIntroStarted, setIsIntroStarted] = useState(globalIntroHasPlayed);
   const [isBoxRevealComplete, setIsBoxRevealComplete] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-  const isMutedRef = useRef(false);
   const lenisRef = useRef(null);
 
   /* ─── Intro Animation Synchronization ─── */
@@ -58,21 +33,9 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  /* ─── Audio Handlers ─── */
   const handleIntroComplete = () => {
     globalIntroHasPlayed = true;
     setHasIntroPlayed(true);
-  };
-
-  const toggleMute = () => {
-    setIsMuted((prev) => {
-      const next = !prev;
-      isMutedRef.current = next;
-      if (introAudioInstance) {
-        introAudioInstance.muted = next;
-      }
-      return next;
-    });
   };
 
   /* ======================================================================= */
@@ -187,71 +150,7 @@ export default function App() {
   }, [currentPage, pendingSection]);
 
   /* ======================================================================= */
-  /* 4. SOUND EFFECTS & INTERACTION TRIGGERS                                 */
-  /* ======================================================================= */
-  // Ambience SFX: Play "SFX Norque.mp3" on page load/unlock
-  useEffect(() => {
-    playIntroAudio(isMutedRef.current);
-
-    const handleInitialUnlock = (e) => {
-      if (introAudioHasStarted) return;
-      const target = e.target;
-      if (!target || !(target instanceof Element)) return;
-
-      const isButtonOrLink = Boolean(
-        target.closest('button, a, [role="button"], input[type="button"], input[type="submit"], .cursor-pointer, [class*="cursor-pointer"]') ||
-        window.getComputedStyle(target).cursor === 'pointer'
-      );
-
-      // Only trigger intro audio if clicking non-button areas
-      if (!isButtonOrLink && introAudioInstance && introAudioInstance.paused && !introAudioHasStarted) {
-        introAudioInstance.muted = isMutedRef.current;
-        introAudioInstance.play().then(() => {
-          introAudioHasStarted = true;
-          window.removeEventListener('pointerdown', handleInitialUnlock);
-        }).catch(() => {});
-      }
-    };
-
-    window.addEventListener('pointerdown', handleInitialUnlock, { passive: true });
-    return () => {
-      window.removeEventListener('pointerdown', handleInitialUnlock);
-    };
-  }, []);
-
-  // Click SFX: Play "SFX Norque_2.mp3" strictly on interactive UI clicks
-  useEffect(() => {
-    const base = import.meta.env.BASE_URL || './';
-    const clickAudio = new Audio(encodeURI(`${base}audio/SFX Norque_2.mp3`));
-    clickAudio.loop = false;
-
-    const handleClick = (e) => {
-      // Prevent sound if user was dragging/scrolling a carousel
-      if (window.__norqueCarouselDragged) return;
-
-      const target = e.target;
-      if (!target || !(target instanceof Element)) return;
-
-      const isInteractive = Boolean(
-        target.closest('button, a, [role="button"], input[type="button"], input[type="submit"], .cursor-pointer, [class*="cursor-pointer"]') ||
-        window.getComputedStyle(target).cursor === 'pointer'
-      );
-
-      if (isInteractive) {
-        const sound = clickAudio.cloneNode();
-        sound.loop = false;
-        sound.play().catch(() => {});
-      }
-    };
-
-    window.addEventListener('click', handleClick);
-    return () => {
-      window.removeEventListener('click', handleClick);
-    };
-  }, []);
-
-  /* ======================================================================= */
-  /* 5. MAIN RENDER WITH CINEMATIC PAGE TRANSITIONS                          */
+  /* MAIN RENDER WITH CINEMATIC PAGE TRANSITIONS                             */
   /* ======================================================================= */
   return (
     <div className="relative min-h-screen bg-black text-white font-beausite selection:bg-white selection:text-black overflow-x-clip">
@@ -280,7 +179,7 @@ export default function App() {
         </defs>
       </svg>
 
-      {/* ─── Page Content (Excludes Pinned Navbar, Pinned GIF & Mute Button) ─── */}
+      {/* ─── Page Content (Excludes Pinned Navbar and Pinned GIF) ─── */}
       <main className="w-full">
         {/* Seamless Page Transition: Opacity-only crossfade (no scale distortion) */}
         <AnimatePresence 
@@ -326,8 +225,6 @@ export default function App() {
         </AnimatePresence>
       </main>
 
-      {/* Floating persistent Mute Button with Liquid Glass optical behavior */}
-      <MuteButton isMuted={isMuted} onToggle={toggleMute} />
     </div>
   );
 }

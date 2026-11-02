@@ -6,7 +6,7 @@ import { splashLogoPaths } from './splashLogoPaths';
 /* SPLASH SCREEN COMPONENT                                                   */
 /* 2-second initial brand intro with staggered letter reveals                */
 /* ========================================================================= */
-export default function SplashScreen() {
+export default function SplashScreen({ onComplete }) {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function SplashScreen() {
   }, []);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence onExitComplete={onComplete}>
       {isVisible && (
         <motion.div
           key="loader"

@@ -12,7 +12,7 @@ import { motion } from 'framer-motion';
 const lineVariants = {
   hidden: {
     y: '105%',
-    opacity: 0,
+    opacity: 1,
   },
   visible: (custom = {}) => ({
     y: '0%',

@@ -19,6 +19,7 @@ export default function App() {
   const [hasIntroPlayed, setHasIntroPlayed] = useState(globalIntroHasPlayed);
   const [isIntroStarted, setIsIntroStarted] = useState(globalIntroHasPlayed);
   const [isBoxRevealComplete, setIsBoxRevealComplete] = useState(false);
+  const [isSplashComplete, setIsSplashComplete] = useState(globalIntroHasPlayed);
   const lenisRef = useRef(null);
 
   /* ─── Intro Animation Synchronization ─── */
@@ -37,6 +38,59 @@ export default function App() {
     globalIntroHasPlayed = true;
     setHasIntroPlayed(true);
   };
+
+  const handleSplashComplete = () => {
+    setIsSplashComplete(true);
+  };
+
+  /* ─── Disable scrolling until splash screen finishes and hero is visible ─── */
+  useEffect(() => {
+    if (isSplashComplete) {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, 0);
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { immediate: true });
+        lenisRef.current.start();
+      }
+      return;
+    }
+
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    window.scrollTo(0, 0);
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+      lenisRef.current.stop();
+    }
+
+    const preventScroll = (e) => {
+      e.preventDefault();
+    };
+
+    const preventScrollKeys = (e) => {
+      if (['Space', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.code)) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener('wheel', preventScroll, { passive: false });
+    window.addEventListener('touchmove', preventScroll, { passive: false });
+    window.addEventListener('keydown', preventScrollKeys, { passive: false });
+
+    const fallbackTimer = setTimeout(() => {
+      setIsSplashComplete(true);
+    }, 3200);
+
+    return () => {
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+      window.removeEventListener('keydown', preventScrollKeys);
+      clearTimeout(fallbackTimer);
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    };
+  }, [isSplashComplete]);
 
   /* ======================================================================= */
   /* 3. NAVIGATION & SMOOTH SCROLL (LENIS)                                   */
@@ -84,6 +138,9 @@ export default function App() {
     });
     lenis.scrollTo(0, { immediate: true });
     lenisRef.current = lenis;
+    if (!isSplashComplete) {
+      lenis.stop();
+    }
 
     let targetBlur = 0;
     let currentBlur = 0;
@@ -155,7 +212,7 @@ export default function App() {
   return (
     <div className="relative min-h-screen bg-black text-white font-beausite selection:bg-white selection:text-black overflow-x-clip">
       {/* Initial splash screen on page load */}
-      <SplashScreen />
+      {!globalIntroHasPlayed && <SplashScreen onComplete={handleSplashComplete} />}
 
       {/* Pinned Global Header Navigation (36px = 2.5vw proportional ratio) */}
       <Navbar 

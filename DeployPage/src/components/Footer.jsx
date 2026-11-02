@@ -12,9 +12,9 @@ const MAGNET_LINES_CONFIG = {
   // Visuals & Layout
   lineColor: '#ffffff',       // Line color (hex, rgb, or css color)
   accentColor: undefined,     // Highlight accent color on cursor interaction (e.g. '#ffffff' or '#f43f5e')
-  lineWidth: 2,               // Thickness of each line in pixels
-  lineHeight: 18,             // Length of each line in pixels
-  spacing: 30,                // Spacing distance between lines in pixels
+  lineWidth: '0.1389vw',      // Thickness of each line in vw
+  lineHeight: '1.25vw',       // Length of each line in vw
+  spacing: '2.0833vw',        // Spacing distance between lines in vw (consistent count across devices)
   rows: undefined,            // Number of rows (leave undefined for auto-fill)
   columns: undefined,         // Number of columns (leave undefined for auto-fill)
   shape: 'line',              // Shape of elements: 'line' | 'arrow' | 'needle'
@@ -25,7 +25,7 @@ const MAGNET_LINES_CONFIG = {
 
   // Motion & Physics
   mode: 'orbit',              // Magnetic pattern: 'orbit' | 'attract' | 'spiral' | 'dipole'
-  radius: 200,                // Radius of cursor interaction zone in pixels
+  radius: '13.8889vw',        // Radius of cursor interaction zone in vw
   reach: 0,                   // Effective distance lines follow cursor (0 = entire field)
   scatter: 0,                 // Random angle scatter at rest (0 to 1)
   stretch: 0.4,               // Line elongation when moving (0 to 2)

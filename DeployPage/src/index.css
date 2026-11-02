@@ -141,6 +141,17 @@ body.is-scrolling .motion-blur-target {
   will-change: filter;
 }
 
+/* Explicit guard: ensure images and videos maintain 100% full bitrate and native crispness */
+img,
+video,
+picture {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
 /* 6. Typography Vertical Trim (Cap Height to Baseline) */
 .vertical-trim {
   text-box-trim: trim-both;

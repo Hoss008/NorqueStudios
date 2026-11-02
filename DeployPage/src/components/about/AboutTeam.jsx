@@ -32,10 +32,10 @@ const TEAM = [
 
 export default function AboutTeam() {
   return (
-    <section className="w-full py-[4.1667vw] px-[0.8333vw] motion-blur-target">
+    <section className="w-full py-[4.1667vw] px-[0.8333vw]">
       <div className="w-full">
         {/* Section Heading */}
-        <h2 className="text-[32px] sm:text-[3.1944vw] font-semibold text-white tracking-[-0.03em] leading-none mb-[3.4722vw] uppercase">
+        <h2 className="text-[32px] sm:text-[3.1944vw] font-semibold text-white tracking-[-0.03em] leading-none mb-[3.4722vw] uppercase motion-blur-target">
           PPL BEHIND NRQ™
         </h2>
 
@@ -50,7 +50,7 @@ export default function AboutTeam() {
               loading="lazy"
             />
             <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 via-black/15 to-transparent pointer-events-none" />
-            <div className="absolute bottom-[1.4653vw] left-[1.4653vw] z-10">
+            <div className="absolute bottom-[1.4653vw] left-[1.4653vw] z-10 motion-blur-target">
               <h3 className="text-[18px] sm:text-[1.5278vw] font-bold text-white tracking-[-0.03em] leading-tight">
                 Mostafa Yasser
               </h3>
@@ -69,7 +69,7 @@ export default function AboutTeam() {
               loading="lazy"
             />
             <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 via-black/15 to-transparent pointer-events-none" />
-            <div className="absolute bottom-[1.4653vw] left-[1.4653vw] z-10">
+            <div className="absolute bottom-[1.4653vw] left-[1.4653vw] z-10 motion-blur-target">
               <h3 className="text-[18px] sm:text-[1.5278vw] font-bold text-white tracking-[-0.03em] leading-tight">
                 Hossam Hassan
               </h3>
@@ -82,7 +82,7 @@ export default function AboutTeam() {
 
         {/* ─── 2. Multidisciplinary Network Statement ─── */}
         <div className="max-w-[73.3333vw] mb-[4.1667vw]">
-          <MaskedWordStagger className="text-[18px] sm:text-[1.5278vw] font-bold text-white tracking-[-0.03em] leading-[1.2]">
+          <MaskedWordStagger className="text-[18px] sm:text-[1.5278vw] font-bold text-white tracking-[-0.03em] leading-[1.2] motion-blur-target">
             Behind NORQUE is a growing network of designers, developers, creatives and specialists who bring their own way of thinking to the table. Different backgrounds, different disciplines, one shared obsession with making things that feel right.
           </MaskedWordStagger>
         </div>
@@ -99,12 +99,14 @@ export default function AboutTeam() {
                   loading="lazy"
                 />
               </div>
-              <h3 className="text-[12px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] leading-snug">
+              <div className="motion-blur-target">
+                <h3 className="text-[12px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] leading-snug">
                 {member.name}
               </h3>
               <p className="text-[11px] sm:text-[0.6944vw] font-semibold text-[#747474] tracking-[-0.03em] mt-[0.1389vw]">
                 {member.role}
               </p>
+            </div>
             </div>
           ))}
         </div>

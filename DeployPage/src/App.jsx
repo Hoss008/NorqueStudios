@@ -230,8 +230,8 @@ export default function App() {
         style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden', pointerEvents: 'none' }}
       >
         <defs>
-          <filter id="scroll-motion-blur" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur id="scroll-motion-blur-fe" in="SourceGraphic" stdDeviation="0 0" />
+          <filter id="scroll-motion-blur" x="-20%" y="-20%" width="140%" height="140%" colorInterpolationFilters="sRGB">
+            <feGaussianBlur id="scroll-motion-blur-fe" in="SourceGraphic" stdDeviation="0 0" edgeMode="duplicate" />
           </filter>
         </defs>
       </svg>

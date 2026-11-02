@@ -28,11 +28,11 @@ const COUNTRIES = [
 
 export default function AboutHero() {
   return (
-    <section className="w-full pt-[1vw] pb-[6.25vw] px-[0.8333vw] motion-blur-target">
+    <section className="w-full pt-[1vw] pb-[6.25vw] px-[0.8333vw]">
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-y-12 lg:gap-x-[0.8333vw]">
         {/* ─── Column 1-6: Manifesto & Aesthetics Media ─── */}
         <div className="sm:col-span-2 lg:col-span-6 flex flex-col justify-between">
-          <div className="w-full">
+          <div className="w-full motion-blur-target">
             <span className="block text-[11px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] uppercase mb-[1.0417vw] select-none">
               [ ABOUT ]
             </span>
@@ -60,7 +60,7 @@ export default function AboutHero() {
         <div className="hidden lg:block lg:col-span-1" aria-hidden="true" />
 
         {/* ─── Column 8-9: Services Directory ─── */}
-        <div className="sm:col-span-1 lg:col-span-2">
+        <div className="sm:col-span-1 lg:col-span-2 motion-blur-target">
           <span className="block text-[11px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] uppercase mb-[1.0417vw] select-none vertical-trim">
             [ SERVICES ]
           </span>
@@ -77,7 +77,7 @@ export default function AboutHero() {
         </div>
 
         {/* ─── Column 10-12: Countries Directory ─── */}
-        <div className="sm:col-span-1 lg:col-span-3">
+        <div className="sm:col-span-1 lg:col-span-3 motion-blur-target">
           <span className="block text-[11px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] uppercase mb-[1.0417vw] select-none vertical-trim">
             [ COUNTRIES WE WORKED IN ]
           </span>

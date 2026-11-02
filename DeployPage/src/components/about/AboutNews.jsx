@@ -36,10 +36,10 @@ const NEWS_ITEMS = [
 
 export default function AboutNews() {
   return (
-    <section className="w-full pt-[4.1667vw] pb-[6.9444vw] px-[0.8333vw] motion-blur-target">
+    <section className="w-full pt-[4.1667vw] pb-[6.9444vw] px-[0.8333vw]">
       <div className="w-full">
         {/* ─── 1. Header with Title & Subtitle ─── */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-[3.4722vw] gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-[3.4722vw] gap-4 motion-blur-target">
           <h2 className="text-[32px] sm:text-[3.1944vw] font-semibold text-white tracking-[-0.03em] leading-none select-none uppercase">
             WHAT HAPPENED LATELY
           </h2>
@@ -71,7 +71,7 @@ export default function AboutNews() {
               </div>
 
               {/* Text Info */}
-              <div className="flex flex-col space-y-[0.3472vw] select-none pointer-events-none">
+              <div className="flex flex-col space-y-[0.3472vw] select-none pointer-events-none motion-blur-target">
                 <h3 className="text-[12px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] leading-snug">
                   {item.title}
                 </h3>

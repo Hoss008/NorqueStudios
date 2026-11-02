@@ -81,6 +81,38 @@ export default function SelectedWorks() {
             </article>
           ))}
         </div>
+
+        {/* ─── CTA: Discover more projects! ─── */}
+        <div className="w-full mt-[3.2639vw] flex flex-col items-center text-center select-none">
+          {/* CTA Heading */}
+          <h3 className="text-[1.5278vw] font-bold tracking-[-0.03em] leading-none text-white motion-blur-target">
+            Discover more projects!
+          </h3>
+
+          {/* CTA Link Button */}
+          <a
+            href="https://www.behance.net"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group mt-[1.1111vw] inline-flex items-center gap-x-[0.2778vw] text-[0.6944vw] font-semibold tracking-[-0.03em] text-white hover:opacity-70 transition-opacity"
+          >
+            <span className="underline underline-offset-[0.2083vw] decoration-white">
+              Discover more
+            </span>
+            {/* 7.025px x 7.025px diagonal up-right arrow extracted from Homepage.fig */}
+            <svg 
+              viewBox="0 0 7.03 7.03" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-[0.4879vw] h-[0.4879vw] shrink-0 text-white transition-transform duration-300 group-hover:translate-x-[0.0694vw] group-hover:-translate-y-[0.0694vw]"
+            >
+              <path 
+                d="M0 6.17L4.97 1.2L1.06 1.2L1.06 0L7.03 0L7.03 5.96L5.82 5.96L5.82 2.05L0.85 7.03L0 6.17Z" 
+                fill="currentColor" 
+              />
+            </svg>
+          </a>
+        </div>
       </div>
     </section>
   );

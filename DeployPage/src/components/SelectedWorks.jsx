@@ -41,11 +41,11 @@ const projects = [
 
 export default function SelectedWorks() {
   return (
-    <section id="works" className="w-full bg-black py-[2.7778vw] motion-blur-target">
+    <section id="works" className="w-full bg-black py-[2.7778vw]">
       {/* Universal Container Margin: 12px (0.8333vw) */}
       <div className="w-full px-[0.8333vw]">
         {/* Section Heading */}
-        <h2 className="text-[3.1944vw] font-medium tracking-[-0.03em] leading-none text-white mb-[1.6667vw] flex items-start">
+        <h2 className="text-[3.1944vw] font-medium tracking-[-0.03em] leading-none text-white mb-[1.6667vw] flex items-start motion-blur-target">
           <span>SELECTED WORKS</span>
           <span className="text-[1.3889vw] font-medium ml-[0.35vw] leading-none tracking-[-0.03em] select-none">(04)</span>
         </h2>
@@ -65,7 +65,7 @@ export default function SelectedWorks() {
               </div>
 
               {/* Project Meta Details */}
-              <div className="pt-[0.6944vw]">
+              <div className="pt-[0.6944vw] motion-blur-target">
                 <div className="flex justify-between items-baseline">
                   <h3 className="text-[0.6944vw] font-semibold tracking-[-0.03em] text-white leading-none vertical-trim">
                     {project.title}

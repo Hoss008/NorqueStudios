@@ -387,7 +387,7 @@ export default function MagnetLines({
   const accent = accentColor ? parseColor(accentColor) : null;
   const settings = {
     square,
-    spacing: Math.max(4, Number(spacing) || 30),
+    spacing: spacing ?? 30,
     rows: rows ? clamp(Math.round(rows), 1, 400) : 0,
     columns: columns ? clamp(Math.round(columns), 1, 400) : 0,
     lineWidth,
@@ -400,7 +400,7 @@ export default function MagnetLines({
     accentMix: accent ? 1 : 0,
     rainbow,
     tone: clamp(lightness(color), 0.42, 0.66),
-    radius: Math.max(1, radius),
+    radius: radius ?? 200,
     fade: clamp(fade, 0, 1),
     edgeFade: clamp(edgeFade, 0, 1),
     stretch: clamp(stretch, 0, 2),
@@ -505,8 +505,21 @@ export default function MagnetLines({
 
     const measure = value => {
       if (typeof value === 'number') return value;
-      probe.style.width = String(value);
-      return probe.getBoundingClientRect().width;
+      if (!value) return 0;
+      if (probe) {
+        probe.style.width = String(value);
+        const measured = probe.getBoundingClientRect().width;
+        if (measured > 0) return measured;
+      }
+      if (typeof value === 'string' && value.endsWith('vw')) {
+        const num = parseFloat(value);
+        if (!isNaN(num) && typeof window !== 'undefined') {
+          return (num * window.innerWidth) / 100;
+        }
+      }
+      const parsed = parseFloat(value);
+      return isNaN(parsed) ? 0 : parsed;
+
     };
 
     const layout = (width, height, view, columnCount, rowCount, tiled) => {
@@ -611,13 +624,15 @@ export default function MagnetLines({
       const height = Math.max(1, rect.height);
       const length = Math.max(1, measure(s.lineHeight));
       const thickness = Math.max(0.25, measure(s.lineWidth));
+      const spacingPx = Math.max(1, measure(s.spacing));
+      const radiusPx = Math.max(1, measure(s.radius));
       const fill = !s.square;
       const tiled = fill && (s.tiltX !== 0 || s.tiltY !== 0);
       const view = viewFor(s.tiltX, s.tiltY, width, height, fill);
       const ratio = Math.min(window.devicePixelRatio || 1, s.maxRatio);
 
-      let columnCount = Math.max(1, Math.round(s.columns || (s.rows ? (s.rows * width) / height : width / s.spacing)));
-      let rowCount = Math.max(1, Math.round(s.rows || (s.columns ? (s.columns * height) / width : height / s.spacing)));
+      let columnCount = Math.max(1, Math.round(s.columns || (s.rows ? (s.rows * width) / height : width / spacingPx)));
+      let rowCount = Math.max(1, Math.round(s.rows || (s.columns ? (s.columns * height) / width : height / spacingPx)));
       if (columnCount * rowCount > MAX_LINES) {
         const shrink = Math.sqrt((columnCount * rowCount) / MAX_LINES);
         columnCount = Math.max(1, Math.floor(columnCount / shrink));
@@ -660,6 +675,7 @@ export default function MagnetLines({
         view,
         length,
         thickness,
+        radius: radiusPx,
         fill,
         edgePad: 2 / (ratio * Math.max(0.05, minScale))
       });
@@ -726,7 +742,7 @@ export default function MagnetLines({
       const steps = stiffness ? Math.max(1, Math.ceil(dt / (1 / 240))) : 0;
       const h = steps ? dt / steps : 0;
       const lag = reduced ? 0 : s.ripple / 900;
-      const radius = s.radius;
+      const radius = field.radius || Math.max(1, measure(s.radius));
       const reachIn = s.reach * 0.55;
       const reachOut = s.reach;
 

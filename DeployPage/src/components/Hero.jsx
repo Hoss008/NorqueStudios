@@ -50,7 +50,7 @@ export default function Hero({ onNavigate, hasIntroPlayed = false, onIntroComple
 
   /* ─── Render ─── */
   return (
-    <section className="relative w-full h-screen min-h-screen flex flex-col justify-between overflow-hidden bg-black select-none motion-blur-target">
+    <section className="relative w-full h-screen min-h-screen flex flex-col justify-between overflow-hidden bg-black select-none">
       {/* ─── 1. Background Video Layer ─── */}
       <div 
         className={`absolute inset-0 w-full h-full pointer-events-none transition-opacity duration-[1200ms] z-0 ${
@@ -75,7 +75,7 @@ export default function Hero({ onNavigate, hasIntroPlayed = false, onIntroComple
       <div className="flex-1"></div>
 
       {/* ─── 4. Bottom Main Logo & Brand Statement ─── */}
-      <div className="relative z-10 w-full px-[0.8333vw] pb-[0.8333vw]">
+      <div className="relative z-10 w-full px-[0.8333vw] pb-[0.8333vw] motion-blur-target">
         {/* Top Text Row Above Giant Logo */}
         <div className="flex justify-between items-end mb-[2.0833vw] overflow-hidden">
           {/* Left Text: "BUILT FOR BRANDS THAT WANT / SOMETHING REAL" */}

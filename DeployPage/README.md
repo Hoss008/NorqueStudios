@@ -34,6 +34,8 @@ For complete technical specifications, component workflows, sound physics, and d
 - **[`docs/DAY_1_LOG.md`](./docs/DAY_1_LOG.md)** — Day 1 development log (Genesis & Homepage).
 - **[`docs/DAY_2_LOG.md`](./docs/DAY_2_LOG.md)** — Day 2 development log (Version 0.2v: About Page, Infinite Carousels, Audio Engine).
 - **[`docs/DAY_3_LOG.md`](./docs/DAY_3_LOG.md)** — Day 3 development log (Size Optimization, Project Reorganization, Handover Docs).
+- **[`docs/DAY_4_LOG.md`](./docs/DAY_4_LOG.md)** — Day 4 development log (Line-by-Line Stagger, Isolated Scroll Motion Blur).
+- **[`docs/DAY_5_LOG.md`](./docs/DAY_5_LOG.md)** — Day 5 development log (Figma Updates, CTA, Done by Humans, Parallax, Day 5 Revisions).
 
 ---
 
@@ -54,22 +56,20 @@ norque-studios/
 │   │   ├── HomePage.jsx         # Homepage view
 │   │   ├── Hero.jsx             # Video hero with sequential typography
 │   │   ├── Showcase.jsx         # 200vh pinned uncropped reveal
-│   │   ├── SelectedWorks.jsx    # 4-project portfolio grid
-│   │   ├── Philosophy.jsx       # Studio manifesto
+│   │   ├── SelectedWorks.jsx    # 4-project portfolio grid + CTA
 │   │   ├── NewsSection.jsx      # Infinite loop news carousel
-│   │   ├── Footer.jsx           # Universal inquiry footer
-│   │   ├── Navbar.jsx           # Header with real-time Cairo GMT clock
-│   │   ├── MuteButton.jsx       # Optical Liquid Glass refraction toggle
-│   │   ├── SplashScreen.jsx     # Initial load brand reveal
-│   │   └── InteractiveInfiniteCarousel.jsx # Multi-buffer physics carousel
-│   ├── App.jsx                  # Main router, audio orchestrator, cinematic transitions
-│   ├── index.css                # Base Tailwind & custom typography rules
-│   └── main.jsx                 # React root entry
-├── index.html
-├── package.json
-├── postcss.config.js
-├── tailwind.config.js
-├── vite.config.js
-├── README.md
-└── VERSION.md
+│   │   ├── Philosophy.jsx       # Studio manifesto with circular seal logo
+│   │   ├── DoneByHumans.jsx     # Cinematic section with parallax background
+│   │   ├── DoneByHumansLogo.jsx # 12-glyph vector brand mark
+│   │   ├── NorqueCircleLogo.jsx # Circled "N" brand seal logo
+│   │   ├── Footer.jsx           # Universal inquiry footer with magnet lines
+│   │   ├── MagnetLines.jsx      # Magnetic particle field
+│   │   ├── MaskedWordStagger.jsx# Line-by-line masked typography stagger
+│   │   └── SplashScreen.jsx     # Brand intro with scroll locking
+│   ├── App.jsx                  # Root router, audio engine & page transitions
+│   ├── index.css                # Global styles, fonts & motion blur
+│   └── main.jsx                 # Entry point
+├── index.html                   # HTML template
+├── package.json                 # Dependency manifests (v0.4.0)
+└── VERSION.md                   # Version milestone changelog
 ```

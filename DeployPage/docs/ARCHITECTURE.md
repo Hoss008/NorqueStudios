@@ -1,6 +1,6 @@
 # NORQUE STUDIOS™ — Technical Architecture
 
-This document outlines the software design, component hierarchy, page routing lifecycle, audio engine physics, and infinite carousel buffer geometry of the NORQUE STUDIOS™ website.
+This document outlines the software design, component hierarchy, page routing lifecycle, audio engine physics, parallax layer separation, and infinite carousel buffer geometry of the NORQUE STUDIOS™ website.
 
 ---
 
@@ -8,38 +8,42 @@ This document outlines the software design, component hierarchy, page routing li
 
 ```mermaid
 flowchart TD
-    Root[React Root: main.jsx] --> App[Root Orchestrator: App.jsx]
+    Root["React Root: main.jsx"] --> App["Root Orchestrator: App.jsx"]
     
-    App --> Splash[SplashScreen.jsx]
-    App --> Mute[MuteButton.jsx with Liquid Glass Shader]
-    App --> Lenis[Lenis Smooth Scroll Engine]
-    App --> Sound[Dual-Layer Audio Engine]
+    App --> Splash["SplashScreen.jsx (with Scroll Lock)"]
+    App --> Mute["MuteButton.jsx with Liquid Glass Shader"]
+    App --> Lenis["Lenis Smooth Scroll Engine"]
+    App --> Sound["Dual-Layer Audio Engine"]
     
-    App --> Transitions{Cinematic AnimatePresence Mode: wait}
+    App --> Transitions{"Cinematic AnimatePresence Mode: wait"}
     
-    Transitions -->|currentPage == 'home'| Home[HomePage.jsx]
-    Transitions -->|currentPage == 'about'| About[AboutPage.jsx]
+    Transitions -->|currentPage == 'home'| Home["HomePage.jsx"]
+    Transitions -->|currentPage == 'about'| About["AboutPage.jsx"]
     
-    Home --> Hero[Hero.jsx]
-    Home --> Showcase[Showcase.jsx - 200vh Pinned Reveal]
-    Home --> SelectedWorks[SelectedWorks.jsx - 2-Column Grid]
-    Home --> Philosophy[Philosophy.jsx - Manifesto Statement]
-    Home --> HomeNews[NewsSection.jsx]
-    Home --> HomeFooter[Footer.jsx]
+    Home --> Hero["Hero.jsx"]
+    Home --> Showcase["Showcase.jsx - 200vh Pinned Reveal"]
+    Home --> SelectedWorks["SelectedWorks.jsx - 2-Column Grid + CTA"]
+    Home --> HomeNews["NewsSection.jsx - Carousel"]
+    Home --> Philosophy["Philosophy.jsx - Manifesto & Circle Mark"]
+    Home --> DoneByHumans["DoneByHumans.jsx - Background Parallax & Manifesto"]
+    Home --> HomeFooter["Footer.jsx - Proportional vw MagnetLines"]
     
-    Hero --> NavHome[Navbar.jsx - Live Cairo GMT Clock]
-    Hero --> HeroLogo[logoPaths.js Bezier Animation]
-    HomeNews --> CarouselHome[InteractiveInfiniteCarousel.jsx]
-    HomeFooter --> MainLogoHome[MainLogo.jsx]
+    Hero --> NavHome["Navbar.jsx - Live Cairo GMT Clock"]
+    Hero --> HeroLogo["logoPaths.js Bezier Animation"]
+    HomeNews --> CarouselHome["InteractiveInfiniteCarousel.jsx"]
+    DoneByHumans --> DBHLogo["DoneByHumansLogo.jsx - 12-Glyph Vector"]
+    DoneByHumans --> SealLogo["NorqueCircleLogo.jsx - Circled N Mark"]
+    Philosophy --> SealLogo
+    HomeFooter --> MainLogoHome["MainLogo.jsx"]
     
-    About --> NavAbout[Navbar.jsx - Active Link State]
-    About --> AboutHero[AboutHero.jsx - Manifesto & Countries]
-    About --> AboutTeam[AboutTeam.jsx - Founders & Team Grid]
-    About --> AboutNews[AboutNews.jsx - Latest Updates]
-    About --> AboutFooter[Footer.jsx]
+    About --> NavAbout["Navbar.jsx - Active Link State"]
+    About --> AboutHero["AboutHero.jsx - Manifesto & Countries"]
+    About --> AboutTeam["AboutTeam.jsx - Founders & Team Grid"]
+    About --> AboutNews["AboutNews.jsx - Latest Updates"]
+    About --> AboutFooter["Footer.jsx"]
     
-    AboutNews --> CarouselAbout[InteractiveInfiniteCarousel.jsx]
-    AboutFooter --> MainLogoAbout[MainLogo.jsx]
+    AboutNews --> CarouselAbout["InteractiveInfiniteCarousel.jsx"]
+    AboutFooter --> MainLogoAbout["MainLogo.jsx"]
 ```
 
 ---
@@ -58,12 +62,12 @@ sequenceDiagram
     
     User->>Nav: Clicks "About" or "Works"
     Nav->>App: handleNavigate('about')
-    App->>ExitPage: Animate exit (scale: 0.94, opacity: 0, duration: 0.45s)
+    App->>ExitPage: Animate exit (scale: 1.0, opacity: 0, duration: 0.35s)
     ExitPage-->>App: Exit animation complete (onExitComplete)
     App->>Lenis: scrollTo(0, { immediate: true }) + window.scrollTo(0,0)
-    App->>EnterPage: Mount target page (initial: scale: 0.94, opacity: 0)
-    EnterPage->>EnterPage: Animate enter (scale: 1.0, opacity: 1, duration: 0.5s)
-    Note over EnterPage: Smooth deceleration zoom-in to viewport
+    App->>EnterPage: Mount target page (initial: scale: 1.0, opacity: 0)
+    EnterPage->>EnterPage: Animate enter (scale: 1.0, opacity: 1, duration: 0.35s)
+    Note over EnterPage: Clean in-place opacity crossfade with zero scroll snapping
 ```
 
 ---
@@ -120,9 +124,12 @@ $$\text{CSS Size (vw)} = \left(\frac{\text{Figma Pixels}}{1440}\right) \times 10
 
 | Element | Figma Value | Calculated Value |
 | :--- | :--- | :--- |
-| Container Margin | `24px` | `1.6667vw` |
+| Universal Margin | `12px` | `0.8333vw` |
 | Standard Gap | `12px` | `0.8333vw` |
 | Main Section Heading | `46px` | `3.1944vw` |
-| Sub-headings | `22px` | `1.5278vw` |
+| Sub-headings / Statements | `22px` | `1.5278vw` |
 | Body / Captions | `10px` | `0.6944vw` |
 | Compact Nav Logo | `73.1px` | `5.0764vw` |
+| Done By Humans Height | `706px` | `49.0278vw` |
+| Done By Humans Margin Bottom | `156px` | `10.8333vw` |
+| Footer Magnet Spacing | `30px` | `2.0833vw` |

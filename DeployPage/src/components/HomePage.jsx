@@ -2,13 +2,15 @@ import React, { useEffect } from 'react';
 import Hero from './Hero';
 import Showcase from './Showcase';
 import SelectedWorks from './SelectedWorks';
-import Philosophy from './Philosophy';
 import NewsSection from './NewsSection';
+import Philosophy from './Philosophy';
+import DoneByHumans from './DoneByHumans';
 import Footer from './Footer';
 
 /* ========================================================================= */
 /* HOMEPAGE VIEW COMPONENT                                                   */
 /* Assembles the primary landing experience of NORQUE STUDIOS™               */
+/* Updated per Homepage.fig hierarchy & design specifications                */
 /* ========================================================================= */
 export default function HomePage({ 
   onNavigate, 
@@ -32,16 +34,19 @@ export default function HomePage({
       {/* 2. Showcase: Pinned scroll-driven uncropped reveal animation */}
       <Showcase onRevealCompleteChange={onBoxRevealComplete} />
 
-      {/* 3. Selected Works: 4-project 2-column showcase grid */}
+      {/* 3. Selected Works: 4-project 2-column showcase grid with CTA */}
       <SelectedWorks />
 
-      {/* 4. Philosophy: Typographic manifesto statement */}
-      <Philosophy />
-
-      {/* 5. News Section: "What's happening now" interactive infinite carousel */}
+      {/* 4. News Section: "What's happening now" interactive infinite carousel */}
       <NewsSection />
 
-      {/* 6. Universal Footer: Contact callout, brand mark & directory */}
+      {/* 5. Philosophy: Typographic manifesto statement with circular seal logo */}
+      <Philosophy />
+
+      {/* 6. Done By Humans: Cinematic visual break with manifesto statement */}
+      <DoneByHumans />
+
+      {/* 7. Universal Footer: Contact callout, brand mark & directory */}
       <Footer />
     </div>
   );

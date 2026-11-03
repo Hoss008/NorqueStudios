@@ -1,5 +1,40 @@
 # NORQUE STUDIOS™ — Version Log
 
+## Version 0.4.0 (Day 5 Complete)
+**Date:** November 2, 2026 (End of Day 5 Sprint)  
+**Status:** Design Revisions Complete, Selected Works CTA, Philosophy Repositioning & Circular Seal, "Done by Humans" with Parallax, Zero-Opacity Stagger, Splash Scroll Guard, MagnetLines Resolution Consistency
+
+### Overview
+Version `0.4.0` concludes Day 5 with complete implementation of client design revisions and new UI elements from `Homepage.fig`. It enforces resolution consistency for the footer magnet lines using pure `vw` units, locks typography stagger opacity to `1` across all animation states, prevents scrolling during the splash screen, isolates motion blur from case study images, adds the Selected Works CTA button with vector arrow, repositioned the Philosophy section with the circular seal brand mark, and integrates the cinematic "Done by humans" section with smooth background parallax.
+
+### Key Deliverables in 0.4.0
+- **Footer MagnetLines Resolution Consistency**:
+  - Replaced fixed pixel dimensions and gaps with proportional `vw` units (`lineWidth: '0.1389vw'`, `lineHeight: '1.25vw'`, `spacing: '2.0833vw'`, `radius: '13.8889vw'`).
+  - Standardized the magnet line count across all screen resolutions and densities.
+- **Typography Stagger Opacity Locking (`MaskedWordStagger.jsx`)**:
+  - Locked opacity to `1` across all stagger animation states (`hidden: { y: '105%', opacity: 1 }`, `visible: { y: '0%', opacity: 1 }`).
+  - Clean vertical masked slide retained with zero opacity fading on text.
+- **Splash Screen Scroll Lock & Hero Transition**:
+  - Locked `overflow: hidden`, Lenis smooth scroll (`lenis.stop()`), and blocked user scroll events until splash screen finishes.
+  - Page resets cleanly to `(0, 0)` with the Hero section visible before enabling scroll.
+- **Motion Blur Image Quality & Bitrate Protection**:
+  - Scoped `.motion-blur-target` strictly to headings and text landmarks.
+  - Added CSS hardware-acceleration and rasterization isolation guards to keep case study images 100% sharp during scroll.
+- **HTML Artifact Cleanup**:
+  - Removed lingering `//test` debug string from `index.html`.
+- **Selected Works CTA**:
+  - Added `"Discover more projects!"` heading (`text-[1.5278vw] font-bold`) and `"Discover more"` link button with diagonal arrow vector (`w-[0.4879vw] h-[0.4879vw]`).
+- **Philosophy Section Hierarchy & Circular Seal Mark**:
+  - Reordered Philosophy to follow the "What's happening now" News Section.
+  - Converted to 2-column flex layout with manifesto text on the left and `NorqueCircleLogo` (`w-[6.1838vw]`) on the right.
+- **"Done by Humans" Section with Parallax**:
+  - Created `DoneByHumans.jsx` (`h-[49.0278vw]`, `mb-[10.8333vw]`).
+  - Extracted 12-glyph vector mark `DoneByHumansLogo.jsx` across the top (`w-[92.5243vw]`).
+  - Centered bottom statement block with circular brand mark and manifesto text in `MaskedWordStagger`.
+  - Added smooth background image parallax (`useScroll`, `useTransform` translateY -10% to +10%) with 130% bleed height, keeping text layers static.
+
+---
+
 ## Version 0.3.0 (Day 4 Complete)
 **Date:** October 22, 2026 (End of Day 4 Sprint)  
 **Status:** Home & About Pages 100% Finalized, Sequential Line-by-Line Stagger, Scroll Motion Blur Isolated

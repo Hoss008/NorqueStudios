@@ -9,6 +9,7 @@ const SERVICES = [
   'Brand Identity',
   'Website Design',
   'Web Development',
+  'Software Solutions',
   'Creative Strategy',
   'Graphic Design',
   'Product Design',

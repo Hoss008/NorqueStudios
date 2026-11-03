@@ -24,7 +24,7 @@ const MAGNET_LINES_CONFIG = {
   rainbow: false,             // Rainbow spectral color mode (true | false)
 
   // Motion & Physics
-  mode: 'orbit',              // Magnetic pattern: 'orbit' | 'attract' | 'spiral' | 'dipole'
+  mode: 'spiral',              // Magnetic pattern: 'orbit' | 'attract' | 'spiral' | 'dipole'
   radius: '13.8889vw',        // Radius of cursor interaction zone in vw
   reach: 0,                   // Effective distance lines follow cursor (0 = entire field)
   scatter: 0,                 // Random angle scatter at rest (0 to 1)

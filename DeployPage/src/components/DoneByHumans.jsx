@@ -8,7 +8,7 @@ import doneByHumansBg from '../assets/done-by-humans-bg.png';
 /* ========================================================================= */
 /* DONE BY HUMANS SECTION COMPONENT                                          */
 /* Full-bleed cinematic visual break with parallax background & manifesto   */
-/* Extracted 1:1 from Homepage.fig                                           */
+/* Extracted 1:1 from Homepage.fig (pure flat aesthetics, zero shadows)      */
 /* ========================================================================= */
 export default function DoneByHumans() {
   const containerRef = useRef(null);
@@ -39,13 +39,10 @@ export default function DoneByHumans() {
           />
         </motion.div>
 
-        {/* Subtle dark gradient overlay to ensure text contrast matching Figma highlights/shadows */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/40 pointer-events-none z-[1]" />
-
         {/* ─── 2. Top "DONE BY HUMANS" Vector Mark (Static, unaffected by parallax) ─── */}
         <div className="relative z-10 w-full pt-[4.1667vw] px-[3.737vw] flex justify-center motion-blur-target">
           <div className="w-full max-w-[92.5243vw]">
-            <DoneByHumansLogo className="w-full h-auto text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]" />
+            <DoneByHumansLogo className="w-full h-auto text-white" />
           </div>
         </div>
 
@@ -53,7 +50,7 @@ export default function DoneByHumans() {
         <div className="relative z-10 w-full pb-[4.1667vw] px-[0.8333vw] flex flex-col items-center motion-blur-target">
           {/* Centered Circle Mark (47.27px / 1440px = 3.2825vw) */}
           <div className="w-[3.2825vw] h-auto mb-[1.8056vw]">
-            <NorqueCircleLogo className="w-full h-auto text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]" />
+            <NorqueCircleLogo className="w-full h-auto text-white" />
           </div>
 
           {/* Centered Manifesto Statement (887px / 1440px = 61.5979vw) */}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import newsLithuania from '../assets/news-lithuania.png';
 import newsSaudi from '../assets/news-saudi.png';
 import newsIdentity from '../assets/news-identity.png';
@@ -6,7 +7,8 @@ import projectAxis from '../assets/project-axis.png';
 
 /* ========================================================================= */
 /* NEWS SECTION COMPONENT                                                    */
-/* "WHAT’S HAPPENING NOW" static 4-column studio updates showcase            */
+/* "WHAT’S HAPPENING NOW" 4-column studio updates showcase                   */
+/* Smooth simultaneous reveal animation for all cards                         */
 /* ========================================================================= */
 const newsItems = [
   {
@@ -35,6 +37,35 @@ const newsItems = [
   },
 ];
 
+// Container variant - reveals all child cards simultaneously without stagger
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      delayChildren: 0.05,
+    },
+  },
+};
+
+// Smooth card animation variant:
+// Initial state: y = -50px, Opacity = 0%
+// Final state: y = 0px, Opacity = 100%
+// Silky smooth easing with fluid deceleration
+const cardVariants = {
+  hidden: {
+    y: -50,
+    opacity: 0,
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.9,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
+
 export default function NewsSection() {
   return (
     <section className="w-full bg-black pt-[2.7778vw] pb-[8.3333vw]">
@@ -50,10 +81,20 @@ export default function NewsSection() {
           </span>
         </div>
 
-        {/* Static 4-Column Updates Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[0.8333vw]">
+        {/* 4-Column Updates Grid with Smooth Simultaneous Reveal Animation */}
+        <motion.div 
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[0.8333vw]"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+        >
           {newsItems.map((item) => (
-            <article key={item.id} className="w-full">
+            <motion.article 
+              key={item.id} 
+              variants={cardVariants}
+              className="w-full will-change-[transform,opacity]"
+            >
               {/* Image Frame - Static with no zoom hover animation */}
               <div className="w-full overflow-hidden rounded-[0.1389vw] bg-[#121212]">
                 <img 
@@ -73,9 +114,9 @@ export default function NewsSection() {
                   {item.description}
                 </p>
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -75,6 +75,15 @@ export default function Navbar({
   /* ─── State: Cairo/Egypt Live GMT Clock ─── */
   const [egyptTime, setEgyptTime] = useState('');
 
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname);
+    }
+    window.location.href = window.location.pathname;
+    window.location.reload();
+  };
+
   const handleLinkClick = (page, sectionId) => (e) => {
     e.preventDefault();
     if (onNavigate) {
@@ -149,11 +158,11 @@ export default function Navbar({
       transition={transitionConfig}
     >
       <div className="w-full grid grid-cols-4 items-center">
-        {/* Column 1: Compact Vector Logo */}
+        {/* Column 1: Compact Vector Logo (NRQ STDS - Reload to home page) */}
         <div className="flex items-center">
           <a 
             href="#" 
-            onClick={handleLinkClick('home')}
+            onClick={handleLogoClick}
             className="inline-flex items-center cursor-pointer" 
             aria-label="Norque Studios Home"
           >

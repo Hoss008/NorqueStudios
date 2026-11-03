@@ -91,7 +91,7 @@ export default function SelectedWorks() {
 
           {/* CTA Link Button */}
           <a
-            href="https://www.behance.net"
+            href="https://www.behance.net/norquestudios/"
             target="_blank"
             rel="noopener noreferrer"
             className="group mt-[1.1111vw] inline-flex items-center gap-x-[0.2778vw] text-[0.6944vw] font-semibold tracking-[-0.03em] text-white hover:opacity-70 transition-opacity"

@@ -48,11 +48,11 @@ const MAGNET_LINES_CONFIG = {
 /* UNIVERSAL FOOTER COMPONENT                                                */
 /* Project inquiry callout, interactive magnet lines, vector logo & links    */
 /* ========================================================================= */
-export default function Footer() {
+export default function Footer({ onOpenCMS }) {
   return (
-    <footer id="contact" className="w-full bg-black motion-blur-target">
+    <footer id="contact" className="w-full min-h-screen bg-black motion-blur-target flex flex-col justify-between">
       {/* Universal Container Margin: 12px (0.8333vw) */}
-      <div className="w-full px-[0.8333vw]">
+      <div className="w-full px-[0.8333vw] flex flex-col justify-between flex-1">
         {/* ─── 1. Top Callout Section ─── */}
         <div className="border-t border-[#363636] pt-[1.6667vw]">
           <div className="max-w-[23.9583vw]">
@@ -70,15 +70,15 @@ export default function Footer() {
         </div>
 
         {/* ─── 2. Interactive Magnet Lines Element (Fits Red Box) ─── */}
-        <div className="w-full mt-[1.49vw] mb-[2.4vw] h-[28.05vw] overflow-hidden">
+        <div className="w-full my-[1.5vw] flex-1 min-h-[22vw] overflow-hidden flex flex-col">
           <MagnetLines
             {...MAGNET_LINES_CONFIG}
-            className="w-full h-full"
+            className="w-full flex-1"
           />
         </div>
 
         {/* ─── 3. Bottom Giant Brand Mark & Legal Directory ─── */}
-        <div>
+        <div className="w-full">
           {/* Full-Width Brand Vector */}
           <div className="w-full mb-[0.6944vw]">
             <MainLogo className="w-full h-auto text-white" />
@@ -122,6 +122,16 @@ export default function Footer() {
               <a href="#privacy" className="text-[#797979] hover:text-white transition-colors">
                 • privacy &amp; policy
               </a>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onOpenCMS) onOpenCMS();
+                }}
+                className="text-[#797979] hover:text-white transition-colors cursor-pointer select-none"
+              >
+                • CMS
+              </button>
             </div>
 
             {/* Copyright */}

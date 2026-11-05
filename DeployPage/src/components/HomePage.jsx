@@ -16,7 +16,8 @@ export default function HomePage({
   onNavigate, 
   hasIntroPlayed = false, 
   onIntroComplete,
-  onBoxRevealComplete 
+  onBoxRevealComplete,
+  onOpenCMS
 }) {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -47,7 +48,7 @@ export default function HomePage({
       <DoneByHumans />
 
       {/* 7. Universal Footer: Contact callout, brand mark & directory */}
-      <Footer />
+      <Footer onOpenCMS={onOpenCMS} />
     </div>
   );
 }

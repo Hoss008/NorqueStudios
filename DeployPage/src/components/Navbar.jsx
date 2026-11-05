@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import CompactLogo from './CompactLogo';
 
@@ -7,17 +7,19 @@ import CompactLogo from './CompactLogo';
 /* Words stagger upward while duplicated masked words rise from below        */
 /* Reference: References/Hover Stagger reference.mp4                         */
 /* ========================================================================= */
-function StaggeredNavButton({ label, onClick }) {
+function StaggeredNavButton({ label, onClick, hasUnderline = false }) {
   const [isHovered, setIsHovered] = useState(false);
   const words = label.split(' ');
 
   return (
     <a
-      href={`#${label.toLowerCase()}`}
+      href={`#${label.toLowerCase().replace(/\s+/g, '-')}`}
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative inline-flex items-center text-[0.5556vw] font-semibold tracking-normal text-white uppercase cursor-pointer select-none py-[0.1vw]"
+      className={`relative inline-flex items-center text-[0.5556vw] font-semibold tracking-normal text-white uppercase cursor-pointer select-none py-[0.1vw] ${
+        hasUnderline ? 'border-b border-white pb-[0.05vw]' : ''
+      }`}
     >
       <span className="inline-flex overflow-hidden leading-tight">
         {words.map((word, index) => (
@@ -74,6 +76,13 @@ export default function Navbar({
 }) {
   /* ─── State: Cairo/Egypt Live GMT Clock ─── */
   const [egyptTime, setEgyptTime] = useState('');
+  const hasRevealedOnceRef = useRef(false);
+
+  useEffect(() => {
+    if (isVisible && !hasRevealedOnceRef.current) {
+      hasRevealedOnceRef.current = true;
+    }
+  }, [isVisible]);
 
   const handleLogoClick = (e) => {
     e.preventDefault();
@@ -109,7 +118,7 @@ export default function Navbar({
         const second = parts.find(p => p.type === 'second')?.value || '00';
         const dayPeriod = parts.find(p => p.type === 'dayPeriod')?.value?.toUpperCase() || 'PM';
         
-        setEgyptTime(`EGYPT, ${hour}:${minute}:${second} ${dayPeriod} GMT+2 `);
+        setEgyptTime(`EGYPT, ${hour}:${minute}:${second} ${dayPeriod} GMT+2`);
       } catch (e) {
         setEgyptTime('EGYPT, 03:48:10 PM GMT+2');
       }
@@ -122,7 +131,7 @@ export default function Navbar({
   /* ─── Transition & Entrance Configurations ─── */
   const navOpacity = isPageTransitioning ? 0 : (isVisible ? 1 : 0);
   const navY = isPinned ? (isVisible ? 0 : '-100%') : (isIntroStarted ? 0 : -50);
-  const isHomeFirstReveal = !isPageTransitioning && activePage === 'home' && isVisible;
+  const isHomeFirstReveal = !isPageTransitioning && activePage === 'home' && isVisible && !hasRevealedOnceRef.current;
 
   const transitionConfig = {
     y: {
@@ -131,7 +140,7 @@ export default function Navbar({
       delay: isHomeFirstReveal ? 0.5 : 0,
     },
     opacity: {
-      duration: isHomeFirstReveal ? 0.8 : 0.35,
+      duration: isPageTransitioning ? 0.65 : (isHomeFirstReveal ? 0.8 : 0.35),
       ease: [0, 0.8, 0.2, 1],
       delay: isHomeFirstReveal ? 0.5 : 0,
     },
@@ -178,7 +187,7 @@ export default function Navbar({
           />
           <StaggeredNavButton 
             label="WORKS" 
-            onClick={handleLinkClick('home', 'works')} 
+            onClick={handleLinkClick('works')} 
           />
           <StaggeredNavButton 
             label="SERVICES" 
@@ -186,14 +195,20 @@ export default function Navbar({
           />
         </nav>
 
-        {/* Column 3: Grid Balance Spacer */}
-        <div></div>
-
-        {/* Column 4: Egypt Live GMT Time */}
-        <div className="text-right">
+        {/* Column 3: Egypt Live GMT Time (Left-aligned in column 3 matching Home Page Hero.png) */}
+        <div className="flex items-center">
           <span className="text-[0.5556vw] font-semibold tracking-[-0.03em] text-white tabular-nums select-none uppercase">
             {egyptTime || 'EGYPT, 03:48:10 PM GMT'}
           </span>
+        </div>
+
+        {/* Column 4: Contact Us CTA with Underline (Right-aligned in column 4) */}
+        <div className="flex items-center justify-end">
+          <StaggeredNavButton 
+            label="CONTACT US" 
+            onClick={handleLinkClick(activePage, 'contact')} 
+            hasUnderline={true}
+          />
         </div>
       </div>
     </motion.header>

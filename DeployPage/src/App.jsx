@@ -3,6 +3,8 @@ import Lenis from 'lenis';
 import { motion, AnimatePresence } from 'framer-motion';
 import HomePage from './components/HomePage';
 import AboutPage from './components/AboutPage';
+import WorksPage from './components/WorksPage';
+import WorksCMSModal from './components/WorksCMSModal';
 import SplashScreen from './components/SplashScreen';
 import Navbar from './components/Navbar';
 
@@ -20,6 +22,8 @@ export default function App() {
   const [isIntroStarted, setIsIntroStarted] = useState(globalIntroHasPlayed);
   const [isBoxRevealComplete, setIsBoxRevealComplete] = useState(false);
   const [isSplashComplete, setIsSplashComplete] = useState(globalIntroHasPlayed);
+  const [isNavScrollVisible, setIsNavScrollVisible] = useState(true);
+  const [isCmsOpen, setIsCmsOpen] = useState(false);
   const lenisRef = useRef(null);
 
   /* ─── Intro Animation Synchronization ─── */
@@ -120,6 +124,7 @@ export default function App() {
     setIsPageTransitioning(true);
     setPendingSection(sectionId);
     setCurrentPage(targetPage);
+    setIsNavScrollVisible(true);
   };
 
   useEffect(() => {
@@ -145,11 +150,35 @@ export default function App() {
     let targetBlur = 0;
     let currentBlur = 0;
     let animationFrameId = null;
+    let lastScrollY = 0;
+    let accumulatedDelta = 0;
 
-    lenis.on('scroll', ({ velocity }) => {
+    lenis.on('scroll', ({ velocity, scroll }) => {
       // Map scroll velocity to an intensified vertical blur (clamped up to 3.8px)
       const absV = Math.abs(velocity || 0);
       targetBlur = Math.min(absV * 0.22, 3.8);
+
+      const currentScroll = scroll;
+      const diff = currentScroll - lastScrollY;
+
+      if (currentScroll <= 15) {
+        setIsNavScrollVisible(true);
+        accumulatedDelta = 0;
+      } else if (diff > 0) {
+        // Scrolling down: hide when accumulated downward movement exceeds 10px
+        accumulatedDelta = Math.max(0, accumulatedDelta) + diff;
+        if (accumulatedDelta > 10) {
+          setIsNavScrollVisible(false);
+        }
+      } else if (diff < 0) {
+        // Scrolling up a tiny bit: reappear when upward movement exceeds 8px
+        accumulatedDelta = Math.min(0, accumulatedDelta) + diff;
+        if (accumulatedDelta < -8) {
+          setIsNavScrollVisible(true);
+        }
+      }
+
+      lastScrollY = currentScroll;
     });
 
     function raf(time) {
@@ -201,10 +230,23 @@ export default function App() {
           }
         }
         setPendingSection(null);
-      }, 550);
+      }, 750);
       return () => clearTimeout(timer);
     }
   }, [currentPage, pendingSection]);
+
+  // Handle Lenis and document overflow lock for no-scroll pages (e.g. Works page)
+  useEffect(() => {
+    if (currentPage === 'works') {
+      if (lenisRef.current) lenisRef.current.stop();
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    } else if (isSplashComplete) {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      if (lenisRef.current) lenisRef.current.start();
+    }
+  }, [currentPage, isSplashComplete]);
 
   /* ======================================================================= */
   /* MAIN RENDER WITH CINEMATIC PAGE TRANSITIONS                             */
@@ -217,7 +259,7 @@ export default function App() {
       {/* Pinned Global Header Navigation (36px = 2.5vw proportional ratio) */}
       <Navbar 
         isPinned={true}
-        isVisible={currentPage === 'about' || isBoxRevealComplete}
+        isVisible={(currentPage === 'about' || currentPage === 'works' || isBoxRevealComplete) && isNavScrollVisible}
         isIntroStarted={true}
         activePage={currentPage} 
         onNavigate={handleNavigate}
@@ -238,7 +280,7 @@ export default function App() {
 
       {/* ─── Page Content (Excludes Pinned Navbar and Pinned GIF) ─── */}
       <main className="w-full">
-        {/* Seamless Page Transition: Opacity-only crossfade (no scale distortion) */}
+        {/* Seamless Page Transition: Increased duration for cinematic, atmospheric crossfade */}
         <AnimatePresence 
           mode="wait"
           onExitComplete={() => {
@@ -246,6 +288,7 @@ export default function App() {
             if (lenisRef.current) {
               lenisRef.current.scrollTo(0, { immediate: true });
             }
+            setIsNavScrollVisible(true);
             setIsPageTransitioning(false);
           }}
         >
@@ -255,14 +298,14 @@ export default function App() {
             animate={{ 
               opacity: 1, 
               transition: {
-                duration: 0.35,
+                duration: 0.65,
                 ease: [0.4, 0, 0.2, 1]
               }
             }}
             exit={{ 
               opacity: 0, 
               transition: {
-                duration: 0.35,
+                duration: 0.65,
                 ease: [0.4, 0, 0.2, 1]
               }
             }}
@@ -274,13 +317,29 @@ export default function App() {
                 hasIntroPlayed={hasIntroPlayed}
                 onIntroComplete={handleIntroComplete}
                 onBoxRevealComplete={setIsBoxRevealComplete}
+                onOpenCMS={() => setIsCmsOpen(true)}
+              />
+            ) : currentPage === 'works' ? (
+              <WorksPage 
+                onNavigate={handleNavigate} 
+                onOpenCMS={() => setIsCmsOpen(true)} 
               />
             ) : (
-              <AboutPage onNavigate={handleNavigate} />
+              <AboutPage 
+                onNavigate={handleNavigate} 
+                onOpenCMS={() => setIsCmsOpen(true)} 
+              />
             )}
           </motion.div>
         </AnimatePresence>
       </main>
+
+      {/* ─── Works CMS Portfolio Management Modal ─── */}
+      <WorksCMSModal 
+        isOpen={isCmsOpen} 
+        onClose={() => setIsCmsOpen(false)} 
+        onNavigate={handleNavigate}
+      />
 
     </div>
   );

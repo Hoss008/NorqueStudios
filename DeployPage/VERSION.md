@@ -1,5 +1,76 @@
 # NORQUE STUDIOS™ — Version Log
 
+## Version 0.5.1 (Works CMS Management UI)
+**Date:** November 5, 2026  
+**Status:** Interactive Works CMS Modal Added, Direct UI Project Management (Add, Drop, Edit, Reorder), Footer Access Button, Real-Time Synchronized State
+
+### Key Deliverables in 0.5.1
+- **Universal Footer CMS Access**:
+  - Added `"• CMS"` action button immediately after `"• privacy & policy"` in [`Footer.jsx`](./src/components/Footer.jsx).
+  - Also added quick-access `CMS` trigger on the Works Page navigation header for convenience.
+- **Interactive Studio CMS UI (`WorksCMSModal.jsx`)**:
+  - Full-featured studio portfolio manager matching Norque Studios dark design language.
+  - **Add New Project**: Interactive form with Title, Location, Category dropdown & custom input, Year, Subtitle, Drag & Drop image file upload with immediate preview, and custom Tag/Badge with color presets (`#171717`, `#a87f2f`, `#ffffff`, etc.).
+  - **Drop / Delete Project**: Instant project removal with confirmation.
+  - **Edit Project**: Update any existing project fields in place.
+  - **Reorder Projects**: `▲` and `▼` controls to reorder projects on the slider and list view.
+  - **Export JSON**: Download updated `works.json` file with 1 click.
+  - **Reset Defaults**: Option to restore initial 5 Figma projects anytime.
+- **Persistent State Store (`worksStore.js`)**:
+  - Automatically persists changes in `localStorage` and triggers synchronized updates across components without requiring a page refresh.
+  - Leaves the Homepage *Selected Works* completely unaffected.
+
+---
+
+## Version 0.5.0 (Works Page Implementation)
+**Date:** November 5, 2026  
+**Status:** Standalone Works Page 1:1 Implementation from 'Works Page.fig', Fixed Viewport Zero-Scroll Dashboard, Interactive Horizontal Slider & Full-Width List View Toggle
+
+### Key Deliverables in 0.5.0
+- **Standalone Works Page Component (`WorksPage.jsx`)**:
+  - Converted `References/Works Page.fig` 1:1 into a dedicated full-bleed viewport dashboard.
+  - **Zero Vertical Page Overflow**: Strictly locked to 100% viewport height (`h-screen overflow-hidden`) with zero vertical scrolling permitted. Lenis smooth scroll and document overflow automatically paused/disabled when entering Works page.
+- **Header & Category Controls Bar**:
+  - `WORKS` title in Beausite Classic Semibold (`46px` / `3.1944vw`, `tracking-[-0.03em]`, uppercase white).
+  - Category Filter Tabs (`All`, `Websites`, `Branding`) in Beausite Classic Semibold (`22px` / `1.5278vw`) with active underline animation and muted inactive state (`#6f6f6f`).
+  - View Toggle Pill Buttons (`LIST` / `SLIDER`) with active/inactive pill styling.
+  - Column 4 Right-aligned indicator: `"SCROLL TO SEE MORE"` / project count.
+- **Projects Horizontal Slider (`SLIDER` Mode)**:
+  - 5 project cards extracted directly from Figma assets:
+    1. `STUDIO JUZENAS®` (Lithuania, Websites)
+    2. `AXIS® RE` (Egypt, Branding, with `IN THE WORKS` badge)
+    3. `MMS ARCHITECTS™` (Italy, Websites, with `AWARDED` amber badge)
+    4. `FUSION FORM®` (Egypt, Branding)
+    5. `AXIS® - Real Estate Consultancy` (Egypt, Branding, with `Brand Development` subtitle)
+  - Card aspect ratio `345/230` (`1.5`), `rounded-[2px]`, subtle border, image hover zoom (`scale-[1.03]`).
+  - Smooth horizontal navigation: supports Framer Motion horizontal drag constraints (`drag="x"`), elastic bounce, and native mouse wheel / trackpad horizontal gliding.
+- **Clean Table List View (`LIST` Mode)**:
+  - Toggle to an elegant full-width table view with columns `#`, `PROJECT`, `CATEGORY`, `LOCATION`, and `YEAR`.
+  - Micro-interactions: row hover highlights and floating thumbnail preview capsule.
+- **Global Navigation & Routing Integration**:
+  - Updated `Navbar.jsx` so `"WORKS"` routes directly to `WorksPage` (`currentPage === 'works'`).
+  - Pinned navbar visible with seamless in-place opacity crossfade transitions.
+
+---
+
+## Version 0.4.1 (Day 6 Sprint: Hero & Navigation Polish)
+**Date:** November 5, 2026  
+**Status:** Hero Repositioning & Sequenced Stagger, Scroll-Direction Responsive Navbar, Extended Cinematic Page Transitions, 100vh Full Viewport Footer
+
+### Key Deliverables in 0.4.1
+- **Hero Middle Statement Sequenced Stagger**:
+  - Repositioned `"BUILT FOR BRANDS THAT WANT / SOMETHING REAL"` and `"CREATING WORLDWIDE ©"` to `top-[44.53%]` matching `Home Page Hero.png` 1:1.
+  - Stagger animation chained to reveal exactly `0.5s` after `"NORQUE STUDIOS™"` begins rising, masked below `{ y: "105%", opacity: 0 }` so it remains completely hidden until triggered.
+- **Scroll-Direction Responsive Navbar**:
+  - Pinned navbar automatically hides on scroll down (`y: -100%`, `opacity: 0`) and slides into view upon scrolling up a tiny bit (`y: 0`, `opacity: 1`) using the signature `[0, 0.8, 0.2, 1]` curve.
+  - Cairo GMT clock relocated to Column 3 (50.8% width) and added `"CONTACT US"` CTA with clean underline in Column 4 matching reference 1:1.
+- **Cinematic Page Transitions**:
+  - Extended in-place opacity crossfade from `0.35s` to `0.65s` (`ease: [0.4, 0, 0.2, 1]`) with synchronized navbar fading for a more atmospheric, luxury feel.
+- **100vh Viewport-Filling Footer**:
+  - Configured footer with `min-h-screen flex flex-col justify-between`, expanding the interactive MagnetLines canvas (`flex-1`) to fill the entire screen height when scrolled all the way to the bottom.
+
+---
+
 ## Version 0.4.0 (Day 5 Complete)
 **Date:** November 2, 2026 (End of Day 5 Sprint)  
 **Status:** Design Revisions Complete, Selected Works CTA, Philosophy Repositioning & Circular Seal, "Done by Humans" with Parallax, Zero-Opacity Stagger, Splash Scroll Guard, MagnetLines Resolution Consistency

@@ -1,0 +1,84 @@
+- generic [ref=e3]:
+  - banner [ref=e489]:
+    - generic [ref=e490]:
+      - link "Norque Studios Home" [ref=e492] [cursor=pointer]:
+        - /url: "#"
+      - navigation "Main Navigation" [ref=e503]:
+        - link "ABOUT" [ref=e504] [cursor=pointer]:
+          - /url: "#about"
+          - generic [ref=e506]:
+            - generic [ref=e507]: ABOUT
+            - generic [aria-hidden] [ref=e508]: ABOUT
+        - link "WORKS" [ref=e509] [cursor=pointer]:
+          - /url: "#works"
+          - generic [ref=e511]:
+            - generic [ref=e512]: WORKS
+            - generic [aria-hidden] [ref=e513]: WORKS
+        - link "SERVICES" [ref=e514] [cursor=pointer]:
+          - /url: "#services"
+          - generic [ref=e516]:
+            - generic [ref=e517]: SERVICES
+            - generic [aria-hidden] [ref=e518]: SERVICES
+      - generic [ref=e519]: EGYPT, 08:35:45 PM GMT+2
+      - link "CONTACT US" [ref=e522] [cursor=pointer]:
+        - /url: "#contact-us"
+        - generic [ref=e523]:
+          - generic [ref=e524]:
+            - generic [ref=e525]: CONTACT
+            - generic [aria-hidden] [ref=e526]: CONTACT
+          - generic [ref=e527]:
+            - generic [ref=e528]: US
+            - generic [aria-hidden] [ref=e529]: US
+  - main [ref=e15]:
+    - generic [ref=e533]:
+      - generic [ref=e534]:
+        - heading "WORKS" [level=1] [ref=e536]
+        - generic [ref=e537]:
+          - generic [ref=e538]:
+            - generic [ref=e539]:
+              - button "All" [ref=e540] [cursor=pointer]
+              - button "Websites" [ref=e542] [cursor=pointer]
+              - button "Branding" [ref=e543] [cursor=pointer]
+            - generic [ref=e545]:
+              - button "LIST" [ref=e546] [cursor=pointer]
+              - button "SLIDER" [ref=e547] [cursor=pointer]
+          - generic [ref=e548]:
+            - generic [ref=e549]: SCROLL TO SEE MORE
+            - button "CMS" [ref=e550] [cursor=pointer]
+      - generic [ref=e553]:
+        - generic [ref=e554]:
+          - img "NEXUS STUDIO®" [ref=e556]
+          - generic [ref=e557]:
+            - generic [ref=e558]: NEXUS STUDIO®
+            - generic [ref=e560]: BERLIN
+        - generic [ref=e561]:
+          - img "STUDIO JUZENAS®" [ref=e563]
+          - generic [ref=e564]:
+            - generic [ref=e565]: STUDIO JUZENAS®
+            - generic [ref=e567]: LITHUANIA
+        - generic [ref=e568]:
+          - generic [ref=e569]:
+            - img "AXIS® RE" [ref=e570]
+            - generic [ref=e571]: IN THE WORKS
+          - generic [ref=e573]:
+            - generic [ref=e574]: AXIS® RE
+            - generic [ref=e576]: Egypt
+        - generic [ref=e577]:
+          - generic [ref=e578]:
+            - img "MMS ARCHITECTS™" [ref=e579]
+            - generic [ref=e580]: AWARDED
+          - generic [ref=e582]:
+            - generic [ref=e583]: MMS ARCHITECTS™
+            - generic [ref=e585]: italy
+        - generic [ref=e586]:
+          - img "FUSION FORM®" [ref=e588]
+          - generic [ref=e589]:
+            - generic [ref=e590]: FUSION FORM®
+            - generic [ref=e592]: Egypt
+        - generic [ref=e593]:
+          - img "AXIS® - Real Estate Consultancy" [ref=e595]
+          - generic [ref=e596]:
+            - generic [ref=e597]:
+              - generic [ref=e598]: AXIS® - Real Estate Consultancy
+              - generic [ref=e599]: Brand Development
+            - generic [ref=e600]: Egypt

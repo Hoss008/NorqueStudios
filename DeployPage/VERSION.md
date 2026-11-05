@@ -1,5 +1,59 @@
 # NORQUE STUDIOS™ — Version Log
 
+## Version 0.6.0 (Dedicated Project Showcase Pages: MMS Architects & AXIS RE)
+**Date:** November 5, 2026  
+**Status:** 1:1 Implementation of 'MMS Page.fig' and 'Axis Page.fig', Full Cross-Linking between Homepage, Works Page, and Project Showcase Pages, Smooth Navigation and Next Project Routing
+
+### Key Deliverables in 0.6.0
+- **MMS Architects™ Case Study Showcase (`MmsProjectPage.jsx`)**:
+  - 1:1 faithful implementation matching `References/MMS Page.fig` (1440x6282).
+  - **Hero Media**: Full-width architectural hero header (`1440x473`).
+  - **4-Column Metadata Table & Studio Overview Manifesto**:
+    - Project Title: `MMS ARCHITECTS™ / Architecture Studio`.
+    - Metadata: Year `2025`, Location `Italy`, Tags `Brand Development, Content Direction`, Purpose `Architecture Studio`.
+    - Detailed studio philosophy manifesto set in Beausite Classic regular.
+  - **Showcase Gallery Rows**:
+    - Row 1: Brand Stationery & Business Cards composition (`1416x709`).
+    - Row 2: Ribbon Structure graphic lockup (`1416x1100`).
+    - Row 3: Centered editorial quote callout.
+    - Row 4: Printed portfolio booklet and catalog mockup (`1416x944`).
+    - Row 5: MMS giant typographic identity structure (`1416x796`).
+    - Row 6: Brand mark variants and color systems (`1416x682`).
+    - Row 7: Brand standards composition & water crystal visual identity (`1416x709`).
+  - **Next Project & Return Navigation**:
+    - `← Back to Works`: Returns directly to the Works page.
+    - `Next Project: AXIS® RE →`: Instantly opens the AXIS project showcase.
+  - **Integrated Universal Footer**: Contact callout, brand mark, directory navigation, and CMS access.
+
+- **AXIS® RE Case Study Showcase (`AxisProjectPage.jsx`)**:
+  - 1:1 faithful implementation matching `References/Axis Page.fig` (1440x5810).
+  - **Hero Media**: Full-bleed gold star emblem hero header (`1440x473`).
+  - **4-Column Metadata Table & Studio Overview Manifesto**:
+    - Project Title: `AXIS® — RE / Real Estate Company`.
+    - Metadata: Year `2026`, Location `Egypt`, Tags `Brand Development, Content Direction`, Purpose `Real Estate Company`.
+    - High-level commercial destination manifesto set in Beausite Classic regular.
+  - **Showcase Gallery Rows**:
+    - Row 1: Brand Identity & stationery envelope mockup (`1416x709`).
+    - Row 2: Split 2-column grid (`703x546` each) featuring crimson emblem lockup & clean white emblem lockup.
+    - Row 3: Centered editorial quote callout.
+    - Row 4: Graphic emblem on white background (`1416x648`).
+    - Row 5: Giant cropped AXIS typographic branding structure (`1416x796`).
+    - Row 6: Split 2-column grid (`703x339` each) displaying black luxury business card & stationery detail.
+    - Row 7: Monochrome light & shadow architectural texture (`1416x709`).
+    - Row 8: Outdoor architectural billboard banners (`1416x709`).
+  - **Next Project & Return Navigation**:
+    - `← Back to Works`: Returns directly to the Works page.
+    - `Next Project: MMS ARCHITECTS™ →`: Instantly opens the MMS project showcase.
+  - **Integrated Universal Footer**: Contact callout, brand mark, directory navigation, and CMS access.
+
+- **Universal Project Linking**:
+  - **Homepage**: Clicking the MMS or Axis cards in the Selected Works section (`SelectedWorks.jsx`) immediately opens their respective project showcase pages with a smooth 0.65s atmospheric crossfade.
+  - **Works Page**: Clicking MMS or Axis cards in the horizontal slider (`SLIDER` mode) or in the table rows (`LIST` mode) immediately navigates to their respective showcase pages.
+  - **Back Navigation**: Returning to Works from any project automatically restores the fixed zero-scroll dashboard state and preserves user preferences.
+  - **Lenis Smooth Scroll Sync**: Automatically unlocks vertical scrolling when viewing project showcase pages, and locks overflow when returning to the Works page.
+
+---
+
 ## Version 0.5.1 (Works CMS Management UI)
 **Date:** November 5, 2026  
 **Status:** Interactive Works CMS Modal Added, Direct UI Project Management (Add, Drop, Edit, Reorder), Footer Access Button, Real-Time Synchronized State

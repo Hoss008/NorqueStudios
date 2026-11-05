@@ -36,7 +36,7 @@ export default function HomePage({
       <Showcase onRevealCompleteChange={onBoxRevealComplete} />
 
       {/* 3. Selected Works: 4-project 2-column showcase grid with CTA */}
-      <SelectedWorks />
+      <SelectedWorks onNavigate={onNavigate} />
 
       {/* 4. News Section: "What's happening now" interactive infinite carousel */}
       <NewsSection />

@@ -39,7 +39,20 @@ const projects = [
   },
 ];
 
-export default function SelectedWorks() {
+export default function SelectedWorks({ onNavigate }) {
+  const handleProjectClick = (project) => {
+    if (!onNavigate) return;
+    const id = project.id?.toLowerCase() || '';
+    const title = project.title?.toLowerCase() || '';
+    if (id.includes('mms') || title.includes('mms')) {
+      onNavigate('project-mms');
+    } else if (id.includes('axis') || title.includes('axis')) {
+      onNavigate('project-axis');
+    } else {
+      onNavigate('works');
+    }
+  };
+
   return (
     <section id="works" className="w-full bg-black py-[2.7778vw]">
       {/* Universal Container Margin: 12px (0.8333vw) */}
@@ -53,7 +66,11 @@ export default function SelectedWorks() {
         {/* 2-Column Responsive Portfolio Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[0.8333vw] gap-y-[2.5vw]">
           {projects.map((project) => (
-            <article key={project.id} className="group cursor-pointer">
+            <article 
+              key={project.id} 
+              onClick={() => handleProjectClick(project)}
+              className="group cursor-pointer"
+            >
               {/* Media Card */}
               <div className="w-full overflow-hidden rounded-[0.1389vw] bg-[#121212]">
                 <img 
@@ -90,28 +107,31 @@ export default function SelectedWorks() {
           </h3>
 
           {/* CTA Link Button */}
-          <a
-            href="https://www.behance.net"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group mt-[1.1111vw] inline-flex items-center gap-x-[0.2778vw] text-[0.6944vw] font-semibold tracking-[-0.03em] text-white hover:opacity-70 transition-opacity"
+          <button
+            type="button"
+            onClick={() => onNavigate && onNavigate('works')}
+            className="group mt-[1.1111vw] inline-flex items-center gap-x-[0.2778vw] text-[0.6944vw] font-semibold tracking-[-0.03em] text-white hover:opacity-70 transition-opacity cursor-pointer"
           >
             <span className="underline underline-offset-[0.2083vw] decoration-white">
               Discover more
             </span>
-            {/* 7.025px x 7.025px diagonal up-right arrow extracted from Homepage.fig */}
+            {/* 45-degree arrow vector */}
             <svg 
-              viewBox="0 0 7.03 7.03" 
+              className="w-[0.4879vw] h-[0.4879vw] text-white transition-transform duration-300 group-hover:translate-x-[0.1vw] group-hover:-translate-y-[0.1vw]" 
+              viewBox="0 0 10 10" 
               fill="none" 
               xmlns="http://www.w3.org/2000/svg"
-              className="w-[0.4879vw] h-[0.4879vw] shrink-0 text-white transition-transform duration-300 group-hover:translate-x-[0.0694vw] group-hover:-translate-y-[0.0694vw]"
+              aria-hidden="true"
             >
               <path 
-                d="M0 6.17L4.97 1.2L1.06 1.2L1.06 0L7.03 0L7.03 5.96L5.82 5.96L5.82 2.05L0.85 7.03L0 6.17Z" 
-                fill="currentColor" 
+                d="M1 9L9 1M9 1H2M9 1V8" 
+                stroke="currentColor" 
+                strokeWidth="1.5" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
               />
             </svg>
-          </a>
+          </button>
         </div>
       </div>
     </section>

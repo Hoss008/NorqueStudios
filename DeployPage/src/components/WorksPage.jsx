@@ -53,6 +53,18 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
     });
   }, [works, activeCategory]);
 
+  /* ─── Project Navigation Handler ─── */
+  const handleProjectClick = (project) => {
+    if (!onNavigate) return;
+    const id = (project.id || '').toLowerCase();
+    const title = (project.title || '').toLowerCase();
+    if (id.includes('mms') || title.includes('mms')) {
+      onNavigate('project-mms');
+    } else if (id.includes('axis') || title.includes('axis')) {
+      onNavigate('project-axis');
+    }
+  };
+
   /* ─── Calculate Drag & Scroll Bounds ─── */
   const [maxDrag, setMaxDrag] = useState(0);
 
@@ -252,7 +264,8 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
                   {filteredProjects.map((project, index) => (
                     <motion.div
                       key={project.id}
-                      className="flex-shrink-0 w-[23.9583vw] group select-none"
+                      onClick={() => handleProjectClick(project)}
+                      className="flex-shrink-0 w-[23.9583vw] group select-none cursor-pointer"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ 
@@ -330,6 +343,7 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
                   {filteredProjects.map((project, idx) => (
                     <motion.div
                       key={project.id}
+                      onClick={() => handleProjectClick(project)}
                       onMouseEnter={() => setHoveredListProject(project)}
                       onMouseLeave={() => setHoveredListProject(null)}
                       className="group w-full grid grid-cols-12 items-center py-[0.9vw] transition-colors duration-200 hover:bg-white/[0.02] cursor-pointer"

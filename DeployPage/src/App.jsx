@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import HomePage from './components/HomePage';
 import AboutPage from './components/AboutPage';
 import WorksPage from './components/WorksPage';
+import MmsProjectPage from './components/projects/MmsProjectPage';
+import AxisProjectPage from './components/projects/AxisProjectPage';
 import WorksCMSModal from './components/WorksCMSModal';
 import SplashScreen from './components/SplashScreen';
 import Navbar from './components/Navbar';
@@ -259,7 +261,7 @@ export default function App() {
       {/* Pinned Global Header Navigation (36px = 2.5vw proportional ratio) */}
       <Navbar 
         isPinned={true}
-        isVisible={(currentPage === 'about' || currentPage === 'works' || isBoxRevealComplete) && isNavScrollVisible}
+        isVisible={(currentPage === 'about' || currentPage === 'works' || currentPage === 'project-mms' || currentPage === 'project-axis' || isBoxRevealComplete) && isNavScrollVisible}
         isIntroStarted={true}
         activePage={currentPage} 
         onNavigate={handleNavigate}
@@ -321,6 +323,16 @@ export default function App() {
               />
             ) : currentPage === 'works' ? (
               <WorksPage 
+                onNavigate={handleNavigate} 
+                onOpenCMS={() => setIsCmsOpen(true)} 
+              />
+            ) : currentPage === 'project-mms' ? (
+              <MmsProjectPage 
+                onNavigate={handleNavigate} 
+                onOpenCMS={() => setIsCmsOpen(true)} 
+              />
+            ) : currentPage === 'project-axis' ? (
+              <AxisProjectPage 
                 onNavigate={handleNavigate} 
                 onOpenCMS={() => setIsCmsOpen(true)} 
               />

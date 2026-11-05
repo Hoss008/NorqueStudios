@@ -151,7 +151,11 @@ export default function Navbar({
     <motion.header 
       className={`${
         isPinned 
-          ? 'fixed top-0 left-0 right-0 z-40 bg-black/60 backdrop-blur-md' 
+          ? `fixed top-0 left-0 right-0 z-40 ${
+              activePage === 'project-mms' || activePage === 'project-axis'
+                ? 'bg-transparent'
+                : 'bg-black/60 backdrop-blur-md'
+            }` 
           : 'w-full z-20'
       } h-[2.5vw] px-[0.8333vw] flex items-center transition-colors duration-300`}
       style={{ pointerEvents: isPinned && (!isVisible || isPageTransitioning) ? 'none' : 'auto' }}

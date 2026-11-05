@@ -254,7 +254,13 @@ export default function App() {
   /* MAIN RENDER WITH CINEMATIC PAGE TRANSITIONS                             */
   /* ======================================================================= */
   return (
-    <div className="relative min-h-screen bg-black text-white font-beausite selection:bg-white selection:text-black overflow-x-clip">
+    <div className={`relative min-h-screen ${
+      currentPage === 'project-mms' 
+        ? 'bg-[#0a0e17]' 
+        : currentPage === 'project-axis' 
+          ? 'bg-[#170103]' 
+          : 'bg-black'
+    } text-white font-beausite selection:bg-white selection:text-black overflow-x-clip`}>
       {/* Initial splash screen on page load */}
       {!globalIntroHasPlayed && <SplashScreen onComplete={handleSplashComplete} />}
 

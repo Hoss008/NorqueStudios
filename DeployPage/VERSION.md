@@ -1,5 +1,31 @@
 # NORQUE STUDIOS™ — Version Log
 
+## Version 0.6.1 (Strict 1:1 Figma Design Alignment for Project Showcases)
+**Date:** November 5, 2026  
+**Status:** Strict 1:1 Alignment with 'MMS Page.fig' and 'Axis Page.fig', Background Colors (#0a0e17 and #170103), Full-Bleed Hero Behind Transparent Navbar, 100vh Entry Screen, Exact Metadata Table Typography, Removed Improvised Footers & Navigation Buttons
+
+### Key Refinements in 0.6.1
+- **Exact Background Color Fidelity**:
+  - MMS Page: Applied exact deep midnight navy `bg-[#0a0e17]` (`rgba(10, 14, 23, 1)`) matching `fillPaints` on `PROJECT /1`.
+  - AXIS Page: Applied exact deep crimson `bg-[#170103]` (`rgba(23, 1, 3, 1)`) matching `fillPaints` on `PROJECT /2`.
+- **Hero Image Fills Navbar**:
+  - Removed artificial top spacer; hero images start at `top: 0` directly behind the pinned navbar.
+  - Transparent navbar overlay (`bg-transparent`) on project pages allows hero imagery to shine through completely.
+- **100% Viewport Height Entry Screen (`h-screen flex flex-col justify-between`)**:
+  - When entering either showcase page, the hero image and the project data beneath it precisely fill 100% of the viewport height.
+  - Subsequent gallery rows sit cleanly below the initial fold.
+- **Tight Gap Alignment**:
+  - Revised the gap between the hero image and project info to the exact Figma specification (`12px` / `0.8333vw`).
+- **Exact Metadata Typography & Structure**:
+  - Removed artificial borders and dividing lines.
+  - Aligned metadata rows with fixed 119px label column and pure white `#ffffff` typography in `10px` (`0.6944vw`) Beausite Classic Semibold with `-3%` tracking.
+  - Overview description set in `14px` (`0.9722vw`) Beausite Classic Bold across columns 2-4 (1060px width) with `leading-[1.2]`.
+- **Strict Adherence to Figma Composition**:
+  - Completely removed improvised footer, "Back to works" button, and "Next Project" button.
+  - Pages conclude directly after their final showcase row (Row 7 for MMS, Row 8 for Axis) with the exact 156px bottom padding from Figma.
+
+---
+
 ## Version 0.6.0 (Dedicated Project Showcase Pages: MMS Architects & AXIS RE)
 **Date:** November 5, 2026  
 **Status:** 1:1 Implementation of 'MMS Page.fig' and 'Axis Page.fig', Full Cross-Linking between Homepage, Works Page, and Project Showcase Pages, Smooth Navigation and Next Project Routing

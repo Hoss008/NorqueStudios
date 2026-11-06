@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import studioJuzenasWebsiteGif from '../assets/news/Studio-Juzenas-Website.gif';
-import studioJuzenasWebsitePoster from '../assets/news/Studio-Juzenas-Website-poster.jpg';
 import modishStudioGif from '../assets/news/Modish-Studio.gif';
-import modishStudioPoster from '../assets/news/Modish-Studio-poster.jpg';
-import studioJuzenasBrandingGif from '../assets/news/Studio-Juzenas-Branding.gif';
-import studioJuzenasBrandingPoster from '../assets/news/Studio-Juzenas-Branding-poster.jpg';
+import studioJuzenasBrandingImg from '../assets/news/Studio-Juzenas-Branding.png';
 import stephensonFeatureGif from '../assets/news/STEPHENSON-Feature.gif';
-import stephensonFeaturePoster from '../assets/news/STEPHENSON-Feature-poster.jpg';
 
 /* ========================================================================= */
 /* NEWS SECTION COMPONENT ("WHAT’S HAPPENING NOW")                           */
@@ -19,7 +15,6 @@ const newsItems = [
     title: 'Next chapter of an architecture studio in Lithuania',
     description: 'We’re working alongside Lithuanian architect Justas Južėnas to shape the next chapter of his architecture studio. From its visual identity to its digital presence.',
     image: studioJuzenasWebsiteGif,
-    poster: studioJuzenasWebsitePoster,
     alt: 'Studio Juzėnas Website Preview',
   },
   {
@@ -27,15 +22,13 @@ const newsItems = [
     title: 'Catch us in Saudi Arabia',
     description: 'A new collaboration with Modish Studio. We’re working on refining the studio’s brand presence, bringing its architectural approach into a more distinctive and cohesive visual language.',
     image: modishStudioGif,
-    poster: modishStudioPoster,
     alt: 'Modish Studio Project Preview',
   },
   {
     id: 3,
     title: 'Building an Identity Around Architecture',
     description: 'Currently developing the visual identity for a Lithuanian architecture studio. An exercise in restraint, exploring the relationship between typography, composition, and architectural thinking.',
-    image: studioJuzenasBrandingGif,
-    poster: studioJuzenasBrandingPoster,
+    image: studioJuzenasBrandingImg,
     alt: 'Studio Juzėnas Branding Identity Preview',
   },
   {
@@ -43,7 +36,6 @@ const newsItems = [
     title: 'Featured by Behance',
     description: 'One of our projects has been selected and featured by the Behance curation team in the Branding category. A milestone we’re proud of and another reminder that thoughtful design finds its way.',
     image: stephensonFeatureGif,
-    poster: stephensonFeaturePoster,
     alt: 'Stephenson Feature by Behance Preview',
   },
 ];
@@ -75,54 +67,23 @@ const cardVariants = {
   },
 };
 
-/* ─── Individual News Card: Plays animated GIF only on hover ─── */
+/* ─── Individual News Card: Plays animated GIF continuously ─── */
 function NewsCard({ item }) {
-  const [isHovered, setIsHovered] = useState(false);
-  const [playCount, setPlayCount] = useState(0);
-
-  const handleMouseEnter = () => {
-    setPlayCount((prev) => prev + 1);
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
   return (
     <motion.article 
       variants={cardVariants}
       className="w-full will-change-[transform,opacity] flex flex-col group cursor-default"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
       {/* Image Frame - 1:1 Aspect Ratio with Rounded Corners */}
       <div className="relative w-full overflow-hidden rounded-[2px] bg-[#121212] aspect-square">
-        <div className="w-full h-full relative transition-transform duration-500 ease-out group-hover:scale-[1.02]">
-          {/* 1. Static Freeze-Frame: Pre-rendered crisp frame 0 poster (zero runtime overhead) */}
+        <div className="w-full h-full relative transition-transform duration-500 ease-out group-hover:scale-[1]">
           <img
-            src={item.poster}
+            src={item.image}
             alt={item.alt}
-            className="w-full h-full object-cover rounded-[2px] select-none absolute inset-0 z-0 pointer-events-none"
+            className="w-full h-full object-cover rounded-[2px] select-none pointer-events-none"
             loading="lazy"
+            decoding="async"
           />
-
-          {/* 2. Animated GIF: Seamless crossfade in on hover, smooth dissolve out on unhover */}
-          <AnimatePresence>
-            {isHovered && (
-              <motion.img 
-                key={playCount}
-                src={item.image} 
-                alt={item.alt} 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full h-full object-cover rounded-[2px] select-none absolute inset-0 z-10 pointer-events-none"
-                loading="eager"
-              />
-            )}
-          </AnimatePresence>
         </div>
       </div>
 
@@ -131,7 +92,7 @@ function NewsCard({ item }) {
         <h3 className="text-[13px] md:text-[0.6944vw] font-semibold tracking-[-0.03em] text-white leading-[1.25]">
           {item.title}
         </h3>
-        <p className="text-[12px] md:text-[0.625vw] font-normal tracking-[-0.02em] text-[#747474] leading-[1.35]">
+        <p className="text-[12px] md:text-[0.625vw] font-semibold tracking-[-0.016em] text-[#747474] leading-[1.2]">
           {item.description}
         </p>
       </div>
@@ -141,7 +102,7 @@ function NewsCard({ item }) {
 
 export default function NewsSection() {
   return (
-    <section className="w-full bg-black pt-[2.7778vw] pb-[8.3333vw]">
+    <section className="w-full bg-black pt-[2.7778vw] pb-[0vw]">
       {/* Universal Container Margin: 12px (0.8333vw) */}
       <div className="w-full px-[0.8333vw]">
         {/* Section Header */}
@@ -149,7 +110,7 @@ export default function NewsSection() {
           <h2 className="text-[3.1944vw] font-semibold tracking-[-0.03em] leading-none text-white select-none uppercase">
             WHAT’S HAPPENING NOW
           </h2>
-          <span className="text-[0.6944vw] font-normal tracking-[-0.03em] text-[#747474] pb-[0.2778vw] select-none">
+          <span className="text-[0.6944vw] font-semibold tracking-[-0.03em] text-[#747474] pb-[0.2778vw] select-none">
             Below you will find latest news
           </span>
         </div>

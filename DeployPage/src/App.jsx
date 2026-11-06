@@ -3,12 +3,12 @@ import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-
 import Lenis from 'lenis';
 import { motion, AnimatePresence } from 'framer-motion';
 import HomePage from './components/HomePage';
-import AboutPage from './components/AboutPage';
-import WorksPage from './components/WorksPage';
-import MmsProjectPage from './components/projects/MmsProjectPage';
-import AxisProjectPage from './components/projects/AxisProjectPage';
-import WorksCMSModal from './components/WorksCMSModal';
-import AdminAuthModal from './components/AdminAuthModal';
+const AboutPage = React.lazy(() => import('./components/AboutPage'));
+const WorksPage = React.lazy(() => import('./components/WorksPage'));
+const MmsProjectPage = React.lazy(() => import('./components/projects/MmsProjectPage'));
+const AxisProjectPage = React.lazy(() => import('./components/projects/AxisProjectPage'));
+const WorksCMSModal = React.lazy(() => import('./components/WorksCMSModal'));
+const AdminAuthModal = React.lazy(() => import('./components/AdminAuthModal'));
 import SplashScreen from './components/SplashScreen';
 import Navbar from './components/Navbar';
 
@@ -92,6 +92,21 @@ export default function App() {
       window.removeEventListener('hashchange', handleHash);
     };
   }, [isAdminAuthenticated]);
+
+  /* ─── Idle Route Preloading: Download secondary routes after initial load ─── */
+  useEffect(() => {
+    const preload = () => {
+      import('./components/AboutPage');
+      import('./components/WorksPage');
+      import('./components/projects/MmsProjectPage');
+      import('./components/projects/AxisProjectPage');
+    };
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(preload);
+    } else {
+      setTimeout(preload, 2500);
+    }
+  }, []);
 
   /* ─── Intro Animation Synchronization ─── */
   useEffect(() => {
@@ -423,109 +438,119 @@ export default function App() {
             }}
             className="w-full"
           >
-            <Routes location={location}>
-              <Route 
-                path="/" 
-                element={
-                  <HomePage 
-                    onNavigate={handleNavigate} 
-                    hasIntroPlayed={hasIntroPlayed}
-                    onIntroComplete={handleIntroComplete}
-                    onBoxRevealComplete={setIsBoxRevealComplete}
-                    onOpenCMS={handleOpenCMS}
-                  />
-                } 
-              />
-              <Route 
-                path="/about" 
-                element={
-                  <AboutPage 
-                    onNavigate={handleNavigate} 
-                    onOpenCMS={handleOpenCMS} 
-                  />
-                } 
-              />
-              <Route 
-                path="/projects" 
-                element={
-                  <WorksPage 
-                    onNavigate={handleNavigate} 
-                    onOpenCMS={handleOpenCMS} 
-                  />
-                } 
-              />
-              <Route 
-                path="/works" 
-                element={
-                  <WorksPage 
-                    onNavigate={handleNavigate} 
-                    onOpenCMS={handleOpenCMS} 
-                  />
-                } 
-              />
-              <Route 
-                path="/projects/mms" 
-                element={
-                  <MmsProjectPage 
-                    onNavigate={handleNavigate} 
-                    onOpenCMS={handleOpenCMS} 
-                  />
-                } 
-              />
-              <Route 
-                path="/project-mms" 
-                element={
-                  <MmsProjectPage 
-                    onNavigate={handleNavigate} 
-                    onOpenCMS={handleOpenCMS} 
-                  />
-                } 
-              />
-              <Route 
-                path="/projects/axis" 
-                element={
-                  <AxisProjectPage 
-                    onNavigate={handleNavigate} 
-                    onOpenCMS={handleOpenCMS} 
-                  />
-                } 
-              />
-              <Route 
-                path="/project-axis" 
-                element={
-                  <AxisProjectPage 
-                    onNavigate={handleNavigate} 
-                    onOpenCMS={handleOpenCMS} 
-                  />
-                } 
-              />
-              <Route 
-                path="*" 
-                element={<Navigate to="/" replace />} 
-              />
-            </Routes>
+            <React.Suspense fallback={<div className="w-full min-h-screen bg-black" />}>
+              <Routes location={location}>
+                <Route 
+                  path="/" 
+                  element={
+                    <HomePage 
+                      onNavigate={handleNavigate} 
+                      hasIntroPlayed={hasIntroPlayed}
+                      onIntroComplete={handleIntroComplete}
+                      onBoxRevealComplete={setIsBoxRevealComplete}
+                      onOpenCMS={handleOpenCMS}
+                    />
+                  } 
+                />
+                <Route 
+                  path="/about" 
+                  element={
+                    <AboutPage 
+                      onNavigate={handleNavigate} 
+                      onOpenCMS={handleOpenCMS} 
+                    />
+                  } 
+                />
+                <Route 
+                  path="/projects" 
+                  element={
+                    <WorksPage 
+                      onNavigate={handleNavigate} 
+                      onOpenCMS={handleOpenCMS} 
+                    />
+                  } 
+                />
+                <Route 
+                  path="/works" 
+                  element={
+                    <WorksPage 
+                      onNavigate={handleNavigate} 
+                      onOpenCMS={handleOpenCMS} 
+                    />
+                  } 
+                />
+                <Route 
+                  path="/projects/mms" 
+                  element={
+                    <MmsProjectPage 
+                      onNavigate={handleNavigate} 
+                      onOpenCMS={handleOpenCMS} 
+                    />
+                  } 
+                />
+                <Route 
+                  path="/project-mms" 
+                  element={
+                    <MmsProjectPage 
+                      onNavigate={handleNavigate} 
+                      onOpenCMS={handleOpenCMS} 
+                    />
+                  } 
+                />
+                <Route 
+                  path="/projects/axis" 
+                  element={
+                    <AxisProjectPage 
+                      onNavigate={handleNavigate} 
+                      onOpenCMS={handleOpenCMS} 
+                    />
+                  } 
+                />
+                <Route 
+                  path="/project-axis" 
+                  element={
+                    <AxisProjectPage 
+                      onNavigate={handleNavigate} 
+                      onOpenCMS={handleOpenCMS} 
+                    />
+                  } 
+                />
+                <Route 
+                  path="*" 
+                  element={<Navigate to="/" replace />} 
+                />
+              </Routes>
+            </React.Suspense>
           </motion.div>
         </AnimatePresence>
       </main>
 
       {/* ─── Admin Authentication Gate ─── */}
-      <AdminAuthModal 
-        isOpen={isAuthModalOpen} 
-        onClose={() => setIsAuthModalOpen(false)} 
-        onSuccess={() => {
-          setIsAdminAuthenticated(true);
-          setIsAuthModalOpen(false);
-          setIsCmsOpen(true);
-        }}
-      />
+      {isAuthModalOpen && (
+        <React.Suspense fallback={null}>
+          <AdminAuthModal 
+            isOpen={isAuthModalOpen} 
+            onClose={() => setIsAuthModalOpen(false)} 
+            onSuccess={() => {
+              setIsAdminAuthenticated(true);
+              setIsAuthModalOpen(false);
+              setIsCmsOpen(true);
+            }}
+          />
+        </React.Suspense>
+      )}
 
       {/* ─── Works CMS Portfolio Management Modal ─── */}
-      <WorksCMSModal 
-        isOpen={isCmsOpen} 
-        onClose={() => setIsCmsOpen(false)} 
-        onNavigate={handleNavigate}
-        onLogout={handleLogout}
-      />
+      {isCmsOpen && (
+        <React.Suspense fallback={null}>
+          <WorksCMSModal 
+            isOpen={isCmsOpen} 
+            onClose={() => setIsCmsOpen(false)} 
+            onNavigate={handleNavigate}
+            onLogout={handleLogout}
+          />
+        </React.Suspense>
+      )}
 
     </div>
   );

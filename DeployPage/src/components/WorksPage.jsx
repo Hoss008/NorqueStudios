@@ -250,7 +250,7 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
                 >
                   {filteredProjects.map((project, index) => (
                     <motion.div
-                      key={project.id}
+                      key={`${activeCategory}-${project.id}`}
                       onClick={() => handleProjectClick(project)}
                       className="flex-shrink-0 w-[23.9583vw] group select-none cursor-pointer"
                       initial={{ opacity: 0, y: 20 }}
@@ -329,7 +329,7 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
                 <div className="w-full divide-y divide-white/5">
                   {filteredProjects.map((project, idx) => (
                     <motion.div
-                      key={project.id}
+                      key={`${activeCategory}-${project.id}`}
                       onClick={() => handleProjectClick(project)}
                       onMouseEnter={() => setHoveredListProject(project)}
                       onMouseLeave={() => setHoveredListProject(null)}

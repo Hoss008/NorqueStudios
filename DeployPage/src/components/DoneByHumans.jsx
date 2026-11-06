@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import DoneByHumansLogo from './DoneByHumansLogo';
 import NorqueCircleLogo from './NorqueCircleLogo';
 import MaskedWordStagger from './MaskedWordStagger';
-import doneByHumansBg from '../assets/done-by-humans-bg.png';
+import doneByHumansBg from '../assets/done-by-humans-bg.webp';
 
 /* ========================================================================= */
 /* DONE BY HUMANS SECTION COMPONENT                                          */
@@ -36,6 +36,7 @@ export default function DoneByHumans() {
             alt="Done by Humans" 
             className="absolute -top-[15%] left-0 w-full h-[130%] object-cover brightness-[0.9] contrast-[0.95]"
             loading="lazy"
+            decoding="async"
           />
         </motion.div>
 

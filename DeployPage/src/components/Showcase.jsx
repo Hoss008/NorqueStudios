@@ -108,6 +108,7 @@ export default function Showcase({ onRevealCompleteChange }) {
                 alt="Recent work of branding, web design & development by NORQUE STUDIOS™" 
                 className="w-full h-full object-cover rounded-[0.1389vw] block will-change-transform"
                 loading="eager"
+                fetchPriority="high"
               />
             </motion.div>
 

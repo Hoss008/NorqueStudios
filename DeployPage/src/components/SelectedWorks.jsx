@@ -76,8 +76,9 @@ export default function SelectedWorks({ onNavigate }) {
                 <img 
                   src={project.image} 
                   alt={project.title} 
-                  className="w-full aspect-[702/434] object-cover rounded-[0.1389vw] transition-transform duration-500 ease-out group-hover:scale-[1.015]"
+                  className="w-full aspect-[702/434] object-cover rounded-[0.1389vw] transition-transform duration-500 ease-out group-hover:scale-[1]"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
 

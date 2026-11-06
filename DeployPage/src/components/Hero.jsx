@@ -89,6 +89,7 @@ export default function Hero({ onNavigate, hasIntroPlayed = false, onIntroComple
           alt=""
           className="absolute inset-0 w-full h-full object-cover brightness-[0.7] z-0"
           loading="eager"
+          fetchPriority="high"
         />
 
         {/* Video layer: Seamlessly crossfades in once playback begins */}

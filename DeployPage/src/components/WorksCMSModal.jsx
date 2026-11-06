@@ -15,7 +15,7 @@ const PRESET_BADGE_COLORS = [
   { label: 'Emerald (#065f46)', value: '#065f46' },
 ];
 
-export default function WorksCMSModal({ isOpen, onClose, onNavigate }) {
+export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout }) {
   const { 
     works, 
     addProject, 
@@ -29,6 +29,31 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate }) {
   const [activeFormMode, setActiveFormMode] = useState(null); // null | 'ADD' | 'EDIT'
   const [editingProjectId, setEditingProjectId] = useState(null);
   const [notification, setNotification] = useState(null);
+
+  // Change Password Modal State
+  const [isChangePassOpen, setIsChangePassOpen] = useState(false);
+  const [currentPassInput, setCurrentPassInput] = useState('');
+  const [newPassInput, setNewPassInput] = useState('');
+  const [passError, setPassError] = useState(null);
+
+  const handleSavePassword = (e) => {
+    e.preventDefault();
+    const stored = localStorage.getItem('norque_admin_password') || 'norque2026';
+    if (currentPassInput !== stored) {
+      setPassError('Current password is incorrect.');
+      return;
+    }
+    if (newPassInput.trim().length < 4) {
+      setPassError('New password must be at least 4 characters.');
+      return;
+    }
+    localStorage.setItem('norque_admin_password', newPassInput.trim());
+    setIsChangePassOpen(false);
+    setCurrentPassInput('');
+    setNewPassInput('');
+    setPassError(null);
+    showToast('Admin password successfully updated');
+  };
 
   // Form State
   const [formData, setFormData] = useState({
@@ -266,6 +291,31 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate }) {
 
               <button
                 type="button"
+                onClick={() => {
+                  setIsChangePassOpen(true);
+                  setPassError(null);
+                  setCurrentPassInput('');
+                  setNewPassInput('');
+                }}
+                title="Change administrator password"
+                className="px-[0.8vw] py-[0.45vw] bg-[#171717] hover:bg-[#252525] text-[#888888] hover:text-white text-[0.625vw] font-semibold tracking-[-0.03em] uppercase rounded-[2px] border border-white/10 transition-colors cursor-pointer"
+              >
+                Password
+              </button>
+
+              {onLogout && (
+                <button
+                  type="button"
+                  onClick={onLogout}
+                  title="Lock CMS and log out"
+                  className="px-[0.8vw] py-[0.45vw] bg-[#171717] hover:bg-red-950/40 text-[#888888] hover:text-red-400 text-[0.625vw] font-semibold tracking-[-0.03em] uppercase rounded-[2px] border border-white/10 transition-colors cursor-pointer"
+                >
+                  Lock
+                </button>
+              )}
+
+              <button
+                type="button"
                 onClick={onClose}
                 className="w-[2vw] h-[2vw] flex items-center justify-center rounded-[2px] bg-[#171717] hover:bg-[#262626] text-white/70 hover:text-white text-[0.8vw] transition-colors cursor-pointer"
                 aria-label="Close CMS Modal"
@@ -274,6 +324,90 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate }) {
               </button>
             </div>
           </div>
+
+          {/* Change Password Dialog Overlay */}
+          <AnimatePresence>
+            {isChangePassOpen && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4"
+              >
+                <motion.div
+                  initial={{ scale: 0.95, y: 10 }}
+                  animate={{ scale: 1, y: 0 }}
+                  exit={{ scale: 0.95, y: 10 }}
+                  className="w-full max-w-sm bg-[#121212] border border-white/10 rounded-[6px] p-6 shadow-2xl space-y-4 text-white"
+                >
+                  <div className="flex items-center justify-between pb-2 border-b border-white/10">
+                    <h3 className="text-sm font-semibold tracking-[-0.02em] uppercase text-white">
+                      Change Admin Password
+                    </h3>
+                    <button
+                      type="button"
+                      onClick={() => setIsChangePassOpen(false)}
+                      className="text-[#888] hover:text-white text-xs cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  </div>
+
+                  <form onSubmit={handleSavePassword} className="space-y-3">
+                    <div>
+                      <label className="text-[10px] uppercase font-bold tracking-wider text-[#888] block mb-1">
+                        Current Password
+                      </label>
+                      <input
+                        type="password"
+                        value={currentPassInput}
+                        onChange={(e) => setCurrentPassInput(e.target.value)}
+                        placeholder="Current password"
+                        className="w-full px-3 py-2 bg-[#1a1a1a] border border-white/10 focus:border-[#a87f2f] text-xs font-mono text-white rounded outline-none"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] uppercase font-bold tracking-wider text-[#888] block mb-1">
+                        New Password
+                      </label>
+                      <input
+                        type="password"
+                        value={newPassInput}
+                        onChange={(e) => setNewPassInput(e.target.value)}
+                        placeholder="Minimum 4 characters"
+                        className="w-full px-3 py-2 bg-[#1a1a1a] border border-white/10 focus:border-[#a87f2f] text-xs font-mono text-white rounded outline-none"
+                        required
+                      />
+                    </div>
+
+                    {passError && (
+                      <p className="text-red-400 text-[11px] font-medium">
+                        {passError}
+                      </p>
+                    )}
+
+                    <div className="flex space-x-2 pt-2">
+                      <button
+                        type="submit"
+                        className="flex-1 py-2 bg-white hover:bg-neutral-200 text-black text-xs font-bold uppercase rounded cursor-pointer transition-colors"
+                      >
+                        Update
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setIsChangePassOpen(false)}
+                        className="px-4 py-2 bg-[#1a1a1a] hover:bg-[#252525] text-[#aaa] hover:text-white text-xs font-bold uppercase rounded cursor-pointer transition-colors"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* ─── Main Content Area ─── */}
           <div className="flex-1 overflow-y-auto p-[1.8vw] space-y-[1.5vw]">

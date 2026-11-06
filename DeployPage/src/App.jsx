@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import Lenis from 'lenis';
 import { motion, AnimatePresence } from 'framer-motion';
 import HomePage from './components/HomePage';
@@ -7,30 +8,94 @@ import WorksPage from './components/WorksPage';
 import MmsProjectPage from './components/projects/MmsProjectPage';
 import AxisProjectPage from './components/projects/AxisProjectPage';
 import WorksCMSModal from './components/WorksCMSModal';
+import AdminAuthModal from './components/AdminAuthModal';
 import SplashScreen from './components/SplashScreen';
 import Navbar from './components/Navbar';
 
 let globalIntroHasPlayed = false;
 
+// Helper to determine logical page identifier from URL pathname
+function getLogicalPage(pathname) {
+  const p = (pathname || '').replace(/\/+$/, '').toLowerCase();
+  if (!p || p === '') return 'home';
+  if (p === '/about') return 'about';
+  if (p === '/projects' || p === '/works') return 'works';
+  if (p === '/projects/mms' || p === '/project-mms') return 'project-mms';
+  if (p === '/projects/axis' || p === '/project-axis') return 'project-axis';
+  return 'home';
+}
+
 /* ========================================================================= */
 /* ROOT APPLICATION COMPONENT                                                */
 /* ========================================================================= */
 export default function App() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const currentPage = getLogicalPage(location.pathname);
+
+  // If visitor directly hits an inner page (e.g. /projects or /services), skip splash intro
+  const isDirectNonHome = typeof window !== 'undefined' && location.pathname !== '/' && location.pathname !== '';
+  const [hasIntroPlayed, setHasIntroPlayed] = useState(() => globalIntroHasPlayed || isDirectNonHome);
+  const [isIntroStarted, setIsIntroStarted] = useState(() => globalIntroHasPlayed || isDirectNonHome);
+  const [isBoxRevealComplete, setIsBoxRevealComplete] = useState(false);
+  const [isSplashComplete, setIsSplashComplete] = useState(() => globalIntroHasPlayed || isDirectNonHome);
+
   /* ─── State Management ─── */
-  const [currentPage, setCurrentPage] = useState('home');
   const [pendingSection, setPendingSection] = useState(null);
   const [isPageTransitioning, setIsPageTransitioning] = useState(false);
-  const [hasIntroPlayed, setHasIntroPlayed] = useState(globalIntroHasPlayed);
-  const [isIntroStarted, setIsIntroStarted] = useState(globalIntroHasPlayed);
-  const [isBoxRevealComplete, setIsBoxRevealComplete] = useState(false);
-  const [isSplashComplete, setIsSplashComplete] = useState(globalIntroHasPlayed);
   const [isNavScrollVisible, setIsNavScrollVisible] = useState(true);
   const [isCmsOpen, setIsCmsOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(() => {
+    return typeof window !== 'undefined' && sessionStorage.getItem('norque_admin_authenticated') === 'true';
+  });
   const lenisRef = useRef(null);
+
+  const handleOpenCMS = () => {
+    if (isAdminAuthenticated) {
+      setIsCmsOpen(true);
+    } else {
+      setIsAuthModalOpen(true);
+    }
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('norque_admin_authenticated');
+    setIsAdminAuthenticated(false);
+    setIsCmsOpen(false);
+  };
+
+  /* ─── Stealth CMS Listeners: Ctrl+Shift+A / Cmd+Shift+A & #admin hash ─── */
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        handleOpenCMS();
+      }
+    };
+
+    const handleHash = () => {
+      if (typeof window !== 'undefined' && (window.location.hash === '#admin' || window.location.hash === '#cms')) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+        handleOpenCMS();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('hashchange', handleHash);
+
+    handleHash();
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('hashchange', handleHash);
+    };
+  }, [isAdminAuthenticated]);
 
   /* ─── Intro Animation Synchronization ─── */
   useEffect(() => {
-    if (globalIntroHasPlayed) {
+    if (globalIntroHasPlayed || isDirectNonHome) {
       setIsIntroStarted(true);
       return;
     }
@@ -46,16 +111,17 @@ export default function App() {
   };
 
   const handleSplashComplete = () => {
+    globalIntroHasPlayed = true;
     setIsSplashComplete(true);
   };
 
-  /* ─── Disable scrolling until splash screen finishes and hero is visible ─── */
+  /* ─── Disable scrolling until splash screen finishes on home page ─── */
   useEffect(() => {
     if (isSplashComplete) {
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
       window.scrollTo(0, 0);
-      if (lenisRef.current) {
+      if (lenisRef.current && currentPage !== 'works') {
         lenisRef.current.scrollTo(0, { immediate: true });
         lenisRef.current.start();
       }
@@ -96,13 +162,30 @@ export default function App() {
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
     };
-  }, [isSplashComplete]);
+  }, [isSplashComplete, currentPage]);
 
   /* ======================================================================= */
   /* 3. NAVIGATION & SMOOTH SCROLL (LENIS)                                   */
   /* ======================================================================= */
   const handleNavigate = (targetPage, sectionId = null) => {
-    if (targetPage === currentPage) {
+    const pageToPath = {
+      home: '/',
+      about: '/about',
+      works: '/projects',
+      projects: '/projects',
+      'project-mms': '/projects/mms',
+      'project-axis': '/projects/axis'
+    };
+
+    const targetPath = pageToPath[targetPage] || (targetPage.startsWith('/') ? targetPage : `/${targetPage}`);
+
+    const isCurrent = 
+      targetPath === location.pathname || 
+      (targetPath === '/projects' && location.pathname === '/works') ||
+      (targetPath === '/projects/mms' && location.pathname === '/project-mms') ||
+      (targetPath === '/projects/axis' && location.pathname === '/project-axis');
+
+    if (isCurrent) {
       if (sectionId) {
         const el = document.getElementById(sectionId);
         if (el) {
@@ -122,12 +205,31 @@ export default function App() {
       return;
     }
 
-    // When switching pages, trigger seamless in-place fade out without scroll jumps
+    // Trigger seamless in-place page transition
     setIsPageTransitioning(true);
     setPendingSection(sectionId);
-    setCurrentPage(targetPage);
+    navigate(targetPath);
     setIsNavScrollVisible(true);
   };
+
+  // Reset Lenis and document overflow lock for zero-scroll pages
+  useEffect(() => {
+    if (isPageTransitioning) return;
+    if (currentPage === 'works') {
+      if (lenisRef.current) lenisRef.current.stop();
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      if (lenisRef.current) {
+        lenisRef.current.resize();
+        if (isSplashComplete) {
+          lenisRef.current.start();
+        }
+      }
+    }
+  }, [currentPage, isSplashComplete, isPageTransitioning]);
 
   useEffect(() => {
     // Disable automatic browser scroll restoration on refresh/mount
@@ -145,7 +247,7 @@ export default function App() {
     });
     lenis.scrollTo(0, { immediate: true });
     lenisRef.current = lenis;
-    if (!isSplashComplete) {
+    if (!isSplashComplete || currentPage === 'works') {
       lenis.stop();
     }
 
@@ -156,7 +258,6 @@ export default function App() {
     let accumulatedDelta = 0;
 
     lenis.on('scroll', ({ velocity, scroll }) => {
-      // Map scroll velocity to an intensified vertical blur (clamped up to 3.8px)
       const absV = Math.abs(velocity || 0);
       targetBlur = Math.min(absV * 0.22, 3.8);
 
@@ -167,13 +268,11 @@ export default function App() {
         setIsNavScrollVisible(true);
         accumulatedDelta = 0;
       } else if (diff > 0) {
-        // Scrolling down: hide when accumulated downward movement exceeds 10px
         accumulatedDelta = Math.max(0, accumulatedDelta) + diff;
         if (accumulatedDelta > 10) {
           setIsNavScrollVisible(false);
         }
       } else if (diff < 0) {
-        // Scrolling up a tiny bit: reappear when upward movement exceeds 8px
         accumulatedDelta = Math.min(0, accumulatedDelta) + diff;
         if (accumulatedDelta < -8) {
           setIsNavScrollVisible(true);
@@ -186,7 +285,6 @@ export default function App() {
     function raf(time) {
       lenis.raf(time);
 
-      // Smooth lerp decay for organic, filmic shutter motion blur
       currentBlur += (targetBlur - currentBlur) * 0.28;
       targetBlur *= 0.92;
 
@@ -219,9 +317,9 @@ export default function App() {
     };
   }, []);
 
-  // Handle pending scroll target after page transition completes
+  // Handle pending scroll target after page navigation completes
   useEffect(() => {
-    if (currentPage === 'home' && pendingSection) {
+    if (pendingSection) {
       const timer = setTimeout(() => {
         const el = document.getElementById(pendingSection);
         if (el) {
@@ -235,20 +333,7 @@ export default function App() {
       }, 750);
       return () => clearTimeout(timer);
     }
-  }, [currentPage, pendingSection]);
-
-  // Handle Lenis and document overflow lock for no-scroll pages (e.g. Works page)
-  useEffect(() => {
-    if (currentPage === 'works') {
-      if (lenisRef.current) lenisRef.current.stop();
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
-    } else if (isSplashComplete) {
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
-      if (lenisRef.current) lenisRef.current.start();
-    }
-  }, [currentPage, isSplashComplete]);
+  }, [location.pathname, pendingSection]);
 
   /* ======================================================================= */
   /* MAIN RENDER WITH CINEMATIC PAGE TRANSITIONS                             */
@@ -261,13 +346,21 @@ export default function App() {
           ? 'bg-[#170103]' 
           : 'bg-black'
     } text-white font-beausite selection:bg-white selection:text-black overflow-x-clip`}>
-      {/* Initial splash screen on page load */}
-      {!globalIntroHasPlayed && <SplashScreen onComplete={handleSplashComplete} />}
+      {/* Initial splash screen on first visit to home page */}
+      {!globalIntroHasPlayed && !isDirectNonHome && (
+        <SplashScreen onComplete={handleSplashComplete} />
+      )}
 
       {/* Pinned Global Header Navigation (36px = 2.5vw proportional ratio) */}
       <Navbar 
         isPinned={true}
-        isVisible={(currentPage === 'about' || currentPage === 'works' || currentPage === 'project-mms' || currentPage === 'project-axis' || isBoxRevealComplete) && isNavScrollVisible}
+        isVisible={
+          (currentPage === 'about' || 
+           currentPage === 'works' || 
+           currentPage === 'project-mms' || 
+           currentPage === 'project-axis' || 
+           isBoxRevealComplete) && isNavScrollVisible
+        }
         isIntroStarted={true}
         activePage={currentPage} 
         onNavigate={handleNavigate}
@@ -288,13 +381,24 @@ export default function App() {
 
       {/* ─── Page Content (Excludes Pinned Navbar and Pinned GIF) ─── */}
       <main className="w-full">
-        {/* Seamless Page Transition: Increased duration for cinematic, atmospheric crossfade */}
+        {/* Seamless Page Transition: Clean atmospheric crossfade */}
         <AnimatePresence 
           mode="wait"
           onExitComplete={() => {
+            if (currentPage === 'home') {
+              setIsBoxRevealComplete(false);
+            }
+            if (currentPage !== 'works') {
+              document.documentElement.style.overflow = '';
+              document.body.style.overflow = '';
+            }
             window.scrollTo(0, 0);
             if (lenisRef.current) {
               lenisRef.current.scrollTo(0, { immediate: true });
+              lenisRef.current.resize();
+              if (currentPage !== 'works' && isSplashComplete) {
+                lenisRef.current.start();
+              }
             }
             setIsNavScrollVisible(true);
             setIsPageTransitioning(false);
@@ -306,57 +410,121 @@ export default function App() {
             animate={{ 
               opacity: 1, 
               transition: {
-                duration: 0.65,
+                duration: 0.5,
                 ease: [0.4, 0, 0.2, 1]
               }
             }}
             exit={{ 
               opacity: 0, 
               transition: {
-                duration: 0.65,
+                duration: 0.5,
                 ease: [0.4, 0, 0.2, 1]
               }
             }}
             className="w-full"
           >
-            {currentPage === 'home' ? (
-              <HomePage 
-                onNavigate={handleNavigate} 
-                hasIntroPlayed={hasIntroPlayed}
-                onIntroComplete={handleIntroComplete}
-                onBoxRevealComplete={setIsBoxRevealComplete}
-                onOpenCMS={() => setIsCmsOpen(true)}
+            <Routes location={location}>
+              <Route 
+                path="/" 
+                element={
+                  <HomePage 
+                    onNavigate={handleNavigate} 
+                    hasIntroPlayed={hasIntroPlayed}
+                    onIntroComplete={handleIntroComplete}
+                    onBoxRevealComplete={setIsBoxRevealComplete}
+                    onOpenCMS={handleOpenCMS}
+                  />
+                } 
               />
-            ) : currentPage === 'works' ? (
-              <WorksPage 
-                onNavigate={handleNavigate} 
-                onOpenCMS={() => setIsCmsOpen(true)} 
+              <Route 
+                path="/about" 
+                element={
+                  <AboutPage 
+                    onNavigate={handleNavigate} 
+                    onOpenCMS={handleOpenCMS} 
+                  />
+                } 
               />
-            ) : currentPage === 'project-mms' ? (
-              <MmsProjectPage 
-                onNavigate={handleNavigate} 
-                onOpenCMS={() => setIsCmsOpen(true)} 
+              <Route 
+                path="/projects" 
+                element={
+                  <WorksPage 
+                    onNavigate={handleNavigate} 
+                    onOpenCMS={handleOpenCMS} 
+                  />
+                } 
               />
-            ) : currentPage === 'project-axis' ? (
-              <AxisProjectPage 
-                onNavigate={handleNavigate} 
-                onOpenCMS={() => setIsCmsOpen(true)} 
+              <Route 
+                path="/works" 
+                element={
+                  <WorksPage 
+                    onNavigate={handleNavigate} 
+                    onOpenCMS={handleOpenCMS} 
+                  />
+                } 
               />
-            ) : (
-              <AboutPage 
-                onNavigate={handleNavigate} 
-                onOpenCMS={() => setIsCmsOpen(true)} 
+              <Route 
+                path="/projects/mms" 
+                element={
+                  <MmsProjectPage 
+                    onNavigate={handleNavigate} 
+                    onOpenCMS={handleOpenCMS} 
+                  />
+                } 
               />
-            )}
+              <Route 
+                path="/project-mms" 
+                element={
+                  <MmsProjectPage 
+                    onNavigate={handleNavigate} 
+                    onOpenCMS={handleOpenCMS} 
+                  />
+                } 
+              />
+              <Route 
+                path="/projects/axis" 
+                element={
+                  <AxisProjectPage 
+                    onNavigate={handleNavigate} 
+                    onOpenCMS={handleOpenCMS} 
+                  />
+                } 
+              />
+              <Route 
+                path="/project-axis" 
+                element={
+                  <AxisProjectPage 
+                    onNavigate={handleNavigate} 
+                    onOpenCMS={handleOpenCMS} 
+                  />
+                } 
+              />
+              <Route 
+                path="*" 
+                element={<Navigate to="/" replace />} 
+              />
+            </Routes>
           </motion.div>
         </AnimatePresence>
       </main>
+
+      {/* ─── Admin Authentication Gate ─── */}
+      <AdminAuthModal 
+        isOpen={isAuthModalOpen} 
+        onClose={() => setIsAuthModalOpen(false)} 
+        onSuccess={() => {
+          setIsAdminAuthenticated(true);
+          setIsAuthModalOpen(false);
+          setIsCmsOpen(true);
+        }}
+      />
 
       {/* ─── Works CMS Portfolio Management Modal ─── */}
       <WorksCMSModal 
         isOpen={isCmsOpen} 
         onClose={() => setIsCmsOpen(false)} 
         onNavigate={handleNavigate}
+        onLogout={handleLogout}
       />
 
     </div>

@@ -11,7 +11,15 @@ export default function Showcase({ onRevealCompleteChange }) {
   const pinTrackRef = useRef(null);
   const scrollProgress = useMotionValue(0);
 
-  /* ─── 1. Scroll-Distance Tracking ─── */
+  /* ─── 1. Reset progress on mount ─── */
+  useEffect(() => {
+    scrollProgress.set(0);
+    if (onRevealCompleteChange) {
+      onRevealCompleteChange(false);
+    }
+  }, []);
+
+  /* ─── 2. Scroll-Distance Tracking ─── */
   useEffect(() => {
     let lastComplete = false;
 
@@ -20,7 +28,8 @@ export default function Showcase({ onRevealCompleteChange }) {
       if (!el) return;
 
       const rect = el.getBoundingClientRect();
-      const top = rect.top + window.scrollY;
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+      const top = rect.top + scrollY;
       const height = el.offsetHeight;
       const vh = window.innerHeight;
 
@@ -29,7 +38,7 @@ export default function Showcase({ onRevealCompleteChange }) {
 
       if (endY <= startY) return;
 
-      const p = Math.max(0, Math.min(1, (window.scrollY - startY) / (endY - startY)));
+      const p = Math.max(0, Math.min(1, (scrollY - startY) / (endY - startY)));
       scrollProgress.set(p);
 
       const isComplete = p >= 0.99;
@@ -43,9 +52,12 @@ export default function Showcase({ onRevealCompleteChange }) {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleScroll, { passive: true });
-    handleScroll();
+    
+    // Defer initial measure to next frame after layout settles
+    const rafId = requestAnimationFrame(handleScroll);
 
     return () => {
+      cancelAnimationFrame(rafId);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
     };

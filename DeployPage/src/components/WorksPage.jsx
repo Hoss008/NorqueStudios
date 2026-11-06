@@ -33,15 +33,12 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
   /* ─── Prevent all document / window scrolling strictly ─── */
   useEffect(() => {
     window.scrollTo(0, 0);
-    const prevHtmlOverflow = document.documentElement.style.overflow;
-    const prevBodyOverflow = document.body.style.overflow;
-
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
 
     return () => {
-      document.documentElement.style.overflow = prevHtmlOverflow;
-      document.body.style.overflow = prevBodyOverflow;
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
     };
   }, []);
 
@@ -218,16 +215,6 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
                   : `${filteredProjects.length} PROJECTS`
                 }
               </span>
-              {onOpenCMS && (
-                <button
-                  type="button"
-                  onClick={onOpenCMS}
-                  className="text-[0.5556vw] font-bold tracking-[-0.03em] text-[#797979] hover:text-white uppercase px-[0.4vw] py-[0.1vw] rounded-[2px] bg-[#171717] border border-white/10 transition-colors cursor-pointer"
-                  title="Open Works CMS"
-                >
-                  CMS
-                </button>
-              )}
             </div>
 
           </div>

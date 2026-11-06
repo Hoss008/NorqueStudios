@@ -48,7 +48,7 @@ export default function HomePage({
       <DoneByHumans />
 
       {/* 7. Universal Footer: Contact callout, brand mark & directory */}
-      <Footer onOpenCMS={onOpenCMS} />
+      <Footer onOpenCMS={onOpenCMS} onNavigate={onNavigate} />
     </div>
   );
 }

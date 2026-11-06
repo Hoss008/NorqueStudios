@@ -31,7 +31,7 @@ export default function AboutPage({ onNavigate, onOpenCMS }) {
       </main>
 
       {/* Shared Footer */}
-      <Footer onOpenCMS={onOpenCMS} />
+      <Footer onOpenCMS={onOpenCMS} onNavigate={onNavigate} />
     </div>
   );
 }

@@ -7,13 +7,14 @@ import CompactLogo from './CompactLogo';
 /* Words stagger upward while duplicated masked words rise from below        */
 /* Reference: References/Hover Stagger reference.mp4                         */
 /* ========================================================================= */
-function StaggeredNavButton({ label, onClick, hasUnderline = false }) {
+function StaggeredNavButton({ label, href, onClick, hasUnderline = false }) {
   const [isHovered, setIsHovered] = useState(false);
   const words = label.split(' ');
+  const targetHref = href || `#${label.toLowerCase().replace(/\s+/g, '-')}`;
 
   return (
     <a
-      href={`#${label.toLowerCase().replace(/\s+/g, '-')}`}
+      href={targetHref}
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -86,11 +87,9 @@ export default function Navbar({
 
   const handleLogoClick = (e) => {
     e.preventDefault();
-    if (window.location.hash) {
-      history.replaceState(null, '', window.location.pathname);
+    if (onNavigate) {
+      onNavigate('home');
     }
-    window.location.href = window.location.pathname;
-    window.location.reload();
   };
 
   const handleLinkClick = (page, sectionId) => (e) => {
@@ -130,18 +129,18 @@ export default function Navbar({
 
   /* ─── Transition & Entrance Configurations ─── */
   const navOpacity = isPageTransitioning ? 0 : (isVisible ? 1 : 0);
-  const navY = isPinned ? (isVisible ? 0 : '-100%') : (isIntroStarted ? 0 : -50);
+  const navY = isPinned ? ((isVisible || isPageTransitioning) ? 0 : '-100%') : (isIntroStarted ? 0 : -50);
   const isHomeFirstReveal = !isPageTransitioning && activePage === 'home' && isVisible && !hasRevealedOnceRef.current;
 
   const transitionConfig = {
     y: {
-      duration: isHomeFirstReveal ? 0.8 : 0.35,
-      ease: [0, 0.8, 0.2, 1],
+      duration: isHomeFirstReveal ? 0.8 : (isPageTransitioning ? 0.5 : 0.35),
+      ease: [0.4, 0, 0.2, 1],
       delay: isHomeFirstReveal ? 0.5 : 0,
     },
     opacity: {
-      duration: isPageTransitioning ? 0.65 : (isHomeFirstReveal ? 0.8 : 0.35),
-      ease: [0, 0.8, 0.2, 1],
+      duration: isPageTransitioning ? 0.5 : (isHomeFirstReveal ? 0.8 : 0.35),
+      ease: [0.4, 0, 0.2, 1],
       delay: isHomeFirstReveal ? 0.5 : 0,
     },
   };
@@ -171,10 +170,10 @@ export default function Navbar({
       transition={transitionConfig}
     >
       <div className="w-full grid grid-cols-4 items-center">
-        {/* Column 1: Compact Vector Logo (NRQ STDS - Reload to home page) */}
+        {/* Column 1: Compact Vector Logo (NRQ STDS - Navigate to home page) */}
         <div className="flex items-center">
           <a 
-            href="#" 
+            href="/" 
             onClick={handleLogoClick}
             className="inline-flex items-center cursor-pointer" 
             aria-label="Norque Studios Home"
@@ -187,14 +186,17 @@ export default function Navbar({
         <nav className="flex items-center space-x-[0.6944vw]" aria-label="Main Navigation">
           <StaggeredNavButton 
             label="ABOUT" 
+            href="/about"
             onClick={handleLinkClick('about')} 
           />
           <StaggeredNavButton 
             label="WORKS" 
+            href="/projects"
             onClick={handleLinkClick('works')} 
           />
           <StaggeredNavButton 
             label="SERVICES" 
+            href="#services"
             onClick={handleLinkClick('home', 'services')} 
           />
         </nav>
@@ -210,7 +212,8 @@ export default function Navbar({
         <div className="flex items-center justify-end">
           <StaggeredNavButton 
             label="CONTACT US" 
-            onClick={handleLinkClick(activePage, 'contact')} 
+            href="#contact"
+            onClick={handleLinkClick(activePage === 'works' || activePage === 'project-mms' || activePage === 'project-axis' ? 'home' : activePage, 'contact')} 
             hasUnderline={true}
           />
         </div>

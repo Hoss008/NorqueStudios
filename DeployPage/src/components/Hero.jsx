@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Navbar from './Navbar';
 import { logoPaths } from './logoPaths';
 import heroBackgroundVideo from '../assets/hero-background.mp4';
+import heroPoster from '../assets/hero-poster.jpg';
 
 /* ========================================================================= */
 /* HERO SECTION COMPONENT                                                    */
@@ -13,6 +14,7 @@ export default function Hero({ onNavigate, hasIntroPlayed = false, onIntroComple
   const [isIntroStarted, setIsIntroStarted] = useState(hasIntroPlayed);
   const [isTextStarted, setIsTextStarted] = useState(hasIntroPlayed);
   const [isVideoVisible, setIsVideoVisible] = useState(hasIntroPlayed);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const videoRef = useRef(null);
 
   // 1. Splash screen synchronization (2.5s)
@@ -81,12 +83,26 @@ export default function Hero({ onNavigate, hasIntroPlayed = false, onIntroComple
         }`}
         aria-hidden="true"
       >
+        {/* Instant static poster frame 0: Guarantees immediate visual presence during page fade-in */}
+        <img
+          src={heroPoster}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover brightness-[0.7] z-0"
+          loading="eager"
+        />
+
+        {/* Video layer: Seamlessly crossfades in once playback begins */}
         <video
           ref={videoRef}
+          autoPlay={hasIntroPlayed}
           muted
           loop
           playsInline
-          className="w-full h-full object-cover brightness-[0.7]"
+          poster={heroPoster}
+          onPlaying={() => setIsVideoPlaying(true)}
+          className={`absolute inset-0 w-full h-full object-cover brightness-[0.7] z-10 transition-opacity duration-700 ${
+            isVideoPlaying ? 'opacity-100' : 'opacity-0'
+          }`}
           src={heroBackgroundVideo}
         />
       </div>

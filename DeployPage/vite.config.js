@@ -37,9 +37,13 @@ function worksApiPlugin() {
   };
 }
 
+const isGitHubActions = process.env.GITHUB_ACTIONS === 'true';
+const repoName = process.env.GITHUB_REPOSITORY ? process.env.GITHUB_REPOSITORY.split('/')[1] : 'NorqueStudios';
+const base = process.env.VITE_BASE || (isGitHubActions ? `/${repoName}/` : '/');
+
 // https://vite.dev/config/
 export default defineConfig({
-  base: './',
+  base,
   plugins: [react(), worksApiPlugin()],
   server: {
     port: 3000,

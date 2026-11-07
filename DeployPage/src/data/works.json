@@ -1,0 +1,62 @@
+[
+  {
+    "id": "studio-juzenas",
+    "title": "STUDIO JUZENAS®",
+    "location": "LITHUANIA",
+    "category": "Websites",
+    "image": "/images/works/studio-juzenas.png",
+    "badge": null,
+    "badgeBg": null,
+    "subtitle": null,
+    "year": "2024",
+    "link": "#"
+  },
+  {
+    "id": "axis-re",
+    "title": "AXIS® RE",
+    "location": "Egypt",
+    "category": "Branding",
+    "image": "/images/works/axis-re.png",
+    "badge": "IN THE WORKS",
+    "badgeBg": "#171717",
+    "subtitle": null,
+    "year": "2024",
+    "link": "#"
+  },
+  {
+    "id": "mms-architects",
+    "title": "MMS ARCHITECTS™",
+    "location": "italy",
+    "category": "Websites",
+    "image": "/images/works/mms-architects.png",
+    "badge": "AWARDED",
+    "badgeBg": "#a87f2f",
+    "subtitle": null,
+    "year": "2024",
+    "link": "#"
+  },
+  {
+    "id": "fusion-form",
+    "title": "FUSION FORM®",
+    "location": "Egypt",
+    "category": "Branding",
+    "image": "/images/works/fusion-form.png",
+    "badge": null,
+    "badgeBg": null,
+    "subtitle": null,
+    "year": "2023",
+    "link": "#"
+  },
+  {
+    "id": "axis-consultancy",
+    "title": "AXIS® - Real Estate Consultancy",
+    "location": "Egypt",
+    "category": "Branding",
+    "image": "/images/works/axis-consultancy.png",
+    "badge": null,
+    "badgeBg": null,
+    "subtitle": "Brand Development",
+    "year": "2024",
+    "link": "#"
+  }
+]

@@ -1,5 +1,156 @@
 # NORQUE STUDIOS™ — Version Log
 
+## Version 0.6.1 (Strict 1:1 Figma Design Alignment for Project Showcases)
+**Date:** November 5, 2026  
+**Status:** Strict 1:1 Alignment with 'MMS Page.fig' and 'Axis Page.fig', Background Colors (#0a0e17 and #170103), Full-Bleed Hero Behind Transparent Navbar, 100vh Entry Screen, Exact Metadata Table Typography, Removed Improvised Footers & Navigation Buttons
+
+### Key Refinements in 0.6.1
+- **Exact Background Color Fidelity**:
+  - MMS Page: Applied exact deep midnight navy `bg-[#0a0e17]` (`rgba(10, 14, 23, 1)`) matching `fillPaints` on `PROJECT /1`.
+  - AXIS Page: Applied exact deep crimson `bg-[#170103]` (`rgba(23, 1, 3, 1)`) matching `fillPaints` on `PROJECT /2`.
+- **Hero Image Fills Navbar**:
+  - Removed artificial top spacer; hero images start at `top: 0` directly behind the pinned navbar.
+  - Transparent navbar overlay (`bg-transparent`) on project pages allows hero imagery to shine through completely.
+- **100% Viewport Height Entry Screen (`h-screen flex flex-col justify-between`)**:
+  - When entering either showcase page, the hero image and the project data beneath it precisely fill 100% of the viewport height.
+  - Subsequent gallery rows sit cleanly below the initial fold.
+- **Tight Gap Alignment**:
+  - Revised the gap between the hero image and project info to the exact Figma specification (`12px` / `0.8333vw`).
+- **Exact Metadata Typography & Structure**:
+  - Removed artificial borders and dividing lines.
+  - Aligned metadata rows with fixed 119px label column and pure white `#ffffff` typography in `10px` (`0.6944vw`) Beausite Classic Semibold with `-3%` tracking.
+  - Overview description set in `14px` (`0.9722vw`) Beausite Classic Bold across columns 2-4 (1060px width) with `leading-[1.2]`.
+- **Strict Adherence to Figma Composition**:
+  - Completely removed improvised footer, "Back to works" button, and "Next Project" button.
+  - Pages conclude directly after their final showcase row (Row 7 for MMS, Row 8 for Axis) with the exact 156px bottom padding from Figma.
+
+---
+
+## Version 0.6.0 (Dedicated Project Showcase Pages: MMS Architects & AXIS RE)
+**Date:** November 5, 2026  
+**Status:** 1:1 Implementation of 'MMS Page.fig' and 'Axis Page.fig', Full Cross-Linking between Homepage, Works Page, and Project Showcase Pages, Smooth Navigation and Next Project Routing
+
+### Key Deliverables in 0.6.0
+- **MMS Architects™ Case Study Showcase (`MmsProjectPage.jsx`)**:
+  - 1:1 faithful implementation matching `References/MMS Page.fig` (1440x6282).
+  - **Hero Media**: Full-width architectural hero header (`1440x473`).
+  - **4-Column Metadata Table & Studio Overview Manifesto**:
+    - Project Title: `MMS ARCHITECTS™ / Architecture Studio`.
+    - Metadata: Year `2025`, Location `Italy`, Tags `Brand Development, Content Direction`, Purpose `Architecture Studio`.
+    - Detailed studio philosophy manifesto set in Beausite Classic regular.
+  - **Showcase Gallery Rows**:
+    - Row 1: Brand Stationery & Business Cards composition (`1416x709`).
+    - Row 2: Ribbon Structure graphic lockup (`1416x1100`).
+    - Row 3: Centered editorial quote callout.
+    - Row 4: Printed portfolio booklet and catalog mockup (`1416x944`).
+    - Row 5: MMS giant typographic identity structure (`1416x796`).
+    - Row 6: Brand mark variants and color systems (`1416x682`).
+    - Row 7: Brand standards composition & water crystal visual identity (`1416x709`).
+  - **Next Project & Return Navigation**:
+    - `← Back to Works`: Returns directly to the Works page.
+    - `Next Project: AXIS® RE →`: Instantly opens the AXIS project showcase.
+  - **Integrated Universal Footer**: Contact callout, brand mark, directory navigation, and CMS access.
+
+- **AXIS® RE Case Study Showcase (`AxisProjectPage.jsx`)**:
+  - 1:1 faithful implementation matching `References/Axis Page.fig` (1440x5810).
+  - **Hero Media**: Full-bleed gold star emblem hero header (`1440x473`).
+  - **4-Column Metadata Table & Studio Overview Manifesto**:
+    - Project Title: `AXIS® — RE / Real Estate Company`.
+    - Metadata: Year `2026`, Location `Egypt`, Tags `Brand Development, Content Direction`, Purpose `Real Estate Company`.
+    - High-level commercial destination manifesto set in Beausite Classic regular.
+  - **Showcase Gallery Rows**:
+    - Row 1: Brand Identity & stationery envelope mockup (`1416x709`).
+    - Row 2: Split 2-column grid (`703x546` each) featuring crimson emblem lockup & clean white emblem lockup.
+    - Row 3: Centered editorial quote callout.
+    - Row 4: Graphic emblem on white background (`1416x648`).
+    - Row 5: Giant cropped AXIS typographic branding structure (`1416x796`).
+    - Row 6: Split 2-column grid (`703x339` each) displaying black luxury business card & stationery detail.
+    - Row 7: Monochrome light & shadow architectural texture (`1416x709`).
+    - Row 8: Outdoor architectural billboard banners (`1416x709`).
+  - **Next Project & Return Navigation**:
+    - `← Back to Works`: Returns directly to the Works page.
+    - `Next Project: MMS ARCHITECTS™ →`: Instantly opens the MMS project showcase.
+  - **Integrated Universal Footer**: Contact callout, brand mark, directory navigation, and CMS access.
+
+- **Universal Project Linking**:
+  - **Homepage**: Clicking the MMS or Axis cards in the Selected Works section (`SelectedWorks.jsx`) immediately opens their respective project showcase pages with a smooth 0.65s atmospheric crossfade.
+  - **Works Page**: Clicking MMS or Axis cards in the horizontal slider (`SLIDER` mode) or in the table rows (`LIST` mode) immediately navigates to their respective showcase pages.
+  - **Back Navigation**: Returning to Works from any project automatically restores the fixed zero-scroll dashboard state and preserves user preferences.
+  - **Lenis Smooth Scroll Sync**: Automatically unlocks vertical scrolling when viewing project showcase pages, and locks overflow when returning to the Works page.
+
+---
+
+## Version 0.5.1 (Works CMS Management UI)
+**Date:** November 5, 2026  
+**Status:** Interactive Works CMS Modal Added, Direct UI Project Management (Add, Drop, Edit, Reorder), Footer Access Button, Real-Time Synchronized State
+
+### Key Deliverables in 0.5.1
+- **Universal Footer CMS Access**:
+  - Added `"• CMS"` action button immediately after `"• privacy & policy"` in [`Footer.jsx`](./src/components/Footer.jsx).
+  - Also added quick-access `CMS` trigger on the Works Page navigation header for convenience.
+- **Interactive Studio CMS UI (`WorksCMSModal.jsx`)**:
+  - Full-featured studio portfolio manager matching Norque Studios dark design language.
+  - **Add New Project**: Interactive form with Title, Location, Category dropdown & custom input, Year, Subtitle, Drag & Drop image file upload with immediate preview, and custom Tag/Badge with color presets (`#171717`, `#a87f2f`, `#ffffff`, etc.).
+  - **Drop / Delete Project**: Instant project removal with confirmation.
+  - **Edit Project**: Update any existing project fields in place.
+  - **Reorder Projects**: `▲` and `▼` controls to reorder projects on the slider and list view.
+  - **Export JSON**: Download updated `works.json` file with 1 click.
+  - **Reset Defaults**: Option to restore initial 5 Figma projects anytime.
+- **Persistent State Store (`worksStore.js`)**:
+  - Automatically persists changes in `localStorage` and triggers synchronized updates across components without requiring a page refresh.
+  - Leaves the Homepage *Selected Works* completely unaffected.
+
+---
+
+## Version 0.5.0 (Works Page Implementation)
+**Date:** November 5, 2026  
+**Status:** Standalone Works Page 1:1 Implementation from 'Works Page.fig', Fixed Viewport Zero-Scroll Dashboard, Interactive Horizontal Slider & Full-Width List View Toggle
+
+### Key Deliverables in 0.5.0
+- **Standalone Works Page Component (`WorksPage.jsx`)**:
+  - Converted `References/Works Page.fig` 1:1 into a dedicated full-bleed viewport dashboard.
+  - **Zero Vertical Page Overflow**: Strictly locked to 100% viewport height (`h-screen overflow-hidden`) with zero vertical scrolling permitted. Lenis smooth scroll and document overflow automatically paused/disabled when entering Works page.
+- **Header & Category Controls Bar**:
+  - `WORKS` title in Beausite Classic Semibold (`46px` / `3.1944vw`, `tracking-[-0.03em]`, uppercase white).
+  - Category Filter Tabs (`All`, `Websites`, `Branding`) in Beausite Classic Semibold (`22px` / `1.5278vw`) with active underline animation and muted inactive state (`#6f6f6f`).
+  - View Toggle Pill Buttons (`LIST` / `SLIDER`) with active/inactive pill styling.
+  - Column 4 Right-aligned indicator: `"SCROLL TO SEE MORE"` / project count.
+- **Projects Horizontal Slider (`SLIDER` Mode)**:
+  - 5 project cards extracted directly from Figma assets:
+    1. `STUDIO JUZENAS®` (Lithuania, Websites)
+    2. `AXIS® RE` (Egypt, Branding, with `IN THE WORKS` badge)
+    3. `MMS ARCHITECTS™` (Italy, Websites, with `AWARDED` amber badge)
+    4. `FUSION FORM®` (Egypt, Branding)
+    5. `AXIS® - Real Estate Consultancy` (Egypt, Branding, with `Brand Development` subtitle)
+  - Card aspect ratio `345/230` (`1.5`), `rounded-[2px]`, subtle border, image hover zoom (`scale-[1.03]`).
+  - Smooth horizontal navigation: supports Framer Motion horizontal drag constraints (`drag="x"`), elastic bounce, and native mouse wheel / trackpad horizontal gliding.
+- **Clean Table List View (`LIST` Mode)**:
+  - Toggle to an elegant full-width table view with columns `#`, `PROJECT`, `CATEGORY`, `LOCATION`, and `YEAR`.
+  - Micro-interactions: row hover highlights and floating thumbnail preview capsule.
+- **Global Navigation & Routing Integration**:
+  - Updated `Navbar.jsx` so `"WORKS"` routes directly to `WorksPage` (`currentPage === 'works'`).
+  - Pinned navbar visible with seamless in-place opacity crossfade transitions.
+
+---
+
+## Version 0.4.1 (Day 6 Sprint: Hero & Navigation Polish)
+**Date:** November 5, 2026  
+**Status:** Hero Repositioning & Sequenced Stagger, Scroll-Direction Responsive Navbar, Extended Cinematic Page Transitions, 100vh Full Viewport Footer
+
+### Key Deliverables in 0.4.1
+- **Hero Middle Statement Sequenced Stagger**:
+  - Repositioned `"BUILT FOR BRANDS THAT WANT / SOMETHING REAL"` and `"CREATING WORLDWIDE ©"` to `top-[44.53%]` matching `Home Page Hero.png` 1:1.
+  - Stagger animation chained to reveal exactly `0.5s` after `"NORQUE STUDIOS™"` begins rising, masked below `{ y: "105%", opacity: 0 }` so it remains completely hidden until triggered.
+- **Scroll-Direction Responsive Navbar**:
+  - Pinned navbar automatically hides on scroll down (`y: -100%`, `opacity: 0`) and slides into view upon scrolling up a tiny bit (`y: 0`, `opacity: 1`) using the signature `[0, 0.8, 0.2, 1]` curve.
+  - Cairo GMT clock relocated to Column 3 (50.8% width) and added `"CONTACT US"` CTA with clean underline in Column 4 matching reference 1:1.
+- **Cinematic Page Transitions**:
+  - Extended in-place opacity crossfade from `0.35s` to `0.65s` (`ease: [0.4, 0, 0.2, 1]`) with synchronized navbar fading for a more atmospheric, luxury feel.
+- **100vh Viewport-Filling Footer**:
+  - Configured footer with `min-h-screen flex flex-col justify-between`, expanding the interactive MagnetLines canvas (`flex-1`) to fill the entire screen height when scrolled all the way to the bottom.
+
+---
+
 ## Version 0.4.0 (Day 5 Complete)
 **Date:** November 2, 2026 (End of Day 5 Sprint)  
 **Status:** Design Revisions Complete, Selected Works CTA, Philosophy Repositioning & Circular Seal, "Done by Humans" with Parallax, Zero-Opacity Stagger, Splash Scroll Guard, MagnetLines Resolution Consistency

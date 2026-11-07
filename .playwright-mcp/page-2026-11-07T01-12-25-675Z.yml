@@ -1,0 +1,7 @@
+- generic [active] [ref=f2e1]:
+  - generic [ref=f2e2]:
+    - heading "1. hero reference.png (Target)" [level=2] [ref=f2e4]
+    - heading "2. Replicated (object-cover object-center scale-130)" [level=2] [ref=f2e8]
+  - generic [ref=f2e11]:
+    - heading "3. Test scale 1.28" [level=2] [ref=f2e13]
+    - heading "4. Test scale 1.33" [level=2] [ref=f2e17]

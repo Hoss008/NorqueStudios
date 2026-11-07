@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import MainLogo from './MainLogo';
 import MaskedWordStagger from './MaskedWordStagger';
 import MagnetLines from './MagnetLines';
@@ -48,11 +48,30 @@ const MAGNET_LINES_CONFIG = {
 /* UNIVERSAL FOOTER COMPONENT                                                */
 /* Project inquiry callout, interactive magnet lines, vector logo & links    */
 /* ========================================================================= */
-export default function Footer() {
+export default function Footer({ onOpenCMS, onNavigate, onOpenContact }) {
+  const clickCountRef = useRef(0);
+  const clickTimerRef = useRef(null);
+
+  // Stealth CMS trigger: triple-click copyright text
+  const handleCopyrightClick = () => {
+    clickCountRef.current += 1;
+    if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
+
+    if (clickCountRef.current >= 3) {
+      clickCountRef.current = 0;
+      if (onOpenCMS) onOpenCMS();
+      return;
+    }
+
+    clickTimerRef.current = setTimeout(() => {
+      clickCountRef.current = 0;
+    }, 700);
+  };
+
   return (
-    <footer id="contact" className="w-full bg-black motion-blur-target">
+    <footer id="contact" className="w-full min-h-screen bg-black motion-blur-target flex flex-col justify-between">
       {/* Universal Container Margin: 12px (0.8333vw) */}
-      <div className="w-full px-[0.8333vw]">
+      <div className="w-full px-[0.8333vw] flex flex-col justify-between flex-1">
         {/* ─── 1. Top Callout Section ─── */}
         <div className="border-t border-[#363636] pt-[1.6667vw]">
           <div className="max-w-[23.9583vw]">
@@ -70,15 +89,15 @@ export default function Footer() {
         </div>
 
         {/* ─── 2. Interactive Magnet Lines Element (Fits Red Box) ─── */}
-        <div className="w-full mt-[1.49vw] mb-[2.4vw] h-[28.05vw] overflow-hidden">
+        <div className="w-full my-[1.5vw] flex-1 min-h-[22vw] overflow-hidden flex flex-col">
           <MagnetLines
             {...MAGNET_LINES_CONFIG}
-            className="w-full h-full"
+            className="w-full flex-1"
           />
         </div>
 
         {/* ─── 3. Bottom Giant Brand Mark & Legal Directory ─── */}
-        <div>
+        <div className="w-full">
           {/* Full-Width Brand Vector */}
           <div className="w-full mb-[0.6944vw]">
             <MainLogo className="w-full h-auto text-white" />
@@ -88,10 +107,42 @@ export default function Footer() {
           <div className="pt-[0.6944vw] pb-[1.6667vw] flex flex-col md:flex-row justify-between items-start md:items-center gap-y-4">
             {/* Primary Navigation & Social Directory */}
             <div className="flex flex-wrap items-center gap-x-[0.9722vw] text-[0.6944vw] font-semibold tracking-normal text-white">
-              <a href="#about" className="hover:opacity-60 transition-opacity">About</a>
-              <a href="#works" className="hover:opacity-60 transition-opacity">Works</a>
-              <a href="#services" className="hover:opacity-60 transition-opacity">services</a>
-              <a href="#contact" className="hover:opacity-60 transition-opacity">contact</a>
+              <a 
+                href="/about" 
+                onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('about'); } }} 
+                className="hover:opacity-60 transition-opacity"
+              >
+                About
+              </a>
+              <a 
+                href="/projects" 
+                onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('works'); } }} 
+                className="hover:opacity-60 transition-opacity"
+              >
+                Works
+              </a>
+              <a 
+                href="#services" 
+                onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('home', 'services'); } }} 
+                className="hover:opacity-60 transition-opacity"
+              >
+                services
+              </a>
+              <a 
+                href="#contact" 
+                onClick={(e) => { 
+                  e.preventDefault(); 
+                  if (onOpenContact) {
+                    onOpenContact();
+                  } else {
+                    const el = document.getElementById('contact'); 
+                    if (el) el.scrollIntoView({ behavior: 'smooth' }); 
+                  }
+                }} 
+                className="hover:opacity-60 transition-opacity"
+              >
+                contact
+              </a>
               <a 
                 href="https://www.behance.net/norquestudios/" 
                 target="_blank" 
@@ -124,9 +175,12 @@ export default function Footer() {
               </a>
             </div>
 
-            {/* Copyright */}
+            {/* Copyright with stealth triple-click access for admins */}
             <div className="text-right">
-              <span className="text-[0.6944vw] font-semibold tracking-[-0.03em] text-white">
+              <span 
+                onClick={handleCopyrightClick}
+                className="text-[0.6944vw] font-semibold tracking-[-0.03em] text-white select-none cursor-default"
+              >
                 © 2026 norquestudios. all rights reserved
               </span>
             </div>

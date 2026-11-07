@@ -14,6 +14,24 @@
         history.scrollRestoration = 'manual';
       }
       window.scrollTo(0, 0);
+
+      // Single Page App redirect decoder for GitHub Pages
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&');
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        } else if (l.search.slice(1, 4) === 'p=/') {
+          var path = l.search.slice(4).split('&')[0].replace(/~and~/g, '&');
+          var q = l.search.includes('&q=') ? '?' + l.search.split('&q=')[1].replace(/~and~/g, '&') : '';
+          window.history.replaceState(null, null,
+              l.pathname.replace(/\/$/, '') + path + q + l.hash
+          );
+        }
+      }(window.location));
     </script>
   </head>
   <body class="bg-black text-white selection:bg-white selection:text-black">

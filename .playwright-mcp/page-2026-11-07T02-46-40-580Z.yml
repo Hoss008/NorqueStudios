@@ -1,0 +1,37 @@
+- generic [ref=e3]:
+  - banner:
+    - generic:
+      - generic:
+        - link "Norque Studios Home":
+          - /url: /
+      - navigation "Main Navigation":
+        - link "ABOUT":
+          - /url: /about
+          - generic:
+            - generic:
+              - generic: ABOUT
+              - generic [aria-hidden]: ABOUT
+        - link "WORKS":
+          - /url: /projects
+          - generic:
+            - generic:
+              - generic: WORKS
+              - generic [aria-hidden]: WORKS
+        - link "SERVICES":
+          - /url: "#services"
+          - generic:
+            - generic:
+              - generic: SERVICES
+              - generic [aria-hidden]: SERVICES
+      - generic: EGYPT, 04:46:40 AM GMT+2
+      - generic:
+        - link "CONTACT US":
+          - /url: "#contact"
+          - generic:
+            - generic:
+              - generic: CONTACT
+              - generic [aria-hidden]: CONTACT
+            - generic:
+              - generic: US
+              - generic [aria-hidden]: US
+  - main

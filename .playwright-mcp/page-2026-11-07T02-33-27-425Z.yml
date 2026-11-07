@@ -1,0 +1,314 @@
+- generic [ref=e3]:
+  - banner:
+    - generic:
+      - generic:
+        - link "Norque Studios Home":
+          - /url: /
+      - navigation "Main Navigation":
+        - link "ABOUT":
+          - /url: /about
+          - generic:
+            - generic:
+              - generic: ABOUT
+              - generic [aria-hidden]: ABOUT
+        - link "WORKS":
+          - /url: /projects
+          - generic:
+            - generic:
+              - generic: WORKS
+              - generic [aria-hidden]: WORKS
+        - link "SERVICES":
+          - /url: "#services"
+          - generic:
+            - generic:
+              - generic: SERVICES
+              - generic [aria-hidden]: SERVICES
+      - generic: EGYPT, 04:33:27 AM GMT+2
+      - generic:
+        - link "CONTACT US":
+          - /url: "#contact"
+          - generic:
+            - generic:
+              - generic: CONTACT
+              - generic [aria-hidden]: CONTACT
+            - generic:
+              - generic: US
+              - generic [aria-hidden]: US
+  - main [ref=e15]:
+    - generic [ref=e17]:
+      - generic [ref=e18]:
+        - generic [ref=e20]:
+          - link "Norque Studios Home" [ref=e22] [cursor=pointer]:
+            - /url: /
+          - navigation "Main Navigation" [ref=e33]:
+            - link "ABOUT" [ref=e34] [cursor=pointer]:
+              - /url: /about
+              - generic [ref=e36]:
+                - generic [ref=e37]: ABOUT
+                - generic [aria-hidden] [ref=e38]: ABOUT
+            - link "WORKS" [ref=e39] [cursor=pointer]:
+              - /url: /projects
+              - generic [ref=e41]:
+                - generic [ref=e42]: WORKS
+                - generic [aria-hidden] [ref=e43]: WORKS
+            - link "SERVICES" [ref=e44] [cursor=pointer]:
+              - /url: "#services"
+              - generic [ref=e46]:
+                - generic [ref=e47]: SERVICES
+                - generic [aria-hidden] [ref=e48]: SERVICES
+          - generic [ref=e49]: EGYPT, 04:33:27 AM GMT+2
+          - link "CONTACT US" [active] [ref=e52] [cursor=pointer]:
+            - /url: "#contact"
+            - generic [ref=e53]:
+              - generic [ref=e54]:
+                - generic [ref=e55]: CONTACT
+                - generic [aria-hidden] [ref=e56]: CONTACT
+              - generic [ref=e57]:
+                - generic [ref=e58]: US
+                - generic [aria-hidden] [ref=e59]: US
+        - generic [ref=e60]:
+          - generic [ref=e61]:
+            - paragraph [ref=e63]: BUILT FOR BRANDS THAT WANT
+            - paragraph [ref=e65]: SOMETHING REAL
+          - paragraph [ref=e67]: CREATING WORLDWIDE ©
+      - generic [ref=e86]:
+        - generic [ref=e89]:
+          - img "Recent work of branding, web design & development by NORQUE STUDIOS™" [ref=e91]
+          - generic [ref=e92]:
+            - paragraph [ref=e93]: Recent work of branding, web design & development by NORQUE STUDIOS™
+            - paragraph [ref=e94]: ©2026
+        - generic [ref=e99]:
+          - generic [aria-hidden]:
+            - generic: NORQUE STUDIOS™ — A creative studio for brands that want to build something real. Based between ideas, design and digital, we work across branding, creative direction, UI/UX and web development.
+            - generic: We collaborate with ambitious brands, businesses and creative partners to shape identities, digital experiences and visual systems that feel considered, distinctive and built to last. From the first idea to the final detail, we bring strategy, design and development together under one roof.
+            - generic:
+              - text: Feel free to explore our
+              - generic:
+                - link:
+                  - /url: "#works"
+                  - text: Works
+              - text: ", check our"
+              - generic:
+                - link:
+                  - /url: https://www.behance.net
+                  - text: Behance
+              - text: or say hello at
+              - generic:
+                - link:
+                  - /url: mailto:hello@norquestudios.com
+                  - text: hello@norquestudios.com
+          - generic [ref=e100]:
+            - generic [ref=e101]:
+              - generic [ref=e102]: NORQUE STUDIOS™ — A creative studio for brands that want to build something real. Based between
+              - generic [ref=e104]: ideas, design and digital, we work across branding, creative direction, UI/UX and web development.
+            - generic [ref=e106]:
+              - generic [ref=e107]: We collaborate with ambitious brands, businesses and creative partners to shape identities, digital
+              - generic [ref=e109]: experiences and visual systems that feel considered, distinctive and built to last. From the first idea to
+              - generic [ref=e111]: the final detail, we bring strategy, design and development together under one roof.
+            - generic [ref=e115]:
+              - text: Feel free to explore our
+              - link "Works" [ref=e116] [cursor=pointer]:
+                - /url: "#works"
+              - text: ", check our"
+              - link "Behance" [ref=e117] [cursor=pointer]:
+                - /url: https://www.behance.net
+              - text: or say hello at
+              - link "hello@norquestudios.com" [ref=e118] [cursor=pointer]:
+                - /url: mailto:hello@norquestudios.com
+      - generic [ref=e125]:
+        - heading "SELECTED WORKS (04)" [level=2] [ref=e126]:
+          - generic [ref=e127]: SELECTED WORKS
+          - generic [ref=e128]: (04)
+        - generic [ref=e129]:
+          - article [ref=e130] [cursor=pointer]:
+            - img "AXIS® - Real Estate Consultancy" [ref=e132]
+            - generic [ref=e133]:
+              - generic [ref=e134]:
+                - heading "AXIS® - Real Estate Consultancy" [level=3] [ref=e135]
+                - generic [ref=e136]: Egypt
+              - paragraph [ref=e137]: Brand Development
+          - article [ref=e138] [cursor=pointer]:
+            - img "Fusion Form® - Architecture Development" [ref=e140]
+            - generic [ref=e141]:
+              - generic [ref=e142]:
+                - heading "Fusion Form® - Architecture Development" [level=3] [ref=e143]
+                - generic [ref=e144]: Egypt
+              - paragraph [ref=e145]: UI/UX Design & Web Development
+          - article [ref=e146] [cursor=pointer]:
+            - img "STUDIO JUZĖNAS® - Architecture Studio" [ref=e148]
+            - generic [ref=e149]:
+              - generic [ref=e150]:
+                - heading "STUDIO JUZĖNAS® - Architecture Studio" [level=3] [ref=e151]
+                - generic [ref=e152]: Lithuania
+              - paragraph [ref=e153]: Brand Development | UI/UX Design & Web Development
+          - article [ref=e154] [cursor=pointer]:
+            - img "MMS ARCHITECTS™" [ref=e156]
+            - generic [ref=e157]:
+              - generic [ref=e158]:
+                - heading "MMS ARCHITECTS™" [level=3] [ref=e159]
+                - generic [ref=e160]: Egypt
+              - paragraph [ref=e161]: Brand Development
+        - generic [ref=e162]:
+          - heading "Discover more projects!" [level=3] [ref=e163]
+          - button "Discover more" [ref=e164] [cursor=pointer]
+      - generic [ref=e169]:
+        - generic [ref=e170]:
+          - heading "WHAT’S HAPPENING NOW" [level=2] [ref=e171]
+          - generic [ref=e172]: Below you will find latest news
+        - generic [ref=e173]:
+          - article [ref=e174]:
+            - generic [ref=e176]:
+              - img "Studio Juzėnas Website Preview"
+            - generic [ref=e177]:
+              - heading "Next chapter of an architecture studio in Lithuania" [level=3] [ref=e178]
+              - paragraph [ref=e179]: We’re working alongside Lithuanian architect Justas Južėnas to shape the next chapter of his architecture studio. From its visual identity to its digital presence.
+          - article [ref=e180]:
+            - generic [ref=e182]:
+              - img "Modish Studio Project Preview"
+            - generic [ref=e183]:
+              - heading "Catch us in Saudi Arabia" [level=3] [ref=e184]
+              - paragraph [ref=e185]: A new collaboration with Modish Studio. We’re working on refining the studio’s brand presence, bringing its architectural approach into a more distinctive and cohesive visual language.
+          - article [ref=e186]:
+            - generic [ref=e188]:
+              - img "Studio Juzėnas Branding Identity Preview"
+            - generic [ref=e189]:
+              - heading "Building an Identity Around Architecture" [level=3] [ref=e190]
+              - paragraph [ref=e191]: Currently developing the visual identity for a Lithuanian architecture studio. An exercise in restraint, exploring the relationship between typography, composition, and architectural thinking.
+          - article [ref=e192]:
+            - generic [ref=e194]:
+              - img "Stephenson Feature by Behance Preview"
+            - generic [ref=e195]:
+              - heading "Featured by Behance" [level=3] [ref=e196]
+              - paragraph [ref=e197]: One of our projects has been selected and featured by the Behance curation team in the Branding category. A milestone we’re proud of and another reminder that thoughtful design finds its way.
+      - generic [ref=e200]:
+        - generic [ref=e203]:
+          - generic [aria-hidden]:
+            - generic: Not every problem needs more complexity, and not every idea needs more to become meaningful. Sometimes, the most valuable decision is knowing what to keep, what to change, and what to leave behind.
+            - generic: Our approach is rooted in clarity, thoughtful execution, and an appreciation for the details that make the whole.
+          - generic [ref=e204]:
+            - generic [ref=e205]:
+              - generic [ref=e206]: Not every problem needs more complexity, and not every idea needs
+              - generic [ref=e208]: more to become meaningful. Sometimes, the most valuable decision
+              - generic [ref=e210]: is knowing what to keep, what to change, and what to leave behind.
+            - generic [ref=e212]:
+              - generic [ref=e213]: Our approach is rooted in clarity, thoughtful execution, and an
+              - generic [ref=e215]: appreciation for the details that make the whole.
+        - img "Norque Studios Brand Mark" [ref=e218]
+      - generic [ref=e222]:
+        - generic:
+          - img "Done by Humans"
+        - img "DONE BY HUMANS" [ref=e225]
+        - generic [ref=e238]:
+          - img "Norque Studios Brand Mark" [ref=e240]
+          - generic [ref=e245]:
+            - generic [aria-hidden]:
+              - generic: We believe the best work happens when human perspective meets thoughtful execution. Every idea begins with a conversation, every decision has a reason, and every detail is considered. Because behind every project, there are people, and behind every meaningful result, there is a partnership built on understanding.
+            - generic [ref=e247]:
+              - generic [ref=e248]: We believe the best work happens when human perspective meets thoughtful
+              - generic [ref=e250]: execution. Every idea begins with a conversation, every decision has a reason, and every
+              - generic [ref=e252]: detail is considered. Because behind every project, there are people, and behind every
+              - generic [ref=e254]: meaningful result, there is a partnership built on understanding.
+      - generic [ref=e257]:
+        - generic [ref=e261]:
+          - generic [aria-hidden]:
+            - generic:
+              - text: Got a project on mind? Let’s make it alive!
+              - generic:
+                - link:
+                  - /url: mailto:hello@norquestudios.com
+                  - text: hello@norquestudios.com
+          - generic [ref=e263]:
+            - generic [ref=e264]: Got a project on mind?
+            - generic [ref=e266]: Let’s make it alive!
+            - link "hello@norquestudios.com" [ref=e270] [cursor=pointer]:
+              - /url: mailto:hello@norquestudios.com
+        - generic [ref=e290]:
+          - generic [ref=e291]:
+            - link "About" [ref=e292] [cursor=pointer]:
+              - /url: /about
+            - link "Works" [ref=e293] [cursor=pointer]:
+              - /url: /projects
+            - link "services" [ref=e294] [cursor=pointer]:
+              - /url: "#services"
+            - link "contact" [ref=e295] [cursor=pointer]:
+              - /url: "#contact"
+            - link "Behance" [ref=e296] [cursor=pointer]:
+              - /url: https://www.behance.net/norquestudios
+            - link "Linked in" [ref=e297] [cursor=pointer]:
+              - /url: https://www.linkedin.com/company/https-norquestudios.com-/
+            - link "Instagram" [ref=e298] [cursor=pointer]:
+              - /url: https://www.instagram.com/norquestudios/
+            - link "• terms & conditions" [ref=e299] [cursor=pointer]:
+              - /url: "#terms"
+            - link "• privacy & policy" [ref=e300] [cursor=pointer]:
+              - /url: "#privacy"
+          - generic [ref=e301]: © 2026 norquestudios. all rights reserved
+  - generic [ref=e302]:
+    - generic [aria-hidden] [ref=e303] [cursor=pointer]
+    - dialog "Contact Us" [ref=e304]:
+      - generic [ref=e305]:
+        - generic [ref=e306]:
+          - generic [ref=e308]:
+            - heading "CONTACT US" [level=2] [ref=e309]
+            - button "Close Contact Tab" [ref=e310] [cursor=pointer]:
+              - generic [ref=e313]: Close
+          - generic [ref=e314]:
+            - generic [ref=e316]:
+              - generic [ref=e317]: Name*
+              - textbox "e.g. John Mark" [ref=e318]
+            - generic [ref=e320]:
+              - generic [ref=e321]: Phone Number*
+              - textbox "e.g. +971 XX XXX XXXX" [ref=e322]
+            - generic [ref=e324]:
+              - generic [ref=e325]: Email*
+              - textbox "e.g. jo.......@gmail.com" [ref=e326]
+            - generic [ref=e328]:
+              - generic [ref=e329]: Company Name
+              - textbox "e.g. PLATO Design House" [ref=e330]
+            - generic [ref=e332]:
+              - generic [ref=e333]: Your Website Link (optional)
+              - textbox "Add your URL here" [ref=e334]
+            - generic [ref=e336]:
+              - generic [ref=e337]: Project Type
+              - generic [ref=e338]:
+                - button "Full Website" [ref=e339] [cursor=pointer]
+                - button "Branding" [ref=e340] [cursor=pointer]
+                - button "UI/UX" [ref=e341] [cursor=pointer]
+                - button "Web Development" [ref=e342] [cursor=pointer]
+                - button "Social Media" [ref=e343] [cursor=pointer]
+                - button "Consulting" [ref=e344] [cursor=pointer]
+            - generic [ref=e346]:
+              - generic [ref=e347]: Expected Budget
+              - generic [ref=e348]:
+                - button "< $1000" [ref=e349] [cursor=pointer]
+                - button "$1,000 — $2,000" [ref=e350] [cursor=pointer]
+                - button "$2,000 — $3,000" [ref=e351] [cursor=pointer]
+                - button "$3,000 — $5,000" [ref=e352] [cursor=pointer]
+                - button "+$5,000" [ref=e353] [cursor=pointer]
+            - generic [ref=e355]:
+              - generic [ref=e356]: How did you hear about us?
+              - button "Select your option" [ref=e357] [cursor=pointer]
+            - generic [ref=e362]:
+              - generic [ref=e363]: Something specific you want to talk about?
+              - textbox "Add more details..." [ref=e364]
+            - button "Submit Your Info" [ref=e367] [cursor=pointer]
+        - generic [ref=e369]:
+          - generic [ref=e370]:
+            - generic [ref=e371]:
+              - link "Instagram" [ref=e372] [cursor=pointer]:
+                - /url: https://instagram.com/norquestudios
+              - link "Behance" [ref=e373] [cursor=pointer]:
+                - /url: https://behance.net/norquestudios
+              - link "LinkedIn" [ref=e374] [cursor=pointer]:
+                - /url: https://linkedin.com/company/norquestudios
+            - link "Download our Pitch Deck [PDF]" [ref=e375] [cursor=pointer]:
+              - /url: "#"
+          - generic [ref=e379]:
+            - link "+971 58 524 0159" [ref=e380] [cursor=pointer]:
+              - /url: tel:+971585240159
+            - link "+20 110 0263391" [ref=e381] [cursor=pointer]:
+              - /url: tel:+201100263391
+            - link "+20 114 5620801" [ref=e382] [cursor=pointer]:
+              - /url: tel:+201145620801
+            - link "hello@norquestudios" [ref=e383] [cursor=pointer]:
+              - /url: mailto:hello@norquestudios.com

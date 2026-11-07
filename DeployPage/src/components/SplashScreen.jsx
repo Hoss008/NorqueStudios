@@ -24,7 +24,7 @@ export default function SplashScreen({ onComplete }) {
           key="loader"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1, ease: [1, -0.02, 0.2, 1] }}
+          transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
           style={{
             position: 'fixed',
             inset: 0,
@@ -35,6 +35,7 @@ export default function SplashScreen({ onComplete }) {
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 9999,
+            willChange: 'opacity',
           }}
         >
           <motion.svg

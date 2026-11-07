@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import CompactLogo from './CompactLogo';
 
@@ -7,17 +7,20 @@ import CompactLogo from './CompactLogo';
 /* Words stagger upward while duplicated masked words rise from below        */
 /* Reference: References/Hover Stagger reference.mp4                         */
 /* ========================================================================= */
-function StaggeredNavButton({ label, onClick }) {
+function StaggeredNavButton({ label, href, onClick, hasUnderline = false }) {
   const [isHovered, setIsHovered] = useState(false);
   const words = label.split(' ');
+  const targetHref = href || `#${label.toLowerCase().replace(/\s+/g, '-')}`;
 
   return (
     <a
-      href={`#${label.toLowerCase()}`}
+      href={targetHref}
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative inline-flex items-center text-[0.5556vw] font-semibold tracking-normal text-white uppercase cursor-pointer select-none py-[0.1vw]"
+      className={`relative inline-flex items-center text-[0.5556vw] font-semibold tracking-normal text-white uppercase cursor-pointer select-none py-[0.1vw] ${
+        hasUnderline ? 'border-b border-white pb-[0.05vw]' : ''
+      }`}
     >
       <span className="inline-flex overflow-hidden leading-tight">
         {words.map((word, index) => (
@@ -68,20 +71,26 @@ export default function Navbar({
   isIntroStarted = false, 
   activePage = 'home', 
   onNavigate,
+  onOpenContact,
   isPinned = false,
   isVisible = true,
   isPageTransitioning = false
 }) {
   /* ─── State: Cairo/Egypt Live GMT Clock ─── */
   const [egyptTime, setEgyptTime] = useState('');
+  const hasRevealedOnceRef = useRef(false);
+
+  useEffect(() => {
+    if (isVisible && !hasRevealedOnceRef.current) {
+      hasRevealedOnceRef.current = true;
+    }
+  }, [isVisible]);
 
   const handleLogoClick = (e) => {
     e.preventDefault();
-    if (window.location.hash) {
-      history.replaceState(null, '', window.location.pathname);
+    if (onNavigate) {
+      onNavigate('home');
     }
-    window.location.href = window.location.pathname;
-    window.location.reload();
   };
 
   const handleLinkClick = (page, sectionId) => (e) => {
@@ -109,7 +118,7 @@ export default function Navbar({
         const second = parts.find(p => p.type === 'second')?.value || '00';
         const dayPeriod = parts.find(p => p.type === 'dayPeriod')?.value?.toUpperCase() || 'PM';
         
-        setEgyptTime(`EGYPT, ${hour}:${minute}:${second} ${dayPeriod} GMT+2 `);
+        setEgyptTime(`EGYPT, ${hour}:${minute}:${second} ${dayPeriod} GMT+2`);
       } catch (e) {
         setEgyptTime('EGYPT, 03:48:10 PM GMT+2');
       }
@@ -120,20 +129,24 @@ export default function Navbar({
   }, []);
 
   /* ─── Transition & Entrance Configurations ─── */
+  const isProjectPage = activePage === 'project-mms' || activePage === 'project-axis';
+  const isProjectReveal = !isPageTransitioning && isProjectPage;
+  const isHomeFirstReveal = !isPageTransitioning && activePage === 'home' && isVisible && !hasRevealedOnceRef.current;
+  const isInitialSlideDown = isHomeFirstReveal || isProjectReveal;
+
   const navOpacity = isPageTransitioning ? 0 : (isVisible ? 1 : 0);
-  const navY = isPinned ? (isVisible ? 0 : '-100%') : (isIntroStarted ? 0 : -50);
-  const isHomeFirstReveal = !isPageTransitioning && activePage === 'home' && isVisible;
+  const navY = isPinned ? ((isVisible || isPageTransitioning) ? 0 : '-100%') : (isIntroStarted ? 0 : -50);
 
   const transitionConfig = {
     y: {
-      duration: isHomeFirstReveal ? 0.8 : 0.35,
-      ease: [0, 0.8, 0.2, 1],
-      delay: isHomeFirstReveal ? 0.5 : 0,
+      duration: isProjectReveal ? 1.15 : (isHomeFirstReveal ? 0.8 : (isPageTransitioning ? 0.5 : 0.35)),
+      ease: [0.16, 1, 0.3, 1],
+      delay: isProjectReveal ? 0.55 : (isHomeFirstReveal ? 0.5 : 0),
     },
     opacity: {
-      duration: isHomeFirstReveal ? 0.8 : 0.35,
-      ease: [0, 0.8, 0.2, 1],
-      delay: isHomeFirstReveal ? 0.5 : 0,
+      duration: isProjectReveal ? 1.15 : (isPageTransitioning ? 0.5 : (isHomeFirstReveal ? 0.8 : 0.35)),
+      ease: [0.16, 1, 0.3, 1],
+      delay: isProjectReveal ? 0.55 : (isHomeFirstReveal ? 0.5 : 0),
     },
   };
 
@@ -142,13 +155,17 @@ export default function Navbar({
     <motion.header 
       className={`${
         isPinned 
-          ? 'fixed top-0 left-0 right-0 z-40 bg-black/60 backdrop-blur-md' 
+          ? `fixed top-0 left-0 right-0 z-40 ${
+              isProjectPage
+                ? 'bg-transparent'
+                : 'bg-black/60 backdrop-blur-md'
+            }` 
           : 'w-full z-20'
       } h-[2.5vw] px-[0.8333vw] flex items-center transition-colors duration-300`}
       style={{ pointerEvents: isPinned && (!isVisible || isPageTransitioning) ? 'none' : 'auto' }}
       initial={
         isPinned 
-          ? { y: isVisible ? 0 : '-100%', opacity: 0 } 
+          ? { y: isInitialSlideDown ? '-100%' : (isVisible ? 0 : '-100%'), opacity: 0 } 
           : { y: isIntroStarted ? 0 : -50, opacity: isIntroStarted ? 1 : 0 }
       }
       animate={{
@@ -158,10 +175,10 @@ export default function Navbar({
       transition={transitionConfig}
     >
       <div className="w-full grid grid-cols-4 items-center">
-        {/* Column 1: Compact Vector Logo (NRQ STDS - Reload to home page) */}
+        {/* Column 1: Compact Vector Logo (NRQ STDS - Navigate to home page) */}
         <div className="flex items-center">
           <a 
-            href="#" 
+            href="/" 
             onClick={handleLogoClick}
             className="inline-flex items-center cursor-pointer" 
             aria-label="Norque Studios Home"
@@ -174,26 +191,43 @@ export default function Navbar({
         <nav className="flex items-center space-x-[0.6944vw]" aria-label="Main Navigation">
           <StaggeredNavButton 
             label="ABOUT" 
+            href="/about"
             onClick={handleLinkClick('about')} 
           />
           <StaggeredNavButton 
             label="WORKS" 
-            onClick={handleLinkClick('home', 'works')} 
+            href="/projects"
+            onClick={handleLinkClick('works')} 
           />
           <StaggeredNavButton 
             label="SERVICES" 
+            href="#services"
             onClick={handleLinkClick('home', 'services')} 
           />
         </nav>
 
-        {/* Column 3: Grid Balance Spacer */}
-        <div></div>
-
-        {/* Column 4: Egypt Live GMT Time */}
-        <div className="text-right">
+        {/* Column 3: Egypt Live GMT Time (Left-aligned in column 3 matching Home Page Hero.png) */}
+        <div className="flex items-center">
           <span className="text-[0.5556vw] font-semibold tracking-[-0.03em] text-white tabular-nums select-none uppercase">
             {egyptTime || 'EGYPT, 03:48:10 PM GMT'}
           </span>
+        </div>
+
+        {/* Column 4: Contact Us CTA with Underline (Right-aligned in column 4) */}
+        <div className="flex items-center justify-end">
+          <StaggeredNavButton 
+            label="CONTACT US" 
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              if (onOpenContact) {
+                onOpenContact();
+              } else if (onNavigate) {
+                onNavigate(activePage === 'works' || activePage === 'project-mms' || activePage === 'project-axis' ? 'home' : activePage, 'contact');
+              }
+            }} 
+            hasUnderline={true}
+          />
         </div>
       </div>
     </motion.header>

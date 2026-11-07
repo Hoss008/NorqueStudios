@@ -9,7 +9,7 @@ import NorqueCircleLogo from './NorqueCircleLogo';
 /* ========================================================================= */
 export default function Philosophy() {
   return (
-    <section className="w-full bg-black py-[5.4167vw] motion-blur-target">
+    <section className="w-full bg-black py-[10vw] motion-blur-target">
       {/* Universal Container Margin: 12px (0.8333vw) */}
       <div className="w-full px-[0.8333vw]">
         <div className="w-full flex justify-between items-start">

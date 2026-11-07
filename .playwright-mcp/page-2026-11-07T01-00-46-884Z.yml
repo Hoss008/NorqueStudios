@@ -1,0 +1,5 @@
+- generic [active] [ref=f3e1]:
+  - heading "1. Reference (hero-cover-crop):" [level=2] [ref=f3e2]
+  - 'heading "2. MMS Cover with object-fit: cover, object-position: center:" [level=2] [ref=f3e4]'
+  - 'heading "3. MMS Cover with object-fit: cover, object-position: bottom:" [level=2] [ref=f3e7]'
+  - 'heading "4. MMS Cover with object-fit: cover, object-position: 50% 80%:" [level=2] [ref=f3e10]'

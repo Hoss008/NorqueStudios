@@ -1,0 +1,79 @@
+- generic [ref=e3]:
+  - banner:
+    - generic:
+      - generic:
+        - link "Norque Studios Home":
+          - /url: /
+      - navigation "Main Navigation":
+        - link "ABOUT":
+          - /url: /about
+          - generic:
+            - generic:
+              - generic: ABOUT
+              - generic [aria-hidden]: ABOUT
+        - link "WORKS":
+          - /url: /projects
+          - generic:
+            - generic:
+              - generic: WORKS
+              - generic [aria-hidden]: WORKS
+        - link "SERVICES":
+          - /url: "#services"
+          - generic:
+            - generic:
+              - generic: SERVICES
+              - generic [aria-hidden]: SERVICES
+      - generic: EGYPT, 03:28:42 AM GMT+2
+      - generic:
+        - link "CONTACT US":
+          - /url: "#contact"
+          - generic:
+            - generic:
+              - generic: CONTACT
+              - generic [aria-hidden]: CONTACT
+            - generic:
+              - generic: US
+              - generic [aria-hidden]: US
+  - main [ref=e45]:
+    - generic [ref=e48]:
+      - generic [ref=e49]:
+        - img "MMS ARCHITECTS™ Cover" [ref=e52]
+        - generic [ref=e54]:
+          - generic [ref=e55]:
+            - heading "MMS ARCHITECTS™ Architecture Studio" [level=1] [ref=e57]: MMS ARCHITECTS™Architecture Studio
+            - generic [ref=e58]:
+              - generic [ref=e60]:
+                - generic [ref=e61]: Year
+                - generic [ref=e62]: "2025"
+              - generic [ref=e64]:
+                - generic [ref=e65]: Location
+                - generic [ref=e66]: Italy
+              - generic [ref=e68]:
+                - generic [ref=e69]: Tags
+                - generic [ref=e70]: Brand Development, Content Creation
+              - generic [ref=e72]:
+                - generic [ref=e73]: Purpose
+                - generic [ref=e74]: Architecture Studio
+          - generic [ref=e77]:
+            - generic [aria-hidden]:
+              - generic: MMS ARCHITECTS is a modern architectural and interior design studio focused on creating refined, calm, and luxurious spaces through minimal design. The studio believes that true luxury is not found in excess, but in clarity, balance, and thoughtful simplicity. Specializing in modern villas, residential architecture, and interior design, MMS delivers spaces that feel elegant, functional, and timeless. Each project is treated as a unique artistic composition — where form, space, light, and proportion work together seamlessly.
+              - generic: With international experience across different cultures and building codes, MMS Architecture offers a global design perspective while maintaining a strong, recognizable minimal identity. From concept to execution, the studio provides fully integrated design solutions that balance aesthetics, practicality, and technical precision.
+              - generic: MMS ARCHITECTS aims to establish itself as a globally recognized name in modern minimal architecture — creating work that stands quietly confident, visually powerful, and unmistakably refined.
+            - generic [ref=e78]:
+              - generic [ref=e79]:
+                - generic [ref=e80]: MMS ARCHITECTS is a modern architectural and interior design studio focused on creating refined, calm, and luxurious spaces through minimal design. The studio believes that
+                - generic [ref=e82]: true luxury is not found in excess, but in clarity, balance, and thoughtful simplicity. Specializing in modern villas, residential architecture, and interior design, MMS delivers spaces
+                - generic [ref=e84]: that feel elegant, functional, and timeless. Each project is treated as a unique artistic composition — where form, space, light, and proportion work together seamlessly.
+              - generic [ref=e86]:
+                - generic [ref=e87]: With international experience across different cultures and building codes, MMS Architecture offers a global design perspective while maintaining a strong, recognizable minimal
+                - generic [ref=e89]: identity. From concept to execution, the studio provides fully integrated design solutions that balance aesthetics, practicality, and technical precision.
+              - generic [ref=e91]:
+                - generic [ref=e92]: MMS ARCHITECTS aims to establish itself as a globally recognized name in modern minimal architecture — creating work that stands quietly confident, visually powerful, and
+                - generic [ref=e94]: unmistakably refined.
+      - generic [ref=e96]:
+        - img "MMS ARCHITECTS™ Business Card Stationery" [ref=e98]
+        - img "MMS ARCHITECTS™ Architectural Exhibition Hall" [ref=e100]
+        - img "MMS ARCHITECTS™ Architectural Envelope Branding" [ref=e102]
+        - generic [ref=e103]:
+          - img "MMS ARCHITECTS™ Proposal & Letterhead Documentation" [ref=e105]
+          - img "MMS ARCHITECTS™ Portfolio Archive Book" [ref=e107]

@@ -11,8 +11,18 @@ const WorksCMSModal = React.lazy(() => import('./components/WorksCMSModal'));
 const AdminAuthModal = React.lazy(() => import('./components/AdminAuthModal'));
 import SplashScreen from './components/SplashScreen';
 import Navbar from './components/Navbar';
+import PhoneNotice from './components/PhoneNotice';
+import ContactTab from './components/ContactTab';
 
 let globalIntroHasPlayed = false;
+
+// Helper to detect if device or viewport is a mobile phone
+function checkIsPhone() {
+  if (typeof window === 'undefined') return false;
+  const isMobileUA = /Android.*Mobile|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const isSmallScreen = window.innerWidth < 768;
+  return isMobileUA || isSmallScreen;
+}
 
 // Helper to determine logical page identifier from URL pathname
 function getLogicalPage(pathname) {
@@ -45,12 +55,21 @@ export default function App() {
   const [pendingSection, setPendingSection] = useState(null);
   const [isPageTransitioning, setIsPageTransitioning] = useState(false);
   const [isNavScrollVisible, setIsNavScrollVisible] = useState(true);
+  const [isContactOpen, setIsContactOpen] = useState(false);
   const [isCmsOpen, setIsCmsOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(() => {
     return typeof window !== 'undefined' && sessionStorage.getItem('norque_admin_authenticated') === 'true';
   });
   const lenisRef = useRef(null);
+
+  const handleOpenContact = () => {
+    setIsContactOpen(true);
+  };
+
+  const handleCloseContact = () => {
+    setIsContactOpen(false);
+  };
 
   const handleOpenCMS = () => {
     if (isAdminAuthenticated) {
@@ -66,7 +85,45 @@ export default function App() {
     setIsCmsOpen(false);
   };
 
-  /* ─── Stealth CMS Listeners: Ctrl+Shift+A / Cmd+Shift+A & #admin hash ─── */
+  /* ─── Hash Listeners: #contact & #admin/#cms ─── */
+  useEffect(() => {
+    const handleHash = () => {
+      if (typeof window === 'undefined') return;
+      if (window.location.hash === '#contact') {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+        setIsContactOpen(true);
+      } else if (window.location.hash === '#admin' || window.location.hash === '#cms') {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+        handleOpenCMS();
+      }
+    };
+
+    window.addEventListener('hashchange', handleHash);
+    handleHash();
+
+    return () => {
+      window.removeEventListener('hashchange', handleHash);
+    };
+  }, [isAdminAuthenticated]);
+
+  /* ─── Scroll Locking when Contact Tab is Open ─── */
+  useEffect(() => {
+    if (isContactOpen) {
+      if (lenisRef.current) lenisRef.current.stop();
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    } else {
+      if (currentPage !== 'works') {
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        if (lenisRef.current && isSplashComplete) {
+          lenisRef.current.start();
+        }
+      }
+    }
+  }, [isContactOpen, currentPage, isSplashComplete]);
+
+  /* ─── Stealth CMS Listeners: Ctrl+Shift+A / Cmd+Shift+A ─── */
   useEffect(() => {
     const handleKeyDown = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
@@ -75,22 +132,8 @@ export default function App() {
       }
     };
 
-    const handleHash = () => {
-      if (typeof window !== 'undefined' && (window.location.hash === '#admin' || window.location.hash === '#cms')) {
-        history.replaceState(null, '', window.location.pathname + window.location.search);
-        handleOpenCMS();
-      }
-    };
-
     window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('hashchange', handleHash);
-
-    handleHash();
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('hashchange', handleHash);
-    };
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isAdminAuthenticated]);
 
   /* ─── Idle Route Preloading: Download secondary routes after initial load ─── */
@@ -350,9 +393,36 @@ export default function App() {
     }
   }, [location.pathname, pendingSection]);
 
+  /* ─── Mobile Phone Gate State ─── */
+  const [isPhone, setIsPhone] = useState(checkIsPhone);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsPhone(checkIsPhone());
+    };
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isPhone) {
+      if (lenisRef.current) lenisRef.current.stop();
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    }
+  }, [isPhone]);
+
   /* ======================================================================= */
   /* MAIN RENDER WITH CINEMATIC PAGE TRANSITIONS                             */
   /* ======================================================================= */
+  if (isPhone) {
+    return <PhoneNotice />;
+  }
+
   return (
     <div className={`relative min-h-screen ${
       currentPage === 'project-mms' 
@@ -368,6 +438,7 @@ export default function App() {
 
       {/* Pinned Global Header Navigation (36px = 2.5vw proportional ratio) */}
       <Navbar 
+        key={currentPage}
         isPinned={true}
         isVisible={
           (currentPage === 'about' || 
@@ -379,6 +450,7 @@ export default function App() {
         isIntroStarted={true}
         activePage={currentPage} 
         onNavigate={handleNavigate}
+        onOpenContact={handleOpenContact}
         isPageTransitioning={isPageTransitioning}
       />
 
@@ -445,6 +517,7 @@ export default function App() {
                   element={
                     <HomePage 
                       onNavigate={handleNavigate} 
+                      onOpenContact={handleOpenContact}
                       hasIntroPlayed={hasIntroPlayed}
                       onIntroComplete={handleIntroComplete}
                       onBoxRevealComplete={setIsBoxRevealComplete}
@@ -457,6 +530,7 @@ export default function App() {
                   element={
                     <AboutPage 
                       onNavigate={handleNavigate} 
+                      onOpenContact={handleOpenContact}
                       onOpenCMS={handleOpenCMS} 
                     />
                   } 
@@ -551,6 +625,12 @@ export default function App() {
           />
         </React.Suspense>
       )}
+
+      {/* ─── Global Sliding Contact Us Side Tab ─── */}
+      <ContactTab 
+        isOpen={isContactOpen} 
+        onClose={handleCloseContact} 
+      />
 
     </div>
   );

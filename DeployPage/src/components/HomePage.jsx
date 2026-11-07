@@ -16,6 +16,7 @@ const Footer = lazy(() => import('./Footer'));
 /* ========================================================================= */
 export default function HomePage({ 
   onNavigate, 
+  onOpenContact,
   hasIntroPlayed = false, 
   onIntroComplete,
   onBoxRevealComplete,
@@ -45,6 +46,7 @@ export default function HomePage({
       {/* 1. Hero: Video background, brand statement & primary logo (Loaded FIRST) */}
       <Hero 
         onNavigate={onNavigate} 
+        onOpenContact={onOpenContact}
         hasIntroPlayed={hasIntroPlayed} 
         onIntroComplete={onIntroComplete} 
       />
@@ -74,7 +76,7 @@ export default function HomePage({
 
       {/* 7. Universal Footer: Lazy loaded */}
       <Suspense fallback={<div className="w-full min-h-[30vh] bg-black" />}>
-        <Footer onOpenCMS={onOpenCMS} onNavigate={onNavigate} />
+        <Footer onOpenCMS={onOpenCMS} onNavigate={onNavigate} onOpenContact={onOpenContact} />
       </Suspense>
     </div>
   );

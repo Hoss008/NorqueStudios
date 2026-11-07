@@ -12,14 +12,14 @@ import { motion } from 'framer-motion';
 const lineVariants = {
   hidden: {
     y: '105%',
-    opacity: 1,
+    opacity: 0,
   },
   visible: (custom = {}) => ({
     y: '0%',
     opacity: 1,
     transition: {
-      duration: 0.75,
-      ease: [0, 0.8, 0.2, 1],
+      duration: custom.duration ?? 0.75,
+      ease: custom.ease ?? [0, 0.8, 0.2, 1],
       delay: (custom.delay ?? 0.2) + (custom.index ?? 0) * (custom.stagger ?? 0.05),
     },
   }),
@@ -62,6 +62,8 @@ export default function MaskedWordStagger({
   className = '',
   delay = 0.2,
   stagger = 0.1,
+  duration,
+  ease,
   amount = 0.15,
   as: Component = 'div',
 }) {
@@ -243,7 +245,7 @@ export default function MaskedWordStagger({
                   >
                     <motion.div
                       variants={lineVariants}
-                      custom={{ index: line.globalIndex, delay, stagger }}
+                      custom={{ index: line.globalIndex, delay, stagger, duration, ease }}
                       className="block whitespace-nowrap"
                     >
                       {line.tokens.map((token, i) => {

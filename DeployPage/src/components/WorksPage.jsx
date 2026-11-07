@@ -86,7 +86,10 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
     setSliderX(0);
   }, [activeCategory]);
 
-  /* ─── Horizontal Wheel / Trackpad Handling ─── */
+  /* ─── Horizontal Wheel / Trackpad Handling (Global across entire page) ─── */
+  const maxDragRef = useRef(0);
+  maxDragRef.current = maxDrag;
+
   useEffect(() => {
     if (viewMode !== 'SLIDER') return;
 
@@ -99,21 +102,16 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
       
       setSliderX((prev) => {
         const next = prev - delta * 0.9;
-        return Math.max(-maxDrag, Math.min(0, next));
+        return Math.max(-maxDragRef.current, Math.min(0, next));
       });
     };
 
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener('wheel', handleWheel, { passive: false });
-    }
+    window.addEventListener('wheel', handleWheel, { passive: false });
 
     return () => {
-      if (container) {
-        container.removeEventListener('wheel', handleWheel);
-      }
+      window.removeEventListener('wheel', handleWheel);
     };
-  }, [maxDrag, viewMode]);
+  }, [viewMode]);
 
   return (
     <div 
@@ -266,7 +264,7 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
                         <img 
                           src={project.image} 
                           alt={project.title}
-                          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                          className="w-full h-full object-cover  group-hover:scale-[1]"
                           loading="eager"
                           draggable={false}
                         />

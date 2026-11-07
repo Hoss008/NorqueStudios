@@ -1,0 +1,62 @@
+- generic [ref=f8e3]:
+  - banner [ref=f8e4]:
+    - generic [ref=f8e5]:
+      - link "Norque Studios Home" [ref=f8e7] [cursor=pointer]:
+        - /url: /
+      - navigation "Main Navigation" [ref=f8e18]:
+        - link "ABOUT" [ref=f8e19] [cursor=pointer]:
+          - /url: /about
+          - generic [ref=f8e21]:
+            - generic [ref=f8e22]: ABOUT
+            - generic [aria-hidden] [ref=f8e23]: ABOUT
+        - link "WORKS" [ref=f8e24] [cursor=pointer]:
+          - /url: /projects
+          - generic [ref=f8e26]:
+            - generic [ref=f8e27]: WORKS
+            - generic [aria-hidden] [ref=f8e28]: WORKS
+        - link "SERVICES" [ref=f8e29] [cursor=pointer]:
+          - /url: "#services"
+          - generic [ref=f8e31]:
+            - generic [ref=f8e32]: SERVICES
+            - generic [aria-hidden] [ref=f8e33]: SERVICES
+      - generic [ref=f8e34]: EGYPT, 03:04:09 AM GMT+2
+      - link "CONTACT US" [ref=f8e37] [cursor=pointer]:
+        - /url: "#contact"
+        - generic [ref=f8e38]:
+          - generic [ref=f8e39]:
+            - generic [ref=f8e40]: CONTACT
+            - generic [aria-hidden] [ref=f8e41]: CONTACT
+          - generic [ref=f8e42]:
+            - generic [ref=f8e43]: US
+            - generic [aria-hidden] [ref=f8e44]: US
+  - main [ref=f8e45]:
+    - generic [ref=f8e48]:
+      - generic [ref=f8e49]:
+        - img "MMS ARCHITECTS™ Cover" [ref=f8e51]
+        - generic [ref=f8e53]:
+          - generic [ref=f8e54]:
+            - heading "MMS ARCHITECTS™ Architecture Studio" [level=1] [ref=f8e56]: MMS ARCHITECTS™Architecture Studio
+            - generic [ref=f8e57]:
+              - generic [ref=f8e59]:
+                - generic [ref=f8e60]: Year
+                - generic [ref=f8e61]: "2025"
+              - generic [ref=f8e63]:
+                - generic [ref=f8e64]: Location
+                - generic [ref=f8e65]: Italy
+              - generic [ref=f8e67]:
+                - generic [ref=f8e68]: Tags
+                - generic [ref=f8e69]: Brand Development, Content Creation
+              - generic [ref=f8e71]:
+                - generic [ref=f8e72]: Purpose
+                - generic [ref=f8e73]: Architecture Studio
+          - generic [ref=f8e75]:
+            - paragraph [ref=f8e77]: MMS ARCHITECTS is a modern architectural and interior design studio focused on creating refined, calm, and luxurious spaces through minimal design. The studio believes that true luxury is not found in excess, but in clarity, balance, and thoughtful simplicity. Specializing in modern villas, residential architecture, and interior design, MMS delivers spaces that feel elegant, functional, and timeless. Each project is treated as a unique artistic composition — where form, space, light, and proportion work together seamlessly.
+            - paragraph [ref=f8e79]: With international experience across different cultures and building codes, MMS Architecture offers a global design perspective while maintaining a strong, recognizable minimal identity. From concept to execution, the studio provides fully integrated design solutions that balance aesthetics, practicality, and technical precision.
+            - paragraph [ref=f8e81]: MMS ARCHITECTS aims to establish itself as a globally recognized name in modern minimal architecture — creating work that stands quietly confident, visually powerful, and unmistakably refined.
+      - generic [ref=f8e82]:
+        - img "MMS ARCHITECTS™ Business Card Stationery" [ref=f8e84]
+        - img "MMS ARCHITECTS™ Architectural Exhibition Hall" [ref=f8e86]
+        - img "MMS ARCHITECTS™ Architectural Envelope Branding" [ref=f8e88]
+        - generic [ref=f8e89]:
+          - img "MMS ARCHITECTS™ Proposal & Letterhead Documentation" [ref=f8e91]
+          - img "MMS ARCHITECTS™ Portfolio Archive Book" [ref=f8e93]

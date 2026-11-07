@@ -1,0 +1,23 @@
+[      78ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:21608
+[     117ms] [ERROR] Warning: React does not recognize the `%s` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `%s` instead. If you accidentally passed it from a parent component, remove it from the DOM element.%s fetchPriority fetchpriority 
+    at img
+    at div
+    at section
+    at Hero (http://localhost:3000/src/components/Hero.jsx?t=1794016513085:24:32)
+    at div
+    at HomePage (http://localhost:3000/src/components/HomePage.jsx?t=1794016524849:32:3)
+    at RenderedRoute (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:6763:26)
+    at Routes (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:7705:3)
+    at Suspense
+    at div
+    at MotionDOMComponent (http://localhost:3000/node_modules/.vite/deps/framer-motion.js?v=b5e445f1:11457:40)
+    at PopChildMeasure (http://localhost:3000/node_modules/.vite/deps/framer-motion.js?v=b5e445f1:10564:23)
+    at PopChild (http://localhost:3000/node_modules/.vite/deps/framer-motion.js?v=b5e445f1:10592:21)
+    at PresenceChild (http://localhost:3000/node_modules/.vite/deps/framer-motion.js?v=b5e445f1:10649:24)
+    at AnimatePresence (http://localhost:3000/node_modules/.vite/deps/framer-motion.js?v=b5e445f1:10741:26)
+    at main
+    at div
+    at App (http://localhost:3000/src/App.jsx?t=1794017365633:57:20)
+    at Router (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:7644:13)
+    at BrowserRouter (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:10983:3) @ http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:520
+[     277ms] [INFO] Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113 @ http://localhost:3000/:0

@@ -59,7 +59,7 @@ export default function AboutTeam() {
               <img 
                 src={founder.image} 
                 alt={`${founder.name} - ${founder.role}`} 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1]"
                 loading="lazy"
                 decoding="async"
               />
@@ -78,7 +78,7 @@ export default function AboutTeam() {
 
         {/* ─── 2. Multidisciplinary Network Statement ─── */}
         <div className="max-w-[74vw] mb-[3.4722vw]">
-          <MaskedWordStagger className="text-[18px] sm:text-[1.5278vw] font-bold text-white tracking-[-0.03em] leading-[1.2] motion-blur-target">
+          <MaskedWordStagger className="text-[18px] sm:text-[1.5278vw] font-bold text-white tracking-[-0.03em] leading-[1.2] motion-blur-target pt-[2.4vw]">
             Behind NORQUE is a growing network of designers, developers, creatives and specialists who bring their own way of thinking to the table. Different backgrounds, different disciplines, one shared obsession with making things that feel right.
           </MaskedWordStagger>
         </div>
@@ -91,7 +91,7 @@ export default function AboutTeam() {
                 <img 
                   src={member.image} 
                   alt={member.name} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  className="w-full h-full object-cover  group-hover:scale-[1]"
                   loading="lazy"
                   decoding="async"
                 />

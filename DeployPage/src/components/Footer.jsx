@@ -48,7 +48,7 @@ const MAGNET_LINES_CONFIG = {
 /* UNIVERSAL FOOTER COMPONENT                                                */
 /* Project inquiry callout, interactive magnet lines, vector logo & links    */
 /* ========================================================================= */
-export default function Footer({ onOpenCMS, onNavigate }) {
+export default function Footer({ onOpenCMS, onNavigate, onOpenContact }) {
   const clickCountRef = useRef(0);
   const clickTimerRef = useRef(null);
 
@@ -132,8 +132,12 @@ export default function Footer({ onOpenCMS, onNavigate }) {
                 href="#contact" 
                 onClick={(e) => { 
                   e.preventDefault(); 
-                  const el = document.getElementById('contact'); 
-                  if (el) el.scrollIntoView({ behavior: 'smooth' }); 
+                  if (onOpenContact) {
+                    onOpenContact();
+                  } else {
+                    const el = document.getElementById('contact'); 
+                    if (el) el.scrollIntoView({ behavior: 'smooth' }); 
+                  }
                 }} 
                 className="hover:opacity-60 transition-opacity"
               >

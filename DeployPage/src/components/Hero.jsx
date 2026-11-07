@@ -9,7 +9,7 @@ import heroPoster from '../assets/hero-poster.jpg';
 /* HERO SECTION COMPONENT                                                    */
 /* Full-screen video hero with sequential typographic rise & brand vectors   */
 /* ========================================================================= */
-export default function Hero({ onNavigate, hasIntroPlayed = false, onIntroComplete }) {
+export default function Hero({ onNavigate, onOpenContact, hasIntroPlayed = false, onIntroComplete }) {
   /* ─── State & Sequence Timers ─── */
   const [isIntroStarted, setIsIntroStarted] = useState(hasIntroPlayed);
   const [isTextStarted, setIsTextStarted] = useState(hasIntroPlayed);
@@ -109,7 +109,7 @@ export default function Hero({ onNavigate, hasIntroPlayed = false, onIntroComple
       </div>
 
       {/* ─── 2. Top Header Navigation (in-flow at top of page) ─── */}
-      <Navbar isIntroStarted={isIntroStarted} activePage="home" onNavigate={onNavigate} />
+      <Navbar isIntroStarted={isIntroStarted} activePage="home" onNavigate={onNavigate} onOpenContact={onOpenContact} />
 
       {/* ─── 3. Center Brand Statement (44.53% from top, reveals 1.0s after Norque Studios starts) ─── */}
       <div className="absolute top-[44.53%] left-0 right-0 z-10 w-full px-[0.8333vw] pointer-events-none motion-blur-target">

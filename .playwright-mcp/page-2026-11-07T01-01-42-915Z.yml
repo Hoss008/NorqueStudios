@@ -1,0 +1,5 @@
+- generic [active] [ref=f5e1]:
+  - heading "1. Reference (hero-cover-crop.png) - width 977, height 321:" [level=2] [ref=f5e2]
+  - 'heading "2. MMS Cover with object-position: top (50% 0%):" [level=2] [ref=f5e4]'
+  - 'heading "3. MMS Cover with object-position: 50% 15%:" [level=2] [ref=f5e7]'
+  - 'heading "4. MMS Cover with object-position: 50% 30%:" [level=2] [ref=f5e10]'

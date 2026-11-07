@@ -8,7 +8,7 @@ import Footer from './Footer';
 /* ABOUT PAGE VIEW COMPONENT                                                 */
 /* Secondary page converted 1:1 from 'Norque Studios Page 2.fig'             */
 /* ========================================================================= */
-export default function AboutPage({ onNavigate, onOpenCMS }) {
+export default function AboutPage({ onNavigate, onOpenCMS, onOpenContact }) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -31,7 +31,7 @@ export default function AboutPage({ onNavigate, onOpenCMS }) {
       </main>
 
       {/* Shared Footer */}
-      <Footer onOpenCMS={onOpenCMS} onNavigate={onNavigate} />
+      <Footer onOpenCMS={onOpenCMS} onNavigate={onNavigate} onOpenContact={onOpenContact} />
     </div>
   );
 }

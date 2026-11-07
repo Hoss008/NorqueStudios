@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import projectAxis from '../assets/project-axis.png';
 import projectFusionForm from '../assets/project-fusion-form.png';
 import projectStudioJuzenas from '../assets/project-studio-juzenas.png';
@@ -40,6 +40,8 @@ const projects = [
 ];
 
 export default function SelectedWorks({ onNavigate }) {
+  const [hoveredId, setHoveredId] = useState(null);
+
   const handleProjectClick = (project) => {
     if (!onNavigate) return;
     const id = project.id?.toLowerCase() || '';
@@ -64,40 +66,52 @@ export default function SelectedWorks({ onNavigate }) {
         </h2>
 
         {/* 2-Column Responsive Portfolio Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[0.8333vw] gap-y-[2.5vw]">
-          {projects.map((project) => (
-            <article 
-              key={project.id} 
-              onClick={() => handleProjectClick(project)}
-              className="group cursor-pointer"
-            >
-              {/* Media Card */}
-              <div className="w-full overflow-hidden rounded-[0.1389vw] bg-[#121212]">
-                <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className="w-full aspect-[702/434] object-cover rounded-[0.1389vw] transition-transform duration-500 ease-out group-hover:scale-[1]"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-
-              {/* Project Meta Details */}
-              <div className="pt-[0.6944vw] motion-blur-target">
-                <div className="flex justify-between items-baseline">
-                  <h3 className="text-[0.6944vw] font-semibold tracking-[-0.03em] text-white leading-none vertical-trim">
-                    {project.title}
-                  </h3>
-                  <span className="text-[0.6944vw] font-semibold tracking-[-0.03em] text-white leading-none vertical-trim">
-                    {project.location}
-                  </span>
+        <div 
+          className="grid grid-cols-1 md:grid-cols-2 gap-x-[0.8333vw] gap-y-[2.5vw]"
+          onMouseLeave={() => setHoveredId(null)}
+        >
+          {projects.map((project) => {
+            const isOtherHovered = hoveredId !== null && hoveredId !== project.id;
+            return (
+              <article 
+                key={project.id} 
+                onClick={() => handleProjectClick(project)}
+                onMouseEnter={() => setHoveredId(project.id)}
+                onMouseLeave={() => setHoveredId(null)}
+                className="group cursor-pointer"
+              >
+                {/* Media Card */}
+                <div className="w-full overflow-hidden rounded-[0.1389vw] bg-[#121212]">
+                  <img 
+                    src={project.image} 
+                    alt={project.title} 
+                    className={`w-full aspect-[702/434] object-cover rounded-[0.1389vw] transition-[filter,opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[filter,opacity,transform] ${
+                      isOtherHovered 
+                        ? 'blur-[2px] opacity-100 scale-[1]' 
+                        : 'blur-0 opacity-100 scale-100 group-hover:scale-[1]'
+                    }`}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
-                <p className="text-[0.6944vw] font-semibold tracking-[-0.03em] text-[#747474] pt-[0.5vw] leading-none vertical-trim">
-                  {project.category}
-                </p>
-              </div>
-            </article>
-          ))}
+
+                {/* Project Meta Details */}
+                <div className="pt-[0.6944vw] motion-blur-target">
+                  <div className="flex justify-between items-baseline">
+                    <h3 className="text-[0.6944vw] font-semibold tracking-[-0.03em] text-white leading-none vertical-trim">
+                      {project.title}
+                    </h3>
+                    <span className="text-[0.6944vw] font-semibold tracking-[-0.03em] text-white leading-none vertical-trim">
+                      {project.location}
+                    </span>
+                  </div>
+                  <p className="text-[0.6944vw] font-semibold tracking-[-0.03em] text-[#747474] pt-[0.5vw] leading-none vertical-trim">
+                    {project.category}
+                  </p>
+                </div>
+              </article>
+            );
+          })}
         </div>
 
         {/* ─── CTA: Discover more projects! ─── */}

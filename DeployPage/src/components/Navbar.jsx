@@ -71,6 +71,7 @@ export default function Navbar({
   isIntroStarted = false, 
   activePage = 'home', 
   onNavigate,
+  onOpenContact,
   isPinned = false,
   isVisible = true,
   isPageTransitioning = false
@@ -128,20 +129,24 @@ export default function Navbar({
   }, []);
 
   /* ─── Transition & Entrance Configurations ─── */
+  const isProjectPage = activePage === 'project-mms' || activePage === 'project-axis';
+  const isProjectReveal = !isPageTransitioning && isProjectPage;
+  const isHomeFirstReveal = !isPageTransitioning && activePage === 'home' && isVisible && !hasRevealedOnceRef.current;
+  const isInitialSlideDown = isHomeFirstReveal || isProjectReveal;
+
   const navOpacity = isPageTransitioning ? 0 : (isVisible ? 1 : 0);
   const navY = isPinned ? ((isVisible || isPageTransitioning) ? 0 : '-100%') : (isIntroStarted ? 0 : -50);
-  const isHomeFirstReveal = !isPageTransitioning && activePage === 'home' && isVisible && !hasRevealedOnceRef.current;
 
   const transitionConfig = {
     y: {
-      duration: isHomeFirstReveal ? 0.8 : (isPageTransitioning ? 0.5 : 0.35),
-      ease: [0.4, 0, 0.2, 1],
-      delay: isHomeFirstReveal ? 0.5 : 0,
+      duration: isProjectReveal ? 1.15 : (isHomeFirstReveal ? 0.8 : (isPageTransitioning ? 0.5 : 0.35)),
+      ease: [0.16, 1, 0.3, 1],
+      delay: isProjectReveal ? 0.55 : (isHomeFirstReveal ? 0.5 : 0),
     },
     opacity: {
-      duration: isPageTransitioning ? 0.5 : (isHomeFirstReveal ? 0.8 : 0.35),
-      ease: [0.4, 0, 0.2, 1],
-      delay: isHomeFirstReveal ? 0.5 : 0,
+      duration: isProjectReveal ? 1.15 : (isPageTransitioning ? 0.5 : (isHomeFirstReveal ? 0.8 : 0.35)),
+      ease: [0.16, 1, 0.3, 1],
+      delay: isProjectReveal ? 0.55 : (isHomeFirstReveal ? 0.5 : 0),
     },
   };
 
@@ -151,7 +156,7 @@ export default function Navbar({
       className={`${
         isPinned 
           ? `fixed top-0 left-0 right-0 z-40 ${
-              activePage === 'project-mms' || activePage === 'project-axis'
+              isProjectPage
                 ? 'bg-transparent'
                 : 'bg-black/60 backdrop-blur-md'
             }` 
@@ -160,7 +165,7 @@ export default function Navbar({
       style={{ pointerEvents: isPinned && (!isVisible || isPageTransitioning) ? 'none' : 'auto' }}
       initial={
         isPinned 
-          ? { y: isVisible ? 0 : '-100%', opacity: 0 } 
+          ? { y: isInitialSlideDown ? '-100%' : (isVisible ? 0 : '-100%'), opacity: 0 } 
           : { y: isIntroStarted ? 0 : -50, opacity: isIntroStarted ? 1 : 0 }
       }
       animate={{
@@ -213,7 +218,14 @@ export default function Navbar({
           <StaggeredNavButton 
             label="CONTACT US" 
             href="#contact"
-            onClick={handleLinkClick(activePage === 'works' || activePage === 'project-mms' || activePage === 'project-axis' ? 'home' : activePage, 'contact')} 
+            onClick={(e) => {
+              e.preventDefault();
+              if (onOpenContact) {
+                onOpenContact();
+              } else if (onNavigate) {
+                onNavigate(activePage === 'works' || activePage === 'project-mms' || activePage === 'project-axis' ? 'home' : activePage, 'contact');
+              }
+            }} 
             hasUnderline={true}
           />
         </div>

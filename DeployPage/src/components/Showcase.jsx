@@ -146,7 +146,7 @@ export default function Showcase({ onRevealCompleteChange }) {
                 </a>
                 , check our{" "}
                 <a 
-                  href="https://www.behance.net" 
+                  href="https://www.behance.net/norquestudios/" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-[#747474] hover:text-white transition-colors duration-300 cursor-pointer"

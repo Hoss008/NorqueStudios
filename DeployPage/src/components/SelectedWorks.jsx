@@ -16,6 +16,7 @@ const projects = [
     category: 'Brand Development',
     image: projectAxis,
   },
+  //hossam was here
   {
     id: 'fusion-form',
     title: 'Fusion Form® - Architecture Development',
@@ -122,10 +123,11 @@ export default function SelectedWorks({ onNavigate }) {
           </h3>
 
           {/* CTA Link Button */}
-          <button
-            type="button"
-            onClick={() => onNavigate && onNavigate('works')}
-            className="group mt-[1.1111vw] inline-flex items-center gap-x-[0.2778vw] text-[0.6944vw] font-semibold tracking-[-0.03em] text-white hover:opacity-70 transition-opacity cursor-pointer"
+          <a
+            href="https://www.behance.net/norquestudios/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group mt-[1.1111vw] inline-flex items-center gap-x-[0.2778vw] text-[0.6944vw] font-semibold tracking-[-0.03em] text-white hover:opacity-70 transition-opacity"
           >
             <span className="underline underline-offset-[0.2083vw] decoration-white">
               Discover more

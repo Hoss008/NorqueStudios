@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import MaskedWordStagger from '../MaskedWordStagger';
+import ProjectNextOverscroll from './ProjectNextOverscroll';
 
 // Gallery Images following project guidelines & naming conventions:
 // 1) Initials of project (AXIS)
@@ -50,7 +51,7 @@ function GalleryImage({ src, alt, delay = 0, className = '' }) {
 /* Background: #170103 (dark crimson tone preserved per guidelines)          */
 /* Animations: 1:1 match with MMS Project Page animations                    */
 /* ========================================================================= */
-export default function AxisProjectPage() {
+export default function AxisProjectPage({ onNavigate }) {
   const heroRef = useRef(null);
 
   // Parallax scroll tracking for cover image: 0 at top, 1 when hero leaves viewport
@@ -249,6 +250,14 @@ export default function AxisProjectPage() {
         <GalleryImage 
           src={axis10} 
           alt="AXIS® — RE 10" 
+        />
+
+        {/* ─── Threshold-triggered Overscroll (Pull-to-action) to Next Project (MMS) ─── */}
+        <ProjectNextOverscroll 
+          nextProject="project-mms"
+          nextPath="/projects/mms"
+          nextTitle="MMS ARCHITECTS™"
+          onNavigate={onNavigate}
         />
 
       </div>

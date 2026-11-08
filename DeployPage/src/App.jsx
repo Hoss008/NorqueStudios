@@ -451,13 +451,9 @@ export default function App() {
         key={currentPage}
         isPinned={true}
         isVisible={
-          (currentPage === 'about' || 
-           currentPage === 'works' || 
-           currentPage === 'project-mms' || 
-           currentPage === 'project-axis' || 
-           currentPage === 'project-stephenson' || 
-           currentPage === 'project-fusion-form' || 
-           isBoxRevealComplete) && isNavScrollVisible
+          (currentPage === 'home'
+            ? (isIntroStarted || hasIntroPlayed)
+            : true) && isNavScrollVisible
         }
         isIntroStarted={true}
         activePage={currentPage} 

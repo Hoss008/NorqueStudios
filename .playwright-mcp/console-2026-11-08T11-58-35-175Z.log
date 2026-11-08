@@ -21,3 +21,60 @@
     at Router (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:7644:13)
     at BrowserRouter (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:10983:3) @ http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:520
 [     704ms] [INFO] Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113 @ http://localhost:3000/:0
+[   79551ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/src/components/about/AboutTeam.jsx?t=1794139194719:0
+[   79553ms] [ERROR] [vite] Failed to reload /src/components/about/AboutTeam.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881
+[  705689ms] ReferenceError: Navbar is not defined
+    at Hero (http://localhost:3000/src/components/Hero.jsx?t=1794139820754:132:28)
+    at renderWithHooks (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:11596:26)
+    at updateFunctionComponent (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:14630:28)
+    at beginWork (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:15972:22)
+    at HTMLUnknownElement.callCallback2 (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:3680:22)
+    at Object.invokeGuardedCallbackDev (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:3705:24)
+    at invokeGuardedCallback (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:3739:39)
+    at beginWork$1 (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19818:15)
+    at performUnitOfWork (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19251:20)
+    at workLoopSync (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19190:13)
+[  705691ms] ReferenceError: Navbar is not defined
+    at Hero (http://localhost:3000/src/components/Hero.jsx?t=1794139820754:132:28)
+    at renderWithHooks (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:11596:26)
+    at updateFunctionComponent (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:14630:28)
+    at beginWork (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:15972:22)
+    at HTMLUnknownElement.callCallback2 (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:3680:22)
+    at Object.invokeGuardedCallbackDev (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:3705:24)
+    at invokeGuardedCallback (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:3739:39)
+    at beginWork$1 (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19818:15)
+    at performUnitOfWork (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19251:20)
+    at workLoopSync (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19190:13)
+[  705694ms] [ERROR] The above error occurred in the <Hero> component:
+
+    at Hero (http://localhost:3000/src/components/Hero.jsx?t=1794139820754:23:32)
+    at div
+    at HomePage (http://localhost:3000/src/components/HomePage.jsx:32:3)
+    at RenderedRoute (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:6763:26)
+    at Routes (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:7705:3)
+    at Suspense
+    at div
+    at MotionDOMComponent (http://localhost:3000/node_modules/.vite/deps/framer-motion.js?v=b5e445f1:11457:40)
+    at PopChildMeasure (http://localhost:3000/node_modules/.vite/deps/framer-motion.js?v=b5e445f1:10564:23)
+    at PopChild (http://localhost:3000/node_modules/.vite/deps/framer-motion.js?v=b5e445f1:10592:21)
+    at PresenceChild (http://localhost:3000/node_modules/.vite/deps/framer-motion.js?v=b5e445f1:10649:24)
+    at AnimatePresence (http://localhost:3000/node_modules/.vite/deps/framer-motion.js?v=b5e445f1:10741:26)
+    at main
+    at div
+    at App (http://localhost:3000/src/App.jsx:63:20)
+    at Router (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:7644:13)
+    at BrowserRouter (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:10983:3)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries. @ http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:14079
+[  705696ms] ReferenceError: Navbar is not defined
+    at Hero (http://localhost:3000/src/components/Hero.jsx?t=1794139820754:132:28)
+    at renderWithHooks (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:11596:26)
+    at updateFunctionComponent (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:14630:28)
+    at beginWork (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:15972:22)
+    at beginWork$1 (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19806:22)
+    at performUnitOfWork (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19251:20)
+    at workLoopSync (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19190:13)
+    at renderRootSync (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19169:15)
+    at recoverFromConcurrentError (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:18786:28)
+    at performSyncWorkOnRoot (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:18932:28)

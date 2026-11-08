@@ -155,13 +155,9 @@ export default function Navbar({
     <motion.header 
       className={`${
         isPinned 
-          ? `fixed top-0 left-0 right-0 z-40 ${
-              isProjectPage
-                ? 'bg-transparent'
-                : 'bg-black/60 backdrop-blur-md'
-            }` 
+          ? 'fixed top-0 left-0 right-0 z-40' 
           : 'w-full z-20'
-      } h-[2.5vw] px-[0.8333vw] flex items-center transition-colors duration-300`}
+      } bg-transparent mix-blend-difference h-[2.5vw] px-[0.8333vw] flex items-center`}
       style={{ pointerEvents: isPinned && (!isVisible || isPageTransitioning) ? 'none' : 'auto' }}
       initial={
         isPinned 

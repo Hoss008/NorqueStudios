@@ -1,35 +1,42 @@
 import React from 'react';
 import InteractiveInfiniteCarousel from '../InteractiveInfiniteCarousel';
+import doneByHumansVideo from '../../assets/about-news/content-01-done-by-humans.mp4';
+import btsTheStudioCollabVideo from '../../assets/about-news/content-02-bts-the-studio-collab.mp4';
+import btsEngineeredCodeVideo from '../../assets/about-news/content-03-bts-engineered-code.mp4';
+import socialMediaDevelopmentGif from '../../assets/about-news/content-04-social-media-development.gif';
 
 /* ========================================================================= */
 /* ABOUT NEWS SECTION                                                        */
 /* "What happened lately" interactive infinite news carousel                 */
 /* ========================================================================= */
-const base = import.meta.env.BASE_URL || './';
-
 const NEWS_ITEMS = [
   {
-    image: `${base}images/about/news-lithuania-chapter-1.png`,
+    
+    src: doneByHumansVideo,
+    isVideo: true,
     aspect: 'aspect-[345/438.2]',
-    title: 'Next chapter of an architecture studio in Lithuania',
+    title: 'Done By Humans',
     description: 'Over past month, we have been working on a Lithuanian architecture studio owned by the great architect Justas Juzenas. We are currently building the hierarchy, layouts and the mood of the studio’s website.',
   },
   {
-    image: `${base}images/about/news-lithuania-chapter-2.png`,
+    src: btsTheStudioCollabVideo,
+    isVideo: true,
     aspect: 'aspect-[345/540]',
-    title: 'Next chapter of an architecture studio in Lithuania',
+    title: 'BTS — THE STUDIO Collab',
     description: 'Over past month, we have been working on a Lithuanian architecture studio owned by the great architect Justas Juzenas. We are currently building the hierarchy, layouts and the mood of the studio’s website.',
   },
   {
-    image: `${base}images/about/news-saudi-arabia.png`,
+    src: btsEngineeredCodeVideo,
+    isVideo: true,
     aspect: 'aspect-[345/423.9]',
-    title: 'Catch us in Saudi Arabia',
+    title: 'BTS — Engineered Code',
     description: 'Over past month, we have been working on a Lithuanian architecture studio owned by the great architect Justas Juzenas. We are currently building the hierarchy, layouts and the mood of the studio’s website.',
   },
   {
-    image: `${base}images/about/news-lithuania-identity.png`,
+    src: socialMediaDevelopmentGif,
+    isVideo: false,
     aspect: 'aspect-[345/540]',
-    title: 'Developing a Lithuanian architecture studio’s visual Identity',
+    title: 'Social Media Development',
     description: 'Over past month, we have been working on a Lithuanian architecture studio owned by the great architect Justas Juzenas. We are currently building the hierarchy, layouts and the mood of the studio’s website.',
   },
 ];
@@ -61,13 +68,30 @@ export default function AboutNews() {
             >
               {/* Media Card */}
               <div className={`w-full ${item.aspect} rounded-[4px] overflow-hidden mb-[0.6944vw] bg-[#121214]`}>
-                <img 
-                  src={item.image} 
-                  alt={item.title} 
-                  draggable={false}
-                  className="w-full h-full object-cover select-none pointer-events-none"
-                  loading="lazy"
-                />
+                {item.isVideo ? (
+                  <video 
+                    src={item.src} 
+                    autoPlay 
+                    muted 
+                    loop 
+                    playsInline 
+                    ref={(el) => {
+                      if (el) {
+                        el.muted = true;
+                        el.play().catch(() => {});
+                      }
+                    }}
+                    className="w-full h-full object-cover select-none pointer-events-none"
+                  />
+                ) : (
+                  <img 
+                    src={item.src} 
+                    alt={item.title} 
+                    draggable={false}
+                    className="w-full h-full object-cover select-none pointer-events-none"
+                    loading="lazy"
+                  />
+                )}
               </div>
 
               {/* Text Info */}

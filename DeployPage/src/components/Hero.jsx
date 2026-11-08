@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import Navbar from './Navbar';
 import { logoPaths } from './logoPaths';
 import heroBackgroundVideo from '../assets/hero-background.mp4';
 import heroPoster from '../assets/hero-poster.jpg';
@@ -108,8 +107,8 @@ export default function Hero({ onNavigate, onOpenContact, hasIntroPlayed = false
         />
       </div>
 
-      {/* ─── 2. Top Header Navigation (in-flow at top of page) ─── */}
-      <Navbar isIntroStarted={isIntroStarted} activePage="home" onNavigate={onNavigate} onOpenContact={onOpenContact} />
+      {/* ─── 2. Top Header Spacer (Matches 2.5vw global pinned Navbar) ─── */}
+      <div className="w-full h-[2.5vw] flex-shrink-0" aria-hidden="true" />
 
       {/* ─── 3. Center Brand Statement (44.53% from top, reveals 1.0s after Norque Studios starts) ─── */}
       <div className="absolute top-[44.53%] left-0 right-0 z-10 w-full px-[0.8333vw] pointer-events-none motion-blur-target">

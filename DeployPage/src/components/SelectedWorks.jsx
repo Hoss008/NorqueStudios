@@ -1,52 +1,30 @@
-import React, { useState } from 'react';
-import projectAxis from '../assets/project-axis.png';
-import projectFusionForm from '../assets/project-fusion-form.png';
-import projectStudioJuzenas from '../assets/project-studio-juzenas.png';
-import projectMms from '../assets/project-mms.png';
+import React, { useState, useMemo } from 'react';
+import { useWorksData } from '../data/worksStore';
 
 /* ========================================================================= */
 /* SELECTED WORKS COMPONENT                                                  */
-/* 2-column showcase grid presenting primary studio case studies             */
+/* 2-column showcase grid synchronized with Works CMS database               */
+/* Matches the visual card styling of the Works portfolio page               */
 /* ========================================================================= */
-const projects = [
-  {
-    id: 'axis',
-    title: 'AXIS® - Real Estate Consultancy',
-    location: 'Egypt',
-    category: 'Brand Development',
-    image: projectAxis,
-  },
-  //hossam was here
-  {
-    id: 'fusion-form',
-    title: 'Fusion Form® - Architecture Development',
-    location: 'Egypt',
-    category: 'UI/UX Design & Web Development',
-    image: projectFusionForm,
-  },
-  {
-    id: 'studio-juzenas',
-    title: 'STUDIO JUZĖNAS® - Architecture Studio',
-    location: 'Lithuania',
-    category: 'Brand Development | UI/UX Design & Web Development',
-    image: projectStudioJuzenas,
-  },
-  {
-    id: 'mms-architects',
-    title: 'MMS ARCHITECTS™',
-    location: 'Egypt',
-    category: 'Brand Development',
-    image: projectMms,
-  },
-];
 
 export default function SelectedWorks({ onNavigate }) {
+  const { works } = useWorksData();
   const [hoveredId, setHoveredId] = useState(null);
+
+  /* ─── Projects selected in CMS for the Homepage showcase ─── */
+  const selectedProjects = useMemo(() => {
+    const featured = works.filter((p) => p.selectedWork);
+    return featured.length > 0 ? featured : works.slice(0, 4);
+  }, [works]);
+
+  const countFormatted = selectedProjects.length < 10 
+    ? `0${selectedProjects.length}` 
+    : `${selectedProjects.length}`;
 
   const handleProjectClick = (project) => {
     if (!onNavigate) return;
-    const id = project.id?.toLowerCase() || '';
-    const title = project.title?.toLowerCase() || '';
+    const id = (project.id || '').toLowerCase();
+    const title = (project.title || '').toLowerCase();
     if (id.includes('mms') || title.includes('mms')) {
       onNavigate('project-mms');
     } else if (id.includes('axis') || title.includes('axis')) {
@@ -55,6 +33,8 @@ export default function SelectedWorks({ onNavigate }) {
       onNavigate('project-stephenson');
     } else if (id.includes('fusion') || title.includes('fusion')) {
       onNavigate('project-fusion-form');
+    } else if (project.link && project.link !== '#') {
+      window.open(project.link, '_blank');
     } else {
       onNavigate('works');
     }
@@ -67,7 +47,9 @@ export default function SelectedWorks({ onNavigate }) {
         {/* Section Heading */}
         <h2 className="text-[3.1944vw] font-medium tracking-[-0.03em] leading-none text-white mb-[1.6667vw] flex items-start motion-blur-target">
           <span>SELECTED WORKS</span>
-          <span className="text-[1.3889vw] font-medium ml-[0.35vw] leading-none tracking-[-0.03em] select-none">(04)</span>
+          <span className="text-[1.3889vw] font-medium ml-[0.35vw] leading-none tracking-[-0.03em] select-none">
+            ({countFormatted})
+          </span>
         </h2>
 
         {/* 2-Column Responsive Portfolio Grid */}
@@ -75,44 +57,61 @@ export default function SelectedWorks({ onNavigate }) {
           className="grid grid-cols-1 md:grid-cols-2 gap-x-[0.8333vw] gap-y-[2.5vw]"
           onMouseLeave={() => setHoveredId(null)}
         >
-          {projects.map((project) => {
+          {selectedProjects.map((project) => {
             const isOtherHovered = hoveredId !== null && hoveredId !== project.id;
             return (
               <article 
-                key={project.id} 
+                key={project.id || project.title} 
                 onClick={() => handleProjectClick(project)}
                 onMouseEnter={() => setHoveredId(project.id)}
                 onMouseLeave={() => setHoveredId(null)}
-                className="group cursor-pointer"
+                className="group cursor-pointer select-none"
               >
-                {/* Media Card */}
-                <div className="w-full overflow-hidden rounded-[0.1389vw] bg-[#121212]">
+                {/* Media Card (345x230 ratio = 1.5 aspect, rounded-[2px], matching Works Page) */}
+                <div className="relative w-full aspect-[345/230] rounded-[2px] overflow-hidden bg-[#111111] border border-white/5">
                   <img 
                     src={project.image} 
                     alt={project.title} 
-                    className={`w-full aspect-[702/434] object-cover rounded-[0.1389vw] transition-[filter,opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[filter,opacity,transform] ${
+                    className={`w-full h-full object-cover transition-[filter,opacity] duration-500 will-change-[filter,opacity] ${
                       isOtherHovered 
-                        ? 'blur-[2px] opacity-100 scale-[1]' 
+                        ? 'blur-[2px] opacity-100 scale-100' 
                         : 'blur-0 opacity-100 scale-100 group-hover:scale-[1]'
                     }`}
                     loading="lazy"
                     decoding="async"
+                    onError={(e) => {
+                      e.currentTarget.src = '/images/works/studio-juzenas.png';
+                    }}
                   />
+
+                  {/* Optional Status Badge (e.g. "IN THE WORKS" / "AWARDED") */}
+                  {project.badge && (
+                    <div 
+                      className="absolute top-[0.55vw] right-[0.55vw] rounded-[2px] px-[0.55vw] py-[0.2vw] flex items-center justify-center select-none shadow-md z-10"
+                      style={{ backgroundColor: project.badgeBg || '#171717' }}
+                    >
+                      <span className="text-[0.5556vw] font-bold tracking-[-0.03em] text-white uppercase leading-none">
+                        {project.badge}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
-                {/* Project Meta Details */}
-                <div className="pt-[0.6944vw] motion-blur-target">
-                  <div className="flex justify-between items-baseline">
-                    <h3 className="text-[0.6944vw] font-semibold tracking-[-0.03em] text-white leading-none vertical-trim">
+                {/* Project Meta Details (Matching Works Page typography & layout) */}
+                <div className="w-full mt-[0.625vw] flex items-start justify-between">
+                  <div className="flex flex-col">
+                    <h3 className="text-[0.6944vw] font-semibold tracking-[-0.03em] uppercase text-white leading-tight">
                       {project.title}
                     </h3>
-                    <span className="text-[0.6944vw] font-semibold tracking-[-0.03em] text-white leading-none vertical-trim">
-                      {project.location}
-                    </span>
+                    {(project.selectedCategory || project.subtitle || project.category) && (
+                      <p className="text-[0.6944vw] font-semibold tracking-[-0.03em] text-[#747474] leading-tight mt-[0.1vw]">
+                        {project.selectedCategory || project.subtitle || project.category}
+                      </p>
+                    )}
                   </div>
-                  <p className="text-[0.6944vw] font-semibold tracking-[-0.03em] text-[#747474] pt-[0.5vw] leading-none vertical-trim">
-                    {project.category}
-                  </p>
+                  <span className="text-[0.6944vw] font-semibold tracking-[-0.03em] uppercase text-white leading-tight text-right">
+                    {project.location}
+                  </span>
                 </div>
               </article>
             );

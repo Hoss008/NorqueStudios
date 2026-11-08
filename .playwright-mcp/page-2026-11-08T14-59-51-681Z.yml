@@ -1,0 +1,320 @@
+- generic [ref=f2e3]:
+  - banner [ref=f2e84]:
+    - generic [ref=f2e85]:
+      - link "Norque Studios Home" [ref=f2e87] [cursor=pointer]:
+        - /url: /
+      - navigation "Main Navigation" [ref=f2e98]:
+        - link "ABOUT" [ref=f2e99] [cursor=pointer]:
+          - /url: /about
+          - generic [ref=f2e101]:
+            - generic [ref=f2e102]: ABOUT
+            - generic [aria-hidden] [ref=f2e103]: ABOUT
+        - link "WORKS" [ref=f2e104] [cursor=pointer]:
+          - /url: /projects
+          - generic [ref=f2e106]:
+            - generic [ref=f2e107]: WORKS
+            - generic [aria-hidden] [ref=f2e108]: WORKS
+        - link "SERVICES" [ref=f2e109] [cursor=pointer]:
+          - /url: "#services"
+          - generic [ref=f2e111]:
+            - generic [ref=f2e112]: SERVICES
+            - generic [aria-hidden] [ref=f2e113]: SERVICES
+      - generic [ref=f2e114]: EGYPT, 04:59:51 PM GMT+2
+      - link "CONTACT US" [ref=f2e117] [cursor=pointer]:
+        - /url: "#contact"
+        - generic [ref=f2e118]:
+          - generic [ref=f2e119]:
+            - generic [ref=f2e120]: CONTACT
+            - generic [aria-hidden] [ref=f2e121]: CONTACT
+          - generic [ref=f2e122]:
+            - generic [ref=f2e123]: US
+            - generic [aria-hidden] [ref=f2e124]: US
+  - main [ref=f2e15]:
+    - generic [ref=f2e17]:
+      - generic [ref=f2e20]:
+        - generic [ref=f2e21]:
+          - paragraph [ref=f2e23]: BUILT FOR BRANDS THAT WANT
+          - paragraph [ref=f2e25]: SOMETHING REAL
+        - paragraph [ref=f2e27]: CREATING WORLDWIDE ©
+      - generic [ref=f2e46]:
+        - generic [ref=f2e49]:
+          - generic [ref=f2e51]:
+            - img "Recent work by NORQUE STUDIOS™"
+          - generic [ref=f2e52]:
+            - paragraph [ref=f2e53]: Recent work of branding, web design & development by NORQUE STUDIOS™
+            - paragraph [ref=f2e54]: ©2026
+        - generic [ref=f2e59]:
+          - generic [aria-hidden]:
+            - generic: NORQUE STUDIOS™ — A creative studio for brands that want to build something real. Based between ideas, design and digital, we work across branding, creative direction, UI/UX and web development.
+            - generic: We collaborate with ambitious brands, businesses and creative partners to shape identities, digital experiences and visual systems that feel considered, distinctive and built to last. From the first idea to the final detail, we bring strategy, design and development together under one roof.
+            - generic:
+              - text: Feel free to explore our
+              - generic:
+                - link:
+                  - /url: "#works"
+                  - text: Works
+              - text: ", check our"
+              - generic:
+                - link:
+                  - /url: https://www.behance.net/norquestudios/
+                  - text: Behance
+              - text: or say hello at
+              - generic:
+                - link:
+                  - /url: mailto:hello@norquestudios.com
+                  - text: hello@norquestudios.com
+          - generic [ref=f2e60]:
+            - generic [ref=f2e61]:
+              - generic [ref=f2e62]: NORQUE STUDIOS™ — A creative studio for brands that want to build something real. Based between
+              - generic [ref=f2e64]: ideas, design and digital, we work across branding, creative direction, UI/UX and web development.
+            - generic [ref=f2e66]:
+              - generic [ref=f2e67]: We collaborate with ambitious brands, businesses and creative partners to shape identities, digital
+              - generic [ref=f2e69]: experiences and visual systems that feel considered, distinctive and built to last. From the first idea to
+              - generic [ref=f2e71]: the final detail, we bring strategy, design and development together under one roof.
+            - generic [ref=f2e75]:
+              - text: Feel free to explore our
+              - link "Works" [ref=f2e76] [cursor=pointer]:
+                - /url: "#works"
+              - text: ", check our"
+              - link "Behance" [ref=f2e77] [cursor=pointer]:
+                - /url: https://www.behance.net/norquestudios/
+              - text: or say hello at
+              - link "hello@norquestudios.com" [ref=f2e78] [cursor=pointer]:
+                - /url: mailto:hello@norquestudios.com
+      - generic [ref=f2e126]:
+        - heading "SELECTED WORKS (04)" [level=2] [ref=f2e127]:
+          - generic [ref=f2e128]: SELECTED WORKS
+          - generic [ref=f2e129]: (04)
+        - generic [ref=f2e130]:
+          - article [ref=f2e131] [cursor=pointer]:
+            - img "MMS ARCHITECTS™" [ref=f2e133]
+            - generic [ref=f2e134]:
+              - generic [ref=f2e135]:
+                - heading "MMS ARCHITECTS™" [level=3] [ref=f2e136]
+                - paragraph [ref=f2e137]: Brand Development
+              - generic [ref=f2e138]: Italy
+          - article [ref=f2e139] [cursor=pointer]:
+            - generic [ref=f2e140]:
+              - img "STEPHENSON®" [ref=f2e141]
+              - generic [ref=f2e142]: AWARDED
+            - generic [ref=f2e144]:
+              - generic [ref=f2e145]:
+                - heading "STEPHENSON®" [level=3] [ref=f2e146]
+                - paragraph [ref=f2e147]: Brand Development, Art Direction
+              - generic [ref=f2e148]: Saudi Arabia
+          - article [ref=f2e149] [cursor=pointer]:
+            - img "AXIS® RE" [ref=f2e151]
+            - generic [ref=f2e152]:
+              - generic [ref=f2e153]:
+                - heading "AXIS® RE" [level=3] [ref=f2e154]
+                - paragraph [ref=f2e155]: Brand Development
+              - generic [ref=f2e156]: Egypt
+          - article [ref=f2e157] [cursor=pointer]:
+            - img "FUSION FORM®" [ref=f2e159]
+            - generic [ref=f2e160]:
+              - generic [ref=f2e161]:
+                - heading "FUSION FORM®" [level=3] [ref=f2e162]
+                - paragraph [ref=f2e163]: UI/UX Design & Web Development
+              - generic [ref=f2e164]: Egypt
+        - generic [ref=f2e165]:
+          - heading "Discover more projects!" [level=3] [ref=f2e166]
+          - link "Discover more" [ref=f2e167] [cursor=pointer]:
+            - /url: https://www.behance.net/norquestudios/
+      - generic [ref=f2e172]:
+        - generic [ref=f2e173]:
+          - heading "WHAT’S HAPPENING NOW" [level=2] [ref=f2e174]
+          - generic [ref=f2e175]: Below you will find latest news
+        - generic [ref=f2e176]:
+          - article [ref=f2e177]:
+            - generic [ref=f2e179]:
+              - img "Studio Juzėnas Website Preview"
+            - generic [ref=f2e180]:
+              - heading "Next chapter of an architecture studio in Lithuania" [level=3] [ref=f2e181]
+              - paragraph [ref=f2e182]: We’re working alongside Lithuanian architect Justas Južėnas to shape the next chapter of his architecture studio. From its visual identity to its digital presence.
+          - article [ref=f2e183]:
+            - generic [ref=f2e185]:
+              - img "Modish Studio Project Preview"
+            - generic [ref=f2e186]:
+              - heading "Catch us in Saudi Arabia" [level=3] [ref=f2e187]
+              - paragraph [ref=f2e188]: A new collaboration with Modish Studio. We’re working on refining the studio’s brand presence, bringing its architectural approach into a more distinctive and cohesive visual language.
+          - article [ref=f2e189]:
+            - generic [ref=f2e191]:
+              - img "Studio Juzėnas Branding Identity Preview"
+            - generic [ref=f2e192]:
+              - heading "Building an Identity Around Architecture" [level=3] [ref=f2e193]
+              - paragraph [ref=f2e194]: Currently developing the visual identity for a Lithuanian architecture studio. An exercise in restraint, exploring the relationship between typography, composition, and architectural thinking.
+          - article [ref=f2e195] [cursor=pointer]:
+            - generic [ref=f2e197]:
+              - img "Stephenson Feature by Behance Preview"
+            - generic [ref=f2e198]:
+              - heading "Featured by Behance" [level=3] [ref=f2e199]
+              - paragraph [ref=f2e200]: One of our projects has been selected and featured by the Behance curation team in the Branding category. A milestone we’re proud of and another reminder that thoughtful design finds its way.
+      - generic [ref=f2e203]:
+        - generic [ref=f2e206]:
+          - generic [aria-hidden]:
+            - generic: Not every problem needs more complexity, and not every idea needs more to become meaningful. Sometimes, the most valuable decision is knowing what to keep, what to change, and what to leave behind.
+            - generic: Our approach is rooted in clarity, thoughtful execution, and an appreciation for the details that make the whole.
+          - generic [ref=f2e207]:
+            - generic [ref=f2e208]:
+              - generic [ref=f2e209]: Not every problem needs more complexity, and not every idea needs
+              - generic [ref=f2e211]: more to become meaningful. Sometimes, the most valuable decision
+              - generic [ref=f2e213]: is knowing what to keep, what to change, and what to leave behind.
+            - generic [ref=f2e215]:
+              - generic [ref=f2e216]: Our approach is rooted in clarity, thoughtful execution, and an
+              - generic [ref=f2e218]: appreciation for the details that make the whole.
+        - img "Norque Studios Brand Mark" [ref=f2e221]
+      - generic [ref=f2e225]:
+        - generic:
+          - img "Done by Humans"
+        - img "DONE BY HUMANS" [ref=f2e228]
+        - generic [ref=f2e241]:
+          - img "Norque Studios Brand Mark" [ref=f2e243]
+          - generic [ref=f2e248]:
+            - generic [aria-hidden]:
+              - generic: We believe the best work happens when human perspective meets thoughtful execution. Every idea begins with a conversation, every decision has a reason, and every detail is considered. Because behind every project, there are people, and behind every meaningful result, there is a partnership built on understanding.
+            - generic [ref=f2e250]:
+              - generic [ref=f2e251]: We believe the best work happens when human perspective meets thoughtful
+              - generic [ref=f2e253]: execution. Every idea begins with a conversation, every decision has a reason, and every
+              - generic [ref=f2e255]: detail is considered. Because behind every project, there are people, and behind every
+              - generic [ref=f2e257]: meaningful result, there is a partnership built on understanding.
+      - generic [ref=f2e260]:
+        - generic [ref=f2e264]:
+          - generic [aria-hidden]:
+            - generic:
+              - text: Got a project on mind? Let’s make it alive!
+              - generic:
+                - link:
+                  - /url: mailto:hello@norquestudios.com
+                  - text: hello@norquestudios.com
+          - generic [ref=f2e266]:
+            - generic [ref=f2e267]: Got a project on mind?
+            - generic [ref=f2e269]: Let’s make it alive!
+            - link "hello@norquestudios.com" [ref=f2e273] [cursor=pointer]:
+              - /url: mailto:hello@norquestudios.com
+        - generic [ref=f2e293]:
+          - generic [ref=f2e294]:
+            - link "About" [ref=f2e295] [cursor=pointer]:
+              - /url: /about
+            - link "Works" [ref=f2e296] [cursor=pointer]:
+              - /url: /projects
+            - link "services" [ref=f2e297] [cursor=pointer]:
+              - /url: "#services"
+            - link "contact" [ref=f2e298] [cursor=pointer]:
+              - /url: "#contact"
+            - link "Behance" [ref=f2e299] [cursor=pointer]:
+              - /url: https://www.behance.net/norquestudios/
+            - link "Linked in" [ref=f2e300] [cursor=pointer]:
+              - /url: https://www.linkedin.com/company/https-norquestudios.com-/
+            - link "Instagram" [ref=f2e301] [cursor=pointer]:
+              - /url: https://www.instagram.com/norquestudios/
+            - link "• terms & conditions" [ref=f2e302] [cursor=pointer]:
+              - /url: "#terms"
+            - link "• privacy & policy" [ref=f2e303] [cursor=pointer]:
+              - /url: "#privacy"
+          - generic [ref=f2e304]: © 2026 norquestudios. all rights reserved
+  - dialog [ref=f2e305]:
+    - generic [ref=f2e306]:
+      - generic [ref=f2e307]:
+        - generic [ref=f2e308]:
+          - generic [ref=f2e309]: STUDIO CMS
+          - generic [ref=f2e310]:
+            - heading "Works Portfolio Manager" [level=2] [ref=f2e311]
+            - paragraph [ref=f2e312]: Add, drop, or reorder projects displayed on the standalone Works page.
+        - generic [ref=f2e313]:
+          - button "Go to Works Page →" [ref=f2e314] [cursor=pointer]
+          - button "+ New Project" [ref=f2e316] [cursor=pointer]:
+            - generic [ref=f2e317]: +
+            - generic [ref=f2e318]: New Project
+          - button "Export JSON" [ref=f2e319] [cursor=pointer]
+          - button "Password" [ref=f2e320] [cursor=pointer]
+          - button "Lock" [ref=f2e321] [cursor=pointer]
+          - button "Close CMS Modal" [ref=f2e322] [cursor=pointer]: ✕
+      - generic [ref=f2e324]:
+        - generic [ref=f2e325]:
+          - generic [ref=f2e326]: "#"
+          - generic [ref=f2e327]: PREVIEW
+          - generic [ref=f2e328]: PROJECT TITLE & SUBTITLE
+          - generic [ref=f2e329]: CATEGORY
+          - generic [ref=f2e330]: LOCATION
+          - generic [ref=f2e331]: BADGE / STATUS
+          - generic [ref=f2e332]: SELECTED WORKS
+          - generic [ref=f2e333]: ACTIONS
+        - generic [ref=f2e334]:
+          - generic [ref=f2e335]:
+            - generic [ref=f2e336]:
+              - generic [ref=f2e337]: "01"
+              - generic [ref=f2e338]:
+                - button "▲" [disabled] [ref=f2e339]
+                - button "▼" [ref=f2e340] [cursor=pointer]
+            - img "MMS ARCHITECTS™" [ref=f2e343]
+            - generic [ref=f2e344]: MMS ARCHITECTS™
+            - generic [ref=f2e346]: Branding
+            - generic [ref=f2e347]: Italy
+            - generic [ref=f2e348]: —
+            - button "★ HOMEPAGE" [ref=f2e350] [cursor=pointer]
+            - generic [ref=f2e352]:
+              - button "Edit" [ref=f2e353] [cursor=pointer]
+              - button "Drop" [ref=f2e354] [cursor=pointer]
+          - generic [ref=f2e355]:
+            - generic [ref=f2e356]:
+              - generic [ref=f2e357]: "02"
+              - generic [ref=f2e358]:
+                - button "▲" [ref=f2e359] [cursor=pointer]
+                - button "▼" [ref=f2e360] [cursor=pointer]
+            - img "STEPHENSON®" [ref=f2e363]
+            - generic [ref=f2e364]: STEPHENSON®
+            - generic [ref=f2e366]: Branding
+            - generic [ref=f2e367]: Saudi Arabia
+            - generic [ref=f2e368]: AWARDED
+            - button "★ HOMEPAGE" [ref=f2e371] [cursor=pointer]
+            - generic [ref=f2e373]:
+              - button "Edit" [ref=f2e374] [cursor=pointer]
+              - button "Drop" [ref=f2e375] [cursor=pointer]
+          - generic [ref=f2e376]:
+            - generic [ref=f2e377]:
+              - generic [ref=f2e378]: "03"
+              - generic [ref=f2e379]:
+                - button "▲" [ref=f2e380] [cursor=pointer]
+                - button "▼" [ref=f2e381] [cursor=pointer]
+            - img "STUDIO JUZENAS®" [ref=f2e384]
+            - generic [ref=f2e385]: STUDIO JUZENAS®
+            - generic [ref=f2e387]: Websites
+            - generic [ref=f2e388]: LITHUANIA
+            - generic [ref=f2e389]: IN THE WORKS
+            - button "+ FEATURE" [ref=f2e392] [cursor=pointer]
+            - generic [ref=f2e394]:
+              - button "Edit" [ref=f2e395] [cursor=pointer]
+              - button "Drop" [ref=f2e396] [cursor=pointer]
+          - generic [ref=f2e397]:
+            - generic [ref=f2e398]:
+              - generic [ref=f2e399]: "04"
+              - generic [ref=f2e400]:
+                - button "▲" [ref=f2e401] [cursor=pointer]
+                - button "▼" [ref=f2e402] [cursor=pointer]
+            - img "AXIS® RE" [ref=f2e405]
+            - generic [ref=f2e406]: AXIS® RE
+            - generic [ref=f2e408]: Branding
+            - generic [ref=f2e409]: Egypt
+            - generic [ref=f2e410]: —
+            - button "★ HOMEPAGE" [ref=f2e412] [cursor=pointer]
+            - generic [ref=f2e414]:
+              - button "Edit" [ref=f2e415] [cursor=pointer]
+              - button "Drop" [ref=f2e416] [cursor=pointer]
+          - generic [ref=f2e417]:
+            - generic [ref=f2e418]:
+              - generic [ref=f2e419]: "05"
+              - generic [ref=f2e420]:
+                - button "▲" [ref=f2e421] [cursor=pointer]
+                - button "▼" [disabled] [ref=f2e422]
+            - img "FUSION FORM®" [ref=f2e425]
+            - generic [ref=f2e426]: FUSION FORM®
+            - generic [ref=f2e428]: Websites
+            - generic [ref=f2e429]: Egypt
+            - generic [ref=f2e430]: —
+            - button "★ HOMEPAGE" [ref=f2e432] [cursor=pointer]
+            - generic [ref=f2e434]:
+              - button "Edit" [ref=f2e435] [cursor=pointer]
+              - button "Drop" [ref=f2e436] [cursor=pointer]
+      - generic [ref=f2e437]:
+        - generic [ref=f2e438]: "Total: 5 projects loaded in Works database"
+        - generic [ref=f2e439]: Changes are immediately synchronized with the Works Page

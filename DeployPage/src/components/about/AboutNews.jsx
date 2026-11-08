@@ -16,28 +16,54 @@ const NEWS_ITEMS = [
     isVideo: true,
     aspect: 'aspect-[345/438.2]',
     title: 'BTS — Engineered Code',
-    description: 'Over past month, we have been working on a Lithuanian architecture studio owned by the great architect Justas Juzenas. We are currently building the hierarchy, layouts and the mood of the studio’s website.',
+    description: 'We make sure the code is just as good as the design. Every build is shaped around the brand\'s look and feel, with a focus on keeping things fast, smooth, and consistent across every platform. No unnecessary stuff, just a website that looks good and works even better.',
   },
   {
     src: btsTheStudioCollabVideo,
     isVideo: true,
     aspect: 'aspect-[345/540]',
     title: 'BTS — THE STUDIO Collab',
-    description: 'Over past month, we have been working on a Lithuanian architecture studio owned by the great architect Justas Juzenas. We are currently building the hierarchy, layouts and the mood of the studio’s website.',
+    description: (
+      <>
+        We teamed up with{' '}
+        <a
+          href="https://www.instagram.com/the.studio_eg/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline u text-white/70 hover:text-white/50 transition-colors duration-200 pointer-events-auto cursor-pointer"
+        >
+          THE STUDIO
+        </a>
+        , a photography and videography studio that knows how to bring ideas to life. Together, we worked on a campaign for AXIS - RE, bringing the creative direction to the screen through some great visuals.
+      </>
+    ),
   },
   {
     src: socialMediaDevelopmentGif,
     isVideo: false,
     aspect: 'aspect-[345/423.9]',
     title: 'Social Media Development',
-    description: 'Over past month, we have been working on a Lithuanian architecture studio owned by the great architect Justas Juzenas. We are currently building the hierarchy, layouts and the mood of the studio’s website.',
+    description: (
+      <>
+        Developed a creative direction for MMS ARCHITECTS social media that goes beyond just showing finished projects. The idea was to bring their design thinking to life, giving them room to share concepts, showcase their work, and offer useful tips and insights on interior and exterior design.{' '}
+        <br />
+        <a
+          href="https://www.instagram.com/mmsarchitects/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline u text-white/70 hover:text-white/50 transition-colors duration-200 pointer-events-auto cursor-pointer"
+        >
+          Click here to explore MMS on Instagram.
+        </a>
+      </>
+    ),
   },
   {
     src: doneByHumansVideo,
     isVideo: true,
     aspect: 'aspect-[345/540]',
     title: 'Done By Humans',
-    description: 'Over past month, we have been working on a Lithuanian architecture studio owned by the great architect Justas Juzenas. We are currently building the hierarchy, layouts and the mood of the studio’s website.',
+    description: 'No shortcuts, no copy-paste thinking, no letting AI do all the talking. Just real people, putting real thought into every detail. From the first idea to the final pixel, everything is made with intention, curiosity, and a little bit of obsession. Because good work should have a human touch, always.',
   },
 ];
 
@@ -99,7 +125,7 @@ export default function AboutNews() {
                 <h3 className="text-[12px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] leading-snug">
                   {item.title}
                 </h3>
-                <p className="text-[11px] sm:text-[0.6944vw] font-semibold text-[#747474] tracking-[-0.03em] leading-normal line-clamp-3">
+                <p className="text-[11px] sm:text-[0.6944vw] font-semibold text-[#747474] tracking-[-0.03em] leading-[1.2] line-clamp-6">
                   {item.description}
                 </p>
               </div>

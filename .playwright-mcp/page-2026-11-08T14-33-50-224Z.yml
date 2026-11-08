@@ -1,0 +1,205 @@
+- generic [ref=e273]:
+  - banner [ref=e274]:
+    - generic [ref=e275]:
+      - link "Norque Studios Home" [ref=e277] [cursor=pointer]:
+        - /url: /
+      - navigation "Main Navigation" [ref=e288]:
+        - link "ABOUT" [ref=e289] [cursor=pointer]:
+          - /url: /about
+          - generic [ref=e291]:
+            - generic [ref=e292]: ABOUT
+            - generic [aria-hidden] [ref=e293]: ABOUT
+        - link "WORKS" [ref=e294] [cursor=pointer]:
+          - /url: /projects
+          - generic [ref=e296]:
+            - generic [ref=e297]: WORKS
+            - generic [aria-hidden] [ref=e298]: WORKS
+        - link "SERVICES" [ref=e299] [cursor=pointer]:
+          - /url: "#services"
+          - generic [ref=e301]:
+            - generic [ref=e302]: SERVICES
+            - generic [aria-hidden] [ref=e303]: SERVICES
+      - generic [ref=e304]: EGYPT, 04:33:50 PM GMT+2
+      - link "CONTACT US" [ref=e307] [cursor=pointer]:
+        - /url: "#contact"
+        - generic [ref=e308]:
+          - generic [ref=e309]:
+            - generic [ref=e310]: CONTACT
+            - generic [aria-hidden] [ref=e311]: CONTACT
+          - generic [ref=e312]:
+            - generic [ref=e313]: US
+            - generic [aria-hidden] [ref=e314]: US
+  - main [ref=e315]:
+    - generic [ref=e319]:
+      - generic [ref=e320]:
+        - heading "WORKS" [level=1] [ref=e322]
+        - generic [ref=e323]:
+          - generic [ref=e324]:
+            - generic [ref=e325]:
+              - button "All" [ref=e326] [cursor=pointer]
+              - button "Branding" [ref=e328] [cursor=pointer]
+              - button "Websites" [ref=e329] [cursor=pointer]
+            - generic [ref=e331]:
+              - button "LIST" [ref=e332] [cursor=pointer]
+              - button "SLIDER" [ref=e333] [cursor=pointer]
+          - generic [ref=e334]: SCROLL TO SEE MORE
+      - generic [ref=e338]:
+        - generic [ref=e339] [cursor=pointer]:
+          - img "MMS ARCHITECTS™" [ref=e341]
+          - generic [ref=e342]:
+            - generic [ref=e343]: MMS ARCHITECTS™
+            - generic [ref=e345]: Italy
+        - generic [ref=e346] [cursor=pointer]:
+          - generic [ref=e347]:
+            - img "STEPHENSON®" [ref=e348]
+            - generic [ref=e349]: AWARDED
+          - generic [ref=e351]:
+            - generic [ref=e352]: STEPHENSON®
+            - generic [ref=e354]: Saudi Arabia
+        - generic [ref=e355] [cursor=pointer]:
+          - generic [ref=e356]:
+            - img "STUDIO JUZENAS®" [ref=e357]
+            - generic [ref=e358]: IN THE WORKS
+          - generic [ref=e360]:
+            - generic [ref=e361]: STUDIO JUZENAS®
+            - generic [ref=e363]: LITHUANIA
+        - generic [ref=e364] [cursor=pointer]:
+          - img "AXIS® RE" [ref=e366]
+          - generic [ref=e367]:
+            - generic [ref=e368]: AXIS® RE
+            - generic [ref=e370]: Egypt
+        - generic [ref=e371] [cursor=pointer]:
+          - img "FUSION FORM®" [ref=e373]
+          - generic [ref=e374]:
+            - generic [ref=e375]: FUSION FORM®
+            - generic [ref=e377]: Egypt
+        - generic [ref=e378] [cursor=pointer]:
+          - img "AXIS® - Real Estate Consultancy" [ref=e380]
+          - generic [ref=e381]:
+            - generic [ref=e382]:
+              - generic [ref=e383]: AXIS® - Real Estate Consultancy
+              - generic [ref=e384]: Brand Development
+            - generic [ref=e385]: Egypt
+  - dialog [ref=e386]:
+    - generic [ref=e387]:
+      - generic [ref=e388]:
+        - generic [ref=e389]:
+          - generic [ref=e390]: STUDIO CMS
+          - generic [ref=e391]:
+            - heading "Works Portfolio Manager" [level=2] [ref=e392]
+            - paragraph [ref=e393]: Add, drop, or reorder projects displayed on the standalone Works page.
+        - generic [ref=e394]:
+          - button "Go to Works Page →" [ref=e395] [cursor=pointer]
+          - button "+ New Project" [ref=e397] [cursor=pointer]:
+            - generic [ref=e398]: +
+            - generic [ref=e399]: New Project
+          - button "Export JSON" [ref=e400] [cursor=pointer]
+          - button "Password" [ref=e401] [cursor=pointer]
+          - button "Lock" [ref=e402] [cursor=pointer]
+          - button "Close CMS Modal" [ref=e403] [cursor=pointer]: ✕
+      - generic [ref=e405]:
+        - generic [ref=e406]:
+          - generic [ref=e407]: "#"
+          - generic [ref=e408]: PREVIEW
+          - generic [ref=e409]: PROJECT TITLE & SUBTITLE
+          - generic [ref=e410]: CATEGORY
+          - generic [ref=e411]: LOCATION
+          - generic [ref=e412]: BADGE / STATUS
+          - generic [ref=e413]: SELECTED WORKS
+          - generic [ref=e414]: ACTIONS
+        - generic [ref=e415]:
+          - generic [ref=e416]:
+            - generic [ref=e417]:
+              - generic [ref=e418]: "01"
+              - generic [ref=e419]:
+                - button "▲" [disabled] [ref=e420]
+                - button "▼" [ref=e421] [cursor=pointer]
+            - img "MMS ARCHITECTS™" [ref=e424]
+            - generic [ref=e425]: MMS ARCHITECTS™
+            - generic [ref=e427]: Branding
+            - generic [ref=e428]: Italy
+            - generic [ref=e429]: —
+            - button "★ HOMEPAGE" [ref=e431] [cursor=pointer]
+            - generic [ref=e433]:
+              - button "Edit" [ref=e434] [cursor=pointer]
+              - button "Drop" [ref=e435] [cursor=pointer]
+          - generic [ref=e436]:
+            - generic [ref=e437]:
+              - generic [ref=e438]: "02"
+              - generic [ref=e439]:
+                - button "▲" [ref=e440] [cursor=pointer]
+                - button "▼" [ref=e441] [cursor=pointer]
+            - img "STEPHENSON®" [ref=e444]
+            - generic [ref=e445]: STEPHENSON®
+            - generic [ref=e447]: Branding
+            - generic [ref=e448]: Saudi Arabia
+            - generic [ref=e449]: AWARDED
+            - button "★ HOMEPAGE" [ref=e452] [cursor=pointer]
+            - generic [ref=e454]:
+              - button "Edit" [ref=e455] [cursor=pointer]
+              - button "Drop" [ref=e456] [cursor=pointer]
+          - generic [ref=e457]:
+            - generic [ref=e458]:
+              - generic [ref=e459]: "03"
+              - generic [ref=e460]:
+                - button "▲" [ref=e461] [cursor=pointer]
+                - button "▼" [ref=e462] [cursor=pointer]
+            - img "STUDIO JUZENAS®" [ref=e465]
+            - generic [ref=e466]: STUDIO JUZENAS®
+            - generic [ref=e468]: Websites
+            - generic [ref=e469]: LITHUANIA
+            - generic [ref=e470]: IN THE WORKS
+            - button "+ FEATURE" [ref=e473] [cursor=pointer]
+            - generic [ref=e475]:
+              - button "Edit" [ref=e476] [cursor=pointer]
+              - button "Drop" [ref=e477] [cursor=pointer]
+          - generic [ref=e478]:
+            - generic [ref=e479]:
+              - generic [ref=e480]: "04"
+              - generic [ref=e481]:
+                - button "▲" [ref=e482] [cursor=pointer]
+                - button "▼" [ref=e483] [cursor=pointer]
+            - img "AXIS® RE" [ref=e486]
+            - generic [ref=e487]: AXIS® RE
+            - generic [ref=e489]: Branding
+            - generic [ref=e490]: Egypt
+            - generic [ref=e491]: —
+            - button "★ HOMEPAGE" [ref=e493] [cursor=pointer]
+            - generic [ref=e495]:
+              - button "Edit" [ref=e496] [cursor=pointer]
+              - button "Drop" [ref=e497] [cursor=pointer]
+          - generic [ref=e498]:
+            - generic [ref=e499]:
+              - generic [ref=e500]: "05"
+              - generic [ref=e501]:
+                - button "▲" [ref=e502] [cursor=pointer]
+                - button "▼" [ref=e503] [cursor=pointer]
+            - img "FUSION FORM®" [ref=e506]
+            - generic [ref=e507]: FUSION FORM®
+            - generic [ref=e509]: Websites
+            - generic [ref=e510]: Egypt
+            - generic [ref=e511]: —
+            - button "★ HOMEPAGE" [ref=e513] [cursor=pointer]
+            - generic [ref=e515]:
+              - button "Edit" [ref=e516] [cursor=pointer]
+              - button "Drop" [ref=e517] [cursor=pointer]
+          - generic [ref=e518]:
+            - generic [ref=e519]:
+              - generic [ref=e520]: "06"
+              - generic [ref=e521]:
+                - button "▲" [ref=e522] [cursor=pointer]
+                - button "▼" [disabled] [ref=e523]
+            - img "AXIS® - Real Estate Consultancy" [ref=e526]
+            - generic [ref=e527]:
+              - generic [ref=e528]: AXIS® - Real Estate Consultancy
+              - generic [ref=e529]: Brand Development
+            - generic [ref=e530]: Branding
+            - generic [ref=e531]: Egypt
+            - generic [ref=e532]: —
+            - button "+ FEATURE" [ref=e534] [cursor=pointer]
+            - generic [ref=e536]:
+              - button "Edit" [ref=e537] [cursor=pointer]
+              - button "Drop" [ref=e538] [cursor=pointer]
+      - generic [ref=e539]:
+        - generic [ref=e540]: "Total: 6 projects loaded in Works database"
+        - generic [ref=e541]: Changes are immediately synchronized with the Works Page

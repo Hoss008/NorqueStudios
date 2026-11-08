@@ -1,0 +1,203 @@
+- generic [ref=f14e3]:
+  - banner [ref=f14e48]:
+    - generic [ref=f14e49]:
+      - link "Norque Studios Home" [ref=f14e51] [cursor=pointer]:
+        - /url: /
+      - navigation "Main Navigation" [ref=f14e62]:
+        - link "ABOUT" [ref=f14e63] [cursor=pointer]:
+          - /url: /about
+          - generic [ref=f14e65]:
+            - generic [ref=f14e66]: ABOUT
+            - generic [aria-hidden] [ref=f14e67]: ABOUT
+        - link "WORKS" [ref=f14e68] [cursor=pointer]:
+          - /url: /projects
+          - generic [ref=f14e70]:
+            - generic [ref=f14e71]: WORKS
+            - generic [aria-hidden] [ref=f14e72]: WORKS
+        - link "SERVICES" [ref=f14e73] [cursor=pointer]:
+          - /url: "#services"
+          - generic [ref=f14e75]:
+            - generic [ref=f14e76]: SERVICES
+            - generic [aria-hidden] [ref=f14e77]: SERVICES
+      - generic [ref=f14e78]: EGYPT, 04:24:01 PM GMT+2
+      - link "CONTACT US" [ref=f14e81] [cursor=pointer]:
+        - /url: "#contact"
+        - generic [ref=f14e82]:
+          - generic [ref=f14e83]:
+            - generic [ref=f14e84]: CONTACT
+            - generic [aria-hidden] [ref=f14e85]: CONTACT
+          - generic [ref=f14e86]:
+            - generic [ref=f14e87]: US
+            - generic [aria-hidden] [ref=f14e88]: US
+  - main [ref=f14e45]:
+    - generic [ref=f14e90]:
+      - generic [ref=f14e91]:
+        - img "STEPHENSON® Cover" [ref=f14e94]
+        - generic [ref=f14e96]:
+          - generic [ref=f14e97]:
+            - heading "STEPHENSON® Clothing Brand" [level=1] [ref=f14e99]: STEPHENSON®Clothing Brand
+            - generic [ref=f14e100]:
+              - generic [ref=f14e102]:
+                - generic [ref=f14e103]: Year
+                - generic [ref=f14e104]: "2025"
+              - generic [ref=f14e106]:
+                - generic [ref=f14e107]: Location
+                - generic [ref=f14e108]: Saudi Arabia
+              - generic [ref=f14e110]:
+                - generic [ref=f14e111]: Tags
+                - generic [ref=f14e112]: Brand Development, Art Direction
+              - generic [ref=f14e114]:
+                - generic [ref=f14e115]: Purpose
+                - generic [ref=f14e116]: Clothing Brand
+          - generic [ref=f14e119]:
+            - generic [aria-hidden]:
+              - generic: Classic heritage meets modern Japanese restraint. Stephenson is a wearable identity — a quiet form of luxury that draws from the calm confidence of the Stephenson star and the philosophy of Japanese minimalism. This brand is conceived for individuals who express presence without noise.
+              - generic: Reflecting a refined fusion of Japanese minimalism and contemporary tailoring, the silhouette is calm and intentional, built around relaxed structure and uninterrupted form. Wide, fluid trousers and a wrap-style top create a sense of ease while maintaining architectural precision. The garment moves naturally with the body, emphasizing comfort without compromising elegance.
+              - generic: Materials are selected for durability and tactile warmth, designed to age beautifully and develop character over time. From Riyadh to the global stage, Stephenson stands as an understated uniform — a quiet expression of discipline, presence, and modern restraint.
+            - generic [ref=f14e120]:
+              - generic [ref=f14e121]:
+                - generic [ref=f14e122]: Classic heritage meets modern Japanese restraint. Stephenson is a wearable identity — a quiet form of luxury that draws from the calm confidence of the Stephenson star and the
+                - generic [ref=f14e124]: philosophy of Japanese minimalism. This brand is conceived for individuals who express presence without noise.
+              - generic [ref=f14e126]:
+                - generic [ref=f14e127]: Reflecting a refined fusion of Japanese minimalism and contemporary tailoring, the silhouette is calm and intentional, built around relaxed structure and uninterrupted form. Wide,
+                - generic [ref=f14e129]: fluid trousers and a wrap-style top create a sense of ease while maintaining architectural precision. The garment moves naturally with the body, emphasizing comfort without
+                - generic [ref=f14e131]: compromising elegance.
+              - generic [ref=f14e133]:
+                - generic [ref=f14e134]: Materials are selected for durability and tactile warmth, designed to age beautifully and develop character over time. From Riyadh to the global stage, Stephenson stands as an
+                - generic [ref=f14e136]: understated uniform — a quiet expression of discipline, presence, and modern restraint.
+      - generic [ref=f14e138]:
+        - img "STEPHENSON® 1" [ref=f14e140]
+        - img "STEPHENSON® 2" [ref=f14e142]
+        - generic [ref=f14e143]:
+          - img "STEPHENSON® 3.1" [ref=f14e145]
+          - img "STEPHENSON® 3.2" [ref=f14e147]
+        - img "STEPHENSON® 4" [ref=f14e149]
+        - generic [ref=f14e150]:
+          - img "STEPHENSON® 5.1" [ref=f14e152]
+          - img "STEPHENSON® 5.2" [ref=f14e154]
+        - img "STEPHENSON® 6" [ref=f14e156]
+        - generic [ref=f14e157]:
+          - img "STEPHENSON® 7.1" [ref=f14e159]
+          - img "STEPHENSON® 7.2" [ref=f14e161]
+        - generic [ref=f14e162]:
+          - img "STEPHENSON® 8.1" [ref=f14e164]
+          - img "STEPHENSON® 8.2" [ref=f14e166]
+        - img "STEPHENSON® 9" [ref=f14e168]
+        - generic [ref=f14e169]:
+          - img "STEPHENSON® 10.1" [ref=f14e171]
+          - img "STEPHENSON® 10.2" [ref=f14e173]
+        - img "STEPHENSON® 11" [ref=f14e175]
+        - generic [ref=f14e176]:
+          - img "STEPHENSON® 12.1" [ref=f14e178]
+          - img "STEPHENSON® 12.2" [ref=f14e180]
+        - generic [ref=f14e181]:
+          - img "STEPHENSON® 13.1" [ref=f14e183]
+          - img "STEPHENSON® 13.2" [ref=f14e185]
+        - img "STEPHENSON® 14" [ref=f14e187]
+        - 'button "Scroll or click to load next project: FUSION FORM®" [ref=f14e188] [cursor=pointer]':
+          - paragraph [ref=f14e190]: Scroll to load the next project
+  - generic [ref=f14e196]:
+    - generic [ref=f14e197]:
+      - generic [ref=f14e198]:
+        - generic [ref=f14e199]: STUDIO CMS
+        - generic [ref=f14e200]:
+          - heading "Works Portfolio Manager" [level=2] [ref=f14e201]
+          - paragraph [ref=f14e202]: Add, drop, or reorder projects displayed on the standalone Works page.
+      - generic [ref=f14e203]:
+        - button "Go to Works Page →" [ref=f14e204] [cursor=pointer]
+        - button "+ New Project" [ref=f14e206] [cursor=pointer]:
+          - generic [ref=f14e207]: +
+          - generic [ref=f14e208]: New Project
+        - button "Export JSON" [ref=f14e209] [cursor=pointer]
+        - button "Password" [ref=f14e210] [cursor=pointer]
+        - button "Lock" [ref=f14e211] [cursor=pointer]
+        - button "Close CMS Modal" [ref=f14e212] [cursor=pointer]: ✕
+    - generic [ref=f14e214]:
+      - generic [ref=f14e215]:
+        - generic [ref=f14e216]: "#"
+        - generic [ref=f14e217]: PREVIEW
+        - generic [ref=f14e218]: PROJECT TITLE & SUBTITLE
+        - generic [ref=f14e219]: CATEGORY
+        - generic [ref=f14e220]: LOCATION
+        - generic [ref=f14e221]: BADGE / STATUS
+        - generic [ref=f14e222]: SELECTED WORKS
+        - generic [ref=f14e223]: ACTIONS
+      - generic [ref=f14e224]:
+        - generic [ref=f14e225]:
+          - generic [ref=f14e226]:
+            - generic [ref=f14e227]: "01"
+            - generic [ref=f14e228]:
+              - button "▲" [disabled] [ref=f14e229]
+              - button "▼" [ref=f14e230] [cursor=pointer]
+          - img "MMS ARCHITECTS™" [ref=f14e233]
+          - generic [ref=f14e234]: MMS ARCHITECTS™
+          - generic [ref=f14e236]: Branding
+          - generic [ref=f14e237]: Italy
+          - generic [ref=f14e238]: —
+          - button "★ HOMEPAGE" [ref=f14e240] [cursor=pointer]
+          - generic [ref=f14e242]:
+            - button "Edit" [ref=f14e243] [cursor=pointer]
+            - button "Drop" [ref=f14e244] [cursor=pointer]
+        - generic [ref=f14e245]:
+          - generic [ref=f14e246]:
+            - generic [ref=f14e247]: "02"
+            - generic [ref=f14e248]:
+              - button "▲" [ref=f14e249] [cursor=pointer]
+              - button "▼" [ref=f14e250] [cursor=pointer]
+          - img "STEPHENSON®" [ref=f14e253]
+          - generic [ref=f14e254]: STEPHENSON®
+          - generic [ref=f14e256]: Branding
+          - generic [ref=f14e257]: Saudi Arabia
+          - generic [ref=f14e258]: AWARDED
+          - button "★ HOMEPAGE" [ref=f14e261] [cursor=pointer]
+          - generic [ref=f14e263]:
+            - button "Edit" [ref=f14e264] [cursor=pointer]
+            - button "Drop" [ref=f14e265] [cursor=pointer]
+        - generic [ref=f14e266]:
+          - generic [ref=f14e267]:
+            - generic [ref=f14e268]: "03"
+            - generic [ref=f14e269]:
+              - button "▲" [ref=f14e270] [cursor=pointer]
+              - button "▼" [ref=f14e271] [cursor=pointer]
+          - img "STUDIO JUZENAS®" [ref=f14e274]
+          - generic [ref=f14e275]: STUDIO JUZENAS®
+          - generic [ref=f14e277]: Websites
+          - generic [ref=f14e278]: LITHUANIA
+          - generic [ref=f14e279]: IN THE WORKS
+          - button "+ FEATURE" [ref=f14e282] [cursor=pointer]
+          - generic [ref=f14e284]:
+            - button "Edit" [ref=f14e285] [cursor=pointer]
+            - button "Drop" [ref=f14e286] [cursor=pointer]
+        - generic [ref=f14e287]:
+          - generic [ref=f14e288]:
+            - generic [ref=f14e289]: "04"
+            - generic [ref=f14e290]:
+              - button "▲" [ref=f14e291] [cursor=pointer]
+              - button "▼" [ref=f14e292] [cursor=pointer]
+          - img "AXIS® RE" [ref=f14e295]
+          - generic [ref=f14e296]: AXIS® RE
+          - generic [ref=f14e298]: Branding
+          - generic [ref=f14e299]: Egypt
+          - generic [ref=f14e300]: —
+          - button "★ HOMEPAGE" [ref=f14e302] [cursor=pointer]
+          - generic [ref=f14e304]:
+            - button "Edit" [ref=f14e305] [cursor=pointer]
+            - button "Drop" [ref=f14e306] [cursor=pointer]
+        - generic [ref=f14e307]:
+          - generic [ref=f14e308]:
+            - generic [ref=f14e309]: "05"
+            - generic [ref=f14e310]:
+              - button "▲" [ref=f14e311] [cursor=pointer]
+              - button "▼" [disabled] [ref=f14e312]
+          - img "FUSION FORM®" [ref=f14e315]
+          - generic [ref=f14e316]: FUSION FORM®
+          - generic [ref=f14e318]: Websites
+          - generic [ref=f14e319]: Egypt
+          - generic [ref=f14e320]: —
+          - button "★ HOMEPAGE" [ref=f14e322] [cursor=pointer]
+          - generic [ref=f14e324]:
+            - button "Edit" [ref=f14e325] [cursor=pointer]
+            - button "Drop" [ref=f14e326] [cursor=pointer]
+    - generic [ref=f14e327]:
+      - generic [ref=f14e328]: "Total: 5 projects loaded in Works database"
+      - generic [ref=f14e329]: Changes are immediately synchronized with the Works Page

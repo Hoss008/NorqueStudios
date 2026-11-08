@@ -1,1 +1,31 @@
 [     313ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:21608
+[ 1791053ms] [ERROR] [vite] ReferenceError: br is not defined
+    at http://localhost:3000/src/components/about/AboutNews.jsx?t=1794145106815:43:312 @ http://localhost:3000/@vite/client:881
+[ 1791053ms] [ERROR] [vite] Failed to reload /src/components/about/AboutNews.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881
+[ 1797904ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/src/components/about/AboutNews.jsx?t=1794145113613:0
+[ 1797905ms] [ERROR] [vite] Failed to reload /src/components/about/AboutNews.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881
+[ 1801838ms] [ERROR] [vite] ReferenceError: br is not defined
+    at http://localhost:3000/src/components/about/AboutNews.jsx?t=1794145117640:43:312 @ http://localhost:3000/@vite/client:881
+[ 1801838ms] [ERROR] [vite] Failed to reload /src/components/about/AboutNews.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881
+[ 1811427ms] [ERROR] [vite] ReferenceError: a is not defined
+    at http://localhost:3000/src/components/about/AboutNews.jsx?t=1794145127231:43:312 @ http://localhost:3000/@vite/client:881
+[ 1811427ms] [ERROR] [vite] Failed to reload /src/components/about/AboutNews.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881
+[ 1815800ms] [ERROR] [vite] ReferenceError: a is not defined
+    at http://localhost:3000/src/components/about/AboutNews.jsx?t=1794145131605:43:312 @ http://localhost:3000/@vite/client:881
+[ 1815801ms] [ERROR] [vite] Failed to reload /src/components/about/AboutNews.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881
+[ 1927874ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/src/components/about/AboutNews.jsx?t=1794145243682:0
+[ 1927875ms] [ERROR] [vite] Failed to reload /src/components/about/AboutNews.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881
+[ 1961922ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/src/components/about/AboutNews.jsx?t=1794145277729:0
+[ 1961922ms] [ERROR] [vite] Failed to reload /src/components/about/AboutNews.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881
+[ 1965950ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/src/components/about/AboutNews.jsx?t=1794145281757:0
+[ 1965950ms] [ERROR] [vite] Failed to reload /src/components/about/AboutNews.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881
+[ 1991042ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/src/components/about/AboutNews.jsx?t=1794145306852:0
+[ 1991042ms] [ERROR] [vite] Failed to reload /src/components/about/AboutNews.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881
+[ 1994756ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/src/components/about/AboutNews.jsx?t=1794145310572:0
+[ 1994757ms] [ERROR] [vite] Failed to reload /src/components/about/AboutNews.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881
+[ 1998463ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/src/components/about/AboutNews.jsx?t=1794145314279:0
+[ 1998463ms] [ERROR] [vite] Failed to reload /src/components/about/AboutNews.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881
+[ 2021385ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/src/components/about/AboutNews.jsx?t=1794145337196:0
+[ 2021385ms] [ERROR] [vite] Failed to reload /src/components/about/AboutNews.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881
+[ 2320519ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/src/components/about/AboutNews.jsx?t=1794145636330:0
+[ 2320520ms] [ERROR] [vite] Failed to reload /src/components/about/AboutNews.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881

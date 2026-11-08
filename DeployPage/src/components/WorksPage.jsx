@@ -12,14 +12,8 @@ import { useWorksData } from '../data/worksStore';
 export default function WorksPage({ onNavigate, onOpenCMS }) {
   const { works } = useWorksData();
 
-  /* ─── Dynamic Categories derived from JSON database ─── */
-  const categories = useMemo(() => {
-    const set = new Set();
-    works.forEach((p) => {
-      if (p.category) set.add(p.category);
-    });
-    return ['All', ...Array.from(set)];
-  }, [works]);
+  /* ─── Works Filter Categories: Strictly 'All', 'Branding', 'Websites' ─── */
+  const categories = ['All', 'Branding', 'Websites'];
 
   /* ─── State Management ─── */
   const [activeCategory, setActiveCategory] = useState('All');
@@ -63,6 +57,8 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
       onNavigate('project-stephenson');
     } else if (id.includes('fusion') || title.includes('fusion')) {
       onNavigate('project-fusion-form');
+    } else if (project.link && project.link !== '#') {
+      window.open(project.link, '_blank');
     }
   };
 
@@ -98,6 +94,14 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
     if (viewMode !== 'SLIDER') return;
 
     const handleWheel = (e) => {
+      // Do not intercept scroll gestures if any modal or dialog is open, or if the event originates inside a scrollable overlay
+      if (
+        document.querySelector('.fixed.z-50, .fixed.z-60, [role="dialog"]') ||
+        e.target.closest('.fixed, [role="dialog"], .overflow-y-auto, .overflow-auto, form, input, select, textarea')
+      ) {
+        return;
+      }
+
       // Prevent default page scrolling gestures
       e.preventDefault();
 
@@ -252,7 +256,7 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
                 >
                   {filteredProjects.map((project, index) => (
                     <motion.div
-                      key={`${activeCategory}-${project.id}`}
+                      key={`${activeCategory}-${project.id || project.title || index}`}
                       onClick={() => handleProjectClick(project)}
                       className="flex-shrink-0 w-[23.9583vw] group select-none cursor-pointer"
                       initial={{ opacity: 0, y: 20 }}
@@ -331,7 +335,7 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
                 <div className="w-full divide-y divide-white/5">
                   {filteredProjects.map((project, idx) => (
                     <motion.div
-                      key={`${activeCategory}-${project.id}`}
+                      key={`${activeCategory}-${project.id || project.title || idx}`}
                       onClick={() => handleProjectClick(project)}
                       onMouseEnter={() => setHoveredListProject(project)}
                       onMouseLeave={() => setHoveredListProject(null)}

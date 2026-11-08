@@ -9,7 +9,9 @@
     "badgeBg": null,
     "subtitle": null,
     "year": "2025",
-    "link": "#"
+    "link": "#",
+    "selectedWork": true,
+    "selectedCategory": "Brand Development"
   },
   {
     "title": "STEPHENSON®",
@@ -21,7 +23,9 @@
     "subtitle": null,
     "year": "2025",
     "link": "#",
-    "id": "project-1793903575586"
+    "id": "project-1793903575586",
+    "selectedWork": true,
+    "selectedCategory": "Clothing Brand | Japanese Tailoring"
   },
   {
     "id": "studio-juzenas",
@@ -33,7 +37,9 @@
     "badgeBg": "#171717",
     "subtitle": null,
     "year": "2026",
-    "link": "#"
+    "link": "#",
+    "selectedWork": false,
+    "selectedCategory": "Brand Development | UI/UX Design & Web Development"
   },
   {
     "id": "axis-re",
@@ -45,7 +51,9 @@
     "badgeBg": null,
     "subtitle": null,
     "year": "2026",
-    "link": "#"
+    "link": "#",
+    "selectedWork": true,
+    "selectedCategory": "Brand Development"
   },
   {
     "id": "fusion-form",
@@ -57,6 +65,8 @@
     "badgeBg": null,
     "subtitle": null,
     "year": "2024",
-    "link": "#"
+    "link": "#",
+    "selectedWork": true,
+    "selectedCategory": "UI/UX Design & Web Development"
   }
 ]

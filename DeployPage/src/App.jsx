@@ -89,6 +89,19 @@ export default function App() {
     setIsCmsOpen(false);
   };
 
+  /* ─── Pause page smooth-scroll when CMS or Auth modal is active ─── */
+  useEffect(() => {
+    if (isCmsOpen || isAuthModalOpen) {
+      if (lenisRef.current) {
+        lenisRef.current.stop();
+      }
+    } else {
+      if (lenisRef.current && currentPage !== 'works' && isSplashComplete) {
+        lenisRef.current.start();
+      }
+    }
+  }, [isCmsOpen, isAuthModalOpen, currentPage, isSplashComplete]);
+
   /* ─── Hash Listeners: #contact & #admin/#cms ─── */
   useEffect(() => {
     const handleHash = () => {

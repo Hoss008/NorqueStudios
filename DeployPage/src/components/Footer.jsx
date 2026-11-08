@@ -122,8 +122,8 @@ export default function Footer({ onOpenCMS, onNavigate, onOpenContact }) {
                 Works
               </a>
               <a 
-                href="#services" 
-                onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('home', 'services'); } }} 
+                href="/services" 
+                onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('services'); } }} 
                 className="hover:opacity-60 transition-opacity"
               >
                 services

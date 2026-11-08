@@ -1,0 +1,184 @@
+- generic [ref=e3]:
+  - banner:
+    - generic:
+      - generic:
+        - link "Norque Studios Home":
+          - /url: /
+      - navigation "Main Navigation":
+        - link "ABOUT":
+          - /url: /about
+          - generic:
+            - generic:
+              - generic: ABOUT
+              - generic [aria-hidden]: ABOUT
+        - link "WORKS":
+          - /url: /projects
+          - generic:
+            - generic:
+              - generic: WORKS
+              - generic [aria-hidden]: WORKS
+        - link "SERVICES":
+          - /url: /services
+          - generic:
+            - generic:
+              - generic: SERVICES
+              - generic [aria-hidden]: SERVICES
+      - generic: EGYPT, 07:16:34 PM GMT+2
+      - generic:
+        - link "CONTACT US":
+          - /url: "#contact"
+          - generic:
+            - generic:
+              - generic: CONTACT
+              - generic [aria-hidden]: CONTACT
+            - generic:
+              - generic: US
+              - generic [aria-hidden]: US
+  - main [ref=e45]:
+    - generic [ref=e48]:
+      - main [ref=e50]:
+        - generic [ref=e52]:
+          - listbox "Service wheel" [ref=e54]:
+            - option "Brand Development" [ref=e55] [cursor=pointer]
+            - option "UI/UX Design" [ref=e56] [cursor=pointer]
+            - option "Web Development" [selected] [ref=e57] [cursor=pointer]
+            - option "Graphic Design" [ref=e58] [cursor=pointer]
+            - option "Social Media Campaigns" [ref=e59] [cursor=pointer]
+            - option "Creative Partner" [ref=e60] [cursor=pointer]
+            - option "Consultation" [ref=e61] [cursor=pointer]
+          - generic [ref=e62]:
+            - generic [ref=e63]: SCROLL THE WHEEL TO KNOW MORE
+            - generic [ref=e257]:
+              - paragraph [ref=e259]: — Engineered with clean code, unmatched performance, and seamless interactive polish. We turn complex visions into lightweight, modern web applications.
+              - generic [ref=e260]:
+                - generic [ref=e261]: Bespoke Creative Frontend Engineering
+                - generic [ref=e263]: Full-Stack Architecture & APIs
+                - generic [ref=e265]: Headless CMS & Custom Workflows
+                - generic [ref=e267]: Interactive 3D, WebGL & Canvas Experiences
+                - generic [ref=e269]: Core Web Vitals & Load Speed Optimization
+                - generic [ref=e271]: Scalable Cloud Infrastructure
+                - generic [ref=e273]: SEO & Semantic Web Standards
+        - generic [ref=e85]:
+          - generic:
+            - generic:
+              - img "Section Background"
+          - heading "Norque’s workflow" [level=2] [ref=e87]
+          - generic [ref=e88]:
+            - generic [ref=e89]:
+              - generic [ref=e90] [cursor=pointer]: (01) Discovery Call
+              - generic [ref=e97] [cursor=pointer]:
+                - generic [ref=e98]: (02) Strategy Planning
+                - paragraph [ref=e280]: We dissect core goals, target audiences, and market whitespace to establish a definitive creative brief. Every subsequent design decision is anchored in strategic clarity and measurable impact.
+              - generic [ref=e100] [cursor=pointer]: (03) Bespoke Architecture
+              - generic [ref=e103] [cursor=pointer]: (04) Execution
+              - generic [ref=e106] [cursor=pointer]: (05) Project Handover
+            - generic [ref=e111]:
+              - img "Discovery Call" [ref=e281]
+              - img "Strategy Planning" [ref=e283]
+          - generic [ref=e114]:
+            - generic [ref=e115]: 01 / Discovery Call
+            - generic [ref=e116]: 05 / Project Handover
+        - generic [ref=e118]:
+          - generic [ref=e119]:
+            - generic [ref=e120]: EXPERIENCE DRIVEN EXECUTION
+            - generic [ref=e121]: 01 / 03
+          - generic:
+            - heading "FEEL THE EXPERIENCE" [level=2]
+          - generic [ref=e123]:
+            - generic [ref=e124]:
+              - img "Proposals" [ref=e125]
+              - generic [ref=e127]: Proposals
+            - generic [ref=e129]:
+              - img "Project Updates©" [ref=e130]
+              - generic [ref=e132]: Project Updates©
+            - generic [ref=e134]:
+              - img "Project Handover" [ref=e135]
+              - generic [ref=e137]: Project Handover
+          - paragraph [ref=e143]: — An independent creative studio built around design, digital experiences and the ideas that connect them. We work with brands, businesses and people who care about how things look, feel and exist in the real world.
+        - generic [ref=e149]:
+          - generic [ref=e150]:
+            - generic [ref=e151]:
+              - paragraph [ref=e152]: We don’t just do some good designs, we actually look for your pain point, work on it and solve it. So the outcome is not just good visually, it is functional as well.
+              - paragraph [ref=e153]: Fill the form and let’s talk.
+            - link "Download Norque's Pitch Deck PDF" [ref=e154] [cursor=pointer]:
+              - /url: /Norque-Pitch-Deck.pdf
+              - img "Norque Pitch Deck Preview" [ref=e155]
+              - generic [ref=e157]: 24.6 MB
+              - generic [ref=e160]:
+                - generic [ref=e161]: Download
+                - generic [ref=e165]: Norque’s Pitch Deck [PDF]
+          - generic [ref=e167]:
+            - generic [ref=e168]:
+              - generic [ref=e169]: Name*
+              - textbox "e.g. John Mark" [ref=e170]
+            - generic [ref=e171]:
+              - generic [ref=e172]: Phone Number*
+              - textbox "e.g. +971 XX XXX XXXX" [ref=e173]
+            - generic [ref=e174]:
+              - generic [ref=e175]: Email*
+              - textbox "e.g. jo.......@gmail.com" [ref=e176]
+            - generic [ref=e177]:
+              - generic [ref=e178]: Company Name
+              - textbox "e.g. PLATO Design House" [ref=e179]
+            - generic [ref=e180]:
+              - generic [ref=e181]: Your Website Link (optional)
+              - textbox "Add your URL here" [ref=e182]
+            - generic [ref=e183]:
+              - generic [ref=e184]: Project Type
+              - generic [ref=e185]:
+                - button "Full Website" [ref=e186] [cursor=pointer]
+                - button "Branding" [active] [ref=e187] [cursor=pointer]
+                - button "UI/UX" [ref=e188] [cursor=pointer]
+                - button "Web Development" [ref=e189] [cursor=pointer]
+                - button "Social Media" [ref=e190] [cursor=pointer]
+                - button "Consulting" [ref=e191] [cursor=pointer]
+            - generic [ref=e192]:
+              - generic [ref=e193]: Expected Budget
+              - generic [ref=e194]:
+                - button "< $1000" [ref=e195] [cursor=pointer]
+                - button "$1,000 — $2,000" [ref=e196] [cursor=pointer]
+                - button "$2,000 — $3,000" [ref=e197] [cursor=pointer]
+                - button "$3,000 — $5,000" [ref=e198] [cursor=pointer]
+                - button "+$5,000" [ref=e199] [cursor=pointer]
+            - generic [ref=e200]:
+              - generic [ref=e201]: How did you hear about us?
+              - button "Select your option" [ref=e202] [cursor=pointer]
+            - generic [ref=e206]:
+              - generic [ref=e207]: Something specific you want to talk about?
+              - textbox "Add more details..." [ref=e208]
+            - button "Submit Your Info" [ref=e210] [cursor=pointer]
+      - generic [ref=e212]:
+        - generic [ref=e216]:
+          - generic [aria-hidden]:
+            - generic:
+              - text: Got a project on mind? Let’s make it alive!
+              - generic:
+                - link:
+                  - /url: mailto:hello@norquestudios.com
+                  - text: hello@norquestudios.com
+          - generic [ref=e218]:
+            - generic [ref=e219]: Got a project on mind?
+            - generic [ref=e221]: Let’s make it alive!
+            - link "hello@norquestudios.com" [ref=e225] [cursor=pointer]:
+              - /url: mailto:hello@norquestudios.com
+        - generic [ref=e245]:
+          - generic [ref=e246]:
+            - link "About" [ref=e247] [cursor=pointer]:
+              - /url: /about
+            - link "Works" [ref=e248] [cursor=pointer]:
+              - /url: /projects
+            - link "services" [ref=e249] [cursor=pointer]:
+              - /url: /services
+            - link "contact" [ref=e250] [cursor=pointer]:
+              - /url: "#contact"
+            - link "Behance" [ref=e251] [cursor=pointer]:
+              - /url: https://www.behance.net/norquestudios/
+            - link "Linked in" [ref=e252] [cursor=pointer]:
+              - /url: https://www.linkedin.com/company/https-norquestudios.com-/
+            - link "Instagram" [ref=e253] [cursor=pointer]:
+              - /url: https://www.instagram.com/norquestudios/
+            - link "• terms & conditions" [ref=e254] [cursor=pointer]:
+              - /url: "#terms"
+            - link "• privacy & policy" [ref=e255] [cursor=pointer]:
+              - /url: "#privacy"
+          - generic [ref=e256]: © 2026 norquestudios. all rights reserved

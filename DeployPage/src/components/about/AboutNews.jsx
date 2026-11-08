@@ -1,8 +1,8 @@
 import React from 'react';
 import InteractiveInfiniteCarousel from '../InteractiveInfiniteCarousel';
-import doneByHumansVideo from '../../assets/about-news/content-01-done-by-humans.mp4';
-import btsTheStudioCollabVideo from '../../assets/about-news/content-02-bts-the-studio-collab.mp4';
-import btsEngineeredCodeVideo from '../../assets/about-news/content-03-bts-engineered-code.mp4';
+import doneByHumansVideo from '../../assets/about-news/content-01-done-by-humans.webm';
+import btsTheStudioCollabVideo from '../../assets/about-news/content-02-bts-the-studio-collab.webm';
+import btsEngineeredCodeVideo from '../../assets/about-news/content-03-bts-engineered-code.webm';
 import socialMediaDevelopmentGif from '../../assets/about-news/content-04-social-media-development.gif';
 
 /* ========================================================================= */
@@ -12,10 +12,10 @@ import socialMediaDevelopmentGif from '../../assets/about-news/content-04-social
 const NEWS_ITEMS = [
   {
     
-    src: doneByHumansVideo,
+    src: btsEngineeredCodeVideo,
     isVideo: true,
     aspect: 'aspect-[345/438.2]',
-    title: 'Done By Humans',
+    title: 'BTS — Engineered Code',
     description: 'Over past month, we have been working on a Lithuanian architecture studio owned by the great architect Justas Juzenas. We are currently building the hierarchy, layouts and the mood of the studio’s website.',
   },
   {
@@ -26,17 +26,17 @@ const NEWS_ITEMS = [
     description: 'Over past month, we have been working on a Lithuanian architecture studio owned by the great architect Justas Juzenas. We are currently building the hierarchy, layouts and the mood of the studio’s website.',
   },
   {
-    src: btsEngineeredCodeVideo,
-    isVideo: true,
+    src: socialMediaDevelopmentGif,
+    isVideo: false,
     aspect: 'aspect-[345/423.9]',
-    title: 'BTS — Engineered Code',
+    title: 'Social Media Development',
     description: 'Over past month, we have been working on a Lithuanian architecture studio owned by the great architect Justas Juzenas. We are currently building the hierarchy, layouts and the mood of the studio’s website.',
   },
   {
-    src: socialMediaDevelopmentGif,
-    isVideo: false,
+    src: doneByHumansVideo,
+    isVideo: true,
     aspect: 'aspect-[345/540]',
-    title: 'Social Media Development',
+    title: 'Done By Humans',
     description: 'Over past month, we have been working on a Lithuanian architecture studio owned by the great architect Justas Juzenas. We are currently building the hierarchy, layouts and the mood of the studio’s website.',
   },
 ];

@@ -21,3 +21,11 @@
     at Router (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:7644:13)
     at BrowserRouter (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:10983:3) @ http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:520
 [     382ms] [INFO] Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113 @ http://localhost:3000/:0
+[  737279ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/src/components/about/AboutNews.jsx?t=1794142996634:0
+[  737280ms] [ERROR] [vite] Failed to reload /src/components/about/AboutNews.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881
+[  737297ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/src/components/about/AboutNews.jsx?t=1794142996637:0
+[  737297ms] [ERROR] [vite] Failed to reload /src/components/about/AboutNews.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881
+[  737314ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/src/components/about/AboutNews.jsx?t=1794142996637:0
+[  737314ms] [ERROR] [vite] Failed to reload /src/components/about/AboutNews.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881
+[  737327ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/src/components/about/AboutNews.jsx?t=1794142996638:0
+[  737327ms] [ERROR] [vite] Failed to reload /src/components/about/AboutNews.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881

@@ -152,7 +152,7 @@ export default function SelectedWorks({ onNavigate }) {
                 strokeLinejoin="round" 
               />
             </svg>
-          </button>
+          </a>
         </div>
       </div>
     </section>

@@ -129,7 +129,7 @@ export default function Navbar({
   }, []);
 
   /* ─── Transition & Entrance Configurations ─── */
-  const isProjectPage = activePage === 'project-mms' || activePage === 'project-axis';
+  const isProjectPage = activePage === 'project-mms' || activePage === 'project-axis' || activePage === 'project-stephenson' || activePage === 'project-fusion-form';
   const isProjectReveal = !isPageTransitioning && isProjectPage;
   const isHomeFirstReveal = !isPageTransitioning && activePage === 'home' && isVisible && !hasRevealedOnceRef.current;
   const isInitialSlideDown = isHomeFirstReveal || isProjectReveal;
@@ -223,7 +223,7 @@ export default function Navbar({
               if (onOpenContact) {
                 onOpenContact();
               } else if (onNavigate) {
-                onNavigate(activePage === 'works' || activePage === 'project-mms' || activePage === 'project-axis' ? 'home' : activePage, 'contact');
+                onNavigate(activePage === 'works' || activePage === 'project-mms' || activePage === 'project-axis' || activePage === 'project-stephenson' || activePage === 'project-fusion-form' ? 'home' : activePage, 'contact');
               }
             }} 
             hasUnderline={true}

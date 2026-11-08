@@ -15,12 +15,12 @@ const FOUNDERS = [
   },
   {
     name: 'Hossam Hassan',
-    role: 'Co-Founder / Head of Development',
+    role: 'Co-Founder / Head of Development / Software Engineer',
     image: `${base}images/about/founder-hossam-hassan.png`,
   },
   {
     name: 'Anas El Sharief',
-    role: 'Co-Founder / Web Developer & Product Owner',
+    role: 'Co-Founder / Web Developer / Product Owner',
     image: `${base}images/about/team-anas-el-sharief.png`,
   },
 ];

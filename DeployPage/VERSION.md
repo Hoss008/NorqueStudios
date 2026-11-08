@@ -1,5 +1,36 @@
 # NORQUE STUDIOS™ — Version Log
 
+## Version 0.7.0 (1:1 Services Page Implementation & Universal 12-Column Grid Alignment)
+**Date:** November 9, 2026  
+**Status:** Full 1:1 Implementation of 'Services.fig.zip' and Visual Reference Specs ('exp section.png', 'coloumn system.png', 'Contact.png'). Universal 12-Column Layout Grid Alignment across Navbar, Hero, Workflow, and Contact Sections. All Contact Units Proportional in `vw`.
+
+### Key Deliverables in 0.7.0
+- **Universal 12-Column Layout Grid Alignment**:
+  - Implemented the 1440px Figma column system (`0.8333vw` margins & gutters, `7.4305vw` column width, `8.2638vw` pitch).
+  - Aligned the Universal Navbar (`Navbar.jsx`): Logo (Cols 1–3), Nav Links (Cols 4–6), Egypt Time (Cols 7–11 starting flush at Col 7), Contact Us (Col 12).
+- **Services Hero & OptionWheel (`ServicesHeroSection.jsx`)**:
+  - Left Side (OptionWheel): Columns 1–6 (`col-span-6`).
+  - Right Side (Description): Aligned to Column 7 (`col-start-7 col-span-6`), positioned directly below Egypt Time in the Navbar.
+  - Strictly preserved user-customized animation timings (`1.5s` duration, cubic-bezier ease `[0.315, -0.011, 0, 0.986]`, exit `0.8s`).
+- **NORQUE’s Workflow Section (`ServicesWorkflowSection.jsx`)**:
+  - Continuous bidirectional parallax effect (`WORKFLOW_PARALLAX_SPEED = 0.16`) moving smoothly upward when scrolling down.
+  - Cross-dissolve transitions via `absolute inset-0` with asset preloading on mount, eliminating layout shifts and dipping.
+  - 12-column alignment: Title on Col 1, Steps on Cols 3–6, Media on Cols 7–12.
+- **Experience Cards Section (`ServicesCardsSection.jsx`)**:
+  - 1:1 visual match to `exp section.png`: small card dimensions (`32.8vw x 22.2vw`) with dimmed background images (`CARD_BG_OPACITY = 0.5`).
+  - Cards initiate from the far right (`TRACK_START_VW = 75`) and slide statically without scale or opacity morphs.
+  - Centered solid white title `"FEEL THE EXPERIENCE"` and centered changing copy without progress lines.
+- **Replicated Contact Section (`ServicesContactSection.jsx`)**:
+  - 1:1 replication of `Contact.png` and Figma `Section 4`.
+  - All dimensions completely converted to proportional `vw` units on 1440px base.
+  - Margins set to match the universal `0.8333vw` grid margin (`px-[0.8333vw]`).
+  - Left column: bold statement copy + bottom-aligned Pitch Deck download card with chain link icon, underlined text, and `24.6 MB` badge.
+  - Right column: 9-field contact form with `#171717` inputs, active white capsule pills, custom dropdown, and Figma resize gripper textarea.
+- **Global Lenis Fix**:
+  - Fixed `window.lenis.scrollTo` runtime error by exposing `window.lenis = lenis` in `App.jsx`.
+
+---
+
 ## Version 0.6.1 (Strict 1:1 Figma Design Alignment for Project Showcases)
 **Date:** November 5, 2026  
 **Status:** Strict 1:1 Alignment with 'MMS Page.fig' and 'Axis Page.fig', Background Colors (#0a0e17 and #170103), Full-Bleed Hero Behind Transparent Navbar, 100vh Entry Screen, Exact Metadata Table Typography, Removed Improvised Footers & Navigation Buttons

@@ -10,7 +10,7 @@
 | Property | Value |
 | :--- | :--- |
 | **Project Name** | Norque Studios Website |
-| **Current Milestone** | `Version 0.4.0` (Day 5 Complete: Footer Magnet Consistency, Zero-Opacity Stagger, Splash Scroll Guard, Image Bitrate Protection, Selected Works CTA, Philosophy Repositioning & Circular Seal, Done by Humans with Parallax) |
+| **Current Milestone** | `Version 0.7.0` (Services Page 1:1 Implementation, Universal 12-Column Grid Alignment, OptionWheel, Parallax Workflow Cross-Dissolve, Sliding Experience Cards, Exact Contact Section in `vw`) |
 | **Tech Stack** | React 18, Vite 6, Tailwind CSS 3, Framer Motion 14, Lenis Smooth Scroll, Lucide Icons |
 | **Design Reference** | 1:1 Pixel-perfect recreation of Figma designs (`1440px` baseline grid) |
 | **Local Dev Server** | `http://localhost:3000/` (`npm run dev` or `npm.cmd run dev` on Windows) |
@@ -29,24 +29,28 @@ norque-studios/
 │   ├── DAY_2_LOG.md                  # Day 2 sprint summary (About Page, Carousels, Audio)
 │   ├── DAY_3_LOG.md                  # Day 3 sprint summary (Optimization, Cleanup, Git Setup, Polish)
 │   ├── DAY_4_LOG.md                  # Day 4 sprint summary (Line-by-Line Stagger, Motion Blur, 100% Home & About)
-│   └── DAY_5_LOG.md                  # Day 5 sprint summary (Figma Updates, CTA, Done by Humans, Parallax, Revisions)
+│   ├── DAY_5_LOG.md                  # Day 5 sprint summary (Figma Updates, CTA, Done by Humans, Parallax, Revisions)
+│   └── DAY_6_LOG.md                  # Day 6 sprint summary (1:1 Services Page, 12-Col Grid, OptionWheel, Workflow Parallax, Experience Slider, Contact Form in vw)
 ├── public/                           # Unbundled static assets
 │   ├── audio/                        # Sound engine audio files
 │   │   ├── SFX Norque.mp3            # Atmospheric background ambient track (continuous)
 │   │   └── SFX Norque_2.mp3          # UI click interactive feedback track
-│   └── images/
-│       └── about/                    # High-resolution raster images for About page
-│           ├── about-intro-image.png
-│           ├── founder-mostafa-yasser.png
-│           ├── founder-hossam-hassan.png
-│           ├── team-alaa-kabil.png
-│           ├── team-okaby.jpg
-│           ├── team-anas-el-sharief.png
-│           ├── team-marwan-yasser.png
-│           ├── news-lithuania-chapter-1.png
-│           ├── news-lithuania-chapter-2.png
-│           ├── news-saudi-arabia.png
-│           └── news-lithuania-identity.png
+│   ├── images/
+│   │   ├── services/                 # Visual assets and background artwork for Services page
+│   │   └── about/                    # High-resolution raster images for About page
+│   │       ├── about-intro-image.png
+│   │       ├── founder-mostafa-yasser.png
+│   │       ├── founder-hossam-hassan.png
+│   │       ├── team-alaa-kabil.png
+│   │       ├── team-okaby.jpg
+│   │       ├── team-anas-el-sharief.png
+│   │       ├── team-marwan-yasser.png
+│   │       ├── news-lithuania-chapter-1.png
+│   │       ├── news-lithuania-chapter-2.png
+│   │       ├── news-saudi-arabia.png
+│   │       └── news-lithuania-identity.png
+│   ├── Norque-Pitch-Deck.pdf         # Direct downloadable pitch deck PDF
+│   └── SERVICES.png                  # High-resolution Services page reference
 ├── src/                              # React application source
 │   ├── assets/                       # Bundled static media & webfonts
 │   │   ├── fonts/                    # Beausite Classic TTF typography suite
@@ -67,7 +71,14 @@ norque-studios/
 │   │   │   ├── AboutHero.jsx         # Manifesto & countries worked in
 │   │   │   ├── AboutNews.jsx         # "What happened lately" infinite carousel
 │   │   │   └── AboutTeam.jsx         # Founders & "PPL BEHIND NRQ™" team grid
+│   │   ├── services/                 # Services page sub-components (1:1 Figma)
+│   │   │   ├── OptionWheel.jsx       # Interactive vertical 3D service carousel
+│   │   │   ├── ServicesHeroSection.jsx # OptionWheel & staggered service descriptions
+│   │   │   ├── ServicesWorkflowSection.jsx # Accordion workflow with cross-dissolve & parallax
+│   │   │   ├── ServicesCardsSection.jsx # Small sliding experience cards & centered copy
+│   │   │   └── ServicesContactSection.jsx # 1:1 Contact form in vw & Pitch Deck card
 │   │   ├── AboutPage.jsx             # About page container view
+│   │   ├── ServicesPage.jsx          # Services page container view
 │   │   ├── CompactLogo.jsx           # Vector compact SVG logo component
 │   │   ├── DoneByHumans.jsx          # Cinematic visual break with background parallax & manifesto
 │   │   ├── DoneByHumansLogo.jsx      # Lossless 12-glyph vector brand mark
@@ -128,7 +139,7 @@ norque-studios/
 ## 🔄 Core Technical Systems
 
 ### 1. Multi-Page Routing & In-Place Opacity Transitions (`App.jsx`)
-- State-driven single-page router: `currentPage` (`'home'` | `'about'`).
+- State-driven single-page router: `currentPage` (`'home'` | `'about'` | `'services'` | `'projects'` | `'project-mms'` | `'project-axis'` | `'project-stephenson'` | `'project-fusion-form'`).
 - **Scale-Free Opacity Crossfade (Scale = 1.0)**:
   - Scale remains strictly 1.0 (no scale or zoom distortion).
   - Exit: Current page fades out in-place (`opacity: 1 -> 0`, `duration: 0.35s`, `ease: [0.4, 0, 0.2, 1]`).

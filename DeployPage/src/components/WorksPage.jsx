@@ -59,6 +59,10 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
       onNavigate('project-mms');
     } else if (id.includes('axis') || title.includes('axis')) {
       onNavigate('project-axis');
+    } else if (id.includes('stephenson') || title.includes('stephenson')) {
+      onNavigate('project-stephenson');
+    } else if (id.includes('fusion') || title.includes('fusion')) {
+      onNavigate('project-fusion-form');
     }
   };
 

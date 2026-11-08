@@ -7,6 +7,8 @@ const AboutPage = React.lazy(() => import('./components/AboutPage'));
 const WorksPage = React.lazy(() => import('./components/WorksPage'));
 const MmsProjectPage = React.lazy(() => import('./components/projects/MmsProjectPage'));
 const AxisProjectPage = React.lazy(() => import('./components/projects/AxisProjectPage'));
+const StephensonProjectPage = React.lazy(() => import('./components/projects/StephensonProjectPage'));
+const FusionFormProjectPage = React.lazy(() => import('./components/projects/FusionFormProjectPage'));
 const WorksCMSModal = React.lazy(() => import('./components/WorksCMSModal'));
 const AdminAuthModal = React.lazy(() => import('./components/AdminAuthModal'));
 import SplashScreen from './components/SplashScreen';
@@ -32,6 +34,8 @@ function getLogicalPage(pathname) {
   if (p === '/projects' || p === '/works') return 'works';
   if (p === '/projects/mms' || p === '/project-mms') return 'project-mms';
   if (p === '/projects/axis' || p === '/project-axis') return 'project-axis';
+  if (p === '/projects/stephenson' || p === '/project-stephenson') return 'project-stephenson';
+  if (p === '/projects/fusion-form' || p === '/project-fusion-form' || p === '/projects/fusion') return 'project-fusion-form';
   return 'home';
 }
 
@@ -143,6 +147,8 @@ export default function App() {
       import('./components/WorksPage');
       import('./components/projects/MmsProjectPage');
       import('./components/projects/AxisProjectPage');
+      import('./components/projects/StephensonProjectPage');
+      import('./components/projects/FusionFormProjectPage');
     };
     if ('requestIdleCallback' in window) {
       window.requestIdleCallback(preload);
@@ -232,7 +238,9 @@ export default function App() {
       works: '/projects',
       projects: '/projects',
       'project-mms': '/projects/mms',
-      'project-axis': '/projects/axis'
+      'project-axis': '/projects/axis',
+      'project-stephenson': '/projects/stephenson',
+      'project-fusion-form': '/projects/fusion-form'
     };
 
     const targetPath = pageToPath[targetPage] || (targetPage.startsWith('/') ? targetPage : `/${targetPage}`);
@@ -241,7 +249,9 @@ export default function App() {
       targetPath === location.pathname || 
       (targetPath === '/projects' && location.pathname === '/works') ||
       (targetPath === '/projects/mms' && location.pathname === '/project-mms') ||
-      (targetPath === '/projects/axis' && location.pathname === '/project-axis');
+      (targetPath === '/projects/axis' && location.pathname === '/project-axis') ||
+      (targetPath === '/projects/stephenson' && location.pathname === '/project-stephenson') ||
+      (targetPath === '/projects/fusion-form' && (location.pathname === '/project-fusion-form' || location.pathname === '/projects/fusion'));
 
     if (isCurrent) {
       if (sectionId) {
@@ -445,6 +455,8 @@ export default function App() {
            currentPage === 'works' || 
            currentPage === 'project-mms' || 
            currentPage === 'project-axis' || 
+           currentPage === 'project-stephenson' || 
+           currentPage === 'project-fusion-form' || 
            isBoxRevealComplete) && isNavScrollVisible
         }
         isIntroStarted={true}
@@ -584,6 +596,51 @@ export default function App() {
                   path="/project-axis" 
                   element={
                     <AxisProjectPage 
+                      onNavigate={handleNavigate} 
+                      onOpenCMS={handleOpenCMS} 
+                    />
+                  } 
+                />
+                <Route 
+                  path="/projects/stephenson" 
+                  element={
+                    <StephensonProjectPage 
+                      onNavigate={handleNavigate} 
+                      onOpenCMS={handleOpenCMS} 
+                    />
+                  } 
+                />
+                <Route 
+                  path="/project-stephenson" 
+                  element={
+                    <StephensonProjectPage 
+                      onNavigate={handleNavigate} 
+                      onOpenCMS={handleOpenCMS} 
+                    />
+                  } 
+                />
+                <Route 
+                  path="/projects/fusion-form" 
+                  element={
+                    <FusionFormProjectPage 
+                      onNavigate={handleNavigate} 
+                      onOpenCMS={handleOpenCMS} 
+                    />
+                  } 
+                />
+                <Route 
+                  path="/project-fusion-form" 
+                  element={
+                    <FusionFormProjectPage 
+                      onNavigate={handleNavigate} 
+                      onOpenCMS={handleOpenCMS} 
+                    />
+                  } 
+                />
+                <Route 
+                  path="/projects/fusion" 
+                  element={
+                    <FusionFormProjectPage 
                       onNavigate={handleNavigate} 
                       onOpenCMS={handleOpenCMS} 
                     />

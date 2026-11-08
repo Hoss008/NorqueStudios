@@ -68,11 +68,18 @@ const cardVariants = {
 };
 
 /* ─── Individual News Card: Plays animated GIF continuously ─── */
-function NewsCard({ item }) {
+function NewsCard({ item, onNavigate }) {
+  const isStephenson = item.id === 4 || (item.title && item.title.toLowerCase().includes('behance'));
+
   return (
     <motion.article 
       variants={cardVariants}
-      className="w-full will-change-[transform,opacity] flex flex-col group cursor-default"
+      onClick={() => {
+        if (isStephenson && onNavigate) {
+          onNavigate('project-stephenson');
+        }
+      }}
+      className={`w-full will-change-[transform,opacity] flex flex-col group ${isStephenson ? 'cursor-pointer' : 'cursor-default'}`}
     >
       {/* Image Frame - 1:1 Aspect Ratio with Rounded Corners */}
       <div className="relative w-full overflow-hidden rounded-[2px] bg-[#121212] aspect-square">
@@ -100,7 +107,7 @@ function NewsCard({ item }) {
   );
 }
 
-export default function NewsSection() {
+export default function NewsSection({ onNavigate }) {
   return (
     <section className="w-full bg-black pt-[2.7778vw] pb-[0vw]">
       {/* Universal Container Margin: 12px (0.8333vw) */}
@@ -124,7 +131,7 @@ export default function NewsSection() {
           viewport={{ once: true, amount: 0.15 }}
         >
           {newsItems.map((item) => (
-            <NewsCard key={item.id} item={item} />
+            <NewsCard key={item.id} item={item} onNavigate={onNavigate} />
           ))}
         </motion.div>
       </div>

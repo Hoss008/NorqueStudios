@@ -61,7 +61,7 @@ export default function HomePage({
 
       {/* 4. News Section: Lazy loaded */}
       <Suspense fallback={<div className="w-full min-h-[40vh] bg-black" />}>
-        <NewsSection />
+        <NewsSection onNavigate={onNavigate} />
       </Suspense>
 
       {/* 5. Philosophy: Lazy loaded */}

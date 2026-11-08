@@ -42,8 +42,8 @@ function GalleryImage({ src, alt, delay = 0, className = '' }) {
         className="w-full h-auto object-cover block will-change-[transform,filter]"
         initial={{ filter: 'blur(20px)', scale: 1.12 }}
         whileInView={{ filter: 'blur(0px)', scale: 1 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 1.35, delay, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ duration: 1.8, delay, ease: [0.16, 1, 0.3, 1] }}
         loading="lazy"
       />
     </div>
@@ -92,7 +92,7 @@ export default function MmsProjectPage({ onNavigate }) {
               src={mmsCover} 
               alt="MMS ARCHITECTS™ Cover"
               className="w-full h-full object-cover object-center block will-change-[transform,opacity]"
-              initial={{ scale: 1.38, opacity: 0 }}
+              initial={{ scale: 1.38, opacity: 1 }}
               animate={{ scale: 1.30, opacity: 1 }}
               transition={{
                 scale: { duration: 2.2, ease: [0.16, 1, 0.3, 1] },
@@ -115,7 +115,7 @@ export default function MmsProjectPage({ onNavigate }) {
               <div className="overflow-hidden pb-[2px] -mb-[2px]">
                 <motion.h1 
                   className="text-[13px] md:text-[0.9vw] font-bold tracking-[-0.03em] uppercase text-white leading-[1.2]"
-                  initial={{ y: '110%', opacity: 0 }}
+                  initial={{ y: '110%', opacity: 1 }}
                   animate={{ y: '0%', opacity: 1 }}
                   transition={{ duration: 1.25, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
                 >
@@ -135,7 +135,7 @@ export default function MmsProjectPage({ onNavigate }) {
                   <div key={item.label} className="overflow-hidden pb-[1px] -mb-[1px]">
                     <motion.div 
                       className="flex items-center text-[10px] md:text-[0.6944vw] font-semibold tracking-[-0.03em] text-white leading-none py-[1px]"
-                      initial={{ y: '110%', opacity: 0 }}
+                      initial={{ y: '110%', opacity: 1 }}
                       animate={{ y: '0%', opacity: 1 }}
                       transition={{ duration: 1.15, delay: 0.60 + idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
                     >

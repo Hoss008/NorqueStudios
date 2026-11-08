@@ -144,7 +144,7 @@ export default function Footer({ onOpenCMS, onNavigate, onOpenContact }) {
                 contact
               </a>
               <a 
-                href="https://www.behance.net/norquestudios" 
+                href="https://www.behance.net/norquestudios/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="hover:opacity-60 transition-opacity"

@@ -3,6 +3,7 @@ import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-
 import Lenis from 'lenis';
 import { motion, AnimatePresence } from 'framer-motion';
 import HomePage from './components/HomePage';
+<<<<<<< HEAD
 const AboutPage = React.lazy(() => import('./components/AboutPage'));
 const ServicesPage = React.lazy(() => import('./components/ServicesPage'));
 const WorksPage = React.lazy(() => import('./components/WorksPage'));
@@ -12,6 +13,13 @@ const StephensonProjectPage = React.lazy(() => import('./components/projects/Ste
 const FusionFormProjectPage = React.lazy(() => import('./components/projects/FusionFormProjectPage'));
 const WorksCMSModal = React.lazy(() => import('./components/WorksCMSModal'));
 const AdminAuthModal = React.lazy(() => import('./components/AdminAuthModal'));
+=======
+import AboutPage from './components/AboutPage';
+import WorksPage from './components/WorksPage';
+import MmsProjectPage from './components/projects/MmsProjectPage';
+import AxisProjectPage from './components/projects/AxisProjectPage';
+import WorksCMSModal from './components/WorksCMSModal';
+>>>>>>> ffffe88 (feat: add dedicated project showcase pages for MMS and Axis matching Figma references)
 import SplashScreen from './components/SplashScreen';
 import Navbar from './components/Navbar';
 import PhoneNotice from './components/PhoneNotice';
@@ -470,11 +478,15 @@ export default function App() {
       <Navbar 
         key={currentPage}
         isPinned={true}
+<<<<<<< HEAD
         isVisible={
           (currentPage === 'home'
             ? (isIntroStarted || hasIntroPlayed)
             : true) && isNavScrollVisible
         }
+=======
+        isVisible={(currentPage === 'about' || currentPage === 'works' || currentPage === 'project-mms' || currentPage === 'project-axis' || isBoxRevealComplete) && isNavScrollVisible}
+>>>>>>> ffffe88 (feat: add dedicated project showcase pages for MMS and Axis matching Figma references)
         isIntroStarted={true}
         activePage={currentPage} 
         onNavigate={handleNavigate}
@@ -538,6 +550,7 @@ export default function App() {
             }}
             className="w-full"
           >
+<<<<<<< HEAD
             <React.Suspense fallback={<div className="w-full min-h-screen bg-black" />}>
               <Routes location={location}>
                 <Route 
@@ -678,6 +691,37 @@ export default function App() {
                 />
               </Routes>
             </React.Suspense>
+=======
+            {currentPage === 'home' ? (
+              <HomePage 
+                onNavigate={handleNavigate} 
+                hasIntroPlayed={hasIntroPlayed}
+                onIntroComplete={handleIntroComplete}
+                onBoxRevealComplete={setIsBoxRevealComplete}
+                onOpenCMS={() => setIsCmsOpen(true)}
+              />
+            ) : currentPage === 'works' ? (
+              <WorksPage 
+                onNavigate={handleNavigate} 
+                onOpenCMS={() => setIsCmsOpen(true)} 
+              />
+            ) : currentPage === 'project-mms' ? (
+              <MmsProjectPage 
+                onNavigate={handleNavigate} 
+                onOpenCMS={() => setIsCmsOpen(true)} 
+              />
+            ) : currentPage === 'project-axis' ? (
+              <AxisProjectPage 
+                onNavigate={handleNavigate} 
+                onOpenCMS={() => setIsCmsOpen(true)} 
+              />
+            ) : (
+              <AboutPage 
+                onNavigate={handleNavigate} 
+                onOpenCMS={() => setIsCmsOpen(true)} 
+              />
+            )}
+>>>>>>> ffffe88 (feat: add dedicated project showcase pages for MMS and Axis matching Figma references)
           </motion.div>
         </AnimatePresence>
       </main>

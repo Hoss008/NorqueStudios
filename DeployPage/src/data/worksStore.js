@@ -50,12 +50,14 @@ export async function compressImage(file, maxWidth = 1200, maxHeight = 800, qual
 }
 
 /**
- * Retrieve current works list: memory -> localStorage -> default works.json
+ * Retrieve current works list: memory -> localStorage -> works.json
  */
 export function getWorks() {
   if (memoryWorks && Array.isArray(memoryWorks) && memoryWorks.length > 0) {
     return memoryWorks;
   }
+
+  let list = defaultWorks || [];
 
   if (typeof window !== 'undefined') {
     try {
@@ -63,8 +65,23 @@ export function getWorks() {
       if (raw) {
         const parsed = JSON.parse(raw);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          memoryWorks = parsed;
-          return parsed;
+          // Merge defaults with cached items so new fields in works.json are picked up
+          const defaultMap = new Map((defaultWorks || []).map((d) => [d.id || d.title, d]));
+          const merged = parsed.map((p) => {
+            const def = defaultMap.get(p.id || p.title);
+            if (!def) return p;
+            return {
+              ...def,
+              ...p,
+              selectedCategory: p.selectedCategory !== undefined ? p.selectedCategory : def.selectedCategory,
+              selectedWork: p.selectedWork !== undefined ? p.selectedWork : def.selectedWork
+            };
+          });
+          const existingIds = new Set(parsed.map((p) => p.id || p.title));
+          const missing = (defaultWorks || []).filter(
+            (d) => !existingIds.has(d.id || d.title)
+          );
+          list = [...merged, ...missing];
         }
       }
     } catch (e) {
@@ -72,8 +89,8 @@ export function getWorks() {
     }
   }
 
-  memoryWorks = defaultWorks;
-  return defaultWorks;
+  memoryWorks = list;
+  return list;
 }
 
 /**
@@ -124,6 +141,7 @@ export function addProject(projectData) {
   const newProject = {
     ...projectData,
     id,
+    selectedWork: projectData.selectedWork ?? false,
     year: projectData.year || new Date().getFullYear().toString()
   };
   const updated = [newProject, ...current];
@@ -171,11 +189,10 @@ export function reorderProjects(fromIndex, toIndex) {
 }
 
 /**
- * Reset works database back to original defaults from works.json
+ * Never wipe user projects to a hardcoded default list
  */
 export function resetWorks() {
-  saveWorks(defaultWorks);
-  return defaultWorks;
+  return getWorks();
 }
 
 /**

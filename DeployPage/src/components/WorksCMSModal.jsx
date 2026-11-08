@@ -22,7 +22,6 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
     updateProject, 
     deleteProject, 
     reorderProjects, 
-    resetWorks, 
     exportWorksJSON 
   } = useWorksData();
 
@@ -59,14 +58,15 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
   const [formData, setFormData] = useState({
     title: '',
     location: '',
-    category: 'Websites',
-    customCategory: '',
+    category: 'Branding',
+    selectedCategory: '',
     image: '',
     badge: '',
     badgeBg: '#171717',
     subtitle: '',
     year: '2025',
-    link: '#'
+    link: '#',
+    selectedWork: false
   });
 
   const fileInputRef = useRef(null);
@@ -101,14 +101,15 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
     setFormData({
       title: '',
       location: '',
-      category: 'Websites',
-      customCategory: '',
+      category: 'Branding',
+      selectedCategory: '',
       image: '',
       badge: '',
       badgeBg: '#171717',
       subtitle: '',
       year: new Date().getFullYear().toString(),
-      link: '#'
+      link: '#',
+      selectedWork: false
     });
     setEditingProjectId(null);
     setActiveFormMode('ADD');
@@ -116,17 +117,19 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
 
   // Open Form for Editing an Existing Project
   const handleOpenEdit = (project) => {
+    const isWeb = (project.category || '').toLowerCase().includes('web');
     setFormData({
       title: project.title || '',
       location: project.location || '',
-      category: project.category || 'Websites',
-      customCategory: '',
+      category: isWeb ? 'Websites' : 'Branding',
+      selectedCategory: project.selectedCategory || '',
       image: project.image || '',
       badge: project.badge || '',
       badgeBg: project.badgeBg || '#171717',
       subtitle: project.subtitle || '',
-      year: project.year || '2024',
-      link: project.link || '#'
+      year: project.year || '2025',
+      link: project.link || '#',
+      selectedWork: Boolean(project.selectedWork)
     });
     setEditingProjectId(project.id);
     setActiveFormMode('EDIT');
@@ -159,20 +162,18 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
       return;
     }
 
-    const finalCategory = formData.customCategory.trim() 
-      ? formData.customCategory.trim() 
-      : formData.category;
-
     const projectPayload = {
       title: formData.title.trim(),
       location: formData.location.trim() || 'Worldwide',
-      category: finalCategory,
+      category: formData.category === 'Websites' ? 'Websites' : 'Branding',
+      selectedCategory: formData.selectedCategory.trim() ? formData.selectedCategory.trim() : null,
       image: formData.image || '/images/works/studio-juzenas.png',
       badge: formData.badge.trim() ? formData.badge.trim() : null,
       badgeBg: formData.badge.trim() ? formData.badgeBg : null,
       subtitle: formData.subtitle.trim() ? formData.subtitle.trim() : null,
       year: formData.year.trim() || '2025',
-      link: formData.link.trim() || '#'
+      link: formData.link.trim() || '#',
+      selectedWork: Boolean(formData.selectedWork)
     };
 
     if (activeFormMode === 'ADD') {
@@ -194,19 +195,17 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
     }
   };
 
-  // Handle Reset to Default JSON
-  const handleReset = () => {
-    if (window.confirm('Reset Works database to the original default 5 projects from works.json?')) {
-      resetWorks();
-      showToast('Works portfolio reset to defaults');
-    }
-  };
-
   if (!isOpen) return null;
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-[1.5vw] bg-black/80 backdrop-blur-md select-none font-beausite">
+      <div 
+        role="dialog"
+        aria-modal="true"
+        className="fixed inset-0 z-50 flex items-center justify-center p-[1.5vw] bg-black/80 backdrop-blur-md font-beausite"
+        style={{ touchAction: 'auto' }}
+        onWheel={(e) => e.stopPropagation()}
+      >
         
         {/* Toast Notification */}
         <AnimatePresence>
@@ -230,6 +229,7 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
           exit={{ opacity: 0, scale: 0.98, y: 10 }}
           transition={{ duration: 0.3, ease: [0, 0.8, 0.2, 1] }}
           className="relative w-full max-w-[75vw] max-h-[90vh] bg-[#0c0c0c] border border-white/10 rounded-[6px] shadow-2xl flex flex-col overflow-hidden text-white"
+          onWheel={(e) => e.stopPropagation()}
         >
           {/* ─── Header Bar ─── */}
           <div className="px-[1.8vw] py-[1.2vw] border-b border-white/10 flex items-center justify-between bg-black/50 flex-shrink-0">
@@ -282,15 +282,6 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
 
               <button
                 type="button"
-                onClick={handleReset}
-                title="Restore default 5 projects from works.json"
-                className="px-[0.8vw] py-[0.45vw] bg-[#171717] hover:bg-[#252525] text-[#888888] hover:text-white text-[0.625vw] font-semibold tracking-[-0.03em] uppercase rounded-[2px] border border-white/10 transition-colors cursor-pointer"
-              >
-                Reset Defaults
-              </button>
-
-              <button
-                type="button"
                 onClick={() => {
                   setIsChangePassOpen(true);
                   setPassError(null);
@@ -332,7 +323,11 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
+                role="dialog"
+                aria-modal="true"
                 className="absolute inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4"
+                style={{ touchAction: 'auto' }}
+                onWheel={(e) => e.stopPropagation()}
               >
                 <motion.div
                   initial={{ scale: 0.95, y: 10 }}
@@ -410,18 +405,27 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
           </AnimatePresence>
 
           {/* ─── Main Content Area ─── */}
-          <div className="flex-1 overflow-y-auto p-[1.8vw] space-y-[1.5vw]">
+          <div 
+            className="flex-1 overflow-y-auto overscroll-contain p-[1.8vw] space-y-[1.5vw]"
+            style={{ 
+              scrollbarWidth: 'thin', 
+              scrollbarColor: 'rgba(255,255,255,0.2) transparent',
+              WebkitOverflowScrolling: 'touch'
+            }}
+            onWheel={(e) => e.stopPropagation()}
+          >
             
             {/* Table / Project Cards List */}
             <div className="w-full">
               <div className="flex items-center justify-between pb-[0.8vw] border-b border-white/10 text-[0.5556vw] font-semibold tracking-[-0.03em] text-[#6f6f6f] uppercase">
                 <div className="w-[4%]">#</div>
-                <div className="w-[12%]">PREVIEW</div>
-                <div className="w-[28%]">PROJECT TITLE & SUBTITLE</div>
-                <div className="w-[15%]">CATEGORY</div>
-                <div className="w-[13%]">LOCATION</div>
-                <div className="w-[13%]">BADGE / STATUS</div>
-                <div className="w-[15%] text-right">ACTIONS</div>
+                <div className="w-[11%]">PREVIEW</div>
+                <div className="w-[24%]">PROJECT TITLE & SUBTITLE</div>
+                <div className="w-[13%]">CATEGORY</div>
+                <div className="w-[11%]">LOCATION</div>
+                <div className="w-[11%]">BADGE / STATUS</div>
+                <div className="w-[13%] text-center">SELECTED WORKS</div>
+                <div className="w-[13%] text-right">ACTIONS</div>
               </div>
 
               {/* Rows */}
@@ -464,7 +468,7 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
                       </div>
 
                       {/* Preview Image */}
-                      <div className="w-[12%] pr-[1vw]">
+                      <div className="w-[11%] pr-[1vw]">
                         <div className="w-full aspect-[345/230] rounded-[2px] overflow-hidden bg-[#1a1a1a] border border-white/10 relative">
                           <img 
                             src={project.image} 
@@ -478,7 +482,7 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
                       </div>
 
                       {/* Project Title & Subtitle */}
-                      <div className="w-[28%] pr-[1vw]">
+                      <div className="w-[24%] pr-[1vw]">
                         <span className="text-[0.7639vw] font-semibold tracking-[-0.03em] uppercase text-white block truncate">
                           {project.title}
                         </span>
@@ -490,21 +494,21 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
                       </div>
 
                       {/* Category */}
-                      <div className="w-[15%]">
+                      <div className="w-[13%]">
                         <span className="text-[0.625vw] font-semibold tracking-[-0.03em] text-[#a0a0a0] px-[0.5vw] py-[0.15vw] rounded-[2px] bg-[#171717] border border-white/5">
                           {project.category}
                         </span>
                       </div>
 
                       {/* Location */}
-                      <div className="w-[13%]">
+                      <div className="w-[11%]">
                         <span className="text-[0.625vw] font-semibold tracking-[-0.03em] uppercase text-[#a0a0a0]">
                           {project.location}
                         </span>
                       </div>
 
                       {/* Badge / Status */}
-                      <div className="w-[13%]">
+                      <div className="w-[11%]">
                         {project.badge ? (
                           <span 
                             className="text-[0.5vw] font-bold tracking-[-0.03em] uppercase px-[0.4vw] py-[0.1vw] rounded-[2px] text-white shadow-sm inline-block"
@@ -517,8 +521,32 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
                         )}
                       </div>
 
+                      {/* Selected Works (Homepage) Toggle */}
+                      <div className="w-[13%] flex items-center justify-center">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const nextState = !project.selectedWork;
+                            updateProject(project.id, { selectedWork: nextState });
+                            showToast(
+                              nextState 
+                                ? `Added "${project.title}" to Selected Works (Homepage)` 
+                                : `Removed "${project.title}" from Selected Works`
+                            );
+                          }}
+                          className={`px-[0.6vw] py-[0.25vw] rounded-full text-[0.5vw] font-bold tracking-[-0.03em] uppercase transition-all cursor-pointer flex items-center space-x-[0.3vw] ${
+                            project.selectedWork
+                              ? 'bg-[#a87f2f] text-black hover:bg-[#c2953a] shadow-sm'
+                              : 'bg-[#1a1a1a] text-[#6f6f6f] hover:text-white hover:bg-[#252525] border border-white/5'
+                          }`}
+                          title={project.selectedWork ? 'Shown on Homepage Selected Works (Click to remove)' : 'Hidden from Homepage Selected Works (Click to feature)'}
+                        >
+                          <span>{project.selectedWork ? '★ HOMEPAGE' : '+ FEATURE'}</span>
+                        </button>
+                      </div>
+
                       {/* Action Buttons: Edit & Drop */}
-                      <div className="w-[15%] flex items-center justify-end space-x-[0.6vw]">
+                      <div className="w-[13%] flex items-center justify-end space-x-[0.6vw]">
                         <button
                           type="button"
                           onClick={() => handleOpenEdit(project)}
@@ -561,14 +589,24 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              role="dialog"
+              aria-modal="true"
               className="fixed inset-0 z-60 bg-black/90 backdrop-blur-md flex items-center justify-center p-[2vw]"
+              style={{ touchAction: 'auto' }}
+              onWheel={(e) => e.stopPropagation()}
             >
               <motion.div
                 initial={{ opacity: 0, scale: 0.96, y: 15 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.96, y: 15 }}
                 transition={{ duration: 0.25, ease: [0, 0.8, 0.2, 1] }}
-                className="w-full max-w-[48vw] bg-[#111111] border border-white/15 rounded-[4px] shadow-2xl p-[2vw] text-white flex flex-col space-y-[1.2vw]"
+                className="w-full max-w-[48vw] max-h-[90vh] bg-[#111111] border border-white/15 rounded-[4px] shadow-2xl p-[2vw] text-white flex flex-col space-y-[1.2vw] overflow-y-auto overscroll-contain"
+                style={{ 
+                  scrollbarWidth: 'thin', 
+                  scrollbarColor: 'rgba(255,255,255,0.2) transparent',
+                  WebkitOverflowScrolling: 'touch'
+                }}
+                onWheel={(e) => e.stopPropagation()}
               >
                 {/* Form Header */}
                 <div className="flex items-center justify-between border-b border-white/10 pb-[1vw]">
@@ -623,31 +661,22 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
                       />
                     </div>
 
-                    {/* 3. Category */}
+                    {/* 3. Works Filter Category (Websites | Branding) */}
                     <div className="space-y-[0.3vw]">
                       <label className="text-[0.5556vw] font-semibold text-[#a0a0a0] tracking-[-0.03em] uppercase block">
-                        Category
+                        Works Filter Category *
                       </label>
-                      <div className="flex items-center space-x-[0.5vw]">
-                        <select
-                          value={formData.category}
-                          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                          className="flex-1 bg-[#171717] border border-white/10 rounded-[2px] px-[0.7vw] py-[0.45vw] text-[0.6944vw] text-white focus:outline-none focus:border-white transition-colors"
-                        >
-                          <option value="Websites">Websites</option>
-                          <option value="Branding">Branding</option>
-                          <option value="Architecture">Architecture</option>
-                          <option value="Strategy">Strategy</option>
-                          <option value="Motion">Motion</option>
-                        </select>
-                        <input
-                          type="text"
-                          value={formData.customCategory}
-                          onChange={(e) => setFormData({ ...formData, customCategory: e.target.value })}
-                          placeholder="Or type custom..."
-                          className="w-[45%] bg-[#171717] border border-white/10 rounded-[2px] px-[0.7vw] py-[0.45vw] text-[0.6944vw] text-white focus:outline-none focus:border-white transition-colors"
-                        />
-                      </div>
+                      <select
+                        value={formData.category}
+                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                        className="w-full bg-[#171717] border border-white/10 rounded-[2px] px-[0.7vw] py-[0.45vw] text-[0.6944vw] text-white focus:outline-none focus:border-white transition-colors cursor-pointer"
+                      >
+                        <option value="Branding">Branding</option>
+                        <option value="Websites">Websites</option>
+                      </select>
+                      <span className="text-[0.4861vw] text-[#6f6f6f] block">
+                        Controlled by the filter on Works page (Branding / Websites).
+                      </span>
                     </div>
 
                     {/* 4. Release Year */}
@@ -664,10 +693,27 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
                       />
                     </div>
 
-                    {/* 5. Subtitle (Optional) */}
+                    {/* 5. Selected Works Category (Custom Text Box) */}
                     <div className="col-span-2 space-y-[0.3vw]">
                       <label className="text-[0.5556vw] font-semibold text-[#a0a0a0] tracking-[-0.03em] uppercase block">
-                        Subtitle (Optional)
+                        Selected Works Category (Homepage)
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.selectedCategory}
+                        onChange={(e) => setFormData({ ...formData, selectedCategory: e.target.value })}
+                        placeholder="e.g. Brand Development | UI/UX Design & Web Development"
+                        className="w-full bg-[#171717] border border-white/10 rounded-[2px] px-[0.7vw] py-[0.45vw] text-[0.6944vw] text-white focus:outline-none focus:border-white transition-colors"
+                      />
+                      <span className="text-[0.4861vw] text-[#6f6f6f] block">
+                        Custom category text displayed directly under project title in the Homepage Selected Works showcase.
+                      </span>
+                    </div>
+
+                    {/* 6. Subtitle (Optional, for Works Page) */}
+                    <div className="col-span-2 space-y-[0.3vw]">
+                      <label className="text-[0.5556vw] font-semibold text-[#a0a0a0] tracking-[-0.03em] uppercase block">
+                        Works Page Subtitle (Optional)
                       </label>
                       <input
                         type="text"
@@ -783,6 +829,27 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
                           title="Custom Color"
                         />
                       </div>
+                    </div>
+
+                    {/* 8. Show in Selected Works (Homepage) Toggle */}
+                    <div className="col-span-2 pt-[0.8vw] border-t border-white/10 flex items-center justify-between">
+                      <div>
+                        <label className="text-[0.625vw] font-semibold text-white tracking-[-0.03em] uppercase block">
+                          Featured in Selected Works (Homepage)
+                        </label>
+                        <span className="text-[0.5vw] text-[#797979] block">
+                          Display this project card in the "Selected Works" section on the homepage.
+                        </span>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input 
+                          type="checkbox" 
+                          checked={Boolean(formData.selectedWork)}
+                          onChange={(e) => setFormData({ ...formData, selectedWork: e.target.checked })}
+                          className="sr-only peer"
+                        />
+                        <div className="w-[2.4vw] h-[1.3vw] bg-[#222222] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[0.15vw] after:left-[0.2vw] after:bg-white after:rounded-full after:h-[1vw] after:w-[1vw] after:transition-all peer-checked:bg-[#a87f2f]"></div>
+                      </label>
                     </div>
 
                   </div>

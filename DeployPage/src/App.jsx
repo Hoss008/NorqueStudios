@@ -4,6 +4,7 @@ import Lenis from 'lenis';
 import { motion, AnimatePresence } from 'framer-motion';
 import HomePage from './components/HomePage';
 const AboutPage = React.lazy(() => import('./components/AboutPage'));
+const ServicesPage = React.lazy(() => import('./components/ServicesPage'));
 const WorksPage = React.lazy(() => import('./components/WorksPage'));
 const MmsProjectPage = React.lazy(() => import('./components/projects/MmsProjectPage'));
 const AxisProjectPage = React.lazy(() => import('./components/projects/AxisProjectPage'));
@@ -31,6 +32,7 @@ function getLogicalPage(pathname) {
   const p = (pathname || '').replace(/\/+$/, '').toLowerCase();
   if (!p || p === '') return 'home';
   if (p === '/about') return 'about';
+  if (p === '/services') return 'services';
   if (p === '/projects' || p === '/works') return 'works';
   if (p === '/projects/mms' || p === '/project-mms') return 'project-mms';
   if (p === '/projects/axis' || p === '/project-axis') return 'project-axis';
@@ -89,6 +91,19 @@ export default function App() {
     setIsCmsOpen(false);
   };
 
+  /* ─── Pause page smooth-scroll when CMS or Auth modal is active ─── */
+  useEffect(() => {
+    if (isCmsOpen || isAuthModalOpen) {
+      if (lenisRef.current) {
+        lenisRef.current.stop();
+      }
+    } else {
+      if (lenisRef.current && currentPage !== 'works' && isSplashComplete) {
+        lenisRef.current.start();
+      }
+    }
+  }, [isCmsOpen, isAuthModalOpen, currentPage, isSplashComplete]);
+
   /* ─── Hash Listeners: #contact & #admin/#cms ─── */
   useEffect(() => {
     const handleHash = () => {
@@ -144,6 +159,7 @@ export default function App() {
   useEffect(() => {
     const preload = () => {
       import('./components/AboutPage');
+      import('./components/ServicesPage');
       import('./components/WorksPage');
       import('./components/projects/MmsProjectPage');
       import('./components/projects/AxisProjectPage');
@@ -235,6 +251,7 @@ export default function App() {
     const pageToPath = {
       home: '/',
       about: '/about',
+      services: '/services',
       works: '/projects',
       projects: '/projects',
       'project-mms': '/projects/mms',
@@ -247,6 +264,7 @@ export default function App() {
 
     const isCurrent = 
       targetPath === location.pathname || 
+      (targetPath === '/services' && location.pathname === '/services') ||
       (targetPath === '/projects' && location.pathname === '/works') ||
       (targetPath === '/projects/mms' && location.pathname === '/project-mms') ||
       (targetPath === '/projects/axis' && location.pathname === '/project-axis') ||
@@ -315,6 +333,7 @@ export default function App() {
     });
     lenis.scrollTo(0, { immediate: true });
     lenisRef.current = lenis;
+    window.lenis = lenis;
     if (!isSplashComplete || currentPage === 'works') {
       lenis.stop();
     }
@@ -382,6 +401,7 @@ export default function App() {
       document.body.classList.remove('is-scrolling');
       lenis.destroy();
       lenisRef.current = null;
+      window.lenis = null;
     };
   }, []);
 
@@ -451,13 +471,9 @@ export default function App() {
         key={currentPage}
         isPinned={true}
         isVisible={
-          (currentPage === 'about' || 
-           currentPage === 'works' || 
-           currentPage === 'project-mms' || 
-           currentPage === 'project-axis' || 
-           currentPage === 'project-stephenson' || 
-           currentPage === 'project-fusion-form' || 
-           isBoxRevealComplete) && isNavScrollVisible
+          (currentPage === 'home'
+            ? (isIntroStarted || hasIntroPlayed)
+            : true) && isNavScrollVisible
         }
         isIntroStarted={true}
         activePage={currentPage} 
@@ -541,6 +557,16 @@ export default function App() {
                   path="/about" 
                   element={
                     <AboutPage 
+                      onNavigate={handleNavigate} 
+                      onOpenContact={handleOpenContact}
+                      onOpenCMS={handleOpenCMS} 
+                    />
+                  } 
+                />
+                <Route 
+                  path="/services" 
+                  element={
+                    <ServicesPage 
                       onNavigate={handleNavigate} 
                       onOpenContact={handleOpenContact}
                       onOpenCMS={handleOpenCMS} 

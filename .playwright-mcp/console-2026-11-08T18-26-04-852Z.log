@@ -1,0 +1,5 @@
+[     142ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:21608
+[  281381ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1794162646217:0
+[  281383ms] [ERROR] [vite] Failed to reload /src/components/services/ServicesWorkflowSection.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881
+[  294109ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1794162658943:0
+[  294109ms] [ERROR] [vite] Failed to reload /src/components/services/ServicesWorkflowSection.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:881

@@ -1,7 +1,11 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
-import recentWorksGif from '../assets/recent-works.gif';
 import MaskedWordStagger from './MaskedWordStagger';
+
+const showcaseModules = import.meta.glob('../assets/showcase/*.webp', { eager: true, import: 'default' });
+const SHOWCASE_IMAGES = Object.keys(showcaseModules)
+  .sort()
+  .map((k) => showcaseModules[k]);
 
 /* ========================================================================= */
 /* SHOWCASE SECTION COMPONENT                                                */
@@ -10,6 +14,21 @@ import MaskedWordStagger from './MaskedWordStagger';
 export default function Showcase({ onRevealCompleteChange }) {
   const pinTrackRef = useRef(null);
   const scrollProgress = useMotionValue(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  /* ─── Slideshow without transition animation ─── */
+  useEffect(() => {
+    SHOWCASE_IMAGES.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % SHOWCASE_IMAGES.length);
+    }, 600);
+
+    return () => clearInterval(timer);
+  }, []);
 
   /* ─── 1. Reset progress on mount ─── */
   useEffect(() => {
@@ -100,16 +119,25 @@ export default function Showcase({ onRevealCompleteChange }) {
             {/* Reveal Bounding Box - expands to 100% full width flush with universal margins */}
             <motion.div 
               style={{ clipPath, scale: boxScale }}
-              className="w-full aspect-[1416/645.5] overflow-hidden rounded-[0.1389vw] bg-[#121212] will-change-transform shadow-2xl"
+              className="w-full aspect-[1416/645.5] overflow-hidden rounded-[0.1389vw] bg-[#121212] will-change-transform shadow-2xl relative"
             >
-              <motion.img 
+              <motion.div 
                 style={{ scale: imageScale }}
-                src={recentWorksGif} 
-                alt="Recent work of branding, web design & development by NORQUE STUDIOS™" 
-                className="w-full h-full object-cover rounded-[0.1389vw] block will-change-transform"
-                loading="eager"
-                fetchPriority="high"
-              />
+                className="relative w-full h-full will-change-transform"
+              >
+                {SHOWCASE_IMAGES.map((imgSrc, idx) => (
+                  <img 
+                    key={idx}
+                    src={imgSrc} 
+                    alt="Recent work by NORQUE STUDIOS™" 
+                    className={`absolute inset-0 w-full h-full object-cover rounded-[0.1389vw] select-none pointer-events-none transition-none ${
+                      idx === currentImageIndex ? 'visible' : 'invisible'
+                    }`}
+                    loading="eager"
+                    fetchPriority={idx === 0 ? 'high' : 'auto'}
+                  />
+                ))}
+              </motion.div>
             </motion.div>
 
             {/* Subtitle / Caption row under GIF inside pinned container */}

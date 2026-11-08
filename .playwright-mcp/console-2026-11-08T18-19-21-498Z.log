@@ -1,0 +1,57 @@
+[     189ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:21608
+[  112776ms] ReferenceError: line is not defined
+    at http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1794162074166:259:21
+    at Array.map (<anonymous>)
+    at ServicesWorkflowSection (http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1794162074166:171:149)
+    at renderWithHooks (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:11596:26)
+    at updateFunctionComponent (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:14630:28)
+    at beginWork (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:15972:22)
+    at HTMLUnknownElement.callCallback2 (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:3680:22)
+    at Object.invokeGuardedCallbackDev (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:3705:24)
+    at invokeGuardedCallback (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:3739:39)
+    at beginWork$1 (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19818:15)
+[  112781ms] ReferenceError: line is not defined
+    at http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1794162074166:259:21
+    at Array.map (<anonymous>)
+    at ServicesWorkflowSection (http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1794162074166:171:149)
+    at renderWithHooks (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:11596:26)
+    at updateFunctionComponent (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:14630:28)
+    at beginWork (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:15972:22)
+    at HTMLUnknownElement.callCallback2 (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:3680:22)
+    at Object.invokeGuardedCallbackDev (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:3705:24)
+    at invokeGuardedCallback (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:3739:39)
+    at beginWork$1 (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19818:15)
+[  112783ms] [ERROR] The above error occurred in the <ServicesWorkflowSection> component:
+
+    at ServicesWorkflowSection (http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1794162074166:59:24)
+    at main
+    at div
+    at ServicesPage (http://localhost:3000/src/components/ServicesPage.jsx?t=1794161958399:24:40)
+    at RenderedRoute (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:6763:26)
+    at Routes (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:7705:3)
+    at Suspense
+    at div
+    at MotionDOMComponent (http://localhost:3000/node_modules/.vite/deps/framer-motion.js?v=b5e445f1:11457:40)
+    at PopChildMeasure (http://localhost:3000/node_modules/.vite/deps/framer-motion.js?v=b5e445f1:10564:23)
+    at PopChild (http://localhost:3000/node_modules/.vite/deps/framer-motion.js?v=b5e445f1:10592:21)
+    at PresenceChild (http://localhost:3000/node_modules/.vite/deps/framer-motion.js?v=b5e445f1:10649:24)
+    at AnimatePresence (http://localhost:3000/node_modules/.vite/deps/framer-motion.js?v=b5e445f1:10741:26)
+    at main
+    at div
+    at App (http://localhost:3000/src/App.jsx?t=1794161958399:66:20)
+    at Router (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:7644:13)
+    at BrowserRouter (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:10983:3)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries. @ http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:14079
+[  112784ms] ReferenceError: line is not defined
+    at http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1794162074166:259:21
+    at Array.map (<anonymous>)
+    at ServicesWorkflowSection (http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1794162074166:171:149)
+    at renderWithHooks (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:11596:26)
+    at updateFunctionComponent (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:14630:28)
+    at beginWork (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:15972:22)
+    at beginWork$1 (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19806:22)
+    at performUnitOfWork (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19251:20)
+    at workLoopSync (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19190:13)
+    at renderRootSync (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19169:15)

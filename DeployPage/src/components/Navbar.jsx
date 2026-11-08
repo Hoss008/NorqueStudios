@@ -155,13 +155,9 @@ export default function Navbar({
     <motion.header 
       className={`${
         isPinned 
-          ? `fixed top-0 left-0 right-0 z-40 ${
-              isProjectPage
-                ? 'bg-transparent'
-                : 'bg-black/60 backdrop-blur-md'
-            }` 
+          ? 'fixed top-0 left-0 right-0 z-40' 
           : 'w-full z-20'
-      } h-[2.5vw] px-[0.8333vw] flex items-center transition-colors duration-300`}
+      } bg-transparent mix-blend-difference h-[2.5vw] px-[0.8333vw] flex items-center`}
       style={{ pointerEvents: isPinned && (!isVisible || isPageTransitioning) ? 'none' : 'auto' }}
       initial={
         isPinned 
@@ -174,9 +170,9 @@ export default function Navbar({
       }}
       transition={transitionConfig}
     >
-      <div className="w-full grid grid-cols-4 items-center">
-        {/* Column 1: Compact Vector Logo (NRQ STDS - Navigate to home page) */}
-        <div className="flex items-center">
+      <div className="w-full grid grid-cols-12 gap-[0.8333vw] items-center">
+        {/* Column 1 to 3: Compact Vector Logo (NRQ STDS - Navigate to home page) */}
+        <div className="col-span-3 flex items-center">
           <a 
             href="/" 
             onClick={handleLogoClick}
@@ -187,34 +183,37 @@ export default function Navbar({
           </a>
         </div>
 
-        {/* Column 2: Navigation Links with Staggered Masked Text Animation */}
-        <nav className="flex items-center space-x-[0.6944vw]" aria-label="Main Navigation">
+        {/* Column 4 to 6: Navigation Links with Staggered Masked Text Animation */}
+        <nav className="col-span-3 flex items-center space-x-[0.6944vw]" aria-label="Main Navigation">
           <StaggeredNavButton 
             label="ABOUT" 
             href="/about"
             onClick={handleLinkClick('about')} 
+            hasUnderline={activePage === 'about'}
           />
           <StaggeredNavButton 
             label="WORKS" 
             href="/projects"
             onClick={handleLinkClick('works')} 
+            hasUnderline={activePage === 'works'}
           />
           <StaggeredNavButton 
             label="SERVICES" 
-            href="#services"
-            onClick={handleLinkClick('home', 'services')} 
+            href="/services"
+            onClick={handleLinkClick('services')} 
+            hasUnderline={activePage === 'services'}
           />
         </nav>
 
-        {/* Column 3: Egypt Live GMT Time (Left-aligned in column 3 matching Home Page Hero.png) */}
-        <div className="flex items-center">
+        {/* Column 7 to 9: Egypt Live GMT Time (Left-aligned in column 7 matching Home Page Hero.png) */}
+        <div className="col-span-3 flex items-center">
           <span className="text-[0.5556vw] font-semibold tracking-[-0.03em] text-white tabular-nums select-none uppercase">
             {egyptTime || 'EGYPT, 03:48:10 PM GMT'}
           </span>
         </div>
 
-        {/* Column 4: Contact Us CTA with Underline (Right-aligned in column 4) */}
-        <div className="flex items-center justify-end">
+        {/* Column 10 to 12: Contact Us CTA with Underline (Right-aligned in column 12) */}
+        <div className="col-span-3 flex items-center justify-end">
           <StaggeredNavButton 
             label="CONTACT US" 
             href="#contact"

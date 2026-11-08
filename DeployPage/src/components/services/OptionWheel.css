@@ -1,0 +1,48 @@
+/* OptionWheel.css */
+.service-option-wheel {
+  --ow-text-color: #555555;
+  --ow-active-color: #ffffff;
+  --ow-font-size: 1.875vw;
+  --ow-inset: 0px;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  outline: none;
+}
+
+.service-option-wheel--dragging {
+  cursor: grabbing;
+}
+
+.service-option-wheel__item {
+  position: absolute;
+  top: 29%;
+  left: var(--ow-inset);
+  white-space: nowrap;
+  font-family: 'Beausite Classic', sans-serif;
+  font-size: var(--ow-font-size);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-weight: 400;
+  transform-origin: left center;
+  cursor: pointer;
+  will-change: transform, opacity, filter;
+  color: color-mix(in srgb, var(--ow-active-color) calc(var(--ow-p, 0) * 100%), var(--ow-text-color));
+  transition: font-weight 0.2s ease;
+}
+
+.service-option-wheel--right .service-option-wheel__item {
+  left: auto;
+  right: var(--ow-inset);
+  transform-origin: right center;
+}
+
+.service-option-wheel__item--selected {
+  font-weight: 600;
+  color: #ffffff;
+}

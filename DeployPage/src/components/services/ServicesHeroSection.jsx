@@ -51,7 +51,6 @@ export const SERVICES_DATA = [
       "Headless CMS & Custom Workflows",
       "Interactive 3D, WebGL & Canvas Experiences",
       "Core Web Vitals & Load Speed Optimization",
-      "Scalable Cloud Infrastructure",
       "SEO & Semantic Web Standards",
     ],
   },
@@ -59,27 +58,16 @@ export const SERVICES_DATA = [
     id: "software-solutions",
     name: "Software Solutions",
     introLines: [
-      "Purpose-built technology, engineered with precision. From custom platforms to integrated systems",
-      "we build tailored software solutions that simplify operations, ",
+      "Purpose-built technology, engineered with precision, from custom platforms ",
+      "to integrated systems, we build tailored software solutions that simplify operations",
       "connect systems and turn ambitious ideas into tools built to perform.",
     ],
     items: [
       "Custom Software & Application Development",
-
       "SaaS Product Development",
-
       "Business Process Automation",
-
       "API Development & System Integrations",
-
-      "CRM & ERP Solutions",
-
-      "Database Architecture & Management",
-
-      "Cloud-Based Software Infrastructure",
-
-      "AI-Powered Tools & Intelligent Workflows",
-
+      "Database Architecture & Backend Development",
       "Software Maintenance & Optimization",
     ],
   },

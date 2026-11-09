@@ -59,7 +59,7 @@ export const SERVICES_DATA = [
     name: "Software Solutions",
     introLines: [
       "Purpose-built technology, engineered with precision, from custom platforms ",
-      "to integrated systems, we build tailored software solutions that simplify operations",
+      "to integrated systems, we build tailored software solutions that simplify operations,",
       "connect systems and turn ambitious ideas into tools built to perform.",
     ],
     items: [

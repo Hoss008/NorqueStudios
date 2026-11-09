@@ -7,8 +7,8 @@ export const SERVICES_DATA = [
     id: "brand-development",
     name: "Brand Development",
     introLines: [
-      " Built to stand out, designed to mean something. We turn ideas into distinctive brand identities"
-      , "giving every detail a purpose and every brand a world of its own.",
+      " Built to stand out, designed to mean something. We turn ideas into distinctive brand identities",
+      "giving every detail a purpose and every brand a world of its own.",
     ],
     items: [
       "Brand Strategy & Positioning",
@@ -56,6 +56,34 @@ export const SERVICES_DATA = [
     ],
   },
   {
+    id: "software-solutions",
+    name: "Software Solutions",
+    introLines: [
+      "Purpose-built technology, engineered with precision. From custom platforms to integrated systems",
+      "we build tailored software solutions that simplify operations, ",
+      "connect systems and turn ambitious ideas into tools built to perform.",
+    ],
+    items: [
+      "Custom Software & Application Development",
+
+      "SaaS Product Development",
+
+      "Business Process Automation",
+
+      "API Development & System Integrations",
+
+      "CRM & ERP Solutions",
+
+      "Database Architecture & Management",
+
+      "Cloud-Based Software Infrastructure",
+
+      "AI-Powered Tools & Intelligent Workflows",
+
+      "Software Maintenance & Optimization",
+    ],
+  },
+  {
     id: "graphic-design",
     name: "Graphic Design",
     introLines: [
@@ -74,7 +102,7 @@ export const SERVICES_DATA = [
   },
   {
     id: "social-media-campaigns",
-    name: "Social Media Campaigns",
+    name: "Social Media",
     introLines: [
       " Strategic narratives built to engage communities and ignite cultural conversation across",
       "modern social platforms.",
@@ -139,7 +167,7 @@ export default function ServicesHeroSection() {
       {/* 12-column responsive grid matching Universal Navbar */}
       <div className="w-full grid grid-cols-12 gap-[0.8333vw] items-start">
         {/* Left Side: Columns 1 to 6 - Wheel Component */}
-        <div className="col-span-6 h-[42vw] max-h-[720px] min-h-[420px] relative flex items-center pr-[1vw]">
+        <div className="col-span-6 h-[42vw] max-h-[720px] min-h-[820px] relative flex items-center pr-[1vw]">
           <OptionWheel
             items={serviceNames}
             selectedIndex={activeIndex}
@@ -197,7 +225,7 @@ export default function ServicesHeroSection() {
                             },
                           },
                         }}
-                        className="text-[0.9722vw] font-medium leading-[1.38] text-white tracking-[-0.03em] whitespace-nowrap block"
+                        className="text-[0.9722vw] font-medium leading-[1] text-white tracking-[-0.03em] whitespace-nowrap block"
                       >
                         {line}
                       </motion.div>
@@ -237,7 +265,7 @@ export default function ServicesHeroSection() {
                               },
                             },
                           }}
-                          className="text-[0.9722vw] font-medium text-white/80 tracking-[-0.03em] leading-tight whitespace-nowrap block"
+                          className="text-[0.9722vw] font-medium text-white/80 tracking-[-0.03em] leading-tight-[] whitespace-nowrap block"
                         >
                           {item}
                         </motion.div>

@@ -161,6 +161,7 @@ export default function ServicesHeroSection() {
             selectedIndex={activeIndex}
             onChange={(idx) => setActiveIndex(idx)}
             className="w-full h-full"
+            loop={true}
           />
         </div>
 

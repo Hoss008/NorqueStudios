@@ -18,7 +18,7 @@ export default function OptionWheel({
   minOpacity = 0.08,
   smoothing = 390,
   inset = 180,
-  loop = false,
+  loop = true,
   draggable = false,
   className = ''
 }) {
@@ -36,16 +36,6 @@ export default function OptionWheel({
   const dragMovedRef = useRef(false);
   const [selectedIndex, setSelectedIndex] = useState(defaultSelected);
   const [isDragging, setIsDragging] = useState(false);
-
-  // Sync controlled index if provided
-  useEffect(() => {
-    if (controlledIndex !== undefined && controlledIndex !== selectedRef.current) {
-      targetRef.current = controlledIndex;
-      selectedRef.current = controlledIndex;
-      setSelectedIndex(controlledIndex);
-      startLoop();
-    }
-  }, [controlledIndex]);
 
   const getVwPx = () => {
     if (typeof window === 'undefined') return 27;
@@ -112,6 +102,12 @@ export default function OptionWheel({
       el.style.setProperty('--ow-p', Math.max(0, 1 - Math.min(dist, 1)).toFixed(4));
     }
 
+    if (settled && cfg.loop && n > 1) {
+      const norm = ((target % n) + n) % n;
+      posRef.current = norm;
+      targetRef.current = norm;
+    }
+
     rafRef.current = settled ? null : requestAnimationFrame(runFrame);
   }, []);
 
@@ -141,6 +137,26 @@ export default function OptionWheel({
     [startLoop]
   );
 
+  // Sync controlled index if provided
+  useEffect(() => {
+    if (controlledIndex !== undefined && controlledIndex !== selectedRef.current) {
+      const cfg = cfgRef.current;
+      if (cfg.loop && cfg.count > 1) {
+        const cur = targetRef.current;
+        const n = cfg.count;
+        let diff = controlledIndex - (((cur % n) + n) % n);
+        diff = ((diff % n) + n) % n;
+        if (diff > n / 2) diff -= n;
+        targetRef.current = cur + diff;
+      } else {
+        targetRef.current = controlledIndex;
+      }
+      selectedRef.current = controlledIndex;
+      setSelectedIndex(controlledIndex);
+      startLoop();
+    }
+  }, [controlledIndex, startLoop]);
+
   // Helper to check if the hero section is currently 100% filling the viewport
   const isHeroFillingViewport = () => {
     if (typeof window === 'undefined') return true;
@@ -164,22 +180,26 @@ export default function OptionWheel({
       const cfg = cfgRef.current;
       const delta = e.deltaMode === 1 ? e.deltaY * 24 : e.deltaY;
       const cur = targetRef.current;
-      const isAtFinalOption = cur >= cfg.count - 1 - 0.05;
+      const isAtFinalOption = !cfg.loop && cur >= cfg.count - 1 - 0.05;
+      const isAtFirstOption = !cfg.loop && cur <= 0.05;
 
-      // 1) When scrolling down: if the wheel reaches the final option ("Consultation"),
-      // allow the page to scroll down freely even if hovering on the wheel
+      // 1) When the hero section is NOT 100% filling the viewport (page is scrolled away),
+      // allow the page to scroll freely in either direction even if hovering on the wheel
+      if (!isHeroFillingViewport()) {
+        return;
+      }
+
+      // 2) When loop is disabled:
+      // Allow scrolling down past the final option ("Consultation")
       if (isAtFinalOption && delta > 0) {
         return;
       }
-
-      // 2) When scrolling up: if the hero section is NOT 100% filling the viewport (page is scrolled down),
-      // allow the page to scroll up until the hero section is 100% filling the viewport,
-      // even if hovering on the wheel
-      if (delta < 0 && !isHeroFillingViewport()) {
+      // Allow scrolling up past the first option
+      if (isAtFirstOption && delta < 0) {
         return;
       }
 
-      // 3) Otherwise (hero fills viewport & moving within wheel options):
+      // 3) Otherwise (hero fills viewport & moving within wheel options / loop is true):
       // strictly scroll only the wheel and prevent page scroll
       e.preventDefault();
       e.stopPropagation();
@@ -244,7 +264,17 @@ export default function OptionWheel({
   const handleItemClick = useCallback(
     (index) => {
       if (dragMovedRef.current) return;
-      applyTarget(index, true);
+      const cfg = cfgRef.current;
+      if (cfg.loop && cfg.count > 1) {
+        const cur = targetRef.current;
+        const n = cfg.count;
+        let diff = index - (((cur % n) + n) % n);
+        diff = ((diff % n) + n) % n;
+        if (diff > n / 2) diff -= n;
+        applyTarget(cur + diff, true);
+      } else {
+        applyTarget(index, true);
+      }
     },
     [applyTarget]
   );

@@ -68,7 +68,7 @@ export default function PhoneNotice() {
             className="w-full max-w-[340px] sm:max-w-[380px] text-center"
           >
             <p className="text-[19px] sm:text-[22px] font-semibold text-white tracking-[-0.03em] leading-[1.32] text-center selection:bg-white selection:text-black">
-              Phone version is still in the works, please open from your browser for better experience
+              Phone version is still in the works, please open from your desktop browser for better experience
             </p>
           </MaskedWordStagger>
         )}

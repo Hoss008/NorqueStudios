@@ -73,7 +73,9 @@
     font-weight: 700 !important;
   }
 
-  .about-hero-manifesto-text .whitespace-nowrap {
+  .about-hero-manifesto-text .overflow-hidden > div {
+    transform: none !important;
+    opacity: 1 !important;
     white-space: normal !important;
   }
 
@@ -247,9 +249,13 @@
     max-width: 100% !important;
   }
 
+  .about-footer-callout > div {
+    max-width: 100% !important;
+  }
+
   .about-footer-callout-text {
-    font-size: 22px !important;
-    line-height: 1.2 !important;
+    font-size: 20px !important;
+    line-height: 1.22 !important;
     letter-spacing: -0.03em !important;
   }
 

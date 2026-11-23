@@ -110,20 +110,20 @@ export default function Showcase({ onRevealCompleteChange }) {
 
   /* ─── Render ─── */
   return (
-    <section className="w-full bg-black">
+    <section className="showcase-section w-full bg-black">
       {/* 200vh Pinning Track */}
-      <div ref={pinTrackRef} className="relative w-full h-[200vh]">
+      <div ref={pinTrackRef} className="showcase-pin-track relative w-full h-[200vh]">
         {/* Sticky Fullscreen Viewport Window matching universal 12px (0.8333vw) horizontal margins */}
-        <div className="sticky top-0 w-full h-screen flex flex-col justify-center items-center overflow-hidden px-[0.8333vw] z-10 select-none">
-          <div className="w-full flex flex-col">
+        <div className="showcase-sticky-window sticky top-0 w-full h-screen flex flex-col justify-center items-center overflow-hidden px-[0.8333vw] z-10 select-none">
+          <div className="showcase-box-wrapper w-full flex flex-col">
             {/* Reveal Bounding Box - expands to 100% full width flush with universal margins */}
             <motion.div 
               style={{ clipPath, scale: boxScale }}
-              className="w-full aspect-[1416/645.5] overflow-hidden rounded-[0.1389vw] bg-[#121212] will-change-transform shadow-2xl relative"
+              className="showcase-media-box w-full aspect-[1416/645.5] overflow-hidden rounded-[0.1389vw] bg-[#121212] will-change-transform shadow-2xl relative"
             >
               <motion.div 
                 style={{ scale: imageScale }}
-                className="relative w-full h-full will-change-transform"
+                className="showcase-image-inner relative w-full h-full will-change-transform"
               >
                 {SHOWCASE_IMAGES.map((imgSrc, idx) => (
                   <img 
@@ -143,12 +143,12 @@ export default function Showcase({ onRevealCompleteChange }) {
             {/* Subtitle / Caption row under GIF inside pinned container */}
             <motion.div 
               style={{ opacity: captionOpacity }}
-              className="w-full flex justify-between items-center mt-[0.5556vw] pt-[0.2778vw]"
+              className="showcase-caption-row w-full flex justify-between items-center mt-[0.5556vw] pt-[0.2778vw]"
             >
-              <p className="text-[0.6944vw] font-semibold text-[#747474] tracking-[-0.03em]">
+              <p className="showcase-caption-text text-[0.6944vw] font-semibold text-[#747474] tracking-[-0.03em]">
                 Recent work of branding, web design &amp; development by NORQUE STUDIOS™
               </p>
-              <p className="text-[0.6944vw] font-semibold text-[#747474] tracking-[-0.03em]">
+              <p className="showcase-caption-year text-[0.6944vw] font-semibold text-[#747474] tracking-[-0.03em]">
                 ©2026
               </p>
             </motion.div>
@@ -157,10 +157,10 @@ export default function Showcase({ onRevealCompleteChange }) {
       </div>
 
       {/* Brand Statement / Manifesto follows after unpinning */}
-      <div className="w-full px-[0.8333vw] motion-blur-target">
-        <div className="pt-[4.1667vw] pb-[9.0278vw]">
-          <div className="max-w-[73.3333vw]">
-            <MaskedWordStagger className="text-[1.5278vw] font-bold tracking-[-0.03em] leading-[1.18] text-white space-y-[1.5278vw]">
+      <div className="showcase-manifesto-container w-full px-[0.8333vw] motion-blur-target">
+        <div className="showcase-manifesto-inner pt-[4.1667vw] pb-[9.0278vw]">
+          <div className="showcase-manifesto-wrap max-w-[73.3333vw]">
+            <MaskedWordStagger className="showcase-manifesto-text text-[1.5278vw] font-bold tracking-[-0.03em] leading-[1.18] text-white space-y-[1.5278vw]">
               <p>
                 NORQUE STUDIOS™ — A creative studio for brands that want to build something real. Based between ideas, design and digital, we work across branding, creative direction, UI/UX and web development.
               </p>

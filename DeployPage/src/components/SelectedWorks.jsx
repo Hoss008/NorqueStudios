@@ -153,27 +153,6 @@ export default function SelectedWorks({ onNavigate }) {
             </svg>
           </a>
         </div>
-            <span className="underline underline-offset-[0.2083vw] decoration-white">
-              Discover more
-            </span>
-            {/* 45-degree arrow vector */}
-            <svg 
-              className="w-[0.4879vw] h-[0.4879vw] text-white transition-transform duration-300 group-hover:translate-x-[0.1vw] group-hover:-translate-y-[0.1vw]" 
-              viewBox="0 0 10 10" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path 
-                d="M1 9L9 1M9 1H2M9 1V8" 
-                stroke="currentColor" 
-                strokeWidth="1.5" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-              />
-            </svg>
-          </a>
-        </div>
       </div>
     </section>
   );

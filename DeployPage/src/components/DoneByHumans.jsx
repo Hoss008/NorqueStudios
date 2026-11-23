@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import DoneByHumansLogo from './DoneByHumansLogo';
+import DoneByHumansMobileLogo from './DoneByHumansMobileLogo';
 import NorqueCircleLogo from './NorqueCircleLogo';
 import MaskedWordStagger from './MaskedWordStagger';
 import doneByHumansBg from '../assets/done-by-humans-bg.webp';
@@ -43,7 +44,12 @@ export default function DoneByHumans() {
         {/* ─── 2. Top "DONE BY HUMANS" Vector Mark (Static, unaffected by parallax) ─── */}
         <div className="done-by-humans-logo-wrap relative z-10 w-full pt-[4.1667vw] px-[3.737vw] flex justify-center motion-blur-target">
           <div className="done-by-humans-logo-inner w-full max-w-[92.5243vw]">
-            <DoneByHumansLogo className="w-full h-auto text-white" />
+            <div className="done-by-humans-desktop-logo w-full">
+              <DoneByHumansLogo className="w-full h-auto text-white" />
+            </div>
+            <div className="done-by-humans-mobile-logo hidden w-full">
+              <DoneByHumansMobileLogo className="w-full flex flex-col gap-[10px]" />
+            </div>
           </div>
         </div>
 

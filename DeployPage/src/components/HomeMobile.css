@@ -315,6 +315,14 @@
     max-width: 100% !important;
   }
 
+  .done-by-humans-desktop-logo {
+    display: none !important;
+  }
+
+  .done-by-humans-mobile-logo {
+    display: flex !important;
+  }
+
   .done-by-humans-bottom-wrap {
     padding-bottom: 0 !important;
     padding-left: 0.75rem !important;

@@ -111,13 +111,13 @@ export default function Hero({ onNavigate, onOpenContact, hasIntroPlayed = false
       <div className="w-full h-[2.5vw] flex-shrink-0" aria-hidden="true" />
 
       {/* ─── 3. Center Brand Statement (44.53% from top, reveals 1.0s after Norque Studios starts) ─── */}
-      <div className="absolute top-[44.53%] left-0 right-0 z-10 w-full px-[0.8333vw] pointer-events-none motion-blur-target">
-        <div className="flex justify-between items-start overflow-hidden pointer-events-auto w-full">
+      <div className="hero-statement-container absolute top-[44.53%] left-0 right-0 z-10 w-full px-[0.8333vw] pointer-events-none motion-blur-target">
+        <div className="hero-statement-row flex justify-between items-start overflow-hidden pointer-events-auto w-full">
           {/* Left Text: "BUILT FOR BRANDS THAT WANT / SOMETHING REAL" */}
-          <div className="space-y-[0.15vw]">
+          <div className="hero-statement-left space-y-[0.15vw]">
             <div className="overflow-hidden">
               <motion.p
-                className="text-[0.6944vw] font-semibold tracking-[-0.03em] leading-[1.2] text-white uppercase"
+                className="hero-statement-text text-[0.6944vw] font-semibold tracking-[-0.03em] leading-[1.2] text-white uppercase"
                 initial={hasIntroPlayed ? { y: 0, opacity: 1 } : { y: "105%", opacity: 0 }}
                 animate={isTextStarted ? { y: 0, opacity: 1 } : { y: "105%", opacity: 0 }}
                 transition={{ duration: 0.7, ease: [0, 0.8, 0.2, 1] }}
@@ -127,7 +127,7 @@ export default function Hero({ onNavigate, onOpenContact, hasIntroPlayed = false
             </div>
             <div className="overflow-hidden">
               <motion.p
-                className="text-[0.6944vw] font-semibold tracking-[-0.03em] leading-[1.2] text-white uppercase"
+                className="hero-statement-text text-[0.6944vw] font-semibold tracking-[-0.03em] leading-[1.2] text-white uppercase"
                 initial={hasIntroPlayed ? { y: 0, opacity: 1 } : { y: "105%", opacity: 0 }}
                 animate={isTextStarted ? { y: 0, opacity: 1 } : { y: "105%", opacity: 0 }}
                 transition={{ duration: 0.7, ease: [0, 0.8, 0.2, 1], delay: 0.12 }}
@@ -138,9 +138,9 @@ export default function Hero({ onNavigate, onOpenContact, hasIntroPlayed = false
           </div>
 
           {/* Right Text: "CREATING WORLDWIDE ©" */}
-          <div className="overflow-hidden">
+          <div className="hero-statement-right overflow-hidden">
             <motion.p
-              className="text-[0.6944vw] font-semibold tracking-[-0.03em] leading-[1.2] text-white uppercase block"
+              className="hero-statement-text text-[0.6944vw] font-semibold tracking-[-0.03em] leading-[1.2] text-white uppercase block"
               initial={hasIntroPlayed ? { y: 0, opacity: 1 } : { y: "105%", opacity: 0 }}
               animate={isTextStarted ? { y: 0, opacity: 1 } : { y: "105%", opacity: 0 }}
               transition={{ 
@@ -159,7 +159,7 @@ export default function Hero({ onNavigate, onOpenContact, hasIntroPlayed = false
       <div className="flex-1"></div>
 
       {/* ─── 5. Bottom Main Logo ("Norque Studios" vector stagger) ─── */}
-      <div className="relative z-10 w-full px-[0.8333vw] pb-[0.8333vw] motion-blur-target">
+      <div className="hero-logo-container relative z-10 w-full px-[0.8333vw] pb-[0.8333vw] motion-blur-target">
         <div className="w-full overflow-hidden">
           <motion.svg
             width="100%"

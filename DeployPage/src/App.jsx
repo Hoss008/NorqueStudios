@@ -438,8 +438,10 @@ export default function App() {
     };
   }, []);
 
+  const isMobileAllowedPage = currentPage === 'about' || currentPage === 'home';
+
   useEffect(() => {
-    if (isPhone && currentPage !== 'about') {
+    if (isPhone && !isMobileAllowedPage) {
       if (lenisRef.current) lenisRef.current.stop();
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
@@ -450,12 +452,12 @@ export default function App() {
         lenisRef.current.start();
       }
     }
-  }, [isPhone, currentPage, isSplashComplete]);
+  }, [isPhone, isMobileAllowedPage, isSplashComplete]);
 
   /* ======================================================================= */
   /* MAIN RENDER WITH CINEMATIC PAGE TRANSITIONS                             */
   /* ======================================================================= */
-  if (isPhone && currentPage !== 'about') {
+  if (isPhone && !isMobileAllowedPage) {
     return <PhoneNotice />;
   }
 

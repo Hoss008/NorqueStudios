@@ -69,14 +69,14 @@ const NEWS_ITEMS = [
 
 export default function AboutNews() {
   return (
-    <section className="w-full pt-[4.1667vw] pb-[6.9444vw] px-[0.8333vw]">
+    <section className="about-news-section w-full pt-[4.1667vw] pb-[6.9444vw] px-[0.8333vw]">
       <div className="w-full">
         {/* ─── 1. Header with Title & Subtitle ─── */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-[3.4722vw] gap-4 motion-blur-target">
-          <h2 className="text-[32px] sm:text-[3.1944vw] font-semibold text-white tracking-[-0.03em] leading-none select-none uppercase">
+        <div className="about-news-header flex flex-col sm:flex-row sm:items-end justify-between mb-[3.4722vw] gap-4 motion-blur-target">
+          <h2 className="about-news-title text-[32px] sm:text-[3.1944vw] font-semibold text-white tracking-[-0.03em] leading-none select-none uppercase">
             WHAT HAPPENED LATELY
           </h2>
-          <span className="text-[11px] sm:text-[0.6944vw] font-semibold text-white/70 tracking-[-0.03em] select-none">
+          <span className="about-news-subtitle text-[11px] sm:text-[0.6944vw] font-semibold text-white/70 tracking-[-0.03em] select-none">
             Below you will find latest news
           </span>
         </div>
@@ -84,16 +84,16 @@ export default function AboutNews() {
         {/* ─── 2. Interactive Infinite Loop Carousel ─── */}
         <InteractiveInfiniteCarousel
           items={NEWS_ITEMS}
-          gapClass="gap-[0.8333vw]"
-          paddingRightClass="pr-[0.8333vw]"
+          gapClass="gap-4 sm:gap-[0.8333vw]"
+          paddingRightClass="pr-4 sm:pr-[0.8333vw]"
           speed={-0.75}
           interactive={false}
           renderItem={(item) => (
             <article 
-              className="w-[280px] sm:w-[23.9583vw] shrink-0 flex flex-col pointer-events-none select-none"
+              className="about-news-card w-[calc(50vw-24px)] min-w-[145px] sm:w-[23.9583vw] shrink-0 flex flex-col pointer-events-none select-none"
             >
               {/* Media Card */}
-              <div className={`w-full ${item.aspect} rounded-[4px] overflow-hidden mb-[0.6944vw] bg-[#121214]`}>
+              <div className={`w-full ${item.aspect} rounded-[4px] overflow-hidden mb-2 sm:mb-[0.6944vw] bg-[#121214] flex flex-col justify-end`}>
                 {item.isVideo ? (
                   <video 
                     src={item.src} 
@@ -122,10 +122,10 @@ export default function AboutNews() {
 
               {/* Text Info */}
               <div className="flex flex-col space-y-[0.3472vw] select-none pointer-events-none motion-blur-target">
-                <h3 className="text-[12px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] leading-snug">
+                <h3 className="about-news-card-title text-[12px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] leading-snug">
                   {item.title}
                 </h3>
-                <p className="text-[11px] sm:text-[0.6944vw] font-semibold text-[#747474] tracking-[-0.03em] leading-[1.2] line-clamp-6">
+                <p className="about-news-card-desc text-[11px] sm:text-[0.6944vw] font-semibold text-[#747474] tracking-[-0.03em] leading-[1.2] line-clamp-6">
                   {item.description}
                 </p>
               </div>

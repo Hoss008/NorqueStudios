@@ -69,13 +69,13 @@ export default function Footer({ onOpenCMS, onNavigate, onOpenContact }) {
   };
 
   return (
-    <footer id="contact" className="w-full min-h-screen bg-black motion-blur-target flex flex-col justify-between">
+    <footer id="contact" className="about-footer-section w-full min-h-screen bg-black motion-blur-target flex flex-col justify-between">
       {/* Universal Container Margin: 12px (0.8333vw) */}
-      <div className="w-full px-[0.8333vw] flex flex-col justify-between flex-1">
+      <div className="about-footer-container w-full px-[0.8333vw] flex flex-col justify-between flex-1">
         {/* ─── 1. Top Callout Section ─── */}
-        <div className="border-t border-[#363636] pt-[1.6667vw]">
+        <div className="about-footer-callout border-t border-[#363636] pt-[1.6667vw]">
           <div className="max-w-[23.9583vw]">
-            <MaskedWordStagger className="text-[1.5278vw] font-bold tracking-[-0.03em] leading-[1.18] text-white">
+            <MaskedWordStagger className="about-footer-callout-text text-[1.5278vw] font-bold tracking-[-0.03em] leading-[1.18] text-white">
               Got a project on mind?<br />
               Let’s make it alive!<br />
               <a 
@@ -89,7 +89,7 @@ export default function Footer({ onOpenCMS, onNavigate, onOpenContact }) {
         </div>
 
         {/* ─── 2. Interactive Magnet Lines Element (Fits Red Box) ─── */}
-        <div className="w-full my-[1.5vw] flex-1 min-h-[22vw] overflow-hidden flex flex-col">
+        <div className="about-footer-magnet-lines w-full my-[1.5vw] flex-1 min-h-[22vw] overflow-hidden flex flex-col">
           <MagnetLines
             {...MAGNET_LINES_CONFIG}
             className="w-full flex-1"
@@ -99,12 +99,12 @@ export default function Footer({ onOpenCMS, onNavigate, onOpenContact }) {
         {/* ─── 3. Bottom Giant Brand Mark & Legal Directory ─── */}
         <div className="w-full">
           {/* Full-Width Brand Vector */}
-          <div className="w-full mb-[0.6944vw]">
+          <div className="about-footer-logo-wrap w-full mb-[0.6944vw]">
             <MainLogo className="w-full h-auto text-white" />
           </div>
 
           {/* Directory Bar & Copyright Notice */}
-          <div className="pt-[0.6944vw] pb-[1.6667vw] flex flex-col md:flex-row justify-between items-start md:items-center gap-y-4">
+          <div className="about-footer-directory pt-[0.6944vw] pb-[1.6667vw] flex flex-col md:flex-row justify-between items-start md:items-center gap-y-4">
             {/* Primary Navigation & Social Directory */}
             <div className="flex flex-wrap items-center gap-x-[0.9722vw] text-[0.6944vw] font-semibold tracking-normal text-white">
               <a 

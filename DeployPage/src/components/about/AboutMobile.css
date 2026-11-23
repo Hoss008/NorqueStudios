@@ -63,11 +63,18 @@
     padding-right: 1rem !important;
   }
 
-  .about-hero-manifesto-text p {
+  .about-hero-manifesto-text,
+  .about-hero-manifesto-text p,
+  .about-hero-manifesto-text [data-p-idx],
+  .about-hero-manifesto-text .block {
     font-size: 18px !important;
-    line-height: 1.26 !important;
+    line-height: 1.25 !important;
     letter-spacing: -0.03em !important;
     font-weight: 700 !important;
+  }
+
+  .about-hero-manifesto-text .whitespace-nowrap {
+    white-space: normal !important;
   }
 
   .about-hero-directory-title {

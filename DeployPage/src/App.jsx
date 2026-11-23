@@ -439,17 +439,23 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (isPhone) {
+    if (isPhone && currentPage !== 'about') {
       if (lenisRef.current) lenisRef.current.stop();
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      if (lenisRef.current && isSplashComplete) {
+        lenisRef.current.start();
+      }
     }
-  }, [isPhone]);
+  }, [isPhone, currentPage, isSplashComplete]);
 
   /* ======================================================================= */
   /* MAIN RENDER WITH CINEMATIC PAGE TRANSITIONS                             */
   /* ======================================================================= */
-  if (isPhone) {
+  if (isPhone && currentPage !== 'about') {
     return <PhoneNotice />;
   }
 

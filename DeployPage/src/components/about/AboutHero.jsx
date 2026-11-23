@@ -37,7 +37,7 @@ export default function AboutHero() {
             <span className="block text-[11px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] uppercase mb-[1.0417vw] select-none">
               [ ABOUT ]
             </span>
-            <MaskedWordStagger className="text-[18px] sm:text-[1.5278vw] font-bold text-white tracking-[-0.03em] leading-[1.2] selection:bg-white selection:text-black space-y-[1.5278vw]">
+            <MaskedWordStagger amount={0.01} delay={0.1} className="text-[18px] sm:text-[1.5278vw] font-bold text-white tracking-[-0.03em] leading-[1.2] selection:bg-white selection:text-black space-y-[1.5278vw]">
               <p>
                 — An independent creative studio built around design, digital experiences and the ideas that connect them. We work with brands, businesses and people who care about how things look, feel and exist in the real world.
               </p>

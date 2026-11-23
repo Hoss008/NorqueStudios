@@ -29,11 +29,11 @@ const COUNTRIES = [
 
 export default function AboutHero() {
   return (
-    <section className="w-full pt-[1vw] pb-[6.25vw] px-[0.8333vw]">
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-y-12 lg:gap-x-[0.8333vw]">
+    <section className="about-hero-section w-full pt-[1vw] pb-[6.25vw] px-[0.8333vw]">
+      <div className="about-hero-grid w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-y-12 lg:gap-x-[0.8333vw]">
         {/* ─── Column 1-6: Manifesto & Aesthetics Media ─── */}
-        <div className="sm:col-span-2 lg:col-span-6 flex flex-col justify-between">
-          <div className="w-full motion-blur-target">
+        <div className="about-hero-manifesto-col sm:col-span-2 lg:col-span-6 flex flex-col justify-between">
+          <div className="about-hero-text-block about-hero-manifesto-text w-full motion-blur-target">
             <span className="block text-[11px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] uppercase mb-[1.0417vw] select-none">
               [ ABOUT ]
             </span>
@@ -47,7 +47,7 @@ export default function AboutHero() {
             </MaskedWordStagger>
           </div>
 
-          <div className="mt-8 sm:mt-[9.9306vw]">
+          <div className="about-hero-media-block mt-8 sm:mt-[9.9306vw]">
             <img 
               src={`${import.meta.env.BASE_URL}images/about/about-intro-image.png`} 
               alt="Norque visual aesthetics" 
@@ -61,15 +61,15 @@ export default function AboutHero() {
         <div className="hidden lg:block lg:col-span-1" aria-hidden="true" />
 
         {/* ─── Column 8-9: Services Directory ─── */}
-        <div className="sm:col-span-1 lg:col-span-2 motion-blur-target">
-          <span className="block text-[11px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] uppercase mb-[1.0417vw] select-none vertical-trim">
+        <div className="about-hero-services-block sm:col-span-1 lg:col-span-2 motion-blur-target">
+          <span className="about-hero-directory-title block text-[11px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] uppercase mb-[1.0417vw] select-none vertical-trim">
             [ SERVICES ]
           </span>
           <ul className="space-y-[3px] sm:space-y-[0.35vw]">
             {SERVICES.map((service) => (
               <li 
                 key={service}
-                className="text-[12px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] leading-tight select-none vertical-trim"
+                className="about-hero-directory-item text-[12px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] leading-tight select-none vertical-trim"
               >
                 {service}
               </li>
@@ -78,15 +78,15 @@ export default function AboutHero() {
         </div>
 
         {/* ─── Column 10-12: Countries Directory ─── */}
-        <div className="sm:col-span-1 lg:col-span-3 motion-blur-target">
-          <span className="block text-[11px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] uppercase mb-[1.0417vw] select-none vertical-trim">
+        <div className="about-hero-countries-block sm:col-span-1 lg:col-span-3 motion-blur-target">
+          <span className="about-hero-directory-title block text-[11px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] uppercase mb-[1.0417vw] select-none vertical-trim">
             [ COUNTRIES WE WORKED IN ]
           </span>
           <ul className="space-y-[3px] sm:space-y-[0.35vw]">
             {COUNTRIES.map((country) => (
               <li 
                 key={country}
-                className="text-[12px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] leading-tight select-none vertical-trim"
+                className="about-hero-directory-item text-[12px] sm:text-[0.6944vw] font-semibold text-white tracking-[-0.03em] leading-tight select-none vertical-trim"
               >
                 {country}
               </li>

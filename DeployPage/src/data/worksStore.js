@@ -70,9 +70,12 @@ export function getWorks() {
           const merged = parsed.map((p) => {
             const def = defaultMap.get(p.id || p.title);
             if (!def) return p;
+            const hasLegacyPath = p.image && (p.image.startsWith('/images/works/') || p.image.startsWith('images/works/'));
+            const image = (p.image && !hasLegacyPath) ? p.image : def.image;
             return {
               ...def,
               ...p,
+              image,
               selectedCategory: p.selectedCategory !== undefined ? p.selectedCategory : def.selectedCategory,
               selectedWork: p.selectedWork !== undefined ? p.selectedWork : def.selectedWork
             };

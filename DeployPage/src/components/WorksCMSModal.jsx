@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useWorksData, compressImage } from '../data/worksStore';
+import mmsFallback from '../assets/project-mms.png';
+import juzenasFallback from '../assets/project-studio-juzenas.png';
 
 /* ========================================================================= */
 /* WORKS PORTFOLIO CMS MODAL COMPONENT                                      */
@@ -167,7 +169,7 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
       location: formData.location.trim() || 'Worldwide',
       category: formData.category === 'Websites' ? 'Websites' : 'Branding',
       selectedCategory: formData.selectedCategory.trim() ? formData.selectedCategory.trim() : null,
-      image: formData.image || '/images/works/studio-juzenas.png',
+      image: formData.image || juzenasFallback,
       badge: formData.badge.trim() ? formData.badge.trim() : null,
       badgeBg: formData.badge.trim() ? formData.badgeBg : null,
       subtitle: formData.subtitle.trim() ? formData.subtitle.trim() : null,
@@ -475,7 +477,12 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
                             alt={project.title}
                             className="w-full h-full object-cover"
                             onError={(e) => {
-                              e.currentTarget.src = '/images/works/studio-juzenas.png';
+                              const title = (project.title || '').toLowerCase();
+                              if (title.includes('mms') && e.currentTarget.src !== mmsFallback) {
+                                e.currentTarget.src = mmsFallback;
+                              } else if (title.includes('juzenas') && e.currentTarget.src !== juzenasFallback) {
+                                e.currentTarget.src = juzenasFallback;
+                              }
                             }}
                           />
                         </div>

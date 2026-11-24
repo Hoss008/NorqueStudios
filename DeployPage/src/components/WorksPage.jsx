@@ -3,6 +3,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useWorksData } from '../data/worksStore';
 import Footer from './Footer';
 import './WorksMobile.css';
+import mmsFallback from '../assets/project-mms.png';
+import juzenasFallback from '../assets/project-studio-juzenas.png';
+
+function getFallbackImage(title) {
+  const t = (title || '').toLowerCase();
+  if (t.includes('mms')) return mmsFallback;
+  if (t.includes('juzenas')) return juzenasFallback;
+  return null;
+}
 
 function checkIsPhone() {
   if (typeof window === 'undefined') return false;
@@ -291,6 +300,12 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
                           className="w-full h-full object-cover  group-hover:scale-[1]"
                           loading="eager"
                           draggable={false}
+                          onError={(e) => {
+                            const fallback = getFallbackImage(project.title);
+                            if (fallback && e.currentTarget.src !== fallback) {
+                              e.currentTarget.src = fallback;
+                            }
+                          }}
                         />
 
                         {/* Optional Status Badge (e.g. "IN THE WORKS" / "AWARDED") */}
@@ -426,6 +441,12 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
                       className="w-full h-full object-cover rounded-[2px]"
                       loading={index < 3 ? "eager" : "lazy"}
                       decoding="async"
+                      onError={(e) => {
+                        const fallback = getFallbackImage(project.title);
+                        if (fallback && e.currentTarget.src !== fallback) {
+                          e.currentTarget.src = fallback;
+                        }
+                      }}
                     />
 
                     {/* Optional Status Badge */}
@@ -511,6 +532,12 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
               src={hoveredListProject.image} 
               alt={hoveredListProject.title} 
               className="w-full h-full object-cover"
+              onError={(e) => {
+                const fallback = getFallbackImage(hoveredListProject.title);
+                if (fallback && e.currentTarget.src !== fallback) {
+                  e.currentTarget.src = fallback;
+                }
+              }}
             />
           </motion.div>
         )}

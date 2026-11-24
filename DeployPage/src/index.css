@@ -148,6 +148,14 @@ body.is-scrolling .motion-blur-target {
   }
 }
 
+/* Mobile & touch guard: disable scroll motion blur completely on mobile (max-width: 768px) and touch devices */
+@media (max-width: 768px), (pointer: coarse) {
+  body.is-scrolling .motion-blur-target {
+    filter: none !important;
+    will-change: auto !important;
+  }
+}
+
 /* Explicit guard: ensure images and videos maintain 100% full bitrate and native crispness */
 img,
 video,

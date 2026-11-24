@@ -73,10 +73,8 @@
     font-weight: 700 !important;
   }
 
-  .about-hero-manifesto-text .overflow-hidden > div {
-    transform: none !important;
-    opacity: 1 !important;
-    white-space: normal !important;
+  .about-hero-manifesto-text .space-y-\[1\.5278vw\] > * + * {
+    margin-top: 18px !important;
   }
 
   .about-hero-directory-title {

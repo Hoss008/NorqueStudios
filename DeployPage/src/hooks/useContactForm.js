@@ -19,11 +19,14 @@ function validWebsite(value) {
 
 const lengthLimit = value => ({ value, message: `Use ${value} characters or fewer.` });
 const rules = {
-  name: { required: 'Enter your name.', maxLength: lengthLimit(120) },
+  name: {
+    required: 'Enter your name.',
+    pattern: { value: /^(?:\p{L}\p{M}*| )+$/u, message: 'Use only letters and spaces in your name.' },
+    maxLength: lengthLimit(120),
+  },
   phone: {
     required: 'Enter your phone number.',
-    validate: value => (/^\+?[\d\s().-]+$/.test(value) && /^\d{7,15}$/.test(value.replace(/\D/g, ''))) || 'Enter a valid phone number, including your country code if applicable.',
-    maxLength: lengthLimit(40),
+    pattern: { value: /^\p{Nd}{7,15}$/u, message: 'Enter 7–15 digits without spaces or symbols.' },
   },
   email: {
     required: 'Enter your email address.',
@@ -39,8 +42,8 @@ export function useContactForm() {
   const id = useId();
   const { register, control, handleSubmit, setError, reset, formState } = useForm({ defaultValues: defaults });
   const { errors, isSubmitting, isSubmitSuccessful } = formState;
-  const { field: projects } = useController({ name: 'projectTypes', control });
-  const { field: budget } = useController({ name: 'budget', control });
+  const { field: projects } = useController({ name: 'projectTypes', control, rules: { required: 'Select at least one project type.' } });
+  const { field: budget } = useController({ name: 'budget', control, rules: { required: 'Select an expected budget.' } });
   const { field: referral } = useController({ name: 'source', control });
 
   function inputProps(name) {

@@ -166,8 +166,9 @@ export default function ServicesContactSection() {
                       </label>
                       <input
                         type="tel"
+                        inputMode="numeric"
                         {...inputProps('phone')}
-                        placeholder="e.g. +971 XX XXX XXXX"
+                        placeholder="e.g. 971501234567"
                         required
                         className="services-form-input w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
                       />
@@ -220,9 +221,9 @@ export default function ServicesContactSection() {
                     {/* Field 6: Project Type Pills */}
                     <div className="services-form-item w-full">
                       <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.6944vw] leading-none">
-                        Project Type
+                        Project Type*
                       </label>
-                      <div className="services-form-pills flex flex-wrap items-center gap-[0.6944vw]">
+                      <div role="group" aria-label="Project Type (required)" aria-describedby={errors.projectTypes ? id + 'projectTypes-error' : undefined} className="services-form-pills flex flex-wrap items-center gap-[0.6944vw]">
                         {PROJECT_TYPES.map((type) => {
                           const isSelected = selectedTypes.includes(type);
                           return (
@@ -242,14 +243,15 @@ export default function ServicesContactSection() {
                           );
                         })}
                       </div>
+                      <ContactFieldError id={id + 'projectTypes-error'} error={errors.projectTypes} />
                     </div>
 
                     {/* Field 7: Expected Budget Pills */}
                     <div className="services-form-item w-full">
                       <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.6944vw] leading-none">
-                        Expected Budget
+                        Expected Budget*
                       </label>
-                      <div className="services-form-pills flex flex-wrap items-center gap-[0.6944vw]">
+                      <div role="group" aria-label="Expected Budget (required)" aria-describedby={errors.budget ? id + 'budget-error' : undefined} className="services-form-pills flex flex-wrap items-center gap-[0.6944vw]">
                         {BUDGET_OPTIONS.map((opt) => {
                           const isSelected = selectedBudget === opt;
                           return (
@@ -269,6 +271,7 @@ export default function ServicesContactSection() {
                           );
                         })}
                       </div>
+                      <ContactFieldError id={id + 'budget-error'} error={errors.budget} />
                     </div>
 
                     {/* Field 8: How did you hear about us? Dropdown */}

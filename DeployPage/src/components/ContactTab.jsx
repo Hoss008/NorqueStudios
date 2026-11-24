@@ -225,8 +225,9 @@ export default function ContactTab({ isOpen, onClose }) {
                           </label>
                           <input
                             type="tel"
+                            inputMode="numeric"
                             {...inputProps('phone')}
-                            placeholder="e.g. +971 XX XXX XXXX"
+                            placeholder="e.g. 971501234567"
                             className="w-full h-[20px] md:h-[2.2vh] 2xl:h-[23px] bg-[#f0f0f0] rounded-[2px] px-[8px] md:px-[0.55vw] text-[9.5px] md:text-[0.64vw] font-semibold text-black placeholder:text-[#bcbcbc] outline-none focus:ring-1 focus:ring-black/20 transition-all"
                           />
                           <ContactFieldError id={id + 'phone-error'} error={errors.phone} />
@@ -285,9 +286,9 @@ export default function ContactTab({ isOpen, onClose }) {
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={6} className="w-full">
                           <label className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
-                            Project Type
+                            Project Type*
                           </label>
-                          <div className="flex flex-wrap gap-[4px] md:gap-[0.32vw]">
+                          <div role="group" aria-label="Project Type (required)" aria-describedby={errors.projectTypes ? id + 'projectTypes-error' : undefined} className="flex flex-wrap gap-[4px] md:gap-[0.32vw]">
                             {PROJECT_TYPES.map((type) => {
                               const isSelected = selectedTypes.includes(type);
                               return (
@@ -307,6 +308,7 @@ export default function ContactTab({ isOpen, onClose }) {
                               );
                             })}
                           </div>
+                          <ContactFieldError id={id + 'projectTypes-error'} error={errors.projectTypes} />
                         </motion.div>
                       </div>
 
@@ -314,9 +316,9 @@ export default function ContactTab({ isOpen, onClose }) {
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={7} className="w-full">
                           <label className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
-                            Expected Budget
+                            Expected Budget*
                           </label>
-                          <div className="flex flex-wrap gap-[4px] md:gap-[0.32vw]">
+                          <div role="group" aria-label="Expected Budget (required)" aria-describedby={errors.budget ? id + 'budget-error' : undefined} className="flex flex-wrap gap-[4px] md:gap-[0.32vw]">
                             {BUDGET_OPTIONS.map((budget) => {
                               const isSelected = selectedBudget === budget;
                               return (
@@ -336,6 +338,7 @@ export default function ContactTab({ isOpen, onClose }) {
                               );
                             })}
                           </div>
+                          <ContactFieldError id={id + 'budget-error'} error={errors.budget} />
                         </motion.div>
                       </div>
 

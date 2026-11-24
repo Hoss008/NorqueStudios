@@ -79,10 +79,10 @@ export default function Footer({ onOpenCMS, onNavigate, onOpenContact }) {
               Got a project on mind?<br />
               Let’s make it alive!<br />
               <a 
-                href="mailto:hello@norquestudios.com" 
+                href="mailto:norquestudios@gmail.com"
                 className="hover:opacity-70 transition-opacity"
               >
-                hello@norquestudios.com
+                norquestudios@gmail.com
               </a>
             </MaskedWordStagger>
           </div>

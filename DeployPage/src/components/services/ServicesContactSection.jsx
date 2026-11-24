@@ -81,14 +81,14 @@ export default function ServicesContactSection() {
   };
 
   return (
-    <section className="relative w-full min-h-[50.9722vw] py-[5.4167vw] px-[0.8333vw] bg-black text-white flex flex-col justify-center">
-      <div className="w-full grid grid-cols-12 gap-[0.8333vw] items-stretch min-h-[40.1389vw]">
+    <section className="services-contact-section relative w-full min-h-[50.9722vw] py-[5.4167vw] px-[0.8333vw] bg-black text-white flex flex-col justify-center">
+      <div className="services-contact-grid w-full grid grid-cols-12 gap-[0.8333vw] items-stretch min-h-[40.1389vw]">
         
         {/* Left Side: Statement & Pitch Deck Card (Columns 1 to 6) */}
-        <div className="col-span-12 lg:col-span-6 flex flex-col justify-between items-start min-h-[40.1389vw]">
+        <div className="services-contact-left col-span-12 lg:col-span-6 flex flex-col justify-between items-start min-h-[40.1389vw]">
           
           {/* Paragraph Statement */}
-          <div className="w-full max-w-[48.3333vw]">
+          <div className="services-contact-intro-statement w-full max-w-[48.3333vw]">
             <p className="text-[1.5278vw] font-bold tracking-[-0.03em] leading-[1.14] text-white">
               We don’t just do some good designs, we actually look for your pain point, work on it and solve it. So the outcome is not just good visually, it is functional as well.
             </p>
@@ -97,11 +97,11 @@ export default function ServicesContactSection() {
             </p>
           </div>
 
-          {/* 1:1 Pitch Deck Download Card (Frame 51: 223px x 97px -> 15.4861vw x 6.7361vw) */}
+          {/* 1:1 Pitch Deck Download Card (Desktop: Frame 51) */}
           <a
             href="/Norque-Pitch-Deck.pdf"
             download="Norque-Pitch-Deck.pdf"
-            className="group relative w-[15.4861vw] h-[6.7361vw] rounded-[0.2778vw] overflow-hidden cursor-pointer select-none block transition-transform duration-300 hover:scale-[1.02] shadow-xl mt-[2.7778vw] lg:mt-0"
+            className="group relative w-[15.4861vw] h-[6.7361vw] rounded-[0.2778vw] overflow-hidden cursor-pointer select-none block transition-transform duration-300 hover:scale-[1.02] shadow-xl mt-[2.7778vw] lg:mt-0 max-md:hidden"
             aria-label="Download Norque's Pitch Deck PDF"
           >
             {/* Card Background Image & Dark Overlay */}
@@ -154,11 +154,37 @@ export default function ServicesContactSection() {
             </div>
           </a>
 
+          {/* 1:1 Mobile Pitch Deck Download Card (Figma Node 26:686) */}
+          <a
+            href="/Norque-Pitch-Deck.pdf"
+            download="Norque-Pitch-Deck.pdf"
+            className="services-pitch-deck-card hidden max-md:flex bg-[#3c3c3c] h-[56px] items-center justify-between px-[14px] py-[10px] rounded-[4px] w-full cursor-pointer hover:bg-[#484848] transition-colors"
+            aria-label="Download Norque's Pitch Deck PDF"
+          >
+            <div className="flex gap-[13px] items-center">
+              <svg className="w-[24px] h-[24px] text-white flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+                <polyline points="10 9 9 9 8 9" />
+              </svg>
+              <span className="text-[16px] font-semibold tracking-[-0.48px] text-white">
+                NORQUE’s Pitch Deck
+              </span>
+            </div>
+            <div className="bg-black/50 px-[12px] py-[8px] rounded-[4px] flex items-center justify-center">
+              <span className="text-[12px] font-semibold tracking-[-0.36px] text-white leading-none">
+                PDF - 24.6 MB
+              </span>
+            </div>
+          </a>
+
         </div>
 
         {/* Right Side: Replicated Contact Form (Columns 7 to 12) */}
-        <div className="col-span-12 lg:col-span-6 flex flex-col items-end justify-center min-h-[40.1389vw]">
-          <div className="w-full max-w-[46.0417vw] h-full flex flex-col justify-between">
+        <div className="services-contact-right col-span-12 lg:col-span-6 flex flex-col items-end justify-center min-h-[40.1389vw]">
+          <div className="services-contact-form-wrap w-full max-w-[46.0417vw] h-full flex flex-col justify-between">
             <AnimatePresence mode="wait">
               {!isSubmitted ? (
                 <motion.form
@@ -170,11 +196,11 @@ export default function ServicesContactSection() {
                   className="w-full flex flex-col justify-between h-full"
                 >
                   {/* Inner Form Fields (Stack Spacing: 1.25vw = 18px) */}
-                  <div className="w-full space-y-[1.25vw]">
+                  <div className="services-form-field-group w-full space-y-[1.25vw]">
                     
                     {/* Field 1: Name* */}
-                    <div className="w-full">
-                      <label className="block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                    <div className="services-form-item w-full">
+                      <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
                         Name*
                       </label>
                       <input
@@ -183,13 +209,13 @@ export default function ServicesContactSection() {
                         onChange={(e) => setName(e.target.value)}
                         placeholder="e.g. John Mark"
                         required
-                        className="w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
+                        className="services-form-input w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
                       />
                     </div>
 
                     {/* Field 2: Phone Number* */}
-                    <div className="w-full">
-                      <label className="block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                    <div className="services-form-item w-full">
+                      <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
                         Phone Number*
                       </label>
                       <input
@@ -198,13 +224,13 @@ export default function ServicesContactSection() {
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="e.g. +971 XX XXX XXXX"
                         required
-                        className="w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
+                        className="services-form-input w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
                       />
                     </div>
 
                     {/* Field 3: Email* */}
-                    <div className="w-full">
-                      <label className="block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                    <div className="services-form-item w-full">
+                      <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
                         Email*
                       </label>
                       <input
@@ -213,13 +239,13 @@ export default function ServicesContactSection() {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="e.g. jo.......@gmail.com"
                         required
-                        className="w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
+                        className="services-form-input w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
                       />
                     </div>
 
                     {/* Field 4: Company Name */}
-                    <div className="w-full">
-                      <label className="block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                    <div className="services-form-item w-full">
+                      <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
                         Company Name
                       </label>
                       <input
@@ -227,13 +253,13 @@ export default function ServicesContactSection() {
                         value={company}
                         onChange={(e) => setCompany(e.target.value)}
                         placeholder="e.g. PLATO Design House"
-                        className="w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
+                        className="services-form-input w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
                       />
                     </div>
 
                     {/* Field 5: Your Website Link (optional) */}
-                    <div className="w-full">
-                      <label className="block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                    <div className="services-form-item w-full">
+                      <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
                         Your Website Link (optional)
                       </label>
                       <input
@@ -241,16 +267,16 @@ export default function ServicesContactSection() {
                         value={website}
                         onChange={(e) => setWebsite(e.target.value)}
                         placeholder="Add your URL here"
-                        className="w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
+                        className="services-form-input w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
                       />
                     </div>
 
                     {/* Field 6: Project Type Pills */}
-                    <div className="w-full">
-                      <label className="block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.6944vw] leading-none">
+                    <div className="services-form-item w-full">
+                      <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.6944vw] leading-none">
                         Project Type
                       </label>
-                      <div className="flex flex-wrap items-center gap-[0.6944vw]">
+                      <div className="services-form-pills flex flex-wrap items-center gap-[0.6944vw]">
                         {PROJECT_TYPES.map((type) => {
                           const isSelected = selectedTypes.includes(type);
                           return (
@@ -258,7 +284,7 @@ export default function ServicesContactSection() {
                               type="button"
                               key={type}
                               onClick={() => toggleProjectType(type)}
-                              className={`h-[1.5972vw] px-[0.8333vw] rounded-full text-[0.6944vw] font-semibold tracking-[-0.03em] flex items-center justify-center transition-colors duration-150 cursor-pointer select-none ${
+                              className={`services-pill-btn h-[1.5972vw] px-[0.8333vw] rounded-full text-[0.6944vw] font-semibold tracking-[-0.03em] flex items-center justify-center transition-colors duration-150 cursor-pointer select-none ${
                                 isSelected
                                   ? 'bg-white text-black'
                                   : 'bg-[#171717] text-[#666666] hover:text-[#999999]'
@@ -272,11 +298,11 @@ export default function ServicesContactSection() {
                     </div>
 
                     {/* Field 7: Expected Budget Pills */}
-                    <div className="w-full">
-                      <label className="block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.6944vw] leading-none">
+                    <div className="services-form-item w-full">
+                      <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.6944vw] leading-none">
                         Expected Budget
                       </label>
-                      <div className="flex flex-wrap items-center gap-[0.6944vw]">
+                      <div className="services-form-pills flex flex-wrap items-center gap-[0.6944vw]">
                         {BUDGET_OPTIONS.map((opt) => {
                           const isSelected = selectedBudget === opt;
                           return (
@@ -284,7 +310,7 @@ export default function ServicesContactSection() {
                               type="button"
                               key={opt}
                               onClick={() => setSelectedBudget(selectedBudget === opt ? '' : opt)}
-                              className={`h-[1.5972vw] px-[0.8333vw] rounded-full text-[0.6944vw] font-semibold tracking-[-0.03em] flex items-center justify-center transition-colors duration-150 cursor-pointer select-none ${
+                              className={`services-pill-btn h-[1.5972vw] px-[0.8333vw] rounded-full text-[0.6944vw] font-semibold tracking-[-0.03em] flex items-center justify-center transition-colors duration-150 cursor-pointer select-none ${
                                 isSelected
                                   ? 'bg-white text-black'
                                   : 'bg-[#171717] text-[#666666] hover:text-[#999999]'
@@ -298,14 +324,14 @@ export default function ServicesContactSection() {
                     </div>
 
                     {/* Field 8: How did you hear about us? Dropdown */}
-                    <div className="w-full relative" ref={dropdownRef}>
-                      <label className="block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                    <div className="services-form-item w-full relative" ref={dropdownRef}>
+                      <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
                         How did you hear about us?
                       </label>
                       <button
                         type="button"
                         onClick={() => setIsSourceOpen(!isSourceOpen)}
-                        className="w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold flex items-center justify-between cursor-pointer border-none outline-none select-none"
+                        className="services-form-input w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold flex items-center justify-between cursor-pointer border-none outline-none select-none"
                       >
                         <span className={source === 'Select your option' ? 'text-[#666666]' : 'text-white'}>
                           {source}
@@ -346,8 +372,8 @@ export default function ServicesContactSection() {
                     </div>
 
                     {/* Field 9: Something specific you want to talk about? */}
-                    <div className="w-full">
-                      <label className="block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                    <div className="services-form-item w-full">
+                      <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
                         Something specific you want to talk about?
                       </label>
                       <div className="relative w-full">
@@ -356,7 +382,7 @@ export default function ServicesContactSection() {
                           value={details}
                           onChange={(e) => setDetails(e.target.value)}
                           placeholder="Add more details..."
-                          className="w-full h-[4.9306vw] bg-[#171717] rounded-[0.1389vw] p-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all resize-none border-none block"
+                          className="services-form-textarea w-full h-[4.9306vw] bg-[#171717] rounded-[0.1389vw] p-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all resize-none border-none block"
                         />
                         {/* Figma Resize Gripper Icon (Two 45-degree diagonal lines) */}
                         <div className="absolute bottom-[0.4167vw] right-[0.4167vw] pointer-events-none select-none">
@@ -376,14 +402,16 @@ export default function ServicesContactSection() {
 
                   </div>
 
-                  {/* Submit Button (Frame: 109px x 24px -> 7.5694vw x 1.6667vw, Stack Spacing: 1.6667vw below inner form) */}
+                  {/* Submit Button */}
                   <div className="mt-[1.6667vw] flex items-center justify-start">
                     <button
                       type="submit"
-                      className="w-[7.5694vw] h-[1.6667vw] rounded-full bg-white text-black text-[0.6944vw] font-semibold tracking-[-0.03em] flex items-center justify-center cursor-pointer hover:bg-white/90 active:scale-95 transition-all select-none"
+                      className="services-form-submit-btn w-[7.5694vw] h-[1.6667vw] rounded-full bg-white text-black text-[0.6944vw] font-semibold tracking-[-0.03em] flex items-center justify-center cursor-pointer hover:bg-white/90 active:scale-95 transition-all select-none"
                     >
                       Submit Your Info
                     </button>
+                  </div>
+                </motion.form>
                   </div>
                 </motion.form>
               ) : (

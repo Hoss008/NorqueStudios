@@ -16,6 +16,13 @@ export default function Hero({ onNavigate, onOpenContact, hasIntroPlayed = false
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const videoRef = useRef(null);
 
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+    }
+  }, []);
+
   // 1. Splash screen synchronization (2.5s)
   useEffect(() => {
     if (hasIntroPlayed) {
@@ -96,6 +103,7 @@ export default function Hero({ onNavigate, onOpenContact, hasIntroPlayed = false
           ref={videoRef}
           autoPlay={hasIntroPlayed}
           muted
+          defaultMuted={true}
           loop
           playsInline
           poster={heroPoster}

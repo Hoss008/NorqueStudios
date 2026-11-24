@@ -72,7 +72,7 @@ export default function AxisProjectPage({ onNavigate }) {
   }, []);
 
   return (
-    <div className="project-page-root w-full min-h-screen bg-[#170103] text-white font-beausite selection:bg-white selection:text-black overflow-x-clip">
+    <div className="project-page-root w-full min-h-screen bg-[#170103] text-white font-beausite selection:bg-white selection:text-black">
       
       {/* ─── 1. HERO SECTION: Exactly 100% Viewport Height (Cover + Description) ─── */}
       <section ref={heroRef} className="project-hero-section w-full min-h-screen md:h-screen md:min-h-[100dvh] flex flex-col justify-start overflow-hidden">

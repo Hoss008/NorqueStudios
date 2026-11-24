@@ -3,6 +3,7 @@ import AboutHero from './about/AboutHero';
 import AboutTeam from './about/AboutTeam';
 import AboutNews from './about/AboutNews';
 import Footer from './Footer';
+import './about/AboutMobile.css';
 
 /* ========================================================================= */
 /* ABOUT PAGE VIEW COMPONENT                                                 */
@@ -14,9 +15,9 @@ export default function AboutPage({ onNavigate, onOpenCMS, onOpenContact }) {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-black text-white font-beausite selection:bg-white selection:text-black overflow-x-clip">
+    <div className="about-page-container w-full min-h-screen bg-black text-white font-beausite selection:bg-white selection:text-black">
       {/* Spacer to make up for 36px (2.5vw) pinned navigation bar */}
-      <div className="w-full h-[2.5vw]" aria-hidden="true" />
+      <div className="about-nav-spacer w-full h-[56px] sm:h-[2.5vw]" aria-hidden="true" />
 
       {/* Main Content Sections */}
       <main className="w-full">

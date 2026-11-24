@@ -1,5 +1,18 @@
 import React, { useState, useMemo } from 'react';
 import { useWorksData } from '../data/worksStore';
+import mmsFallback from '../assets/project-mms.png';
+import juzenasFallback from '../assets/project-studio-juzenas.png';
+import axisFallback from '../assets/project-axis.png';
+import fusionFallback from '../assets/project-fusion-form.png';
+
+function getFallbackImage(titleOrId) {
+  const t = (titleOrId || '').toLowerCase();
+  if (t.includes('mms')) return mmsFallback;
+  if (t.includes('juzenas')) return juzenasFallback;
+  if (t.includes('axis')) return axisFallback;
+  if (t.includes('fusion')) return fusionFallback;
+  return null;
+}
 
 /* ========================================================================= */
 /* SELECTED WORKS COMPONENT                                                  */
@@ -41,20 +54,20 @@ export default function SelectedWorks({ onNavigate }) {
   };
 
   return (
-    <section id="works" className="w-full bg-black py-[2.7778vw]">
+    <section id="works" className="selected-works-section w-full bg-black py-[2.7778vw]">
       {/* Universal Container Margin: 12px (0.8333vw) */}
-      <div className="w-full px-[0.8333vw]">
+      <div className="selected-works-container w-full px-[0.8333vw]">
         {/* Section Heading */}
-        <h2 className="text-[3.1944vw] font-medium tracking-[-0.03em] leading-none text-white mb-[1.6667vw] flex items-start motion-blur-target">
+        <h2 className="selected-works-heading text-[3.1944vw] font-medium tracking-[-0.03em] leading-none text-white mb-[1.6667vw] flex items-start motion-blur-target">
           <span>SELECTED WORKS</span>
-          <span className="text-[1.3889vw] font-medium ml-[0.35vw] leading-none tracking-[-0.03em] select-none">
+          <span className="selected-works-count text-[1.3889vw] font-medium ml-[0.35vw] leading-none tracking-[-0.03em] select-none">
             ({countFormatted})
           </span>
         </h2>
 
         {/* 2-Column Responsive Portfolio Grid */}
         <div 
-          className="grid grid-cols-1 md:grid-cols-2 gap-x-[0.8333vw] gap-y-[2.5vw]"
+          className="selected-works-grid grid grid-cols-1 md:grid-cols-2 gap-x-[0.8333vw] gap-y-[2.5vw]"
           onMouseLeave={() => setHoveredId(null)}
         >
           {selectedProjects.map((project) => {
@@ -65,10 +78,10 @@ export default function SelectedWorks({ onNavigate }) {
                 onClick={() => handleProjectClick(project)}
                 onMouseEnter={() => setHoveredId(project.id)}
                 onMouseLeave={() => setHoveredId(null)}
-                className="group cursor-pointer select-none"
+                className="selected-works-card group cursor-pointer select-none"
               >
                 {/* Media Card (345x230 ratio = 1.5 aspect, rounded-[2px], matching Works Page) */}
-                <div className="relative w-full aspect-[345/230] rounded-[2px] overflow-hidden bg-[#111111] border border-white/5">
+                <div className="selected-works-media relative w-full aspect-[345/230] rounded-[2px] overflow-hidden bg-[#111111] border border-white/5">
                   <img 
                     src={project.image} 
                     alt={project.title} 
@@ -80,7 +93,10 @@ export default function SelectedWorks({ onNavigate }) {
                     loading="lazy"
                     decoding="async"
                     onError={(e) => {
-                      e.currentTarget.src = '/images/works/studio-juzenas.png';
+                      const fallback = getFallbackImage(project.id || project.title);
+                      if (fallback && e.currentTarget.src !== fallback) {
+                        e.currentTarget.src = fallback;
+                      }
                     }}
                   />
 
@@ -98,9 +114,9 @@ export default function SelectedWorks({ onNavigate }) {
                 </div>
 
                 {/* Project Meta Details (Matching Works Page typography & layout) */}
-                <div className="w-full mt-[0.625vw] flex items-start justify-between">
+                <div className="selected-works-meta w-full mt-[0.625vw] flex items-start justify-between">
                   <div className="flex flex-col">
-                    <h3 className="text-[0.6944vw] font-semibold tracking-[-0.03em] uppercase text-white leading-tight">
+                    <h3 className="selected-works-title text-[0.6944vw] font-semibold tracking-[-0.03em] uppercase text-white leading-tight">
                       {project.title}
                     </h3>
                     {(project.selectedCategory || project.subtitle || project.category) && (
@@ -109,7 +125,7 @@ export default function SelectedWorks({ onNavigate }) {
                       </p>
                     )}
                   </div>
-                  <span className="text-[0.6944vw] font-semibold tracking-[-0.03em] uppercase text-white leading-tight text-right">
+                  <span className="selected-works-location text-[0.6944vw] font-semibold tracking-[-0.03em] uppercase text-white leading-tight text-right">
                     {project.location}
                   </span>
                 </div>
@@ -119,9 +135,9 @@ export default function SelectedWorks({ onNavigate }) {
         </div>
 
         {/* ─── CTA: Discover more projects! ─── */}
-        <div className="w-full mt-[3.2639vw] flex flex-col items-center text-center select-none">
+        <div className="selected-works-cta w-full mt-[3.2639vw] flex flex-col items-center text-center select-none">
           {/* CTA Heading */}
-          <h3 className="text-[1.5278vw] font-bold tracking-[-0.03em] leading-none text-white motion-blur-target">
+          <h3 className="selected-works-cta-title text-[1.5278vw] font-bold tracking-[-0.03em] leading-none text-white motion-blur-target">
             Discover more projects!
           </h3>
 
@@ -130,7 +146,7 @@ export default function SelectedWorks({ onNavigate }) {
             href="https://www.behance.net/norquestudios/"
             target="_blank"
             rel="noopener noreferrer"
-            className="group mt-[1.1111vw] inline-flex items-center gap-x-[0.2778vw] text-[0.6944vw] font-semibold tracking-[-0.03em] text-white hover:opacity-70 transition-opacity"
+            className="selected-works-cta-button group mt-[1.1111vw] inline-flex items-center gap-x-[0.2778vw] text-[0.6944vw] font-semibold tracking-[-0.03em] text-white hover:opacity-70 transition-opacity"
           >
             <span className="underline underline-offset-[0.2083vw] decoration-white">
               Discover more

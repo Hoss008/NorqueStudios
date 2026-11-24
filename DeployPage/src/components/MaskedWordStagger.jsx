@@ -64,7 +64,7 @@ export default function MaskedWordStagger({
   stagger = 0.1,
   duration,
   ease,
-  amount = 0.15,
+  amount = 0.05,
   as: Component = 'div',
 }) {
   const containerRef = useRef(null);

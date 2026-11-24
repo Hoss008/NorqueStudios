@@ -1,6 +1,7 @@
 import React, { useEffect, Suspense, lazy } from 'react';
 import Hero from './Hero';
 import Showcase from './Showcase';
+import './HomeMobile.css';
 
 // Lazy-loaded below-the-fold sections (Hero & Showcase GIF load first)
 const SelectedWorks = lazy(() => import('./SelectedWorks'));

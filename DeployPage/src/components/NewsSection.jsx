@@ -79,10 +79,10 @@ function NewsCard({ item, onNavigate }) {
           onNavigate('project-stephenson');
         }
       }}
-      className={`w-full will-change-[transform,opacity] flex flex-col group ${isStephenson ? 'cursor-pointer' : 'cursor-default'}`}
+      className={`news-home-card w-full will-change-[transform,opacity] flex flex-col group ${isStephenson ? 'cursor-pointer' : 'cursor-default'}`}
     >
       {/* Image Frame - 1:1 Aspect Ratio with Rounded Corners */}
-      <div className="relative w-full overflow-hidden rounded-[2px] bg-[#121212] aspect-square">
+      <div className="news-home-card-media relative w-full overflow-hidden rounded-[2px] bg-[#121212] aspect-square">
         <div className="w-full h-full relative transition-transform duration-500 ease-out group-hover:scale-[1]">
           <img
             src={item.image}
@@ -95,11 +95,11 @@ function NewsCard({ item, onNavigate }) {
       </div>
 
       {/* Text Metadata */}
-      <div className="pt-[0.6944vw] space-y-[0.3472vw] motion-blur-target">
-        <h3 className="text-[13px] md:text-[0.6944vw] font-semibold tracking-[-0.03em] text-white leading-[1.25]">
+      <div className="news-home-card-meta pt-[0.6944vw] space-y-[0.3472vw] motion-blur-target flex flex-col">
+        <h3 className="news-home-card-title text-[13px] md:text-[0.6944vw] font-semibold tracking-[-0.03em] text-white leading-[1.25]">
           {item.title}
         </h3>
-        <p className="text-[12px] md:text-[0.625vw] font-semibold tracking-[-0.016em] text-[#747474] leading-[1.2]">
+        <p className="news-home-card-desc text-[12px] md:text-[0.625vw] font-semibold tracking-[-0.016em] text-[#747474] leading-[1.2]">
           {item.description}
         </p>
       </div>
@@ -109,22 +109,22 @@ function NewsCard({ item, onNavigate }) {
 
 export default function NewsSection({ onNavigate }) {
   return (
-    <section className="w-full bg-black pt-[2.7778vw] pb-[0vw]">
+    <section className="news-home-section w-full bg-black pt-[2.7778vw] pb-[0vw]">
       {/* Universal Container Margin: 12px (0.8333vw) */}
-      <div className="w-full px-[0.8333vw]">
+      <div className="news-home-container w-full px-[0.8333vw]">
         {/* Section Header */}
-        <div className="flex justify-between items-end mb-[1.6667vw] motion-blur-target">
-          <h2 className="text-[3.1944vw] font-semibold tracking-[-0.03em] leading-none text-white select-none uppercase">
+        <div className="news-home-header flex justify-between items-end mb-[1.6667vw] motion-blur-target">
+          <h2 className="news-home-title text-[3.1944vw] font-semibold tracking-[-0.03em] leading-none text-white select-none uppercase">
             WHAT’S HAPPENING NOW
           </h2>
-          <span className="text-[0.6944vw] font-semibold tracking-[-0.03em] text-[#747474] pb-[0.2778vw] select-none">
+          <span className="news-home-subtitle text-[0.6944vw] font-semibold tracking-[-0.03em] text-[#747474] pb-[0.2778vw] select-none">
             Below you will find latest news
           </span>
         </div>
 
         {/* 4-Column Updates Grid */}
         <motion.div 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[0.8333vw]"
+          className="news-home-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[0.8333vw]"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"

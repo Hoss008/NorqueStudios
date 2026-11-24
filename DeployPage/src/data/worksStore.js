@@ -50,6 +50,33 @@ export async function compressImage(file, maxWidth = 1200, maxHeight = 800, qual
 }
 
 /**
+ * Fuzzy keyword matcher to match items against default works
+ */
+function findMatchingDefault(item) {
+  if (!item) return null;
+  const rawId = (item.id || '').toLowerCase();
+  const rawTitle = (item.title || '').toLowerCase();
+
+  return (defaultWorks || []).find((def) => {
+    const defId = (def.id || '').toLowerCase();
+    const defTitle = (def.title || '').toLowerCase();
+
+    // 1. Exact ID or Title match
+    if (item.id && def.id && item.id === def.id) return true;
+    if (item.title && def.title && item.title === def.title) return true;
+
+    // 2. Fuzzy keyword matches for core portfolio projects
+    if ((rawId.includes('mms') || rawTitle.includes('mms')) && (defId.includes('mms') || defTitle.includes('mms'))) return true;
+    if ((rawId.includes('juzenas') || rawTitle.includes('juzenas')) && (defId.includes('juzenas') || defTitle.includes('juzenas'))) return true;
+    if ((rawId.includes('stephenson') || rawTitle.includes('stephenson')) && (defId.includes('stephenson') || defTitle.includes('stephenson'))) return true;
+    if ((rawId.includes('axis') || rawTitle.includes('axis')) && (defId.includes('axis') || defTitle.includes('axis'))) return true;
+    if ((rawId.includes('fusion') || rawTitle.includes('fusion')) && (defId.includes('fusion') || defTitle.includes('fusion'))) return true;
+
+    return false;
+  });
+}
+
+/**
  * Retrieve current works list: memory -> localStorage -> works.json
  */
 export function getWorks() {
@@ -65,23 +92,45 @@ export function getWorks() {
       if (raw) {
         const parsed = JSON.parse(raw);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          // Merge defaults with cached items so new fields in works.json are picked up
-          const defaultMap = new Map((defaultWorks || []).map((d) => [d.id || d.title, d]));
+          let hasRepairs = false;
           const merged = parsed.map((p) => {
-            const def = defaultMap.get(p.id || p.title);
+            const def = findMatchingDefault(p);
             if (!def) return p;
+
+            // Check if the image is a valid custom data URL with substantive content
+            const isCustomDataUrl = typeof p.image === 'string' && p.image.startsWith('data:image/') && p.image.length > 200;
+            // If it's a legacy file path (like /images/works/...), empty, or invalid, upgrade to def.image
+            const image = isCustomDataUrl ? p.image : def.image;
+
+            if (image !== p.image) {
+              hasRepairs = true;
+            }
+
             return {
               ...def,
               ...p,
+              id: def.id || p.id,
+              title: def.title || p.title,
+              image,
               selectedCategory: p.selectedCategory !== undefined ? p.selectedCategory : def.selectedCategory,
               selectedWork: p.selectedWork !== undefined ? p.selectedWork : def.selectedWork
             };
           });
-          const existingIds = new Set(parsed.map((p) => p.id || p.title));
-          const missing = (defaultWorks || []).filter(
-            (d) => !existingIds.has(d.id || d.title)
-          );
+
+          const existingIds = new Set(merged.map((p) => (p.id || p.title || '').toLowerCase()));
+          const missing = (defaultWorks || []).filter((d) => {
+            const dKey = (d.id || d.title || '').toLowerCase();
+            return !existingIds.has(dKey) && !merged.some((m) => findMatchingDefault(m)?.id === d.id);
+          });
+
           list = [...merged, ...missing];
+
+          // Persist the repaired list back to localStorage so the browser cache is permanently fixed
+          if (hasRepairs || missing.length > 0) {
+            try {
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+            } catch (err) {}
+          }
         }
       }
     } catch (e) {

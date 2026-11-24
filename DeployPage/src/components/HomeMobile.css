@@ -1,0 +1,346 @@
+/* ========================================================================= */
+/* HOME PAGE MOBILE MEDIA QUERIES (1:1 FIGMA DEV MOOD: NODE 21:42)           */
+/* Encapsulated within @media (max-width: 768px) and @media (max-width: 1023px)*/
+/* Guaranteed zero impact on desktop layout (>= 1024px)                     */
+/* ========================================================================= */
+
+@media (max-width: 768px) {
+  /* Section 1: Hero Section */
+  .hero-statement-container {
+    top: auto !important;
+    bottom: calc(28px + 1.25rem) !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .hero-statement-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: flex-end !important;
+  }
+
+  .hero-statement-text {
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.03em !important;
+    font-weight: 600 !important;
+  }
+
+  .hero-statement-left {
+    max-width: 55% !important;
+  }
+
+  .hero-statement-right {
+    max-width: 45% !important;
+    text-align: right !important;
+  }
+
+  .hero-logo-container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    padding-bottom: 0.75rem !important;
+  }
+
+  /* Section 2: Showcase / Recent Works */
+  .showcase-pin-track {
+    height: auto !important;
+  }
+
+  .showcase-sticky-window {
+    position: relative !important;
+    height: auto !important;
+    padding-top: 2.5rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .showcase-media-box {
+    aspect-ratio: 345 / 357.6 !important;
+    clip-path: none !important;
+    transform: none !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+  }
+
+  .showcase-image-inner {
+    transform: none !important;
+  }
+
+  .showcase-caption-row {
+    opacity: 1 !important;
+    margin-top: 0.625rem !important;
+    padding-top: 0 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+  }
+
+  .showcase-caption-text {
+    font-size: 10px !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.03em !important;
+    color: #747474 !important;
+    max-width: 75% !important;
+  }
+
+  .showcase-caption-year {
+    font-size: 10px !important;
+    letter-spacing: -0.03em !important;
+    color: #747474 !important;
+  }
+
+  .showcase-manifesto-container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .showcase-manifesto-inner {
+    padding-top: 1.75rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  .showcase-manifesto-wrap {
+    max-width: 100% !important;
+  }
+
+  .showcase-manifesto-text,
+  .showcase-manifesto-text p,
+  .showcase-manifesto-text [data-p-idx] {
+    font-size: 18px !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.03em !important;
+    font-weight: 700 !important;
+  }
+
+  .showcase-manifesto-text .space-y-\[1\.5278vw\] > * + * {
+    margin-top: 18px !important;
+  }
+
+  /* Section 3: Selected Works (04) */
+  .selected-works-section {
+    padding-top: 5.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  .selected-works-container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .selected-works-heading {
+    font-size: 32px !important;
+    line-height: 1 !important;
+    letter-spacing: -0.03em !important;
+    font-weight: 600 !important;
+    margin-bottom: 1.75rem !important;
+  }
+
+  .selected-works-count {
+    font-size: 20.64px !important;
+    letter-spacing: -0.03em !important;
+    margin-left: 0.35rem !important;
+  }
+
+  .selected-works-grid {
+    grid-template-columns: 1fr !important;
+    row-gap: 1.75rem !important;
+  }
+
+  .selected-works-media {
+    aspect-ratio: 345 / 248 !important;
+    border-radius: 2px !important;
+  }
+
+  .selected-works-meta {
+    margin-top: 0.625rem !important;
+  }
+
+  .selected-works-title {
+    font-size: 12px !important;
+    letter-spacing: -0.03em !important;
+    line-height: 1.2 !important;
+  }
+
+  .selected-works-location {
+    font-size: 12px !important;
+    letter-spacing: -0.03em !important;
+    line-height: 1.2 !important;
+  }
+
+  .selected-works-cta {
+    margin-top: 2rem !important;
+  }
+
+  .selected-works-cta-title {
+    font-size: 22px !important;
+    letter-spacing: -0.03em !important;
+    font-weight: 700 !important;
+  }
+
+  .selected-works-cta-button {
+    margin-top: 0.85rem !important;
+    font-size: 14px !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  .selected-works-cta-button svg {
+    width: 10px !important;
+    height: 10px !important;
+  }
+
+  /* Section 4: What's Happening Now (2x2 Grid) */
+  .news-home-section {
+    padding-top: 5.5rem !important;
+    padding-bottom: 0 !important;
+  }
+
+  .news-home-container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .news-home-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.35rem !important;
+    margin-bottom: 1.75rem !important;
+  }
+
+  .news-home-title {
+    font-size: 32px !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.03em !important;
+    font-weight: 600 !important;
+  }
+
+  .news-home-subtitle {
+    font-size: 10px !important;
+    letter-spacing: -0.03em !important;
+    color: #747474 !important;
+  }
+
+  .news-home-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.625rem !important;
+  }
+
+  .news-home-card-media {
+    aspect-ratio: 180 / 220 !important;
+    border-radius: 2px !important;
+  }
+
+  .news-home-card-meta {
+    padding-top: 0.625rem !important;
+    gap: 0.35rem !important;
+  }
+
+  .news-home-card-title {
+    font-size: 12px !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  .news-home-card-desc {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  /* Section 5: Philosophy Manifesto */
+  .philosophy-section {
+    padding-top: 5.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  .philosophy-container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .philosophy-inner {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    gap: 1.75rem !important;
+  }
+
+  .philosophy-text-block {
+    width: calc(100% - 75px) !important;
+  }
+
+  .philosophy-text,
+  .philosophy-text p,
+  .philosophy-text [data-p-idx] {
+    font-size: 18px !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.03em !important;
+    font-weight: 700 !important;
+  }
+
+  .philosophy-text .space-y-\[1\.5278vw\] > * + * {
+    margin-top: 18px !important;
+  }
+
+  .philosophy-logo-block {
+    width: 58px !important;
+    height: 58px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Section 6: Done By Humans */
+  .done-by-humans-section {
+    margin-bottom: 0 !important;
+    padding-top: 2rem !important;
+  }
+
+  .done-by-humans-hero {
+    height: 706px !important;
+    padding-top: 1.75rem !important;
+    padding-bottom: 1.75rem !important;
+  }
+
+  .done-by-humans-logo-wrap {
+    padding-top: 0 !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  .done-by-humans-logo-inner {
+    max-width: 100% !important;
+  }
+
+  .done-by-humans-desktop-logo {
+    display: none !important;
+  }
+
+  .done-by-humans-mobile-logo {
+    display: flex !important;
+  }
+
+  .done-by-humans-bottom-wrap {
+    padding-bottom: 0 !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  .done-by-humans-circle-wrap {
+    width: 31px !important;
+    height: 31px !important;
+    margin-bottom: 0.875rem !important;
+  }
+
+  .done-by-humans-statement-wrap {
+    max-width: 100% !important;
+  }
+
+  .done-by-humans-statement-text,
+  .done-by-humans-statement-text p,
+  .done-by-humans-statement-text [data-p-idx] {
+    font-size: 18px !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.03em !important;
+    font-weight: 700 !important;
+  }
+}

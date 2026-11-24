@@ -1,0 +1,274 @@
+/* ========================================================================= */
+/* ABOUT PAGE MOBILE MEDIA QUERIES (1:1 FIGMA DEV MOOD: NODE 1:2)            */
+/* Encapsulated within @media (max-width: 768px) and @media (max-width: 1023px)*/
+/* Guaranteed zero impact on desktop layout (>= 1024px)                     */
+/* ========================================================================= */
+
+@media (max-width: 1023px) {
+  /* Section A: AboutHero Reordering & 2-Col Directory */
+  .about-hero-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    row-gap: 2rem !important;
+    column-gap: 1rem !important;
+  }
+
+  .about-hero-manifesto-col {
+    display: contents !important;
+  }
+
+  .about-hero-text-block {
+    grid-column: span 2 !important;
+    order: 1 !important;
+  }
+
+  .about-hero-services-block {
+    grid-column: span 1 !important;
+    order: 2 !important;
+  }
+
+  .about-hero-countries-block {
+    grid-column: span 1 !important;
+    order: 2 !important;
+  }
+
+  .about-hero-media-block {
+    grid-column: span 2 !important;
+    order: 3 !important;
+    margin-top: 1.5rem !important;
+  }
+
+  .about-hero-media-block img {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 609 / 820 !important;
+    max-height: 540px !important;
+    object-fit: cover !important;
+    filter: none !important;
+    border-radius: 4px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Global Page Mobile Padding & Spacers */
+  .about-nav-spacer {
+    height: 56px !important;
+  }
+
+  /* Section A: Hero Manifesto */
+  .about-hero-section {
+    padding-top: 1.25rem !important;
+    padding-bottom: 2.5rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .about-hero-manifesto-text,
+  .about-hero-manifesto-text p,
+  .about-hero-manifesto-text [data-p-idx],
+  .about-hero-manifesto-text .block {
+    font-size: 18px !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.03em !important;
+    font-weight: 700 !important;
+  }
+
+  .about-hero-manifesto-text .space-y-\[1\.5278vw\] > * + * {
+    margin-top: 18px !important;
+  }
+
+  .about-hero-directory-title {
+    font-size: 11px !important;
+    letter-spacing: -0.03em !important;
+    margin-bottom: 0.875rem !important;
+  }
+
+  .about-hero-directory-item {
+    font-size: 12px !important;
+    line-height: 1.35 !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  /* Section B: Team & Founders */
+  .about-team-section {
+    padding-top: 2rem !important;
+    padding-bottom: 2.5rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .about-team-title {
+    font-size: 32px !important;
+    line-height: 1 !important;
+    letter-spacing: -0.03em !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .about-founders-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.25rem !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .about-founder-card {
+    width: 100% !important;
+    aspect-ratio: 609 / 843 !important;
+    border-radius: 4px !important;
+  }
+
+  .about-founder-name {
+    font-size: 18px !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  .about-founder-role {
+    font-size: 11px !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.03em !important;
+    margin-top: 0.25rem !important;
+  }
+
+  .about-team-network-statement {
+    max-width: 100% !important;
+    font-size: 18px !important;
+    line-height: 1.26 !important;
+    letter-spacing: -0.03em !important;
+    font-weight: 700 !important;
+    padding-top: 0 !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 2rem !important;
+  }
+
+  /* Core Team Horizontal Scroll Carousel */
+  .about-core-team-container {
+    display: flex !important;
+    overflow-x: auto !important;
+    gap: 1rem !important;
+    margin-left: -1rem !important;
+    margin-right: -1rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    padding-bottom: 0.75rem !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .about-core-team-card {
+    flex: 0 0 81vw !important;
+    max-width: 360px !important;
+    scroll-snap-align: start !important;
+  }
+
+  .about-core-team-media {
+    width: 100% !important;
+    aspect-ratio: 518 / 412 !important;
+    border-radius: 4px !important;
+    overflow: hidden !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .about-core-team-info {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+
+  .about-core-team-name {
+    font-size: 12px !important;
+    letter-spacing: -0.03em !important;
+    color: #ffffff !important;
+  }
+
+  .about-core-team-role {
+    font-size: 11px !important;
+    letter-spacing: -0.03em !important;
+    color: #747474 !important;
+    margin-top: 0 !important;
+  }
+
+  /* Section C: News Section */
+  .about-news-section {
+    padding-top: 2rem !important;
+    padding-bottom: 3.5rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .about-news-header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.35rem !important;
+    margin-bottom: 1.75rem !important;
+  }
+
+  .about-news-title {
+    font-size: 32px !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.03em !important;
+    max-width: 200px !important;
+    text-transform: uppercase !important;
+  }
+
+  .about-news-subtitle {
+    font-size: 11px !important;
+    letter-spacing: -0.03em !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  .about-news-card {
+    width: calc(50vw - 24px) !important;
+    min-width: 145px !important;
+  }
+
+  .about-news-card-title {
+    font-size: 12px !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  .about-news-card-desc {
+    font-size: 10.5px !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  /* Section D: Universal Footer Mobile Overrides */
+  .about-footer-container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .about-footer-callout {
+    padding-top: 1.5rem !important;
+    max-width: 100% !important;
+  }
+
+  .about-footer-callout > div {
+    max-width: 100% !important;
+  }
+
+  .about-footer-callout-text {
+    font-size: 20px !important;
+    line-height: 1.22 !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  .about-footer-magnet-lines {
+    min-height: 220px !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .about-footer-logo-wrap {
+    margin-bottom: 1.5rem !important;
+  }
+
+  .about-footer-directory {
+    font-size: 12px !important;
+    gap: 0.75rem !important;
+  }
+}

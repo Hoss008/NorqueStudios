@@ -1,6 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useWorksData, compressImage } from '../data/worksStore';
+import mmsFallback from '../assets/project-mms.png';
+import juzenasFallback from '../assets/project-studio-juzenas.png';
+import axisFallback from '../assets/project-axis.png';
+import fusionFallback from '../assets/project-fusion-form.png';
+
+function getFallbackImage(titleOrId) {
+  const t = (titleOrId || '').toLowerCase();
+  if (t.includes('mms')) return mmsFallback;
+  if (t.includes('juzenas')) return juzenasFallback;
+  if (t.includes('axis')) return axisFallback;
+  if (t.includes('fusion')) return fusionFallback;
+  return null;
+}
 
 /* ========================================================================= */
 /* WORKS PORTFOLIO CMS MODAL COMPONENT                                      */
@@ -167,7 +180,7 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
       location: formData.location.trim() || 'Worldwide',
       category: formData.category === 'Websites' ? 'Websites' : 'Branding',
       selectedCategory: formData.selectedCategory.trim() ? formData.selectedCategory.trim() : null,
-      image: formData.image || '/images/works/studio-juzenas.png',
+      image: formData.image || juzenasFallback,
       badge: formData.badge.trim() ? formData.badge.trim() : null,
       badgeBg: formData.badge.trim() ? formData.badgeBg : null,
       subtitle: formData.subtitle.trim() ? formData.subtitle.trim() : null,
@@ -475,7 +488,10 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
                             alt={project.title}
                             className="w-full h-full object-cover"
                             onError={(e) => {
-                              e.currentTarget.src = '/images/works/studio-juzenas.png';
+                              const fallback = getFallbackImage(project.id || project.title);
+                              if (fallback && e.currentTarget.src !== fallback) {
+                                e.currentTarget.src = fallback;
+                              }
                             }}
                           />
                         </div>

@@ -32,6 +32,7 @@
   transform-origin: left center;
   cursor: pointer;
   will-change: transform, opacity, filter;
+  color: var(--ow-text-color);
   color: color-mix(in srgb, var(--ow-active-color) calc(var(--ow-p, 0) * 100%), var(--ow-text-color));
   transition: font-weight 0.2s ease;
 }
@@ -45,4 +46,21 @@
 .service-option-wheel__item--selected {
   font-weight: 600;
   color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .service-option-wheel {
+    --ow-font-size: 30px !important;
+    height: 320px !important;
+  }
+
+  .service-option-wheel__item {
+    font-size: var(--ow-font-size) !important;
+    font-weight: 700 !important;
+  }
+
+  .service-option-wheel__item--selected {
+    font-weight: 700 !important;
+    color: #ffffff !important;
+  }
 }

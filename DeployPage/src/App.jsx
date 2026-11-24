@@ -98,7 +98,7 @@ export default function App() {
         lenisRef.current.stop();
       }
     } else {
-      if (lenisRef.current && currentPage !== 'works' && isSplashComplete) {
+      if (lenisRef.current && (currentPage !== 'works' || isPhone) && isSplashComplete) {
         lenisRef.current.start();
       }
     }
@@ -132,7 +132,7 @@ export default function App() {
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
     } else {
-      if (currentPage !== 'works') {
+      if (currentPage !== 'works' || isPhone) {
         document.documentElement.style.overflow = '';
         document.body.style.overflow = '';
         if (lenisRef.current && isSplashComplete) {
@@ -201,7 +201,7 @@ export default function App() {
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
       window.scrollTo(0, 0);
-      if (lenisRef.current && currentPage !== 'works') {
+      if (lenisRef.current && (currentPage !== 'works' || isPhone)) {
         lenisRef.current.scrollTo(0, { immediate: true });
         lenisRef.current.start();
       }
@@ -302,9 +302,20 @@ export default function App() {
   useEffect(() => {
     if (isPageTransitioning) return;
     if (currentPage === 'works') {
-      if (lenisRef.current) lenisRef.current.stop();
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
+      if (!isPhone) {
+        if (lenisRef.current) lenisRef.current.stop();
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        if (lenisRef.current) {
+          lenisRef.current.resize();
+          if (isSplashComplete) {
+            lenisRef.current.start();
+          }
+        }
+      }
     } else {
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
@@ -334,7 +345,7 @@ export default function App() {
     lenis.scrollTo(0, { immediate: true });
     lenisRef.current = lenis;
     window.lenis = lenis;
-    if (!isSplashComplete || currentPage === 'works') {
+    if (!isSplashComplete || (currentPage === 'works' && !checkIsPhone())) {
       lenis.stop();
     }
 
@@ -369,26 +380,41 @@ export default function App() {
       lastScrollY = currentScroll;
     });
 
+    const isSafari = typeof navigator !== 'undefined' && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
     function raf(time) {
       lenis.raf(time);
 
-      currentBlur += (targetBlur - currentBlur) * 0.28;
-      targetBlur *= 0.92;
+      const isMobile = typeof window !== 'undefined' && (
+        window.innerWidth <= 768 ||
+        /Android.*Mobile|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      );
 
-      const feBlur = document.getElementById('scroll-motion-blur-fe');
+      if (!isSafari && !isMobile) {
+        currentBlur += (targetBlur - currentBlur) * 0.28;
+        targetBlur *= 0.92;
 
-      if (feBlur) {
-        if (currentBlur > 0.08) {
-          feBlur.setAttribute('stdDeviation', `0 ${currentBlur.toFixed(2)}`);
-          if (!document.body.classList.contains('is-scrolling')) {
-            document.body.classList.add('is-scrolling');
+        const feBlur = document.getElementById('scroll-motion-blur-fe');
+
+        if (feBlur) {
+          if (currentBlur > 0.08) {
+            feBlur.setAttribute('stdDeviation', `0 ${currentBlur.toFixed(2)}`);
+            if (!document.body.classList.contains('is-scrolling')) {
+              document.body.classList.add('is-scrolling');
+            }
+          } else if (document.body.classList.contains('is-scrolling')) {
+            document.body.classList.remove('is-scrolling');
+            feBlur.setAttribute('stdDeviation', '0 0');
+            currentBlur = 0;
+            targetBlur = 0;
           }
-        } else if (document.body.classList.contains('is-scrolling')) {
-          document.body.classList.remove('is-scrolling');
-          feBlur.setAttribute('stdDeviation', '0 0');
-          currentBlur = 0;
-          targetBlur = 0;
         }
+      } else if (document.body.classList.contains('is-scrolling')) {
+        document.body.classList.remove('is-scrolling');
+        const feBlur = document.getElementById('scroll-motion-blur-fe');
+        if (feBlur) feBlur.setAttribute('stdDeviation', '0 0');
+        currentBlur = 0;
+        targetBlur = 0;
       }
 
       animationFrameId = requestAnimationFrame(raf);
@@ -438,18 +464,31 @@ export default function App() {
     };
   }, []);
 
+  const isMobileAllowedPage =
+    currentPage === 'about' ||
+    currentPage === 'home' ||
+    currentPage === 'works' ||
+    currentPage === 'services' ||
+    currentPage.startsWith('project-');
+
   useEffect(() => {
-    if (isPhone) {
+    if (isPhone && !isMobileAllowedPage) {
       if (lenisRef.current) lenisRef.current.stop();
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      if (lenisRef.current && isSplashComplete) {
+        lenisRef.current.start();
+      }
     }
-  }, [isPhone]);
+  }, [isPhone, isMobileAllowedPage, isSplashComplete]);
 
   /* ======================================================================= */
   /* MAIN RENDER WITH CINEMATIC PAGE TRANSITIONS                             */
   /* ======================================================================= */
-  if (isPhone) {
+  if (isPhone && !isMobileAllowedPage) {
     return <PhoneNotice />;
   }
 
@@ -460,7 +499,7 @@ export default function App() {
         : currentPage === 'project-axis' 
           ? 'bg-[#170103]' 
           : 'bg-black'
-    } text-white font-beausite selection:bg-white selection:text-black overflow-x-clip`}>
+    } text-white font-beausite selection:bg-white selection:text-black`}>
       {/* Initial splash screen on first visit to home page */}
       {!globalIntroHasPlayed && !isDirectNonHome && (
         <SplashScreen onComplete={handleSplashComplete} />
@@ -503,7 +542,7 @@ export default function App() {
             if (currentPage === 'home') {
               setIsBoxRevealComplete(false);
             }
-            if (currentPage !== 'works') {
+            if (currentPage !== 'works' || isPhone) {
               document.documentElement.style.overflow = '';
               document.body.style.overflow = '';
             }
@@ -511,7 +550,7 @@ export default function App() {
             if (lenisRef.current) {
               lenisRef.current.scrollTo(0, { immediate: true });
               lenisRef.current.resize();
-              if (currentPage !== 'works' && isSplashComplete) {
+              if ((currentPage !== 'works' || isPhone) && isSplashComplete) {
                 lenisRef.current.start();
               }
             }

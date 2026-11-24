@@ -6,6 +6,7 @@ const WORKFLOW_STEPS = [
   {
     number: '(01)',
     title: 'Discovery Call',
+    mobileTitle: 'Start With Questions',
     description: 'An independent creative studio built around design, digital experiences and the ideas that connect them. We work with brands, businesses and people who care about how things look, feel and exist in the real world.',
     lines: [
       'An independent creative studio built around design, digital',
@@ -19,6 +20,7 @@ const WORKFLOW_STEPS = [
   {
     number: '(02)',
     title: 'Strategy Planning',
+    mobileTitle: 'Find Your Direction',
     description: 'We dissect core goals, target audiences, and market whitespace to establish a definitive creative brief. Every subsequent design decision is anchored in strategic clarity and measurable impact.',
     lines: [
       'We dissect core goals, target audiences, and market whitespace to',
@@ -31,6 +33,7 @@ const WORKFLOW_STEPS = [
   {
     number: '(03)',
     title: 'Bespoke Architecture',
+    mobileTitle: 'Challenge the Obvious',
     description: 'Crafting bespoke digital layouts, wireframes, and design architectures. We establish tactile interaction models and typography hierarchies that elevate the user journey.',
     lines: [
       'Crafting bespoke digital layouts, wireframes, and design',
@@ -43,6 +46,7 @@ const WORKFLOW_STEPS = [
   {
     number: '(04)',
     title: 'Execution',
+    mobileTitle: 'Make It Happen',
     description: 'Bringing wireframes and prototypes to life with production-grade precision. High-performance code, fluid motion transitions, and pixel-perfect design-to-development fidelity.',
     lines: [
       'Bringing wireframes and prototypes to life with production-grade',
@@ -55,6 +59,7 @@ const WORKFLOW_STEPS = [
   {
     number: '(05)',
     title: 'Project Handover',
+    mobileTitle: 'Leave It Better',
     description: 'Seamless handover of production assets, design systems, style guides, and clean repository code. We ensure your team is empowered to scale and maintain the product effortlessly.',
     lines: [
       'Seamless handover of production assets, design systems, style',
@@ -341,7 +346,7 @@ export default function ServicesWorkflowSection() {
                   {/* Step Header */}
                   <div className="flex items-baseline space-x-[0.6vw]">
                     <span className="services-workflow-step-title text-[1.5278vw] font-semibold tracking-[-0.03em] text-white">
-                      {step.number} {step.title}
+                      {step.number} <span className="hidden max-md:inline">{step.mobileTitle || step.title}</span><span className="max-md:hidden">{step.title}</span>
                     </span>
                   </div>
 
@@ -434,11 +439,11 @@ export default function ServicesWorkflowSection() {
                 )}
 
                 {/* New Media Overlapping and Scaling Up from 0% to 100% */}
-                <AnimatePresence>
+                <AnimatePresence initial={false}>
                   <motion.div
                     key={currentStepData.media}
                     className="absolute inset-0 w-full h-full origin-center"
-                    initial={{ scale: 0, opacity: 1 }}
+                    initial={{ scale: 0.95, opacity: 0 }}
                     animate={{
                       scale: 1,
                       opacity: 1,

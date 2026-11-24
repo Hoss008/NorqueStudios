@@ -13,7 +13,7 @@
 
   /* ─── 1. HERO SECTION & OPTION WHEEL (Node 26:633) ─── */
   .services-hero-section {
-    min-height: auto !important;
+    min-height: 0 !important;
     height: auto !important;
     padding-left: 10px !important;
     padding-right: 10px !important;
@@ -47,6 +47,11 @@
     padding-top: 10px !important;
     padding-left: 0 !important;
     position: relative !important;
+  }
+
+  .services-description-container > div {
+    max-width: 100% !important;
+    min-height: auto !important;
   }
 
   .services-eyebrow {
@@ -95,7 +100,7 @@
   /* ─── 2. WORKFLOW SECTION (Node 26:647) ─── */
   .services-workflow-section {
     height: auto !important;
-    min-height: auto !important;
+    min-height: 0 !important;
     position: relative !important;
     padding: 92px 12px !important;
     overflow: hidden !important;
@@ -144,9 +149,21 @@
     height: 100% !important;
     border-radius: 2px !important;
     overflow: hidden !important;
+    position: relative !important;
+  }
+
+  .services-workflow-preview-inner > div {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    transform: none !important;
+    opacity: 1 !important;
   }
 
   .services-workflow-preview-inner img {
+    width: 100% !important;
+    height: 100% !important;
     border-radius: 2px !important;
     object-fit: cover !important;
   }

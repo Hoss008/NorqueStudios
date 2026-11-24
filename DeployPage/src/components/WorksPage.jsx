@@ -5,11 +5,15 @@ import Footer from './Footer';
 import './WorksMobile.css';
 import mmsFallback from '../assets/project-mms.png';
 import juzenasFallback from '../assets/project-studio-juzenas.png';
+import axisFallback from '../assets/project-axis.png';
+import fusionFallback from '../assets/project-fusion-form.png';
 
-function getFallbackImage(title) {
-  const t = (title || '').toLowerCase();
+function getFallbackImage(titleOrId) {
+  const t = (titleOrId || '').toLowerCase();
   if (t.includes('mms')) return mmsFallback;
   if (t.includes('juzenas')) return juzenasFallback;
+  if (t.includes('axis')) return axisFallback;
+  if (t.includes('fusion')) return fusionFallback;
   return null;
 }
 
@@ -301,7 +305,7 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
                           loading="eager"
                           draggable={false}
                           onError={(e) => {
-                            const fallback = getFallbackImage(project.title);
+                            const fallback = getFallbackImage(project.id || project.title);
                             if (fallback && e.currentTarget.src !== fallback) {
                               e.currentTarget.src = fallback;
                             }
@@ -442,7 +446,7 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
                       loading={index < 3 ? "eager" : "lazy"}
                       decoding="async"
                       onError={(e) => {
-                        const fallback = getFallbackImage(project.title);
+                        const fallback = getFallbackImage(project.id || project.title);
                         if (fallback && e.currentTarget.src !== fallback) {
                           e.currentTarget.src = fallback;
                         }
@@ -533,7 +537,7 @@ export default function WorksPage({ onNavigate, onOpenCMS }) {
               alt={hoveredListProject.title} 
               className="w-full h-full object-cover"
               onError={(e) => {
-                const fallback = getFallbackImage(hoveredListProject.title);
+                const fallback = getFallbackImage(hoveredListProject.id || hoveredListProject.title);
                 if (fallback && e.currentTarget.src !== fallback) {
                   e.currentTarget.src = fallback;
                 }

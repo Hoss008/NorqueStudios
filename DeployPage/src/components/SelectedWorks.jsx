@@ -2,6 +2,17 @@ import React, { useState, useMemo } from 'react';
 import { useWorksData } from '../data/worksStore';
 import mmsFallback from '../assets/project-mms.png';
 import juzenasFallback from '../assets/project-studio-juzenas.png';
+import axisFallback from '../assets/project-axis.png';
+import fusionFallback from '../assets/project-fusion-form.png';
+
+function getFallbackImage(titleOrId) {
+  const t = (titleOrId || '').toLowerCase();
+  if (t.includes('mms')) return mmsFallback;
+  if (t.includes('juzenas')) return juzenasFallback;
+  if (t.includes('axis')) return axisFallback;
+  if (t.includes('fusion')) return fusionFallback;
+  return null;
+}
 
 /* ========================================================================= */
 /* SELECTED WORKS COMPONENT                                                  */
@@ -82,11 +93,9 @@ export default function SelectedWorks({ onNavigate }) {
                     loading="lazy"
                     decoding="async"
                     onError={(e) => {
-                      const title = (project.title || '').toLowerCase();
-                      if (title.includes('mms') && e.currentTarget.src !== mmsFallback) {
-                        e.currentTarget.src = mmsFallback;
-                      } else if (title.includes('juzenas') && e.currentTarget.src !== juzenasFallback) {
-                        e.currentTarget.src = juzenasFallback;
+                      const fallback = getFallbackImage(project.id || project.title);
+                      if (fallback && e.currentTarget.src !== fallback) {
+                        e.currentTarget.src = fallback;
                       }
                     }}
                   />

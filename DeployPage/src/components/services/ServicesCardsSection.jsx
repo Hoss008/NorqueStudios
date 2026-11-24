@@ -1,21 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
+import './ServicesMobile.css';
 
 const EXPERIENCE_CARDS = [
   {
     id: 'proposals',
-    title: 'Proposals',
+    title: 'Always in the loop',
+    mobileSubtitle: "You shouldn't have to ask what's happening.",
     image: '/images/services/bef77eb0ee5df99230996515e2cc1941c59c92e0.png',
-    description: '— An independent creative studio built around design, digital experiences and the ideas that connect them. We work with brands, businesses and people who care about how things look, feel and exist in the real world.'
+    description: "Regular project updates keep you informed about recent progress, completed milestones, ongoing tasks, and what's coming next."
   },
   {
     id: 'project-updates',
-    title: 'Project Updates©',
+    title: 'Clarity in every decision',
+    mobileSubtitle: 'No guessing. No unnecessary back and forth.',
     image: '/images/services/2c8f280d0dfe389dee8c6c402c0e37c610f7f335.png',
     description: '— Real-time progress updates, continuous feedback loops, and transparent milestones. We iterate together to build products that exceed benchmarks and stand the test of time.'
   },
   {
     id: 'project-handover',
-    title: 'Project Handover',
+    title: 'Nothing gets lost in translation',
+    mobileSubtitle: 'From the first conversation to the final handover.',
     image: '/images/services/bef77eb0ee5df99230996515e2cc1941c59c92e0.png',
     description: '— Complete ownership of pristine production codebases, modular design tokens, and structured documentation. Ready for scale from the very first deploy.'
   }
@@ -100,31 +104,31 @@ export default function ServicesCardsSection() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-[250vh] bg-black text-white pt-[10vw]"
+      className="services-cards-section relative w-full h-[250vh] bg-black text-white pt-[10vw]"
     >
       {/* Sticky Viewport Container: Locks while previewing cards */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between px-[0.8333vw] py-[2.5vw] z-10 select-none">
+      <div className="services-cards-sticky sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between px-[0.8333vw] py-[2.5vw] z-10 select-none">
         
         {/* Center Title Display: Fully white, un-dimmed, centered vertically and horizontally */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+        <div className="services-cards-title-display absolute inset-0 flex items-center justify-center pointer-events-none z-0">
           <h2 className="text-[2.5vw] font-semibold tracking-[-0.03em] leading-none text-white uppercase whitespace-nowrap select-none">
             FEEL THE EXPERIENCE
           </h2>
         </div>
 
         {/* Sliding Cards Track: Controlled by scroll with no scale or opacity changes */}
-        <div className="w-full flex-1 flex items-center justify-center relative overflow-visible z-10 my-[1vw]">
+        <div className="services-cards-track-wrap w-full flex-1 flex items-center justify-center relative overflow-visible z-10 my-[1vw]">
           <div
-            className="flex items-center space-x-[3.4vw] will-change-transform"
+            className="services-cards-track flex items-center space-x-[3.4vw] will-change-transform"
             style={{
-              transform: `translate3d(${trackTranslateX}vw, 0px, 0px)`
+              transform: typeof window !== 'undefined' && window.innerWidth <= 768 ? 'none' : `translate3d(${trackTranslateX}vw, 0px, 0px)`
             }}
           >
             {EXPERIENCE_CARDS.map((card, idx) => (
               <div
                 key={card.id}
                 onClick={() => handleCardClick(idx)}
-                className="relative w-[32.8vw] h-[22.2vw] rounded-[0.278vw] overflow-hidden flex-shrink-0 cursor-pointer shadow-2xl bg-[#141414]"
+                className="services-card-item relative w-[32.8vw] h-[22.2vw] rounded-[0.278vw] overflow-hidden flex-shrink-0 cursor-pointer shadow-2xl bg-[#141414]"
               >
                 {/* Card Background Image (Dimmed) */}
                 <img
@@ -135,10 +139,15 @@ export default function ServicesCardsSection() {
                 />
 
                 {/* Card Bottom-Left Title */}
-                <div className="absolute bottom-[1.5vw] left-[1.5vw] z-10 pointer-events-none">
-                  <span className="text-[1.3889vw] font-semibold tracking-[-0.03em] text-white leading-none block">
+                <div className="absolute bottom-[1.5vw] left-[1.5vw] z-10 pointer-events-none max-md:p-[20px] max-md:bottom-0 max-md:left-0 max-md:right-0">
+                  <span className="text-[1.3889vw] font-semibold tracking-[-0.03em] text-white leading-none block max-md:text-[22px] max-md:tracking-[-0.66px]">
                     {card.title}
                   </span>
+                  {card.mobileSubtitle && (
+                    <span className="hidden max-md:block text-[14px] font-bold tracking-[-0.42px] text-white leading-normal mt-[10px]">
+                      {card.mobileSubtitle}
+                    </span>
+                  )}
                 </div>
               </div>
             ))}
@@ -146,9 +155,9 @@ export default function ServicesCardsSection() {
         </div>
 
         {/* Bottom Section: Centered changing paragraph in the middle, no morphing lines */}
-        <div className="w-full flex items-center justify-center z-10 pb-[1.5vw]">
-          <div className="max-w-[40.64vw] text-center min-h-[3.8vw] flex items-center justify-center">
-            <p className="text-[0.9722vw] font-normal leading-[1.38] text-white tracking-[-0.03em]">
+        <div className="services-card-bottom-text w-full flex items-center justify-center z-10 pb-[1.5vw]">
+          <div className="max-w-[40.64vw] max-md:max-w-full text-center min-h-[3.8vw] flex items-center justify-center">
+            <p className="text-[0.9722vw] max-md:text-[14px] font-normal max-md:font-bold leading-[1.38] text-white tracking-[-0.03em] max-md:tracking-[-0.42px]">
               {currentCard.description}
             </p>
           </div>

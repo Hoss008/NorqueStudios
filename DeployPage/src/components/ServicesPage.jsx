@@ -4,6 +4,7 @@ import ServicesWorkflowSection from './services/ServicesWorkflowSection';
 import ServicesCardsSection from './services/ServicesCardsSection';
 import ServicesContactSection from './services/ServicesContactSection';
 import Footer from './Footer';
+import './services/ServicesMobile.css';
 
 /* ========================================================================= */
 /* SERVICES PAGE VIEW COMPONENT                                              */
@@ -15,7 +16,7 @@ export default function ServicesPage({ onNavigate, onOpenCMS, onOpenContact }) {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-black text-white font-beausite selection:bg-white selection:text-black overflow-x-clip">
+    <div className="services-page-root w-full min-h-screen bg-black text-white font-beausite selection:bg-white selection:text-black overflow-x-clip">
       {/* Main Content Sections */}
       <main className="w-full">
         {/* Section A: Hero Section with OptionWheel and Masked Stagger Service Description */}

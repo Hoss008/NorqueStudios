@@ -449,7 +449,12 @@ export default function App() {
     };
   }, []);
 
-  const isMobileAllowedPage = currentPage === 'about' || currentPage === 'home' || currentPage === 'works';
+  const isMobileAllowedPage =
+    currentPage === 'about' ||
+    currentPage === 'home' ||
+    currentPage === 'works' ||
+    currentPage === 'services' ||
+    currentPage.startsWith('project-');
 
   useEffect(() => {
     if (isPhone && !isMobileAllowedPage) {

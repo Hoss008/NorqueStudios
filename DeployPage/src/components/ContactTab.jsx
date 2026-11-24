@@ -254,7 +254,7 @@ export default function ContactTab({ isOpen, onClose }) {
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={4} className="w-full">
                           <label htmlFor={id + 'company'} className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
-                            Company Name
+                            Company Name (optional)
                           </label>
                           <input
                             type="text"

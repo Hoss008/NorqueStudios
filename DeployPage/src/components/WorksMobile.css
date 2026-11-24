@@ -1,0 +1,242 @@
+/* ========================================================================= */
+/* NORQUE STUDIOS — WORKS PAGE MOBILE RESPONSIVE STYLESHEET                  */
+/* 1:1 Pixel-Accurate conversion from Figma Mobile Node 22:396               */
+/* Strictly scoped within @media (max-width: 768px)                          */
+/* ========================================================================= */
+
+@media (max-width: 768px) {
+  /* ─── 1. Page Root & Layout Flow ─── */
+  .works-page-root {
+    height: auto !important;
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    touch-action: auto !important;
+    user-select: auto !important;
+    display: block !important;
+  }
+
+  .works-top-spacer {
+    height: 60px !important;
+  }
+
+  .works-main-container {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    padding-top: 27px !important;
+    padding-bottom: 0 !important;
+    display: block !important;
+    overflow: visible !important;
+  }
+
+  /* ─── 2. Header Section (Title & Filters) ─── */
+  .works-header-section {
+    margin-bottom: 26px !important;
+  }
+
+  .works-title-wrap {
+    margin-bottom: 22px !important;
+  }
+
+  .works-title {
+    font-size: 32px !important;
+    letter-spacing: -0.96px !important;
+    line-height: 1 !important;
+  }
+
+  .works-controls-bar {
+    padding-bottom: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+  }
+
+  .works-categories-wrap {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+  }
+
+  .works-category-btn {
+    font-size: 22px !important;
+    letter-spacing: -0.66px !important;
+    line-height: normal !important;
+    font-weight: 600 !important;
+  }
+
+  /* Hide Desktop View Toggle & Scroll Hint */
+  .works-view-toggle,
+  .works-right-hint {
+    display: none !important;
+  }
+
+  /* ─── 3. Content Area & Feed Switching ─── */
+  .works-content-area {
+    display: block !important;
+    margin-top: 0 !important;
+  }
+
+  .works-desktop-views {
+    display: none !important;
+  }
+
+  .works-mobile-feed {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .works-mobile-projects-stack {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 26px !important;
+    width: 100% !important;
+  }
+
+  /* ─── 4. Project Card ─── */
+  .works-mobile-card {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    cursor: pointer !important;
+    user-select: none !important;
+  }
+
+  .works-mobile-card-media {
+    position: relative !important;
+    width: 100% !important;
+    aspect-ratio: 345 / 218 !important;
+    height: auto !important;
+    border-radius: 2px !important;
+    overflow: hidden !important;
+    background-color: #111111 !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  }
+
+  .works-mobile-card-media img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 2px !important;
+  }
+
+  .works-mobile-badge {
+    position: absolute !important;
+    top: 9px !important;
+    right: 9px !important;
+    border-radius: 2px !important;
+    padding: 5px 8px !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.3px !important;
+    color: #ffffff !important;
+    text-transform: uppercase !important;
+    line-height: 1 !important;
+    z-index: 10 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  .works-mobile-card-meta {
+    width: 100% !important;
+    margin-top: 10px !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+  }
+
+  .works-mobile-card-title {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.36px !important;
+    text-transform: uppercase !important;
+    color: #ffffff !important;
+    line-height: 1.2 !important;
+  }
+
+  .works-mobile-card-location {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.36px !important;
+    text-transform: uppercase !important;
+    color: #ffffff !important;
+    line-height: 1.2 !important;
+    text-align: right !important;
+  }
+
+  /* ─── 5. CTA Button Section ─── */
+  .works-mobile-cta {
+    padding-top: 92px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .works-mobile-cta-title {
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.66px !important;
+    color: #ffffff !important;
+    line-height: 1 !important;
+    margin-bottom: 13px !important;
+  }
+
+  .works-mobile-cta-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.42px !important;
+    text-transform: uppercase !important;
+    color: #ffffff !important;
+    text-decoration: underline !important;
+  }
+
+  .works-mobile-cta-btn svg {
+    width: 10px !important;
+    height: 10px !important;
+  }
+
+  /* ─── 6. Mobile Footer ─── */
+  .works-mobile-footer {
+    padding-top: 157px !important;
+    width: 100% !important;
+  }
+
+  .works-mobile-footer .about-footer-section {
+    min-height: auto !important;
+    padding-top: 0 !important;
+  }
+
+  .works-mobile-footer .about-footer-container {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .works-mobile-footer .about-footer-callout {
+    padding-top: 24px !important;
+    border-top: 1px solid #363636 !important;
+  }
+
+  .works-mobile-footer .about-footer-callout-text,
+  .works-mobile-footer .about-footer-callout-text p,
+  .works-mobile-footer .about-footer-callout-text div {
+    font-size: 22px !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.66px !important;
+    font-weight: 700 !important;
+  }
+
+  .works-mobile-footer .about-footer-magnet-lines {
+    min-height: 200px !important;
+    margin-top: 24px !important;
+    margin-bottom: 24px !important;
+  }
+
+  .works-mobile-footer .about-footer-logo-wrap {
+    margin-bottom: 15px !important;
+  }
+}

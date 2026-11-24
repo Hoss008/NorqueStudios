@@ -380,25 +380,29 @@ export default function App() {
       lastScrollY = currentScroll;
     });
 
+    const isSafari = typeof navigator !== 'undefined' && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
     function raf(time) {
       lenis.raf(time);
 
-      currentBlur += (targetBlur - currentBlur) * 0.28;
-      targetBlur *= 0.92;
+      if (!isSafari) {
+        currentBlur += (targetBlur - currentBlur) * 0.28;
+        targetBlur *= 0.92;
 
-      const feBlur = document.getElementById('scroll-motion-blur-fe');
+        const feBlur = document.getElementById('scroll-motion-blur-fe');
 
-      if (feBlur) {
-        if (currentBlur > 0.08) {
-          feBlur.setAttribute('stdDeviation', `0 ${currentBlur.toFixed(2)}`);
-          if (!document.body.classList.contains('is-scrolling')) {
-            document.body.classList.add('is-scrolling');
+        if (feBlur) {
+          if (currentBlur > 0.08) {
+            feBlur.setAttribute('stdDeviation', `0 ${currentBlur.toFixed(2)}`);
+            if (!document.body.classList.contains('is-scrolling')) {
+              document.body.classList.add('is-scrolling');
+            }
+          } else if (document.body.classList.contains('is-scrolling')) {
+            document.body.classList.remove('is-scrolling');
+            feBlur.setAttribute('stdDeviation', '0 0');
+            currentBlur = 0;
+            targetBlur = 0;
           }
-        } else if (document.body.classList.contains('is-scrolling')) {
-          document.body.classList.remove('is-scrolling');
-          feBlur.setAttribute('stdDeviation', '0 0');
-          currentBlur = 0;
-          targetBlur = 0;
         }
       }
 
@@ -484,7 +488,7 @@ export default function App() {
         : currentPage === 'project-axis' 
           ? 'bg-[#170103]' 
           : 'bg-black'
-    } text-white font-beausite selection:bg-white selection:text-black overflow-x-clip`}>
+    } text-white font-beausite selection:bg-white selection:text-black`}>
       {/* Initial splash screen on first visit to home page */}
       {!globalIntroHasPlayed && !isDirectNonHome && (
         <SplashScreen onComplete={handleSplashComplete} />

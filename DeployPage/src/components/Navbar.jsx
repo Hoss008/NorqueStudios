@@ -159,8 +159,11 @@ export default function Navbar({
           isPinned 
             ? 'fixed top-0 left-0 right-0 z-40' 
             : 'w-full z-20'
-        } bg-black/60 md:bg-transparent backdrop-blur-md md:backdrop-blur-none mix-blend-difference h-[56px] md:h-[2.5vw] px-4 md:px-[0.8333vw] flex items-center justify-between`}
-        style={{ pointerEvents: isPinned && (!isVisible || isPageTransitioning) ? 'none' : 'auto' }}
+        } bg-black/60 md:bg-transparent backdrop-blur-md md:backdrop-blur-none mix-blend-normal md:mix-blend-difference h-[56px] md:h-[2.5vw] px-4 md:px-[0.8333vw] flex items-center justify-between`}
+        style={{ 
+          pointerEvents: isPinned && (!isVisible || isPageTransitioning) ? 'none' : 'auto',
+          WebkitBackdropFilter: 'blur(12px)'
+        }}
         initial={
           isPinned 
             ? { y: isInitialSlideDown ? '-100%' : (isVisible ? 0 : '-100%'), opacity: 0 } 

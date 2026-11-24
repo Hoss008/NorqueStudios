@@ -16,7 +16,7 @@ export default function ServicesPage({ onNavigate, onOpenCMS, onOpenContact }) {
   }, []);
 
   return (
-    <div className="services-page-root w-full min-h-screen bg-black text-white font-beausite selection:bg-white selection:text-black overflow-x-clip">
+    <div className="services-page-root w-full min-h-screen bg-black text-white font-beausite selection:bg-white selection:text-black">
       {/* Main Content Sections */}
       <main className="w-full">
         {/* Section A: Hero Section with OptionWheel and Masked Stagger Service Description */}

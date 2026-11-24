@@ -155,8 +155,11 @@ export default function ServicesHeroSection() {
     >
       {/* 12-column responsive grid matching Universal Navbar */}
       <div className="services-hero-grid w-full grid grid-cols-12 gap-[0.8333vw] items-start">
-        {/* Left Side: Columns 1 to 6 - Wheel Component */}
-        <div className="services-wheel-container col-span-6 h-[42vw] max-h-[720px] min-h-[820px] relative flex items-center pr-[1vw]">
+        {/* Left Side: Columns 1 to 6 - Wheel Component (data-lenis-prevent disables smooth scroll on service wheel only) */}
+        <div
+          className="services-wheel-container col-span-6 h-[42vw] max-h-[720px] min-h-[820px] relative flex items-center pr-[1vw]"
+          data-lenis-prevent="true"
+        >
           <OptionWheel
             items={serviceNames}
             selectedIndex={activeIndex}

@@ -188,7 +188,25 @@
     padding-top: 10px !important;
     display: flex !important;
     flex-direction: column !important;
-    gap: 4px !important;
+    gap: 0 !important;
+  }
+
+  .services-workflow-step-headline {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.45px !important;
+    line-height: 1.35 !important;
+    color: #ffffff !important;
+    white-space: normal !important;
+  }
+
+  .services-workflow-step-body {
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.39px !important;
+    line-height: 1.45 !important;
+    color: rgba(255, 255, 255, 0.82) !important;
+    white-space: normal !important;
   }
 
   .services-workflow-step-desc-line {

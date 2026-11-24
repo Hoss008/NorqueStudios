@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import Lenis from 'lenis';
 import { motion, AnimatePresence } from 'framer-motion';
+import { preloadPage } from './utils/mediaPreloader';
 import HomePage from './components/HomePage';
 const AboutPage = React.lazy(() => import('./components/AboutPage'));
 const ServicesPage = React.lazy(() => import('./components/ServicesPage'));
@@ -60,6 +61,9 @@ export default function App() {
   /* ─── State Management ─── */
   const [pendingSection, setPendingSection] = useState(null);
   const [isPageTransitioning, setIsPageTransitioning] = useState(false);
+  const [transitionStage, setTransitionStage] = useState('idle'); // 'idle' | 'dimming' | 'black' | 'revealing'
+  const isTransitioningRef = useRef(false);
+  const lastPathnameRef = useRef(location.pathname);
   const [isNavScrollVisible, setIsNavScrollVisible] = useState(true);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isCmsOpen, setIsCmsOpen] = useState(false);
@@ -200,10 +204,12 @@ export default function App() {
     if (isSplashComplete) {
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
-      window.scrollTo(0, 0);
-      if (lenisRef.current && (currentPage !== 'works' || isPhone)) {
-        lenisRef.current.scrollTo(0, { immediate: true });
-        lenisRef.current.start();
+      if (!globalIntroHasPlayed) {
+        window.scrollTo(0, 0);
+        if (lenisRef.current && (currentPage !== 'works' || isPhone)) {
+          lenisRef.current.scrollTo(0, { immediate: true });
+          lenisRef.current.start();
+        }
       }
       return;
     }
@@ -242,12 +248,12 @@ export default function App() {
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
     };
-  }, [isSplashComplete, currentPage]);
+  }, [isSplashComplete]);
 
   /* ======================================================================= */
   /* 3. NAVIGATION & SMOOTH SCROLL (LENIS)                                   */
   /* ======================================================================= */
-  const handleNavigate = (targetPage, sectionId = null) => {
+  const handleNavigate = async (targetPage, sectionId = null) => {
     const pageToPath = {
       home: '/',
       about: '/about',
@@ -291,12 +297,71 @@ export default function App() {
       return;
     }
 
-    // Trigger seamless in-place page transition
+    // Guard against multi-clicks while transition is active
+    if (isTransitioningRef.current) return;
+    isTransitioningRef.current = true;
+
+    // 1. FREEZE CURRENT SCROLL: The current page stays in its exact scroll position
+    if (lenisRef.current) {
+      lenisRef.current.stop();
+    }
     setIsPageTransitioning(true);
+
+    // 2. DIM TO BLACK: Screen fades to solid black over current frozen view
+    setTransitionStage('dimming');
+    await new Promise((resolve) => setTimeout(resolve, 360));
+    setTransitionStage('black');
+
+    // 3. PRELOAD ALL MEDIA & CHUNK: Screen stays dimmed/black while next page loads
+    const targetLogical = getLogicalPage(targetPath);
+    await preloadPage(targetLogical);
+
+    // 4. NOW LOAD THE NEXT PAGE: Update route & reset scroll behind black curtain
+    if (currentPage === 'home') {
+      setIsBoxRevealComplete(false);
+    }
     setPendingSection(sectionId);
     navigate(targetPath);
+
+    // Reset scroll to 0 (or pending target) while screen is 100% black
+    window.scrollTo(0, 0);
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    }
+
+    // Brief frame wait so React mounts the new component DOM and paints initial frame
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+    // 5. REVEAL: Screen fades in from black
     setIsNavScrollVisible(true);
+    setTransitionStage('revealing');
+    await new Promise((resolve) => setTimeout(resolve, 430));
+
+    // 6. FINISHED: Clean up state & resume Lenis
+    setTransitionStage('idle');
+    setIsPageTransitioning(false);
+    isTransitioningRef.current = false;
+
+    if (lenisRef.current) {
+      lenisRef.current.resize();
+      if ((targetLogical !== 'works' || isPhone) && isSplashComplete) {
+        lenisRef.current.start();
+      }
+    }
   };
+
+  // Handle native browser back/forward (popstate) navigation
+  useEffect(() => {
+    if (lastPathnameRef.current !== location.pathname) {
+      lastPathnameRef.current = location.pathname;
+      if (!isTransitioningRef.current) {
+        window.scrollTo(0, 0);
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo(0, { immediate: true });
+        }
+      }
+    }
+  }, [location.pathname]);
 
   // Reset Lenis and document overflow lock for zero-scroll pages
   useEffect(() => {
@@ -533,192 +598,166 @@ export default function App() {
         </defs>
       </svg>
 
+      {/* ─── Seamless Dimmed-Black Page Transition Curtain ─── */}
+      <motion.div
+        aria-hidden="true"
+        className="fixed inset-0 bg-black pointer-events-none"
+        style={{
+          zIndex: 9995,
+          pointerEvents: transitionStage !== 'idle' ? 'auto' : 'none',
+        }}
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: transitionStage === 'dimming' || transitionStage === 'black' ? 1 : 0,
+        }}
+        transition={{
+          duration: transitionStage === 'dimming' ? 0.35 : 0.42,
+          ease: transitionStage === 'dimming' ? [0.4, 0, 0.2, 1] : [0.22, 1, 0.36, 1],
+        }}
+      />
+
       {/* ─── Page Content (Excludes Pinned Navbar and Pinned GIF) ─── */}
       <main className="w-full">
-        {/* Seamless Page Transition: Clean atmospheric crossfade */}
-        <AnimatePresence 
-          mode="wait"
-          onExitComplete={() => {
-            if (currentPage === 'home') {
-              setIsBoxRevealComplete(false);
-            }
-            if (currentPage !== 'works' || isPhone) {
-              document.documentElement.style.overflow = '';
-              document.body.style.overflow = '';
-            }
-            window.scrollTo(0, 0);
-            if (lenisRef.current) {
-              lenisRef.current.scrollTo(0, { immediate: true });
-              lenisRef.current.resize();
-              if ((currentPage !== 'works' || isPhone) && isSplashComplete) {
-                lenisRef.current.start();
-              }
-            }
-            setIsNavScrollVisible(true);
-            setIsPageTransitioning(false);
-          }}
-        >
-          <motion.div
-            key={currentPage}
-            initial={{ opacity: 0 }}
-            animate={{ 
-              opacity: 1, 
-              transition: {
-                duration: 0.5,
-                ease: [0.4, 0, 0.2, 1]
-              }
-            }}
-            exit={{ 
-              opacity: 0, 
-              transition: {
-                duration: 0.5,
-                ease: [0.4, 0, 0.2, 1]
-              }
-            }}
-            className="w-full"
-          >
-            <React.Suspense fallback={<div className="w-full min-h-screen bg-black" />}>
-              <Routes location={location}>
-                <Route 
-                  path="/" 
-                  element={
-                    <HomePage 
-                      onNavigate={handleNavigate} 
-                      onOpenContact={handleOpenContact}
-                      hasIntroPlayed={hasIntroPlayed}
-                      onIntroComplete={handleIntroComplete}
-                      onBoxRevealComplete={setIsBoxRevealComplete}
-                      onOpenCMS={handleOpenCMS}
-                    />
-                  } 
+        <React.Suspense fallback={<div className="w-full min-h-screen bg-black" />}>
+          <Routes location={location}>
+            <Route 
+              path="/" 
+              element={
+                <HomePage 
+                  onNavigate={handleNavigate} 
+                  onOpenContact={handleOpenContact}
+                  hasIntroPlayed={hasIntroPlayed}
+                  onIntroComplete={handleIntroComplete}
+                  onBoxRevealComplete={setIsBoxRevealComplete}
+                  onOpenCMS={handleOpenCMS}
                 />
-                <Route 
-                  path="/about" 
-                  element={
-                    <AboutPage 
-                      onNavigate={handleNavigate} 
-                      onOpenContact={handleOpenContact}
-                      onOpenCMS={handleOpenCMS} 
-                    />
-                  } 
+              } 
+            />
+            <Route 
+              path="/about" 
+              element={
+                <AboutPage 
+                  onNavigate={handleNavigate} 
+                  onOpenContact={handleOpenContact}
+                  onOpenCMS={handleOpenCMS} 
                 />
-                <Route 
-                  path="/services" 
-                  element={
-                    <ServicesPage 
-                      onNavigate={handleNavigate} 
-                      onOpenContact={handleOpenContact}
-                      onOpenCMS={handleOpenCMS} 
-                    />
-                  } 
+              } 
+            />
+            <Route 
+              path="/services" 
+              element={
+                <ServicesPage 
+                  onNavigate={handleNavigate} 
+                  onOpenContact={handleOpenContact}
+                  onOpenCMS={handleOpenCMS} 
                 />
-                <Route 
-                  path="/projects" 
-                  element={
-                    <WorksPage 
-                      onNavigate={handleNavigate} 
-                      onOpenCMS={handleOpenCMS} 
-                    />
-                  } 
+              } 
+            />
+            <Route 
+              path="/projects" 
+              element={
+                <WorksPage 
+                  onNavigate={handleNavigate} 
+                  onOpenCMS={handleOpenCMS} 
                 />
-                <Route 
-                  path="/works" 
-                  element={
-                    <WorksPage 
-                      onNavigate={handleNavigate} 
-                      onOpenCMS={handleOpenCMS} 
-                    />
-                  } 
+              } 
+            />
+            <Route 
+              path="/works" 
+              element={
+                <WorksPage 
+                  onNavigate={handleNavigate} 
+                  onOpenCMS={handleOpenCMS} 
                 />
-                <Route 
-                  path="/projects/mms" 
-                  element={
-                    <MmsProjectPage 
-                      onNavigate={handleNavigate} 
-                      onOpenCMS={handleOpenCMS} 
-                    />
-                  } 
+              } 
+            />
+            <Route 
+              path="/projects/mms" 
+              element={
+                <MmsProjectPage 
+                  onNavigate={handleNavigate} 
+                  onOpenCMS={handleOpenCMS} 
                 />
-                <Route 
-                  path="/project-mms" 
-                  element={
-                    <MmsProjectPage 
-                      onNavigate={handleNavigate} 
-                      onOpenCMS={handleOpenCMS} 
-                    />
-                  } 
+              } 
+            />
+            <Route 
+              path="/project-mms" 
+              element={
+                <MmsProjectPage 
+                  onNavigate={handleNavigate} 
+                  onOpenCMS={handleOpenCMS} 
                 />
-                <Route 
-                  path="/projects/axis" 
-                  element={
-                    <AxisProjectPage 
-                      onNavigate={handleNavigate} 
-                      onOpenCMS={handleOpenCMS} 
-                    />
-                  } 
+              } 
+            />
+            <Route 
+              path="/projects/axis" 
+              element={
+                <AxisProjectPage 
+                  onNavigate={handleNavigate} 
+                  onOpenCMS={handleOpenCMS} 
                 />
-                <Route 
-                  path="/project-axis" 
-                  element={
-                    <AxisProjectPage 
-                      onNavigate={handleNavigate} 
-                      onOpenCMS={handleOpenCMS} 
-                    />
-                  } 
+              } 
+            />
+            <Route 
+              path="/project-axis" 
+              element={
+                <AxisProjectPage 
+                  onNavigate={handleNavigate} 
+                  onOpenCMS={handleOpenCMS} 
                 />
-                <Route 
-                  path="/projects/stephenson" 
-                  element={
-                    <StephensonProjectPage 
-                      onNavigate={handleNavigate} 
-                      onOpenCMS={handleOpenCMS} 
-                    />
-                  } 
+              } 
+            />
+            <Route 
+              path="/projects/stephenson" 
+              element={
+                <StephensonProjectPage 
+                  onNavigate={handleNavigate} 
+                  onOpenCMS={handleOpenCMS} 
                 />
-                <Route 
-                  path="/project-stephenson" 
-                  element={
-                    <StephensonProjectPage 
-                      onNavigate={handleNavigate} 
-                      onOpenCMS={handleOpenCMS} 
-                    />
-                  } 
+              } 
+            />
+            <Route 
+              path="/project-stephenson" 
+              element={
+                <StephensonProjectPage 
+                  onNavigate={handleNavigate} 
+                  onOpenCMS={handleOpenCMS} 
                 />
-                <Route 
-                  path="/projects/fusion-form" 
-                  element={
-                    <FusionFormProjectPage 
-                      onNavigate={handleNavigate} 
-                      onOpenCMS={handleOpenCMS} 
-                    />
-                  } 
+              } 
+            />
+            <Route 
+              path="/projects/fusion-form" 
+              element={
+                <FusionFormProjectPage 
+                  onNavigate={handleNavigate} 
+                  onOpenCMS={handleOpenCMS} 
                 />
-                <Route 
-                  path="/project-fusion-form" 
-                  element={
-                    <FusionFormProjectPage 
-                      onNavigate={handleNavigate} 
-                      onOpenCMS={handleOpenCMS} 
-                    />
-                  } 
+              } 
+            />
+            <Route 
+              path="/project-fusion-form" 
+              element={
+                <FusionFormProjectPage 
+                  onNavigate={handleNavigate} 
+                  onOpenCMS={handleOpenCMS} 
                 />
-                <Route 
-                  path="/projects/fusion" 
-                  element={
-                    <FusionFormProjectPage 
-                      onNavigate={handleNavigate} 
-                      onOpenCMS={handleOpenCMS} 
-                    />
-                  } 
+              } 
+            />
+            <Route 
+              path="/projects/fusion" 
+              element={
+                <FusionFormProjectPage 
+                  onNavigate={handleNavigate} 
+                  onOpenCMS={handleOpenCMS} 
                 />
-                <Route 
-                  path="*" 
-                  element={<Navigate to="/" replace />} 
-                />
-              </Routes>
-            </React.Suspense>
-          </motion.div>
-        </AnimatePresence>
+              } 
+            />
+            <Route 
+              path="*" 
+              element={<Navigate to="/" replace />} 
+            />
+          </Routes>
+        </React.Suspense>
       </main>
 
       {/* ─── Admin Authentication Gate ─── */}

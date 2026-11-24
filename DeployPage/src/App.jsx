@@ -385,7 +385,12 @@ export default function App() {
     function raf(time) {
       lenis.raf(time);
 
-      if (!isSafari) {
+      const isMobile = typeof window !== 'undefined' && (
+        window.innerWidth <= 768 ||
+        /Android.*Mobile|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      );
+
+      if (!isSafari && !isMobile) {
         currentBlur += (targetBlur - currentBlur) * 0.28;
         targetBlur *= 0.92;
 
@@ -404,6 +409,12 @@ export default function App() {
             targetBlur = 0;
           }
         }
+      } else if (document.body.classList.contains('is-scrolling')) {
+        document.body.classList.remove('is-scrolling');
+        const feBlur = document.getElementById('scroll-motion-blur-fe');
+        if (feBlur) feBlur.setAttribute('stdDeviation', '0 0');
+        currentBlur = 0;
+        targetBlur = 0;
       }
 
       animationFrameId = requestAnimationFrame(raf);

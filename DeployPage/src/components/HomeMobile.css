@@ -112,10 +112,8 @@
     font-weight: 700 !important;
   }
 
-  .showcase-manifesto-text .overflow-hidden > div {
-    transform: none !important;
-    opacity: 1 !important;
-    white-space: normal !important;
+  .showcase-manifesto-text .space-y-\[1\.5278vw\] > * + * {
+    margin-top: 18px !important;
   }
 
   /* Section 3: Selected Works (04) */
@@ -281,10 +279,8 @@
     font-weight: 700 !important;
   }
 
-  .philosophy-text .overflow-hidden > div {
-    transform: none !important;
-    opacity: 1 !important;
-    white-space: normal !important;
+  .philosophy-text .space-y-\[1\.5278vw\] > * + * {
+    margin-top: 18px !important;
   }
 
   .philosophy-logo-block {
@@ -346,11 +342,5 @@
     line-height: 1.25 !important;
     letter-spacing: -0.03em !important;
     font-weight: 700 !important;
-  }
-
-  .done-by-humans-statement-text .overflow-hidden > div {
-    transform: none !important;
-    opacity: 1 !important;
-    white-space: normal !important;
   }
 }

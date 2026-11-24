@@ -488,11 +488,9 @@ export default function WorksCMSModal({ isOpen, onClose, onNavigate, onLogout })
                             alt={project.title}
                             className="w-full h-full object-cover"
                             onError={(e) => {
-                              const title = (project.title || '').toLowerCase();
-                              if (title.includes('mms') && e.currentTarget.src !== mmsFallback) {
-                                e.currentTarget.src = mmsFallback;
-                              } else if (title.includes('juzenas') && e.currentTarget.src !== juzenasFallback) {
-                                e.currentTarget.src = juzenasFallback;
+                              const fallback = getFallbackImage(project.id || project.title);
+                              if (fallback && e.currentTarget.src !== fallback) {
+                                e.currentTarget.src = fallback;
                               }
                             }}
                           />

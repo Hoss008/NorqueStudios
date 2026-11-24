@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import MaskedWordStagger from '../MaskedWordStagger';
 import ProjectNextOverscroll from './ProjectNextOverscroll';
+import './ProjectMobile.css';
 
 // Gallery Images following project guidelines & naming conventions:
 // 1) Initials of project (MMS)

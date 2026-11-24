@@ -412,8 +412,6 @@ export default function ServicesContactSection() {
                     </button>
                   </div>
                 </motion.form>
-                  </div>
-                </motion.form>
               ) : (
                 /* Thank You Message */
                 <motion.div

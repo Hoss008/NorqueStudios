@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import OptionWheel from "./OptionWheel";
+import "./ServicesMobile.css";
 
 export const SERVICES_DATA = [
   {
@@ -150,12 +151,12 @@ export default function ServicesHeroSection() {
   return (
     <section
       id="services-hero"
-      className="relative w-full min-h-screen bg-black text-white px-[0.8333vw] pt-[2.5vw] pb-[2.5vw] flex flex-col justify-center"
+      className="services-hero-section relative w-full min-h-screen bg-black text-white px-[0.8333vw] pt-[2.5vw] pb-[2.5vw] flex flex-col justify-center"
     >
       {/* 12-column responsive grid matching Universal Navbar */}
-      <div className="w-full grid grid-cols-12 gap-[0.8333vw] items-start">
+      <div className="services-hero-grid w-full grid grid-cols-12 gap-[0.8333vw] items-start">
         {/* Left Side: Columns 1 to 6 - Wheel Component */}
-        <div className="col-span-6 h-[42vw] max-h-[720px] min-h-[820px] relative flex items-center pr-[1vw]">
+        <div className="services-wheel-container col-span-6 h-[42vw] max-h-[720px] min-h-[820px] relative flex items-center pr-[1vw]">
           <OptionWheel
             items={serviceNames}
             selectedIndex={activeIndex}
@@ -167,10 +168,10 @@ export default function ServicesHeroSection() {
 
         {/* Right Side: Columns 7 to 12 (Starts at Col 7, aligned with live clock in Navbar) */}
         {/* Fixed top side anchoring so height is variable downwards only */}
-        <div className="col-start-7 col-span-6 flex flex-col items-start relative pt-[8.5vw]">
+        <div className="services-description-container col-start-7 col-span-6 flex flex-col items-start relative pt-[8.5vw]">
           {/* Eyebrow Label */}
           <div className="overflow-hidden pb-[0.2vw] mb-[1.2vw]">
-            <span className="block text-[0.5556vw] font-semibold tracking-[-0.03em] text-white/50 uppercase select-none">
+            <span className="services-eyebrow block text-[0.5556vw] font-semibold tracking-[-0.03em] text-white/50 uppercase select-none">
               SCROLL THE WHEEL OR SELECT A SERVICE TO KNOW MORE
             </span>
           </div>
@@ -186,7 +187,7 @@ export default function ServicesHeroSection() {
                 exit="exit"
               >
                 {/* Intro Paragraph: Animated in masked stagger strictly by line */}
-                <div className="w-full flex flex-col space-y-[0.1vw] mb-[1.2vw]">
+                <div className="services-intro-wrap w-full flex flex-col space-y-[0.1vw] mb-[1.2vw]">
                   {activeService.introLines.map((line, lineIdx) => (
                     <div
                       key={lineIdx}
@@ -214,7 +215,7 @@ export default function ServicesHeroSection() {
                             },
                           },
                         }}
-                        className="text-[0.9722vw] font-medium leading-[1] text-white tracking-[-0.03em] whitespace-nowrap block"
+                        className="services-intro-line text-[0.9722vw] font-medium leading-[1] text-white tracking-[-0.03em] whitespace-nowrap block"
                       >
                         {line}
                       </motion.div>
@@ -223,7 +224,7 @@ export default function ServicesHeroSection() {
                 </div>
 
                 {/* Core Capabilities List: Each item is animated in masked stagger by line */}
-                <div className="w-full flex flex-col space-y-[0.35vw]">
+                <div className="services-capabilities-wrap w-full flex flex-col space-y-[0.35vw]">
                   {activeService.items.map((item, itemIdx) => {
                     const globalLineIndex =
                       activeService.introLines.length + itemIdx;
@@ -254,7 +255,7 @@ export default function ServicesHeroSection() {
                               },
                             },
                           }}
-                          className="text-[0.9722vw] font-medium text-white/80 tracking-[-0.03em] leading-tight-[] whitespace-nowrap block"
+                          className="services-capability-item text-[0.9722vw] font-medium text-white/80 tracking-[-0.03em] leading-tight-[] whitespace-nowrap block"
                         >
                           {item}
                         </motion.div>

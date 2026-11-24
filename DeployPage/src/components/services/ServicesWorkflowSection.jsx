@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import './ServicesMobile.css';
 
 const WORKFLOW_STEPS = [
   {
@@ -158,6 +159,7 @@ export default function ServicesWorkflowSection() {
     let wheelAcc = 0;
 
     const onWheel = (e) => {
+      if (typeof window !== 'undefined' && window.innerWidth <= 768) return;
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       // Locked when section fills the viewport
@@ -281,12 +283,12 @@ export default function ServicesWorkflowSection() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-[250vh] bg-black text-white"
+      className="services-workflow-section relative w-full h-[250vh] bg-black text-white"
     >
       {/* Sticky Viewport Container: Locks when 100% of viewport height */}
       <div
         ref={stickyRef}
-        className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between px-[0.8333vw] py-[2.5vw] z-10 select-none"
+        className="services-workflow-sticky sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between px-[0.8333vw] py-[2.5vw] z-10 select-none"
       >
         
         {/* Full-Section Ambient Background: Previews active step media with cross-dissolve & parallax */}
@@ -316,16 +318,16 @@ export default function ServicesWorkflowSection() {
 
         {/* Section Header Title */}
         <div className="w-full flex items-center justify-between z-10">
-          <h2 className="text-[3.1944vw] font-semibold tracking-[-0.03em] leading-none text-white">
+          <h2 className="services-workflow-title text-[3.1944vw] font-semibold tracking-[-0.03em] leading-none text-white">
             NORQUE’s WORKFLOW
           </h2>
         </div>
 
         {/* Section Body: Divided into Left Side (Steps on Column 3) & Right Side (Media Preview on Column 7) */}
-        <div className="w-full grid grid-cols-12 gap-[0.8333vw] items-center flex-1 z-10 my-[1.5vw]">
+        <div className="services-workflow-grid w-full grid grid-cols-12 gap-[0.8333vw] items-center flex-1 z-10 my-[1.5vw]">
           
           {/* Left Side: Interactive Step List starting at Column 3 (spans Columns 3, 4, 5, 6) */}
-          <div className="col-start-3 col-span-4 flex flex-col justify-center space-y-[0.5vw]">
+          <div className="services-workflow-steps col-start-3 col-span-4 flex flex-col justify-center space-y-[0.5vw]">
             {WORKFLOW_STEPS.map((step, idx) => {
               const isActive = activeStep === idx;
 
@@ -333,12 +335,12 @@ export default function ServicesWorkflowSection() {
                 <div
                   key={step.title}
                   onClick={() => handleStepClick(idx)}
-                  className="flex flex-col cursor-pointer transition-opacity duration-300 group"
+                  className="services-workflow-step flex flex-col cursor-pointer transition-opacity duration-300 group"
                   style={{ opacity: isActive ? 1 : 0.4 }}
                 >
                   {/* Step Header */}
                   <div className="flex items-baseline space-x-[0.6vw]">
-                    <span className="text-[1.5278vw] font-semibold tracking-[-0.03em] text-white">
+                    <span className="services-workflow-step-title text-[1.5278vw] font-semibold tracking-[-0.03em] text-white">
                       {step.number} {step.title}
                     </span>
                   </div>
@@ -367,7 +369,7 @@ export default function ServicesWorkflowSection() {
                         }}
                         className="overflow-hidden"
                       >
-                        <div className="pt-[0.2vw] pb-[0.5vw] max-w-[28vw] flex flex-col space-y-[0.1vw]">
+                        <div className="services-workflow-step-desc pt-[0.2vw] pb-[0.5vw] max-w-[28vw] flex flex-col space-y-[0.1vw]">
                           {/* Masked stagger animation by line in direction of next step (top/bottom) */}
                           {(step.lines || [step.description]).map((line, lineIdx) => {
                             const lineCount = (step.lines || [step.description]).length;
@@ -397,7 +399,7 @@ export default function ServicesWorkflowSection() {
                                       delay: staggerIdx * 0.02
                                     }
                                   }}
-                                  className="text-[0.8333vw] font-normal leading-[1] text-white/80 tracking-[-0.03em] whitespace-nowrap block"
+                                  className="services-workflow-step-desc-line text-[0.8333vw] font-normal leading-[1] text-white/80 tracking-[-0.03em] whitespace-nowrap block"
                                 >
                                   {line}
                                 </motion.div>
@@ -414,12 +416,12 @@ export default function ServicesWorkflowSection() {
           </div>
 
           {/* Right Side: Media Preview on Column 7 (spans Columns 7 to 12) */}
-          <div className="col-start-7 col-span-6 flex items-center justify-center relative">
+          <div className="services-workflow-preview-col col-start-7 col-span-6 flex items-center justify-center relative">
             {/* Outer Frame (Rectangle 39) */}
             {/* <div className="w-[36.65vw] h-[27.12vw] rounded-[0.416vw] border border-white/10 ]  flex items-center justify-center p-[1.5vw] shadow-2xl relative overflow-hidden"> */}
               
               {/* Inner Media Viewport (Preview) */}
-              <div className="w-[30.92vw] h-[22.18vw] rounded-[0.278vw] relative overflow-hidden bg-black/60 shadow-inner">
+              <div className="services-workflow-preview-inner w-[30.92vw] h-[22.18vw] rounded-[0.278vw] relative overflow-hidden bg-black/60 shadow-inner">
                 {/* Previous Media Underneath */}
                 {prevStep !== displayedStep && (
                   <div className="absolute inset-0 w-full h-full">

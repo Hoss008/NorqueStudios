@@ -39,6 +39,7 @@ export default function OptionWheel({
 
   const getVwPx = () => {
     if (typeof window === 'undefined') return 27;
+    if (window.innerWidth <= 768) return 30;
     return (window.innerWidth * fontSize) / 100;
   };
 

@@ -46,3 +46,20 @@
   font-weight: 600;
   color: #ffffff;
 }
+
+@media (max-width: 768px) {
+  .service-option-wheel {
+    --ow-font-size: 30px !important;
+    height: 320px !important;
+  }
+
+  .service-option-wheel__item {
+    font-size: var(--ow-font-size) !important;
+    font-weight: 700 !important;
+  }
+
+  .service-option-wheel__item--selected {
+    font-weight: 700 !important;
+    color: #ffffff !important;
+  }
+}

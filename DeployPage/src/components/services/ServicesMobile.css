@@ -1,0 +1,404 @@
+/* ========================================================================= */
+/* NORQUE STUDIOS — SERVICES PAGE MOBILE RESPONSIVE STYLESHEET               */
+/* 1:1 Pixel-Accurate conversion from Figma Mobile Node 26:613               */
+/* Strictly scoped within @media (max-width: 768px)                          */
+/* ========================================================================= */
+
+@media (max-width: 768px) {
+  /* ─── Global Services Page on Mobile ─── */
+  .services-page-root {
+    width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  /* ─── 1. HERO SECTION & OPTION WHEEL (Node 26:633) ─── */
+  .services-hero-section {
+    min-height: auto !important;
+    height: auto !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    padding-top: 42px !important;
+    padding-bottom: 90px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 30px !important;
+    overflow: visible !important;
+  }
+
+  .services-hero-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    width: 100% !important;
+  }
+
+  .services-wheel-container {
+    width: 100% !important;
+    height: 320px !important;
+    max-height: 320px !important;
+    min-height: 320px !important;
+    padding-right: 0 !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
+
+  .services-description-container {
+    width: 100% !important;
+    padding-top: 10px !important;
+    padding-left: 0 !important;
+    position: relative !important;
+  }
+
+  .services-eyebrow {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.36px !important;
+    color: #ffffff !important;
+    line-height: normal !important;
+    text-transform: uppercase !important;
+    margin-bottom: 12px !important;
+  }
+
+  .services-intro-wrap {
+    margin-bottom: 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+
+  .services-intro-line {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.42px !important;
+    color: #ffffff !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+  }
+
+  .services-capabilities-wrap {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    margin-top: 14px !important;
+  }
+
+  .services-capability-item {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.26 !important;
+    letter-spacing: -0.42px !important;
+    color: #d3d3d3 !important;
+    white-space: normal !important;
+  }
+
+  /* ─── 2. WORKFLOW SECTION (Node 26:647) ─── */
+  .services-workflow-section {
+    height: auto !important;
+    min-height: auto !important;
+    position: relative !important;
+    padding: 92px 12px !important;
+    overflow: hidden !important;
+  }
+
+  .services-workflow-sticky {
+    position: relative !important;
+    top: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+  }
+
+  .services-workflow-title {
+    font-size: 32px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.96px !important;
+    line-height: 1.1 !important;
+    text-transform: uppercase !important;
+    color: #ffffff !important;
+    padding-bottom: 14px !important;
+  }
+
+  .services-workflow-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 32px !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .services-workflow-preview-col {
+    order: 1 !important;
+    width: 100% !important;
+    height: 276px !important;
+    border-radius: 2px !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+
+  .services-workflow-preview-inner {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 2px !important;
+    overflow: hidden !important;
+  }
+
+  .services-workflow-preview-inner img {
+    border-radius: 2px !important;
+    object-fit: cover !important;
+  }
+
+  .services-workflow-steps {
+    order: 2 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+  }
+
+  .services-workflow-step-title {
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.66px !important;
+    line-height: 1 !important;
+  }
+
+  .services-workflow-step-desc {
+    max-width: 100% !important;
+    padding-top: 10px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+  }
+
+  .services-workflow-step-desc-line {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.36px !important;
+    line-height: 1.35 !important;
+    color: #ffffff !important;
+    white-space: normal !important;
+  }
+
+  /* ─── 3. FEEL THE EXPERIENCE SECTION (Node 26:666) ─── */
+  .services-cards-section {
+    height: auto !important;
+    min-height: auto !important;
+    position: relative !important;
+    padding: 120px 12px 100px 12px !important;
+    overflow: hidden !important;
+  }
+
+  .services-cards-sticky {
+    position: relative !important;
+    top: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 32px !important;
+  }
+
+  .services-cards-title-display {
+    position: relative !important;
+    inset: auto !important;
+    display: block !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  .services-cards-title-display h2 {
+    font-size: 36px !important;
+    font-weight: 600 !important;
+    letter-spacing: -1.08px !important;
+    line-height: 1.1 !important;
+    text-align: center !important;
+  }
+
+  .services-cards-track-wrap {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-snap-type: x mandatory !important;
+    scrollbar-width: none !important;
+    margin: 0 !important;
+    padding: 10px 0 !important;
+  }
+
+  .services-cards-track-wrap::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .services-cards-track {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 14px !important;
+    width: max-content !important;
+    transform: none !important;
+  }
+
+  .services-card-item {
+    width: 320px !important;
+    max-width: 85vw !important;
+    height: 318px !important;
+    border-radius: 4px !important;
+    scroll-snap-align: center !important;
+    flex-shrink: 0 !important;
+    position: relative !important;
+  }
+
+  .services-card-bottom-text {
+    width: 100% !important;
+    text-align: center !important;
+    padding: 14px 10px 0 10px !important;
+  }
+
+  .services-card-bottom-text p {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.42px !important;
+    line-height: 1.35 !important;
+    color: #ffffff !important;
+  }
+
+  /* ─── 4. CONTACT SECTION & PITCH DECK (Node 26:684) ─── */
+  .services-contact-section {
+    min-height: auto !important;
+    height: auto !important;
+    padding: 90px 10px 60px 10px !important;
+  }
+
+  .services-contact-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 46px !important;
+    min-height: auto !important;
+  }
+
+  .services-contact-left {
+    width: 100% !important;
+    min-height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 46px !important;
+  }
+
+  .services-contact-intro-statement {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.54px !important;
+    line-height: 1.2 !important;
+    color: #ffffff !important;
+  }
+
+  .services-pitch-deck-card {
+    width: 100% !important;
+    height: 56px !important;
+    background-color: #3c3c3c !important;
+    border-radius: 4px !important;
+    padding: 10px 14px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-top: 0 !important;
+  }
+
+  .services-contact-right {
+    width: 100% !important;
+    min-height: auto !important;
+  }
+
+  .services-contact-form-wrap {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .services-form-field-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 30px !important;
+    width: 100% !important;
+  }
+
+  .services-form-item {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
+  .services-form-label {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.48px !important;
+    line-height: 1 !important;
+    color: #ffffff !important;
+    margin-bottom: 0 !important;
+  }
+
+  .services-form-input {
+    height: 46px !important;
+    background-color: #171717 !important;
+    border-radius: 2px !important;
+    padding: 10px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.48px !important;
+    color: #ffffff !important;
+  }
+
+  .services-form-pills {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    gap: 10px !important;
+    padding-bottom: 4px !important;
+    width: 100% !important;
+  }
+
+  .services-form-pills::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .services-pill-btn {
+    height: 42px !important;
+    padding: 8px 16px !important;
+    border-radius: 39px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.48px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  .services-form-textarea {
+    height: 172px !important;
+    background-color: #171717 !important;
+    border-radius: 2px !important;
+    padding: 12px 10px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.48px !important;
+    color: #ffffff !important;
+  }
+
+  .services-form-submit-btn {
+    height: 42px !important;
+    padding: 10px 26px !important;
+    border-radius: 39px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.48px !important;
+    width: auto !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+}

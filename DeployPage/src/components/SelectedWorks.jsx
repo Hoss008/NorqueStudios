@@ -1,5 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useWorksData } from '../data/worksStore';
+import mmsFallback from '../assets/project-mms.png';
+import juzenasFallback from '../assets/project-studio-juzenas.png';
 
 /* ========================================================================= */
 /* SELECTED WORKS COMPONENT                                                  */
@@ -80,7 +82,12 @@ export default function SelectedWorks({ onNavigate }) {
                     loading="lazy"
                     decoding="async"
                     onError={(e) => {
-                      e.currentTarget.src = '/images/works/studio-juzenas.png';
+                      const title = (project.title || '').toLowerCase();
+                      if (title.includes('mms') && e.currentTarget.src !== mmsFallback) {
+                        e.currentTarget.src = mmsFallback;
+                      } else if (title.includes('juzenas') && e.currentTarget.src !== juzenasFallback) {
+                        e.currentTarget.src = juzenasFallback;
+                      }
                     }}
                   />
 

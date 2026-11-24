@@ -98,7 +98,7 @@ export default function App() {
         lenisRef.current.stop();
       }
     } else {
-      if (lenisRef.current && currentPage !== 'works' && isSplashComplete) {
+      if (lenisRef.current && (currentPage !== 'works' || isPhone) && isSplashComplete) {
         lenisRef.current.start();
       }
     }
@@ -132,7 +132,7 @@ export default function App() {
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
     } else {
-      if (currentPage !== 'works') {
+      if (currentPage !== 'works' || isPhone) {
         document.documentElement.style.overflow = '';
         document.body.style.overflow = '';
         if (lenisRef.current && isSplashComplete) {
@@ -201,7 +201,7 @@ export default function App() {
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
       window.scrollTo(0, 0);
-      if (lenisRef.current && currentPage !== 'works') {
+      if (lenisRef.current && (currentPage !== 'works' || isPhone)) {
         lenisRef.current.scrollTo(0, { immediate: true });
         lenisRef.current.start();
       }
@@ -302,9 +302,20 @@ export default function App() {
   useEffect(() => {
     if (isPageTransitioning) return;
     if (currentPage === 'works') {
-      if (lenisRef.current) lenisRef.current.stop();
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
+      if (!isPhone) {
+        if (lenisRef.current) lenisRef.current.stop();
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        if (lenisRef.current) {
+          lenisRef.current.resize();
+          if (isSplashComplete) {
+            lenisRef.current.start();
+          }
+        }
+      }
     } else {
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
@@ -334,7 +345,7 @@ export default function App() {
     lenis.scrollTo(0, { immediate: true });
     lenisRef.current = lenis;
     window.lenis = lenis;
-    if (!isSplashComplete || currentPage === 'works') {
+    if (!isSplashComplete || (currentPage === 'works' && !checkIsPhone())) {
       lenis.stop();
     }
 
@@ -438,7 +449,7 @@ export default function App() {
     };
   }, []);
 
-  const isMobileAllowedPage = currentPage === 'about' || currentPage === 'home';
+  const isMobileAllowedPage = currentPage === 'about' || currentPage === 'home' || currentPage === 'works';
 
   useEffect(() => {
     if (isPhone && !isMobileAllowedPage) {
@@ -511,7 +522,7 @@ export default function App() {
             if (currentPage === 'home') {
               setIsBoxRevealComplete(false);
             }
-            if (currentPage !== 'works') {
+            if (currentPage !== 'works' || isPhone) {
               document.documentElement.style.overflow = '';
               document.body.style.overflow = '';
             }
@@ -519,7 +530,7 @@ export default function App() {
             if (lenisRef.current) {
               lenisRef.current.scrollTo(0, { immediate: true });
               lenisRef.current.resize();
-              if (currentPage !== 'works' && isSplashComplete) {
+              if ((currentPage !== 'works' || isPhone) && isSplashComplete) {
                 lenisRef.current.start();
               }
             }

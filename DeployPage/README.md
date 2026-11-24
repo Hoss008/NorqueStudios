@@ -73,3 +73,7 @@ norque-studios/
 ├── package.json                 # Dependency manifests (v0.4.0)
 └── VERSION.md                   # Version milestone changelog
 ```
+
+## Contact form delivery
+
+Both contact forms use the public Formspree form ID in `.env`. Formspree manages the recipient inbox, spam settings, and server-side rules. To use a different form, override `VITE_FORMSPREE_FORM_ID` in `.env.local` or the hosting project's build environment, then restart Vite or rebuild.

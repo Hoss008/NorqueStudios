@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { useContactForm } from '../hooks/useContactForm';
+import { PROJECT_TYPES, BUDGET_OPTIONS, SOURCE_OPTIONS } from '../hooks/contactOptions';
+import ContactFieldError from './ContactFieldError';
 /* ========================================================================= */
 /* CONTACT US SLIDING SIDE TAB COMPONENT                                     */
 /* Reference: References/Contact us/Contact Us reference.png                 */
@@ -8,32 +11,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 /* Thank You Figma: References/Contact us/Contact Us Side Page - Thank You Message.fig */
 /* Thank You Video: References/Contact us/Thank You Message Reference.mp4    */
 /* ========================================================================= */
-
-const PROJECT_TYPES = [
-  'Full Website',
-  'Branding',
-  'UI/UX',
-  'Web Development',
-  'Social Media',
-  'Consulting',
-];
-
-const BUDGET_OPTIONS = [
-  '< $1000',
-  '$1,000 — $2,000',
-  '$2,000 — $3,000',
-  '$3,000 — $5,000',
-  '+$5,000',
-];
-
-const SOURCE_OPTIONS = [
-  'Select your option',
-  'Social Media (Instagram / LinkedIn)',
-  'Behance',
-  'Google / Search',
-  'Recommendation / Referral',
-  'Other',
-];
 
 const drawerVariants = {
   hidden: { x: '100%' },
@@ -111,20 +88,11 @@ const thankYouMaskedVariants = {
 
 export default function ContactTab({ isOpen, onClose }) {
   // Form state
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [company, setCompany] = useState('');
-  const [website, setWebsite] = useState('');
-  const [selectedTypes, setSelectedTypes] = useState([]);
-  const [selectedBudget, setSelectedBudget] = useState('');
-  const [source, setSource] = useState('Select your option');
+  const {
+    id, inputProps, errors, spamField, handleSubmit, isSubmitting, isSubmitted, reset,
+    selectedTypes, toggleProjectType, selectedBudget, handleBudgetSelect, source, setSource, errorMessage,
+  } = useContactForm();
   const [isSourceOpen, setIsSourceOpen] = useState(false);
-  const [details, setDetails] = useState('');
-
-  // Submission state
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
   const dropdownRef = useRef(null);
 
   // Close on Escape key
@@ -151,28 +119,13 @@ export default function ContactTab({ isOpen, onClose }) {
 
   // When tab is closed, reset submission state after exit transition completes
   useEffect(() => {
-    if (!isOpen) {
+    if (!isOpen && isSubmitted) {
       const timer = setTimeout(() => {
-        setIsSubmitted(false);
+        reset();
       }, 650);
       return () => clearTimeout(timer);
     }
-  }, [isOpen]);
-
-  const toggleProjectType = (type) => {
-    setSelectedTypes((prev) =>
-      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
-    );
-  };
-
-  const handleBudgetSelect = (b) => {
-    setSelectedBudget((prev) => (prev === b ? '' : b));
-  };
-
-  const handleSubmit = (e) => {
-    if (e) e.preventDefault();
-    setIsSubmitted(true);
-  };
+  }, [isOpen, isSubmitted, reset]);
 
   return (
     <AnimatePresence>
@@ -243,86 +196,89 @@ export default function ContactTab({ isOpen, onClose }) {
                       initial="hidden"
                       animate="visible"
                       exit={{ opacity: 0, y: -10, transition: { duration: 0.2, ease: 'easeIn' } }}
+                      noValidate
                       onSubmit={handleSubmit}
                       className="w-full space-y-[6px] md:space-y-[0.7vh] 2xl:space-y-[9px]"
                     >
+                      <input type="text" {...spamField} hidden tabIndex={-1} autoComplete="off" aria-hidden="true" />
                       {/* Field 1: Name */}
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={1} className="w-full">
-                          <label className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
+                          <label htmlFor={id + 'name'} className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
                             Name*
                           </label>
                           <input
                             type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            {...inputProps('name')}
                             placeholder="e.g. John Mark"
                             className="w-full h-[20px] md:h-[2.2vh] 2xl:h-[23px] bg-[#f0f0f0] rounded-[2px] px-[8px] md:px-[0.55vw] text-[9.5px] md:text-[0.64vw] font-semibold text-black placeholder:text-[#bcbcbc] outline-none focus:ring-1 focus:ring-black/20 transition-all"
                           />
+                          <ContactFieldError id={id + 'name-error'} error={errors.name} />
                         </motion.div>
                       </div>
 
                       {/* Field 2: Phone Number */}
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={2} className="w-full">
-                          <label className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
+                          <label htmlFor={id + 'phone'} className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
                             Phone Number*
                           </label>
                           <input
                             type="tel"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            placeholder="e.g. +971 XX XXX XXXX"
+                            inputMode="numeric"
+                            {...inputProps('phone')}
+                            placeholder="e.g. 971501234567"
                             className="w-full h-[20px] md:h-[2.2vh] 2xl:h-[23px] bg-[#f0f0f0] rounded-[2px] px-[8px] md:px-[0.55vw] text-[9.5px] md:text-[0.64vw] font-semibold text-black placeholder:text-[#bcbcbc] outline-none focus:ring-1 focus:ring-black/20 transition-all"
                           />
+                          <ContactFieldError id={id + 'phone-error'} error={errors.phone} />
                         </motion.div>
                       </div>
 
                       {/* Field 3: Email */}
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={3} className="w-full">
-                          <label className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
+                          <label htmlFor={id + 'email'} className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
                             Email*
                           </label>
                           <input
                             type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            {...inputProps('email')}
                             placeholder="e.g. jo.......@gmail.com"
                             className="w-full h-[20px] md:h-[2.2vh] 2xl:h-[23px] bg-[#f0f0f0] rounded-[2px] px-[8px] md:px-[0.55vw] text-[9.5px] md:text-[0.64vw] font-semibold text-black placeholder:text-[#bcbcbc] outline-none focus:ring-1 focus:ring-black/20 transition-all"
                           />
+                          <ContactFieldError id={id + 'email-error'} error={errors.email} />
                         </motion.div>
                       </div>
 
                       {/* Field 4: Company Name */}
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={4} className="w-full">
-                          <label className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
+                          <label htmlFor={id + 'company'} className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
                             Company Name
                           </label>
                           <input
                             type="text"
-                            value={company}
-                            onChange={(e) => setCompany(e.target.value)}
+                            {...inputProps('company')}
                             placeholder="e.g. PLATO Design House"
                             className="w-full h-[20px] md:h-[2.2vh] 2xl:h-[23px] bg-[#f0f0f0] rounded-[2px] px-[8px] md:px-[0.55vw] text-[9.5px] md:text-[0.64vw] font-semibold text-black placeholder:text-[#bcbcbc] outline-none focus:ring-1 focus:ring-black/20 transition-all"
                           />
+                          <ContactFieldError id={id + 'company-error'} error={errors.company} />
                         </motion.div>
                       </div>
 
                       {/* Field 5: Your Website Link */}
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={5} className="w-full">
-                          <label className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
+                          <label htmlFor={id + 'website'} className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
                             Your Website Link (optional)
                           </label>
                           <input
                             type="url"
-                            value={website}
-                            onChange={(e) => setWebsite(e.target.value)}
+                            {...inputProps('website')}
                             placeholder="Add your URL here"
                             className="w-full h-[20px] md:h-[2.2vh] 2xl:h-[23px] bg-[#f0f0f0] rounded-[2px] px-[8px] md:px-[0.55vw] text-[9.5px] md:text-[0.64vw] font-semibold text-black placeholder:text-[#bcbcbc] outline-none focus:ring-1 focus:ring-black/20 transition-all"
                           />
+                          <ContactFieldError id={id + 'website-error'} error={errors.website} />
                         </motion.div>
                       </div>
 
@@ -330,15 +286,16 @@ export default function ContactTab({ isOpen, onClose }) {
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={6} className="w-full">
                           <label className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
-                            Project Type
+                            Project Type*
                           </label>
-                          <div className="flex flex-wrap gap-[4px] md:gap-[0.32vw]">
+                          <div role="group" aria-label="Project Type (required)" aria-describedby={errors.projectTypes ? id + 'projectTypes-error' : undefined} className="flex flex-wrap gap-[4px] md:gap-[0.32vw]">
                             {PROJECT_TYPES.map((type) => {
                               const isSelected = selectedTypes.includes(type);
                               return (
                                 <button
                                   type="button"
                                   key={type}
+                                  aria-pressed={isSelected}
                                   onClick={() => toggleProjectType(type)}
                                   className={`h-[19px] md:h-[2.1vh] 2xl:h-[22px] px-[9px] md:px-[0.6vw] rounded-full text-[9px] md:text-[0.62vw] font-semibold tracking-[-0.03em] flex items-center justify-center transition-colors duration-150 cursor-pointer ${
                                     isSelected
@@ -351,6 +308,7 @@ export default function ContactTab({ isOpen, onClose }) {
                               );
                             })}
                           </div>
+                          <ContactFieldError id={id + 'projectTypes-error'} error={errors.projectTypes} />
                         </motion.div>
                       </div>
 
@@ -358,15 +316,16 @@ export default function ContactTab({ isOpen, onClose }) {
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={7} className="w-full">
                           <label className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
-                            Expected Budget
+                            Expected Budget*
                           </label>
-                          <div className="flex flex-wrap gap-[4px] md:gap-[0.32vw]">
+                          <div role="group" aria-label="Expected Budget (required)" aria-describedby={errors.budget ? id + 'budget-error' : undefined} className="flex flex-wrap gap-[4px] md:gap-[0.32vw]">
                             {BUDGET_OPTIONS.map((budget) => {
                               const isSelected = selectedBudget === budget;
                               return (
                                 <button
                                   type="button"
                                   key={budget}
+                                  aria-pressed={isSelected}
                                   onClick={() => handleBudgetSelect(budget)}
                                   className={`h-[19px] md:h-[2.1vh] 2xl:h-[22px] px-[9px] md:px-[0.6vw] rounded-full text-[9px] md:text-[0.62vw] font-semibold tracking-[-0.03em] flex items-center justify-center transition-colors duration-150 cursor-pointer ${
                                     isSelected
@@ -379,6 +338,7 @@ export default function ContactTab({ isOpen, onClose }) {
                               );
                             })}
                           </div>
+                          <ContactFieldError id={id + 'budget-error'} error={errors.budget} />
                         </motion.div>
                       </div>
 
@@ -424,28 +384,30 @@ export default function ContactTab({ isOpen, onClose }) {
                       {/* Field 9: Something specific you want to talk about? */}
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={9} className="w-full">
-                          <label className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
+                          <label htmlFor={id + 'details'} className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
                             Something specific you want to talk about?
                           </label>
                           <textarea
                             rows={2}
-                            value={details}
-                            onChange={(e) => setDetails(e.target.value)}
+                            {...inputProps('details')}
                             placeholder="Add more details..."
                             className="w-full h-[42px] md:h-[4.6vh] 2xl:h-[55px] bg-[#f0f0f0] rounded-[2px] p-[5px] md:p-[0.4vw] text-[9.5px] md:text-[0.64vw] font-semibold text-black placeholder:text-[#bcbcbc] outline-none focus:ring-1 focus:ring-black/20 resize-none transition-all leading-tight"
                           />
+                          <ContactFieldError id={id + 'details-error'} error={errors.details} />
                         </motion.div>
                       </div>
+
+                      {errorMessage && <p role="alert" className="text-xs">{errorMessage}</p>}
 
                       {/* Submit Button */}
                       <div className="overflow-hidden pt-[1px]">
                         <motion.div variants={maskedItemVariants} custom={10}>
                           <button
-                            type="button"
-                            onClick={handleSubmit}
+                            type="submit"
+                            disabled={isSubmitting}
                             className="h-[21px] md:h-[2.3vh] 2xl:h-[23px] px-[16px] md:px-[1.1vw] rounded-full bg-black text-white text-[9.5px] md:text-[0.64vw] font-semibold tracking-[-0.03em] hover:bg-neutral-800 active:scale-[0.98] transition-all cursor-pointer flex items-center justify-center"
                           >
-                            Submit Your Info
+                            {isSubmitting ? 'Sending…' : 'Submit Your Info'}
                           </button>
                         </motion.div>
                       </div>
@@ -510,7 +472,7 @@ export default function ContactTab({ isOpen, onClose }) {
                             {/* Check 4: Back to form */}
                             <button
                               type="button"
-                              onClick={() => setIsSubmitted(false)}
+                              onClick={() => reset()}
                               className="w-[119px] md:w-[8.26vw] 2xl:w-[126px] h-[23px] md:h-[2.5vh] 2xl:h-[25px] rounded-full bg-black text-white text-[10px] md:text-[0.69vw] font-semibold tracking-[-0.03em] hover:bg-neutral-800 active:scale-[0.98] transition-all cursor-pointer flex items-center justify-center"
                             >
                               Back to form

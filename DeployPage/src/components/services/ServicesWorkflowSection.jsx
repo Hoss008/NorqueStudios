@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { createGestureWheelStepper, normalizeWheelDelta } from '../../utils/wheelStepper';
 import './ServicesMobile.css';
 
 const base = import.meta.env.BASE_URL.endsWith('/')
@@ -110,12 +111,9 @@ export default function ServicesWorkflowSection() {
   const openStepRef = useRef(0);
   openStepRef.current = openStep;
   const fallbackTimerRef = useRef(null);
-  const isCooldownRef = useRef(false);
-  const cooldownTimerRef = useRef(null);
+  const wheelStepperRef = useRef(null);
   const isLockedRef = useRef(false);
   const unlockedDirectionRef = useRef(null); // 'up' | 'down' | null
-  const unlockThresholdRef = useRef(0);
-  const wheelDebounceTimerRef = useRef(null);
   const previousScrollYRef = useRef(0);
   const previousTopRef = useRef(1000);
 
@@ -161,12 +159,42 @@ export default function ServicesWorkflowSection() {
   // Unlocks upwards when on option 1 and scrolling up.
   // Unlocks downwards when on option 5 and scrolling down.
   useEffect(() => {
+    const stepper = createGestureWheelStepper({
+      threshold: 50,
+      minCooldownMs: 450,
+      settleMs: 140
+    });
+    wheelStepperRef.current = stepper;
+
+    const unlockPageScroll = (dir) => {
+      stepper.reset();
+      isLockedRef.current = false;
+      unlockedDirectionRef.current = dir;
+      previousTopRef.current = dir === 'up' ? 200 : -200;
+
+      if (window.lenis && typeof window.lenis.start === 'function') {
+        window.lenis.start();
+      }
+    };
+
     const onWheel = (e) => {
       if (typeof window !== 'undefined' && window.innerWidth <= 768) return;
       if (!containerRef.current) return;
 
       // Only intercept if we are locked in 100% of the viewport
       if (!isLockedRef.current) return;
+
+      const delta = normalizeWheelDelta(e);
+      const step = stepper.consume(delta);
+      const cur = activeStepRef.current;
+      const count = WORKFLOW_STEPS.length;
+
+      // 1) On Option 1 and stepping UP, or on Option 5 and stepping DOWN:
+      // Release the scroll lock and let Lenis/browser handle the wheel event naturally (no snap/jump)
+      if ((cur <= 0 && step < 0) || (cur >= count - 1 && step > 0)) {
+        unlockPageScroll(step > 0 ? 'down' : 'up');
+        return;
+      }
 
       // Locked in workflow section: prevent native/smooth page scroll
       e.preventDefault();
@@ -176,105 +204,21 @@ export default function ServicesWorkflowSection() {
         window.lenis.stop();
       }
 
-      const delta = e.deltaMode === 1 ? e.deltaY * 24 : e.deltaY;
-      const cur = activeStepRef.current;
-      const count = WORKFLOW_STEPS.length;
+      if (step === 0) return;
 
-      // 1) On Option 1 (cur <= 0) AND scrolling UP (delta < 0):
-      // UNLOCK UPWARDS!
-      if (cur <= 0 && delta < 0) {
-        if (isCooldownRef.current) return;
-        unlockThresholdRef.current += delta;
-
-        if (wheelDebounceTimerRef.current) clearTimeout(wheelDebounceTimerRef.current);
-        wheelDebounceTimerRef.current = setTimeout(() => {
-          unlockThresholdRef.current = 0;
-        }, 250);
-
-        if (unlockThresholdRef.current <= -35) {
-          unlockThresholdRef.current = 0;
-          isLockedRef.current = false;
-          unlockedDirectionRef.current = 'up';
-          previousTopRef.current = 200;
-
-          if (window.lenis && typeof window.lenis.start === 'function') {
-            window.lenis.start();
-          }
-
-          const docTop = containerRef.current.offsetTop;
-          const target = Math.max(0, docTop - window.innerHeight * 0.4);
-          if (window.lenis && typeof window.lenis.scrollTo === 'function') {
-            window.lenis.scrollTo(target, { immediate: false, duration: 0.8 });
-          } else {
-            window.scrollTo({ top: target, behavior: 'smooth' });
-          }
-        }
-        return;
-      }
-
-      // 2) On Option 5 (cur >= count - 1) AND scrolling DOWN (delta > 0):
-      // UNLOCK DOWNWARDS!
-      if (cur >= count - 1 && delta > 0) {
-        if (isCooldownRef.current) return;
-        unlockThresholdRef.current += delta;
-
-        if (wheelDebounceTimerRef.current) clearTimeout(wheelDebounceTimerRef.current);
-        wheelDebounceTimerRef.current = setTimeout(() => {
-          unlockThresholdRef.current = 0;
-        }, 250);
-
-        if (unlockThresholdRef.current >= 35) {
-          unlockThresholdRef.current = 0;
-          isLockedRef.current = false;
-          unlockedDirectionRef.current = 'down';
-          previousTopRef.current = -200;
-
-          if (window.lenis && typeof window.lenis.start === 'function') {
-            window.lenis.start();
-          }
-
-          const docTop = containerRef.current.offsetTop;
-          const target = docTop + containerRef.current.offsetHeight + window.innerHeight * 0.4;
-          if (window.lenis && typeof window.lenis.scrollTo === 'function') {
-            window.lenis.scrollTo(target, { immediate: false, duration: 0.8 });
-          } else {
-            window.scrollTo({ top: target, behavior: 'smooth' });
-          }
-        }
-        return;
-      }
-
-      // 3) Within workflow options (0 to count - 1):
-      if (isCooldownRef.current) return;
-
-      unlockThresholdRef.current += delta;
-
-      if (wheelDebounceTimerRef.current) clearTimeout(wheelDebounceTimerRef.current);
-      wheelDebounceTimerRef.current = setTimeout(() => {
-        unlockThresholdRef.current = 0;
-      }, 250);
-
-      if (Math.abs(unlockThresholdRef.current) >= 35) {
-        const nextIdx = unlockThresholdRef.current > 0 ? cur + 1 : cur - 1;
-        unlockThresholdRef.current = 0;
-
-        if (nextIdx >= 0 && nextIdx < count) {
-          isCooldownRef.current = true;
-          if (cooldownTimerRef.current) clearTimeout(cooldownTimerRef.current);
-          cooldownTimerRef.current = setTimeout(() => {
-            isCooldownRef.current = false;
-          }, 350);
-
-          handleStepClick(nextIdx);
-        }
+      // 2) Within workflow options (0 to count - 1): advance exactly 1 option
+      const nextIdx = cur + step;
+      if (nextIdx >= 0 && nextIdx < count) {
+        handleStepClick(nextIdx);
       }
     };
 
-    window.addEventListener('wheel', onWheel, { passive: false });
+    // Capture phase ensures unlock calls lenis.start() before Lenis's bubble-phase wheel listener runs
+    window.addEventListener('wheel', onWheel, { passive: false, capture: true });
     return () => {
-      window.removeEventListener('wheel', onWheel);
-      if (cooldownTimerRef.current) clearTimeout(cooldownTimerRef.current);
-      if (wheelDebounceTimerRef.current) clearTimeout(wheelDebounceTimerRef.current);
+      window.removeEventListener('wheel', onWheel, { capture: true });
+      stepper.destroy();
+      wheelStepperRef.current = null;
       if (window.lenis && typeof window.lenis.start === 'function') {
         window.lenis.start();
       }
@@ -294,36 +238,40 @@ export default function ServicesWorkflowSection() {
       const parallax = (rect.top - window.innerHeight * 0.25) * WORKFLOW_PARALLAX_SPEED;
       setBgParallaxY(parallax);
 
-      // If we recently unlocked in a direction, do NOT re-lock while moving away in that direction
-      if (unlockedDirectionRef.current === 'up') {
-        if (rect.top > 80) {
+      // If we recently unlocked in a direction, wait until scroll moves past a small buffer
+      // away from 0 before allowing re-lock, and sync previousTopRef so crossing checks stay accurate
+      if (unlockedDirectionRef.current === 'up' || unlockedDirectionRef.current === 'down') {
+        if (Math.abs(rect.top) > 10) {
           unlockedDirectionRef.current = null;
-        }
-        return;
-      }
-      if (unlockedDirectionRef.current === 'down') {
-        if (rect.bottom < window.innerHeight - 80 || rect.top < -80) {
-          unlockedDirectionRef.current = null;
+          previousTopRef.current = rect.top;
         }
         return;
       }
 
-      // Check whether the section is 100% filling the viewport
+      // Check whether the section has actually reached 100% of the viewport (rect.top crossed 0)
       // Section is h-screen, so offsetHeight === window.innerHeight
-      const enteredFromAbove = previousTopRef.current > 25 && rect.top <= 25 && rect.bottom >= window.innerHeight * 0.5;
-      const enteredFromBelow = previousTopRef.current < -25 && rect.top >= -25 && rect.top <= window.innerHeight * 0.5;
-      const is100Percent = Math.abs(rect.top) <= 25 || enteredFromAbove || enteredFromBelow;
+      const enteredFromAbove =
+        previousTopRef.current > 0 && rect.top <= 0 && rect.bottom >= window.innerHeight * 0.5;
+      const enteredFromBelow =
+        previousTopRef.current < 0 && rect.top >= 0 && rect.top <= window.innerHeight * 0.5;
+      const isExactlyAligned = Math.abs(rect.top) <= 1;
+      const is100Percent = isExactlyAligned || enteredFromAbove || enteredFromBelow;
 
       if (is100Percent) {
         if (!isLockedRef.current) {
           isLockedRef.current = true;
+          const enteringFromAbove = enteredFromAbove || (!enteredFromBelow && (scrollDir === 'down' || previousTopRef.current > 0));
+          const enteringFromBelow = enteredFromBelow || (!enteredFromAbove && (scrollDir === 'up' || previousTopRef.current < 0));
+
+          // Lock wheel stepper briefly on arrival so page-scroll inertia settles on entry step
+          wheelStepperRef.current?.lock(350, enteringFromAbove ? 1 : -1);
 
           // Determine entry step:
-          // Entering from above (scrollDir === 'down' or previousTop > 20): start at Option 1 (0)
-          // Entering from below (scrollDir === 'up' or previousTop < -20): start at Option 5 (count - 1)
-          if ((scrollDir === 'down' || previousTopRef.current > 20) && activeStepRef.current !== 0) {
+          // Entering from above: start at Option 1 (0)
+          // Entering from below: start at Option 5 (count - 1)
+          if (enteringFromAbove && activeStepRef.current !== 0) {
             switchStep(0);
-          } else if ((scrollDir === 'up' || previousTopRef.current < -20) && activeStepRef.current !== WORKFLOW_STEPS.length - 1) {
+          } else if (enteringFromBelow && activeStepRef.current !== WORKFLOW_STEPS.length - 1) {
             switchStep(WORKFLOW_STEPS.length - 1);
           }
 
@@ -332,11 +280,13 @@ export default function ServicesWorkflowSection() {
             window.lenis.stop();
           }
 
-          // Clean snap to exact section top so there's zero offset
-          const docTop = containerRef.current.offsetTop;
-          window.scrollTo({ top: docTop, behavior: 'instant' });
-          if (window.lenis && typeof window.lenis.scrollTo === 'function') {
-            window.lenis.scrollTo(docTop, { immediate: true });
+          // Align flush to section top if scroll overshot 0 by a few pixels in this frame
+          if (Math.abs(rect.top) > 0.5) {
+            const docTop = containerRef.current.offsetTop;
+            window.scrollTo({ top: docTop, behavior: 'instant' });
+            if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+              window.lenis.scrollTo(docTop, { immediate: true });
+            }
           }
         }
       } else {
@@ -344,6 +294,7 @@ export default function ServicesWorkflowSection() {
         previousTopRef.current = rect.top;
         if (isLockedRef.current) {
           isLockedRef.current = false;
+          wheelStepperRef.current?.reset();
         }
         if (window.lenis && typeof window.lenis.start === 'function' && window.lenis.isStopped) {
           window.lenis.start();

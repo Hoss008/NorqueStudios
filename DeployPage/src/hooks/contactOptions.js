@@ -19,7 +19,7 @@ export const SOURCE_OPTIONS = [
   'Select your option',
   'Social Media (Instagram / LinkedIn)',
   'Behance',
-  'Google / Search',
+  'Google / AI Search',
   'Recommendation / Referral',
   'Other',
 ];

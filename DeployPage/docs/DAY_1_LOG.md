@@ -42,7 +42,7 @@
    - **News Section (`NewsSection.jsx`)**:
      - "What's happening now" editorial section.
    - **Footer (`Footer.jsx`)**:
-     - Project inquiry contact callout (`hello@norquestudios.com`).
+     - Project inquiry contact callout (`norquestudios@gmail.com`).
      - Giant bottom brand vector mark.
      - Social directory links (Behance, LinkedIn, Instagram) and legal notice.
 

@@ -2971,7 +2971,7 @@
         "position": "\""
       },
       "type": "TEXT",
-      "name": "Got a project on mind? Let’s make it alive! hello@norquestudios.com",
+      "name": "Got a project on mind? Let’s make it alive! norquestudios@gmail.com",
       "fontSize": 22,
       "textAlignVertical": "TOP",
       "lineHeight": {
@@ -2984,7 +2984,7 @@
         "postscript": "BeausiteClassic-Bold"
       },
       "textData": {
-        "characters": "Got a project on mind?\nLet’s make it alive!\nhello@norquestudios.com",
+        "characters": "Got a project on mind?\nLet’s make it alive!\nnorquestudios@gmail.com",
         "lines": [
           {
             "lineType": "PLAIN",
@@ -203815,7 +203815,7 @@
           "position": "\""
         },
         "type": "TEXT",
-        "name": "Got a project on mind? Let’s make it alive! hello@norquestudios.com",
+        "name": "Got a project on mind? Let’s make it alive! norquestudios@gmail.com",
         "fontSize": 22,
         "textAlignVertical": "TOP",
         "lineHeight": {
@@ -203828,7 +203828,7 @@
           "postscript": "BeausiteClassic-Bold"
         },
         "textData": {
-          "characters": "Got a project on mind?\nLet’s make it alive!\nhello@norquestudios.com",
+          "characters": "Got a project on mind?\nLet’s make it alive!\nnorquestudios@gmail.com",
           "lines": [
             {
               "lineType": "PLAIN",

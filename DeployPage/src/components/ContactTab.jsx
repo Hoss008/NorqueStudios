@@ -254,7 +254,7 @@ export default function ContactTab({ isOpen, onClose }) {
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={4} className="w-full">
                           <label htmlFor={id + 'company'} className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
-                            Company Name
+                            Company Name (optional)
                           </label>
                           <input
                             type="text"
@@ -565,10 +565,10 @@ export default function ContactTab({ isOpen, onClose }) {
                       +20 114 5620801
                     </a>
                     <a
-                      href="mailto:hello@norquestudios.com"
+                      href="mailto:norquestudios@gmail.com"
                       className="text-[13px] md:text-[0.92vw] 2xl:text-[15px] font-bold text-black tracking-[-0.03em] hover:opacity-60 transition-opacity leading-[1.2] pt-[1px]"
                     >
-                      hello@norquestudios
+                      norquestudios@gmail.com
                     </a>
                   </div>
                 </motion.div>

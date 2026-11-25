@@ -183,10 +183,10 @@ export default function Showcase({ onRevealCompleteChange }) {
                 </a>{" "}
                 or say hello at{" "}
                 <a 
-                  href="mailto:hello@norquestudios.com" 
+                  href="mailto:norquestudios@gmail.com"
                   className="text-[#747474] hover:text-white transition-colors duration-300 cursor-pointer"
                 >
-                  hello@norquestudios.com
+                  norquestudios@gmail.com
                 </a>
               </p>
             </MaskedWordStagger>

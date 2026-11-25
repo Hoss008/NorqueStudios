@@ -76,6 +76,7 @@ export default function ProjectNextOverscroll({
     setIsTriggered(true);
     rawPullRef.current = PULL_THRESHOLD;
 
+    const coverRect = coverBoxRef.current?.getBoundingClientRect();
     const pageRoot = rootRef.current?.closest('.project-page-root');
     const appShell = document.querySelector('#root > div');
     if (pageRoot) {
@@ -88,9 +89,9 @@ export default function ProjectNextOverscroll({
     document.documentElement.style.backgroundColor = nextMeta.bg;
 
     if (onNavigate) {
-      onNavigate(nextMeta.id);
+      onNavigate(nextMeta.id, null, { coverRect, nextMeta });
     } else if (nextMeta.path) {
-      navigate(nextMeta.path);
+      navigate(nextMeta.path, { state: { seamlessProjectEntry: true } });
     }
   };
 
@@ -287,17 +288,19 @@ export default function ProjectNextOverscroll({
       window.removeEventListener('touchcancel', handleTouchEnd);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
 
-      const pageRoot = getPageRoot();
-      if (pageRoot) {
-        pageRoot.style.transform = '';
-        pageRoot.style.willChange = '';
-        pageRoot.style.backgroundColor = '';
+      if (!hasTriggeredRef.current) {
+        const pageRoot = getPageRoot();
+        if (pageRoot) {
+          pageRoot.style.transform = '';
+          pageRoot.style.willChange = '';
+          pageRoot.style.backgroundColor = '';
+        }
+        const appShell = getAppShell();
+        if (appShell) {
+          appShell.style.backgroundColor = '';
+        }
+        document.documentElement.style.backgroundColor = '';
       }
-      const appShell = getAppShell();
-      if (appShell) {
-        appShell.style.backgroundColor = '';
-      }
-      document.documentElement.style.backgroundColor = '';
       const galleryEl = getGalleryEl();
       if (galleryEl) {
         galleryEl.style.opacity = '';

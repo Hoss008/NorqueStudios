@@ -62,6 +62,7 @@ export default function App() {
   const [pendingSection, setPendingSection] = useState(null);
   const [isPageTransitioning, setIsPageTransitioning] = useState(false);
   const [transitionStage, setTransitionStage] = useState('idle'); // 'idle' | 'dimming' | 'black' | 'revealing'
+  const [projectDock, setProjectDock] = useState(null);
   const isTransitioningRef = useRef(false);
   const lastPathnameRef = useRef(location.pathname);
   const [isNavScrollVisible, setIsNavScrollVisible] = useState(true);
@@ -253,7 +254,7 @@ export default function App() {
   /* ======================================================================= */
   /* 3. NAVIGATION & SMOOTH SCROLL (LENIS)                                   */
   /* ======================================================================= */
-  const handleNavigate = async (targetPage, sectionId = null) => {
+  const handleNavigate = async (targetPage, sectionId = null, options = {}) => {
     const pageToPath = {
       home: '/',
       about: '/about',
@@ -300,6 +301,77 @@ export default function App() {
     // Guard against multi-clicks while transition is active
     if (isTransitioningRef.current) return;
     isTransitioningRef.current = true;
+
+    // Seamless project-to-project peek dock transition (no black dim/undim curtain)
+    if (options?.coverRect && options?.nextMeta) {
+      const { coverRect, nextMeta } = options;
+      const targetLogical = getLogicalPage(targetPath);
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const isMobile = vw <= 768;
+      const targetHeight = isMobile
+        ? Math.min(508, Math.max(300, vh * 0.52))
+        : Math.max(320, vh * 0.646);
+      const targetScale = isMobile ? 1 : (nextMeta.coverScale || 1.3);
+
+      if (lenisRef.current) {
+        lenisRef.current.stop();
+      }
+      setIsPageTransitioning(true);
+      document.body.style.backgroundColor = nextMeta.bg;
+      document.documentElement.style.backgroundColor = nextMeta.bg;
+
+      setProjectDock({
+        bg: nextMeta.bg,
+        cover: nextMeta.cover,
+        from: {
+          top: coverRect.top,
+          left: coverRect.left,
+          width: coverRect.width,
+          height: coverRect.height,
+        },
+        to: {
+          top: 0,
+          left: 0,
+          width: vw,
+          height: targetHeight,
+        },
+        targetScale,
+        stage: 'docking',
+      });
+
+      // Let backdrop reach 100% nextMeta.bg and cover glide before swapping route underneath
+      const preloadPromise = preloadPage(targetLogical, { skipMinTimer: true });
+      await new Promise((resolve) => setTimeout(resolve, 240));
+      await preloadPromise;
+
+      setPendingSection(sectionId);
+      navigate(targetPath, { state: { seamlessProjectEntry: true } });
+
+      window.scrollTo(0, 0);
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { immediate: true });
+      }
+
+      // Finish the 540ms cover glide (240ms already elapsed -> 300ms remaining)
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      setIsNavScrollVisible(true);
+      setProjectDock((prev) => (prev ? { ...prev, stage: 'clearing' } : null));
+      await new Promise((resolve) => setTimeout(resolve, 150));
+
+      setProjectDock(null);
+      document.documentElement.style.backgroundColor = '';
+      setIsPageTransitioning(false);
+      isTransitioningRef.current = false;
+
+      if (lenisRef.current) {
+        lenisRef.current.resize();
+        if ((targetLogical !== 'works' || isPhone) && isSplashComplete) {
+          lenisRef.current.start();
+        }
+      }
+      return;
+    }
 
     // 1. FREEZE CURRENT SCROLL: The current page stays in its exact scroll position
     if (lenisRef.current) {
@@ -601,6 +673,42 @@ export default function App() {
           </filter>
         </defs>
       </svg>
+
+      {/* ─── Seamless Project-to-Project Cover Dock Overlay ─── */}
+      {projectDock && (
+        <motion.div
+          aria-hidden="true"
+          className="fixed inset-0 z-30 pointer-events-auto"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: projectDock.stage === 'clearing' ? 0 : 1 }}
+          transition={{ duration: 0.15, ease: 'easeOut' }}
+        >
+          {/* Smooth background fade into target project's color */}
+          <motion.div
+            className="absolute inset-0"
+            style={{ backgroundColor: projectDock.bg }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
+          />
+          {/* Peek cover gliding cleanly up to the top hero slot */}
+          <motion.div
+            className="fixed overflow-hidden"
+            initial={projectDock.from}
+            animate={projectDock.to}
+            transition={{ duration: 0.54, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <motion.img
+              src={projectDock.cover}
+              alt=""
+              className="w-full h-full object-cover object-center block"
+              initial={{ scale: projectDock.targetScale * 1.03, opacity: 0.92 }}
+              animate={{ scale: projectDock.targetScale, opacity: 1 }}
+              transition={{ duration: 0.54, ease: [0.22, 1, 0.36, 1] }}
+            />
+          </motion.div>
+        </motion.div>
+      )}
 
       {/* ─── Seamless Dimmed-Black Page Transition Curtain ─── */}
       <motion.div

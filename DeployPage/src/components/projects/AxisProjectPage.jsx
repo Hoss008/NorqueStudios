@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import MaskedWordStagger from '../MaskedWordStagger';
 import ProjectGalleryImage from './ProjectGalleryImage';
@@ -34,6 +35,8 @@ const GalleryImage = ProjectGalleryImage;
 /* ========================================================================= */
 export default function AxisProjectPage({ onNavigate }) {
   const heroRef = useRef(null);
+  const location = useLocation();
+  const seamlessEntry = Boolean(location.state?.seamlessProjectEntry);
 
   // Parallax scroll tracking for cover image: 0 at top, 1 when hero leaves viewport
   const { scrollYProgress } = useScroll({
@@ -68,10 +71,10 @@ export default function AxisProjectPage({ onNavigate }) {
               src={axisCover} 
               alt="AXIS® — RE Cover"
               className="project-cover-img w-full h-full object-cover object-center block will-change-[transform,opacity]"
-              initial={{ scale: 1.38, opacity: 1 }}
+              initial={{ scale: seamlessEntry ? 1.30 : 1.38, opacity: 1 }}
               animate={{ scale: 1.30, opacity: 1 }}
               transition={{
-                scale: { duration: 2.2, ease: [0.16, 1, 0.3, 1] },
+                scale: { duration: seamlessEntry ? 0.01 : 2.2, ease: [0.16, 1, 0.3, 1] },
                 opacity: { duration: 0.85, ease: [0.16, 1, 0.3, 1] },
               }}
               loading="eager"

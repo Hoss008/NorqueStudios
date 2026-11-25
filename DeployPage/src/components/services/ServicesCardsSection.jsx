@@ -1,27 +1,44 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './ServicesMobile.css';
 
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+
+const CARD_IMAGE = `${base}images/services/bef77eb0ee5df99230996515e2cc1941c59c92e0.png`;
+
 const EXPERIENCE_CARDS = [
   {
-    id: 'proposals',
+    id: 'always-in-the-loop',
     title: 'Always in the loop',
-    mobileSubtitle: "You shouldn't have to ask what's happening.",
-    image: '/images/services/bef77eb0ee5df99230996515e2cc1941c59c92e0.png',
-    description: "Regular project updates keep you informed about recent progress, completed milestones, ongoing tasks, and what's coming next."
+    subtitle: "You shouldn't have to ask what's happening.",
+    image: CARD_IMAGE,
+    description:
+      "Regular project updates keep you informed about recent progress, completed milestones, ongoing tasks, and what's coming next."
   },
   {
-    id: 'project-updates',
+    id: 'clarity-in-every-decision',
     title: 'Clarity in every decision',
-    mobileSubtitle: 'No guessing. No unnecessary back and forth.',
-    image: '/images/services/2c8f280d0dfe389dee8c6c402c0e37c610f7f335.png',
-    description: '— Real-time progress updates, continuous feedback loops, and transparent milestones. We iterate together to build products that exceed benchmarks and stand the test of time.'
+    subtitle: 'No guessing. No unnecessary back and forth.',
+    image: CARD_IMAGE,
+    description:
+      "Every important decision is supported by context, reasoning, and a clear direction. You'll understand not only what we're doing, but why we're doing it."
   },
   {
-    id: 'project-handover',
+    id: 'nothing-gets-lost-in-translation',
     title: 'Nothing gets lost in translation',
-    mobileSubtitle: 'From the first conversation to the final handover.',
-    image: '/images/services/bef77eb0ee5df99230996515e2cc1941c59c92e0.png',
-    description: '— Complete ownership of pristine production codebases, modular design tokens, and structured documentation. Ready for scale from the very first deploy.'
+    subtitle: 'From the first conversation to the final handover.',
+    image: CARD_IMAGE,
+    description:
+      'Files, decisions, updates, and project materials are organized and accessible, so everything stays connected throughout the journey.'
+  },
+  {
+    id: 'built-to-move-forward',
+    title: 'Built to move forward',
+    subtitle: "The relationship doesn't end at delivery.",
+    image: CARD_IMAGE,
+    description:
+      "We make sure you have what you need to take things further, with the right files, documentation, and guidance to make the most of what we've created together."
   }
 ];
 
@@ -29,9 +46,12 @@ const EXPERIENCE_CARDS = [
 // Adjust the card background image opacity here (0.0 to 1.0):
 export const CARD_BG_OPACITY = 0.5;
 
+// Card width (32.8vw) + horizontal gap (3.4vw) = 36.2vw center-to-center step
+const CARD_STEP_VW = 36.2;
+
 // Horizontal slide range in vw (higher TRACK_START_VW = cards start further to the right):
-export const TRACK_START_VW = 75;
-export const TRACK_END_VW = -75;
+export const TRACK_START_VW = 93;
+export const TRACK_END_VW = -93;
 
 export default function ServicesCardsSection() {
   const containerRef = useRef(null);
@@ -50,14 +70,10 @@ export default function ServicesCardsSection() {
       setScrollProgress(progress);
 
       // Determine active card based on track position relative to viewport center
-      // Card 0 centered at +36.2vw, Card 1 at 0vw, Card 2 at -36.2vw
       const curX = TRACK_START_VW - progress * (TRACK_START_VW - TRACK_END_VW);
-      let idx = 1;
-      if (curX > 18.1) {
-        idx = 0;
-      } else if (curX < -18.1) {
-        idx = 2;
-      }
+      const centerOffset = (EXPERIENCE_CARDS.length - 1) / 2;
+      const rawIdx = Math.round(centerOffset - curX / CARD_STEP_VW);
+      const idx = Math.max(0, Math.min(EXPERIENCE_CARDS.length - 1, rawIdx));
       setActiveCardIndex(idx);
     };
 
@@ -86,9 +102,9 @@ export default function ServicesCardsSection() {
     const rect = containerRef.current.getBoundingClientRect();
     const docTop = rect.top + window.scrollY;
     const totalDist = containerRef.current.offsetHeight - window.innerHeight;
-    
-    // Card centers: Card 0 at +36.2vw, Card 1 at 0vw, Card 2 at -36.2vw
-    const targetX = (1 - index) * 36.2;
+
+    const centerOffset = (EXPERIENCE_CARDS.length - 1) / 2;
+    const targetX = (centerOffset - index) * CARD_STEP_VW;
     const targetProgress = Math.max(0, Math.min(1, (TRACK_START_VW - targetX) / (TRACK_START_VW - TRACK_END_VW)));
     const targetTop = docTop + targetProgress * totalDist;
 
@@ -104,7 +120,7 @@ export default function ServicesCardsSection() {
   return (
     <section
       ref={containerRef}
-      className="services-cards-section relative w-full h-[250vh] bg-black text-white pt-[10vw]"
+      className="services-cards-section relative w-full h-[300vh] bg-black text-white pt-[10vw]"
     >
       {/* Sticky Viewport Container: Locks while previewing cards */}
       <div className="services-cards-sticky sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between px-[0.8333vw] py-[2.5vw] z-10 select-none">
@@ -138,14 +154,14 @@ export default function ServicesCardsSection() {
                   className="w-full h-full object-cover object-top select-none pointer-events-none"
                 />
 
-                {/* Card Bottom-Left Title */}
-                <div className="absolute bottom-[1.5vw] left-[1.5vw] z-10 pointer-events-none max-md:p-[20px] max-md:bottom-0 max-md:left-0 max-md:right-0">
+                {/* Card Bottom-Left Title & Subtitle */}
+                <div className="absolute bottom-[1.5vw] left-[1.5vw] right-[1.5vw] z-10 pointer-events-none max-md:p-[20px] max-md:bottom-0 max-md:left-0 max-md:right-0">
                   <span className="text-[1.3889vw] font-semibold tracking-[-0.03em] text-white leading-none block max-md:text-[22px] max-md:tracking-[-0.66px]">
                     {card.title}
                   </span>
-                  {card.mobileSubtitle && (
-                    <span className="hidden max-md:block text-[14px] font-bold tracking-[-0.42px] text-white leading-normal mt-[10px]">
-                      {card.mobileSubtitle}
+                  {card.subtitle && (
+                    <span className="block text-[0.8333vw] font-semibold tracking-[-0.02em] text-white/90 leading-[1.3] mt-[0.35vw] max-md:text-[14px] max-md:font-bold max-md:tracking-[-0.42px] max-md:leading-normal max-md:mt-[10px]">
+                      {card.subtitle}
                     </span>
                   )}
                 </div>

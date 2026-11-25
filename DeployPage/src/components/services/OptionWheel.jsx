@@ -1,4 +1,5 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
+import { createGestureWheelStepper, normalizeWheelDelta } from '../../utils/wheelStepper';
 import './OptionWheel.css';
 
 export default function OptionWheel({
@@ -31,7 +32,6 @@ export default function OptionWheel({
   const cfgRef = useRef({});
   const onChangeRef = useRef(onChange);
   const selectedRef = useRef(defaultSelected);
-  const wheelTimerRef = useRef(null);
   const dragRef = useRef(null);
   const dragMovedRef = useRef(false);
   const [selectedIndex, setSelectedIndex] = useState(defaultSelected);
@@ -175,7 +175,11 @@ export default function OptionWheel({
     const el = rootRef.current;
     if (!el) return;
 
-    let accumulatedDelta = 0;
+    const stepper = createGestureWheelStepper({
+      threshold: 48,
+      minCooldownMs: 220,
+      settleMs: 130
+    });
 
     const handleMouseEnter = () => {
       if (window.lenis && typeof window.lenis.stop === 'function') {
@@ -184,6 +188,7 @@ export default function OptionWheel({
     };
 
     const handleMouseLeave = () => {
+      stepper.reset();
       if (window.lenis && typeof window.lenis.start === 'function') {
         window.lenis.start();
       }
@@ -191,7 +196,7 @@ export default function OptionWheel({
 
     const onWheel = (e) => {
       const cfg = cfgRef.current;
-      const delta = e.deltaMode === 1 ? e.deltaY * 24 : e.deltaY;
+      const delta = normalizeWheelDelta(e);
       const cur = targetRef.current;
       const isAtFinalOption = !cfg.loop && cur >= cfg.count - 1 - 0.05;
       const isAtFirstOption = !cfg.loop && cur <= 0.05;
@@ -199,30 +204,23 @@ export default function OptionWheel({
       // 1) When the hero section is NOT 100% filling the viewport (page is scrolled away),
       // allow the page to scroll freely in either direction even if hovering on the wheel
       if (!isHeroFillingViewport()) {
+        stepper.reset();
         if (window.lenis && typeof window.lenis.start === 'function') {
           window.lenis.start();
         }
         return;
       }
 
-      // 2) When loop is disabled:
-      // Allow scrolling down past the final option ("Consultation")
-      if (isAtFinalOption && delta > 0) {
-        if (window.lenis && typeof window.lenis.start === 'function') {
-          window.lenis.start();
-        }
-        return;
-      }
-      // Allow scrolling up past the first option
-      if (isAtFirstOption && delta < 0) {
+      // 2) When loop is disabled and at a boundary, release to page scroll once gesture has settled
+      const atBoundaryExit = (isAtFinalOption && delta > 0) || (isAtFirstOption && delta < 0);
+      if (atBoundaryExit && !stepper.isLocked()) {
         if (window.lenis && typeof window.lenis.start === 'function') {
           window.lenis.start();
         }
         return;
       }
 
-      // 3) Otherwise (hero fills viewport & moving within wheel options / loop is true):
-      // strictly scroll only the wheel and disable page smooth scroll
+      // 3) Otherwise strictly scroll only the wheel (1 option per swipe) and disable page smooth scroll
       if (window.lenis && typeof window.lenis.stop === 'function') {
         window.lenis.stop();
       }
@@ -232,21 +230,16 @@ export default function OptionWheel({
         e.stopImmediatePropagation();
       }
 
-      accumulatedDelta += delta;
-
-      // Calculate step threshold
-      const threshold = cfg.rowH * 0.45;
-      if (Math.abs(accumulatedDelta) >= threshold) {
-        const step = accumulatedDelta > 0 ? 1 : -1;
-        applyTarget(Math.round(cur) + step, true);
-        accumulatedDelta = 0;
+      if (atBoundaryExit) {
+        stepper.consume(delta, Infinity);
+        return;
       }
 
-      if (wheelTimerRef.current) clearTimeout(wheelTimerRef.current);
-      wheelTimerRef.current = setTimeout(() => {
-        applyTarget(targetRef.current, true);
-        accumulatedDelta = 0;
-      }, 120);
+      const stepThreshold = Math.min(Math.max(cfg.rowH * 0.65, 42), 65);
+      const step = stepper.consume(delta, stepThreshold);
+      if (step !== 0) {
+        applyTarget(Math.round(cur) + step, true);
+      }
     };
 
     el.addEventListener('mouseenter', handleMouseEnter);
@@ -256,10 +249,10 @@ export default function OptionWheel({
       el.removeEventListener('mouseenter', handleMouseEnter);
       el.removeEventListener('mouseleave', handleMouseLeave);
       el.removeEventListener('wheel', onWheel);
+      stepper.destroy();
       if (window.lenis && typeof window.lenis.start === 'function') {
         window.lenis.start();
       }
-      if (wheelTimerRef.current) clearTimeout(wheelTimerRef.current);
     };
   }, [applyTarget]);
 

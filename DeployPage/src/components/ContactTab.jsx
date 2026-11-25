@@ -8,6 +8,7 @@ const PITCH_DECK_URL = `${base}NORQUE%20STUDIOS%20-%20Pitch%20Deck.pdf`;
 const PITCH_DECK_FILENAME = 'NORQUE STUDIOS - Pitch Deck.pdf';
 
 import { useContactForm } from '../hooks/useContactForm';
+import { useInvalidSubmitShake } from '../hooks/useInvalidSubmitShake';
 import { PROJECT_TYPES, BUDGET_OPTIONS, SOURCE_OPTIONS } from '../hooks/contactOptions';
 import ContactFieldError from './ContactFieldError';
 /* ========================================================================= */
@@ -98,8 +99,21 @@ export default function ContactTab({ isOpen, onClose }) {
     id, inputProps, errors, spamField, handleSubmit, isSubmitting, isSubmitted, reset,
     selectedTypes, toggleProjectType, selectedBudget, handleBudgetSelect, source, setSource, errorMessage,
   } = useContactForm();
+  const { isShaking, notifySubmitAttempt } = useInvalidSubmitShake({ errors, isSubmitting, isSubmitted });
   const [isSourceOpen, setIsSourceOpen] = useState(false);
   const dropdownRef = useRef(null);
+
+  const getLabelClass = (hasError) =>
+    `block text-[9.5px] md:text-[0.64vw] font-semibold tracking-[-0.03em] mb-[1.5px] leading-tight transition-colors ${
+      hasError ? 'text-[#DC2626]' : 'text-black'
+    }`;
+
+  const getInputClass = (hasError) =>
+    `w-full h-[20px] md:h-[2.2vh] 2xl:h-[23px] rounded-[2px] px-[8px] md:px-[0.55vw] text-[9.5px] md:text-[0.64vw] font-semibold text-black placeholder:text-[#bcbcbc] outline-none transition-all ${
+      hasError
+        ? 'bg-[#FEF2F2] ring-1 ring-inset ring-[#DC2626] focus:ring-[#DC2626]'
+        : 'bg-[#f0f0f0] focus:ring-1 focus:ring-inset focus:ring-black/20'
+    }`;
 
   // Close on Escape key
   useEffect(() => {
@@ -203,21 +217,24 @@ export default function ContactTab({ isOpen, onClose }) {
                       animate="visible"
                       exit={{ opacity: 0, y: -10, transition: { duration: 0.2, ease: 'easeIn' } }}
                       noValidate
-                      onSubmit={handleSubmit}
+                      onSubmit={(e) => {
+                        notifySubmitAttempt();
+                        return handleSubmit(e);
+                      }}
                       className="w-full space-y-[6px] md:space-y-[0.7vh] 2xl:space-y-[9px]"
                     >
                       <input type="text" {...spamField} hidden tabIndex={-1} autoComplete="off" aria-hidden="true" />
                       {/* Field 1: Name */}
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={1} className="w-full">
-                          <label htmlFor={id + 'name'} className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
+                          <label htmlFor={id + 'name'} className={getLabelClass(errors.name)}>
                             Name*
                           </label>
                           <input
                             type="text"
                             {...inputProps('name')}
                             placeholder="e.g. John Mark"
-                            className="w-full h-[20px] md:h-[2.2vh] 2xl:h-[23px] bg-[#f0f0f0] rounded-[2px] px-[8px] md:px-[0.55vw] text-[9.5px] md:text-[0.64vw] font-semibold text-black placeholder:text-[#bcbcbc] outline-none focus:ring-1 focus:ring-black/20 transition-all"
+                            className={getInputClass(errors.name)}
                           />
                           <ContactFieldError id={id + 'name-error'} error={errors.name} />
                         </motion.div>
@@ -226,7 +243,7 @@ export default function ContactTab({ isOpen, onClose }) {
                       {/* Field 2: Phone Number */}
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={2} className="w-full">
-                          <label htmlFor={id + 'phone'} className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
+                          <label htmlFor={id + 'phone'} className={getLabelClass(errors.phone)}>
                             Phone Number*
                           </label>
                           <input
@@ -234,7 +251,7 @@ export default function ContactTab({ isOpen, onClose }) {
                             inputMode="numeric"
                             {...inputProps('phone')}
                             placeholder="e.g. 971501234567"
-                            className="w-full h-[20px] md:h-[2.2vh] 2xl:h-[23px] bg-[#f0f0f0] rounded-[2px] px-[8px] md:px-[0.55vw] text-[9.5px] md:text-[0.64vw] font-semibold text-black placeholder:text-[#bcbcbc] outline-none focus:ring-1 focus:ring-black/20 transition-all"
+                            className={getInputClass(errors.phone)}
                           />
                           <ContactFieldError id={id + 'phone-error'} error={errors.phone} />
                         </motion.div>
@@ -243,14 +260,14 @@ export default function ContactTab({ isOpen, onClose }) {
                       {/* Field 3: Email */}
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={3} className="w-full">
-                          <label htmlFor={id + 'email'} className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
+                          <label htmlFor={id + 'email'} className={getLabelClass(errors.email)}>
                             Email*
                           </label>
                           <input
                             type="email"
                             {...inputProps('email')}
                             placeholder="e.g. jo.......@gmail.com"
-                            className="w-full h-[20px] md:h-[2.2vh] 2xl:h-[23px] bg-[#f0f0f0] rounded-[2px] px-[8px] md:px-[0.55vw] text-[9.5px] md:text-[0.64vw] font-semibold text-black placeholder:text-[#bcbcbc] outline-none focus:ring-1 focus:ring-black/20 transition-all"
+                            className={getInputClass(errors.email)}
                           />
                           <ContactFieldError id={id + 'email-error'} error={errors.email} />
                         </motion.div>
@@ -259,14 +276,14 @@ export default function ContactTab({ isOpen, onClose }) {
                       {/* Field 4: Company Name */}
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={4} className="w-full">
-                          <label htmlFor={id + 'company'} className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
+                          <label htmlFor={id + 'company'} className={getLabelClass(errors.company)}>
                             Company Name (optional)
                           </label>
                           <input
                             type="text"
                             {...inputProps('company')}
                             placeholder="e.g. PLATO Design House"
-                            className="w-full h-[20px] md:h-[2.2vh] 2xl:h-[23px] bg-[#f0f0f0] rounded-[2px] px-[8px] md:px-[0.55vw] text-[9.5px] md:text-[0.64vw] font-semibold text-black placeholder:text-[#bcbcbc] outline-none focus:ring-1 focus:ring-black/20 transition-all"
+                            className={getInputClass(errors.company)}
                           />
                           <ContactFieldError id={id + 'company-error'} error={errors.company} />
                         </motion.div>
@@ -275,14 +292,14 @@ export default function ContactTab({ isOpen, onClose }) {
                       {/* Field 5: Your Website Link */}
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={5} className="w-full">
-                          <label htmlFor={id + 'website'} className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
+                          <label htmlFor={id + 'website'} className={getLabelClass(errors.website)}>
                             Your Website Link (optional)
                           </label>
                           <input
                             type="url"
                             {...inputProps('website')}
                             placeholder="Add your URL here"
-                            className="w-full h-[20px] md:h-[2.2vh] 2xl:h-[23px] bg-[#f0f0f0] rounded-[2px] px-[8px] md:px-[0.55vw] text-[9.5px] md:text-[0.64vw] font-semibold text-black placeholder:text-[#bcbcbc] outline-none focus:ring-1 focus:ring-black/20 transition-all"
+                            className={getInputClass(errors.website)}
                           />
                           <ContactFieldError id={id + 'website-error'} error={errors.website} />
                         </motion.div>
@@ -291,7 +308,7 @@ export default function ContactTab({ isOpen, onClose }) {
                       {/* Field 6: Project Type Pills */}
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={6} className="w-full">
-                          <label className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
+                          <label className={getLabelClass(errors.projectTypes)}>
                             Project Type*
                           </label>
                           <div role="group" aria-label="Project Type (required)" aria-describedby={errors.projectTypes ? id + 'projectTypes-error' : undefined} className="flex flex-wrap gap-[4px] md:gap-[0.32vw]">
@@ -306,7 +323,9 @@ export default function ContactTab({ isOpen, onClose }) {
                                   className={`h-[19px] md:h-[2.1vh] 2xl:h-[22px] px-[9px] md:px-[0.6vw] rounded-full text-[9px] md:text-[0.62vw] font-semibold tracking-[-0.03em] flex items-center justify-center transition-colors duration-150 cursor-pointer ${
                                     isSelected
                                       ? 'bg-black text-white'
-                                      : 'bg-[#f0f0f0] text-black hover:bg-[#e4e4e4]'
+                                      : errors.projectTypes
+                                        ? 'bg-[#FEF2F2] text-[#B91C1C] ring-1 ring-inset ring-[#DC2626]/60 hover:bg-[#FEE2E2]'
+                                        : 'bg-[#f0f0f0] text-black hover:bg-[#e4e4e4]'
                                   }`}
                                 >
                                   {type}
@@ -321,7 +340,7 @@ export default function ContactTab({ isOpen, onClose }) {
                       {/* Field 7: Expected Budget Pills */}
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={7} className="w-full">
-                          <label className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
+                          <label className={getLabelClass(errors.budget)}>
                             Expected Budget*
                           </label>
                           <div role="group" aria-label="Expected Budget (required)" aria-describedby={errors.budget ? id + 'budget-error' : undefined} className="flex flex-wrap gap-[4px] md:gap-[0.32vw]">
@@ -336,7 +355,9 @@ export default function ContactTab({ isOpen, onClose }) {
                                   className={`h-[19px] md:h-[2.1vh] 2xl:h-[22px] px-[9px] md:px-[0.6vw] rounded-full text-[9px] md:text-[0.62vw] font-semibold tracking-[-0.03em] flex items-center justify-center transition-colors duration-150 cursor-pointer ${
                                     isSelected
                                       ? 'bg-black text-white'
-                                      : 'bg-[#f0f0f0] text-black hover:bg-[#e4e4e4]'
+                                      : errors.budget
+                                        ? 'bg-[#FEF2F2] text-[#B91C1C] ring-1 ring-inset ring-[#DC2626]/60 hover:bg-[#FEE2E2]'
+                                        : 'bg-[#f0f0f0] text-black hover:bg-[#e4e4e4]'
                                   }`}
                                 >
                                   {budget}
@@ -390,28 +411,38 @@ export default function ContactTab({ isOpen, onClose }) {
                       {/* Field 9: Something specific you want to talk about? */}
                       <div className="w-full overflow-hidden">
                         <motion.div variants={maskedItemVariants} custom={9} className="w-full">
-                          <label htmlFor={id + 'details'} className="block text-[9.5px] md:text-[0.64vw] font-semibold text-black tracking-[-0.03em] mb-[1.5px] leading-tight">
+                          <label htmlFor={id + 'details'} className={getLabelClass(errors.details)}>
                             Something specific you want to talk about?
                           </label>
                           <textarea
                             rows={2}
                             {...inputProps('details')}
                             placeholder="Add more details..."
-                            className="w-full h-[42px] md:h-[4.6vh] 2xl:h-[55px] bg-[#f0f0f0] rounded-[2px] p-[5px] md:p-[0.4vw] text-[9.5px] md:text-[0.64vw] font-semibold text-black placeholder:text-[#bcbcbc] outline-none focus:ring-1 focus:ring-black/20 resize-none transition-all leading-tight"
+                            className={`w-full h-[42px] md:h-[4.6vh] 2xl:h-[55px] rounded-[2px] p-[5px] md:p-[0.4vw] text-[9.5px] md:text-[0.64vw] font-semibold text-black placeholder:text-[#bcbcbc] outline-none resize-none transition-all leading-tight ${
+                              errors.details
+                                ? 'bg-[#FEF2F2] ring-1 ring-inset ring-[#DC2626] focus:ring-[#DC2626]'
+                                : 'bg-[#f0f0f0] focus:ring-1 focus:ring-inset focus:ring-black/20'
+                            }`}
                           />
                           <ContactFieldError id={id + 'details-error'} error={errors.details} />
                         </motion.div>
                       </div>
 
-                      {errorMessage && <p role="alert" className="text-xs">{errorMessage}</p>}
+                      {errorMessage && (
+                        <p role="alert" className="font-beausite text-[#DC2626] text-[9.5px] md:text-[0.62vw] font-semibold tracking-[-0.03em]">
+                          {errorMessage}
+                        </p>
+                      )}
 
                       {/* Submit Button */}
-                      <div className="overflow-hidden pt-[1px]">
+                      <div className="overflow-hidden px-[8px] -mx-[8px] pt-[1px] pb-[2px]">
                         <motion.div variants={maskedItemVariants} custom={10}>
                           <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="h-[21px] md:h-[2.3vh] 2xl:h-[23px] px-[16px] md:px-[1.1vw] rounded-full bg-black text-white text-[9.5px] md:text-[0.64vw] font-semibold tracking-[-0.03em] hover:bg-neutral-800 active:scale-[0.98] transition-all cursor-pointer flex items-center justify-center"
+                            className={`h-[21px] md:h-[2.3vh] 2xl:h-[23px] px-[16px] md:px-[1.1vw] rounded-full bg-black text-white text-[9.5px] md:text-[0.64vw] font-semibold tracking-[-0.03em] hover:bg-neutral-800 active:scale-[0.98] transition-all cursor-pointer flex items-center justify-center ${
+                              isShaking ? 'animate-norque-shake ring-2 ring-[#DC2626]/45' : ''
+                            }`}
                           >
                             {isSubmitting ? 'Sending…' : 'Submit Your Info'}
                           </button>

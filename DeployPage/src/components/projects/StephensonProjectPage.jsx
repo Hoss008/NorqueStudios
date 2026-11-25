@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import MaskedWordStagger from '../MaskedWordStagger';
+import ProjectGalleryImage from './ProjectGalleryImage';
 import ProjectNextOverscroll from './ProjectNextOverscroll';
 import './ProjectMobile.css';
 
@@ -32,36 +34,17 @@ import stpn131 from '../../assets/projects/stephenson/STPN 13.1.webp';
 import stpn132 from '../../assets/projects/stephenson/STPN 13.2.webp';
 import stpn14 from '../../assets/projects/stephenson/STPN 14.webp';
 
-/* ========================================================================= */
-/* GALLERY IMAGE COMPONENT                                                   */
-/* - Container maintains unscaled boundary with overflow: hidden             */
-/* - Only the image inside executes scaling & unblur reveal animation        */
-/* - Zero hover animations per guidelines                                    */
-/* ========================================================================= */
-function GalleryImage({ src, alt, delay = 0, className = '' }) {
-  return (
-    <div className={`relative w-full overflow-hidden ${className}`}>
-      <motion.img 
-        src={src}
-        alt={alt}
-        className="w-full h-auto object-cover block will-change-[transform,filter]"
-        initial={{ filter: 'blur(20px)', scale: 1.12 }}
-        whileInView={{ filter: 'blur(0px)', scale: 1 }}
-        viewport={{ once: true, amount: 0.25 }}
-        transition={{ duration: 1.8, delay, ease: [0.16, 1, 0.3, 1] }}
-        loading="lazy"
-      />
-    </div>
-  );
-}
+const GalleryImage = ProjectGalleryImage;
 
 /* ========================================================================= */
 /* STEPHENSON® SINGLE PROJECT SHOWCASE PAGE                                  */
-/* Background: #0c0d0e (quiet luxury Japanese minimalist tone)              */
+/* Background: #100C0B (quiet luxury Japanese minimalist tone)              */
 /* Animations: 1:1 match with MMS and AXIS project page animations           */
 /* ========================================================================= */
 export default function StephensonProjectPage({ onNavigate }) {
   const heroRef = useRef(null);
+  const location = useLocation();
+  const seamlessEntry = Boolean(location.state?.seamlessProjectEntry);
 
   // Parallax scroll tracking for cover image: 0 at top, 1 when hero leaves viewport
   const { scrollYProgress } = useScroll({
@@ -85,7 +68,7 @@ export default function StephensonProjectPage({ onNavigate }) {
       {/* ─── 1. HERO SECTION: Exactly 100% Viewport Height (Cover + Description) ─── */}
       <section ref={heroRef} className="project-hero-section w-full min-h-screen md:h-screen md:min-h-[100dvh] flex flex-col justify-start overflow-hidden">
         
-        {/* Full-width Cover image matching height (64.6vh) & object-center scale (1.30) */}
+        {/* Full-width Cover image matching height (64.6vh) & object-center scale (1.0) */}
         {/* Parallax wrapper: translates down on scroll while unscaled container maintains boundary */}
         <div className="project-cover-wrapper relative w-full h-[64.6vh] min-h-[320px] overflow-hidden flex-shrink-0">
           <motion.div 
@@ -96,10 +79,10 @@ export default function StephensonProjectPage({ onNavigate }) {
               src={stpnCover} 
               alt="STEPHENSON® Cover"
               className="project-cover-img w-full h-full object-cover object-center block will-change-[transform,opacity]"
-              initial={{ scale: 1.38, opacity: 1 }}
+              initial={{ scale: seamlessEntry ? 1 : 1.38, opacity: 1 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{
-                scale: { duration: 2.2, ease: [0.16, 1, 0.3, 1] },
+                scale: { duration: seamlessEntry ? 0.01 : 2.2, ease: [0.16, 1, 0.3, 1] },
                 opacity: { duration: 0.85, ease: [0.16, 1, 0.3, 1] },
               }}
               loading="eager"
@@ -335,15 +318,16 @@ export default function StephensonProjectPage({ onNavigate }) {
           alt="STEPHENSON® 14" 
         />
 
-        {/* ─── Threshold-triggered Overscroll (Pull-to-action) to Next Project (Fusion Form) ─── */}
-        <ProjectNextOverscroll 
-          nextProject="project-fusion-form"
-          nextPath="/projects/fusion-form"
-          nextTitle="FUSION FORM®"
-          onNavigate={onNavigate}
-        />
-
       </div>
+
+      {/* ─── Seamless Peek & Overscroll Transition to Next Project (Fusion Form) ─── */}
+      <ProjectNextOverscroll 
+        currentProject="project-stephenson"
+        nextProject="project-fusion-form"
+        nextPath="/projects/fusion-form"
+        nextTitle="FUSION FORM®"
+        onNavigate={onNavigate}
+      />
 
     </div>
   );

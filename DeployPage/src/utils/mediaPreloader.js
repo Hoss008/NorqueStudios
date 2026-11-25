@@ -218,7 +218,7 @@ export function getAssetsForPage(page) {
 /**
  * Preload all assets and code for target page before loading into DOM
  */
-export async function preloadPage(page) {
+export async function preloadPage(page, { skipMinTimer = false } = {}) {
   const { images, videos } = getAssetsForPage(page);
   const chunkPromise = preloadPageChunk(page);
 
@@ -230,7 +230,9 @@ export async function preloadPage(page) {
   const timeoutPromise = new Promise((resolve) => setTimeout(resolve, 3200));
 
   // Minimum black screen hold timer to ensure a clean, cinematic transition pace (180ms)
-  const minTimer = new Promise((resolve) => setTimeout(resolve, 180));
+  const minTimer = skipMinTimer
+    ? Promise.resolve()
+    : new Promise((resolve) => setTimeout(resolve, 180));
 
   await Promise.race([Promise.all(promises), timeoutPromise]);
   await minTimer;

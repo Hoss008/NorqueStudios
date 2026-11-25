@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useContactForm } from '../../hooks/useContactForm';
+import { useInvalidSubmitShake } from '../../hooks/useInvalidSubmitShake';
 import { PROJECT_TYPES, BUDGET_OPTIONS, SOURCE_OPTIONS } from '../../hooks/contactOptions';
 import ContactFieldError from '../ContactFieldError';
 import './ServicesMobile.css';
@@ -16,8 +17,21 @@ export default function ServicesContactSection() {
     id, inputProps, errors, spamField, handleSubmit, isSubmitting, isSubmitted, reset,
     selectedTypes, toggleProjectType, selectedBudget, handleBudgetSelect, source, setSource, errorMessage,
   } = useContactForm();
+  const { isShaking, notifySubmitAttempt } = useInvalidSubmitShake({ errors, isSubmitting, isSubmitted });
   const [isSourceOpen, setIsSourceOpen] = useState(false);
   const dropdownRef = useRef(null);
+
+  const getLabelClass = (hasError, spacing = 'mb-[0.4167vw]') =>
+    `services-form-label block text-[0.6944vw] font-semibold tracking-[-0.03em] ${spacing} leading-none transition-colors ${
+      hasError ? 'text-[#F87171]' : 'text-white'
+    }`;
+
+  const getInputClass = (hasError) =>
+    `services-form-input w-full h-[1.6667vw] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none transition-all border-none ${
+      hasError
+        ? 'bg-[#261414] ring-1 ring-inset ring-[#F87171] focus:ring-[#F87171]'
+        : 'bg-[#171717] focus:ring-1 focus:ring-inset focus:ring-white/20'
+    }`;
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -140,7 +154,10 @@ export default function ServicesContactSection() {
                 <motion.form
                   key="contact-form"
                   noValidate
-                  onSubmit={handleSubmit}
+                  onSubmit={(e) => {
+                    notifySubmitAttempt();
+                    return handleSubmit(e);
+                  }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -152,7 +169,7 @@ export default function ServicesContactSection() {
                     
                     {/* Field 1: Name* */}
                     <div className="services-form-item w-full">
-                      <label htmlFor={id + 'name'} className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                      <label htmlFor={id + 'name'} className={getLabelClass(errors.name)}>
                         Name*
                       </label>
                       <input
@@ -160,14 +177,14 @@ export default function ServicesContactSection() {
                         {...inputProps('name')}
                         placeholder="e.g. John Mark"
                         required
-                        className="services-form-input w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
+                        className={getInputClass(errors.name)}
                       />
-                      <ContactFieldError id={id + 'name-error'} error={errors.name} />
+                      <ContactFieldError id={id + 'name-error'} error={errors.name} variant="dark" />
                     </div>
 
                     {/* Field 2: Phone Number* */}
                     <div className="services-form-item w-full">
-                      <label htmlFor={id + 'phone'} className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                      <label htmlFor={id + 'phone'} className={getLabelClass(errors.phone)}>
                         Phone Number*
                       </label>
                       <input
@@ -176,14 +193,14 @@ export default function ServicesContactSection() {
                         {...inputProps('phone')}
                         placeholder="e.g. 971501234567"
                         required
-                        className="services-form-input w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
+                        className={getInputClass(errors.phone)}
                       />
-                      <ContactFieldError id={id + 'phone-error'} error={errors.phone} />
+                      <ContactFieldError id={id + 'phone-error'} error={errors.phone} variant="dark" />
                     </div>
 
                     {/* Field 3: Email* */}
                     <div className="services-form-item w-full">
-                      <label htmlFor={id + 'email'} className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                      <label htmlFor={id + 'email'} className={getLabelClass(errors.email)}>
                         Email*
                       </label>
                       <input
@@ -191,42 +208,42 @@ export default function ServicesContactSection() {
                         {...inputProps('email')}
                         placeholder="e.g. jo.......@gmail.com"
                         required
-                        className="services-form-input w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
+                        className={getInputClass(errors.email)}
                       />
-                      <ContactFieldError id={id + 'email-error'} error={errors.email} />
+                      <ContactFieldError id={id + 'email-error'} error={errors.email} variant="dark" />
                     </div>
 
                     {/* Field 4: Company Name */}
                     <div className="services-form-item w-full">
-                      <label htmlFor={id + 'company'} className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                      <label htmlFor={id + 'company'} className={getLabelClass(errors.company)}>
                         Company Name
                       </label>
                       <input
                         type="text"
                         {...inputProps('company')}
                         placeholder="e.g. PLATO Design House"
-                        className="services-form-input w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
+                        className={getInputClass(errors.company)}
                       />
-                      <ContactFieldError id={id + 'company-error'} error={errors.company} />
+                      <ContactFieldError id={id + 'company-error'} error={errors.company} variant="dark" />
                     </div>
 
                     {/* Field 5: Your Website Link (optional) */}
                     <div className="services-form-item w-full">
-                      <label htmlFor={id + 'website'} className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                      <label htmlFor={id + 'website'} className={getLabelClass(errors.website)}>
                         Your Website Link (optional)
                       </label>
                       <input
                         type="url"
                         {...inputProps('website')}
                         placeholder="Add your URL here"
-                        className="services-form-input w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
+                        className={getInputClass(errors.website)}
                       />
-                      <ContactFieldError id={id + 'website-error'} error={errors.website} />
+                      <ContactFieldError id={id + 'website-error'} error={errors.website} variant="dark" />
                     </div>
 
                     {/* Field 6: Project Type Pills */}
                     <div className="services-form-item w-full">
-                      <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.6944vw] leading-none">
+                      <label className={getLabelClass(errors.projectTypes, 'mb-[0.6944vw]')}>
                         Project Type*
                       </label>
                       <div role="group" aria-label="Project Type (required)" aria-describedby={errors.projectTypes ? id + 'projectTypes-error' : undefined} className="services-form-pills flex flex-wrap items-center gap-[0.6944vw]">
@@ -241,7 +258,9 @@ export default function ServicesContactSection() {
                               className={`services-pill-btn h-[1.5972vw] px-[0.8333vw] rounded-full text-[0.6944vw] font-semibold tracking-[-0.03em] flex items-center justify-center transition-colors duration-150 cursor-pointer select-none ${
                                 isSelected
                                   ? 'bg-white text-black'
-                                  : 'bg-[#171717] text-[#666666] hover:text-[#999999]'
+                                  : errors.projectTypes
+                                    ? 'bg-[#261414] text-[#FCA5A5] ring-1 ring-inset ring-[#F87171]/70 hover:text-white'
+                                    : 'bg-[#171717] text-[#666666] hover:text-[#999999]'
                               }`}
                             >
                               {type}
@@ -249,12 +268,12 @@ export default function ServicesContactSection() {
                           );
                         })}
                       </div>
-                      <ContactFieldError id={id + 'projectTypes-error'} error={errors.projectTypes} />
+                      <ContactFieldError id={id + 'projectTypes-error'} error={errors.projectTypes} variant="dark" />
                     </div>
 
                     {/* Field 7: Expected Budget Pills */}
                     <div className="services-form-item w-full">
-                      <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.6944vw] leading-none">
+                      <label className={getLabelClass(errors.budget, 'mb-[0.6944vw]')}>
                         Expected Budget*
                       </label>
                       <div role="group" aria-label="Expected Budget (required)" aria-describedby={errors.budget ? id + 'budget-error' : undefined} className="services-form-pills flex flex-wrap items-center gap-[0.6944vw]">
@@ -269,7 +288,9 @@ export default function ServicesContactSection() {
                               className={`services-pill-btn h-[1.5972vw] px-[0.8333vw] rounded-full text-[0.6944vw] font-semibold tracking-[-0.03em] flex items-center justify-center transition-colors duration-150 cursor-pointer select-none ${
                                 isSelected
                                   ? 'bg-white text-black'
-                                  : 'bg-[#171717] text-[#666666] hover:text-[#999999]'
+                                  : errors.budget
+                                    ? 'bg-[#261414] text-[#FCA5A5] ring-1 ring-inset ring-[#F87171]/70 hover:text-white'
+                                    : 'bg-[#171717] text-[#666666] hover:text-[#999999]'
                               }`}
                             >
                               {opt}
@@ -277,7 +298,7 @@ export default function ServicesContactSection() {
                           );
                         })}
                       </div>
-                      <ContactFieldError id={id + 'budget-error'} error={errors.budget} />
+                      <ContactFieldError id={id + 'budget-error'} error={errors.budget} variant="dark" />
                     </div>
 
                     {/* Field 8: How did you hear about us? Dropdown */}
@@ -330,7 +351,7 @@ export default function ServicesContactSection() {
 
                     {/* Field 9: Something specific you want to talk about? */}
                     <div className="services-form-item w-full">
-                      <label htmlFor={id + 'details'} className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                      <label htmlFor={id + 'details'} className={getLabelClass(errors.details)}>
                         Something specific you want to talk about?
                       </label>
                       <div className="relative w-full">
@@ -338,9 +359,12 @@ export default function ServicesContactSection() {
                           rows={3}
                           {...inputProps('details')}
                           placeholder="Add more details..."
-                          className="services-form-textarea w-full h-[4.9306vw] bg-[#171717] rounded-[0.1389vw] p-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all resize-none border-none block"
+                          className={`services-form-textarea w-full h-[4.9306vw] rounded-[0.1389vw] p-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none transition-all resize-none border-none block ${
+                            errors.details
+                              ? 'bg-[#261414] ring-1 ring-inset ring-[#F87171] focus:ring-[#F87171]'
+                              : 'bg-[#171717] focus:ring-1 focus:ring-inset focus:ring-white/20'
+                          }`}
                         />
-                        <ContactFieldError id={id + 'details-error'} error={errors.details} />
                         {/* Figma Resize Gripper Icon (Two 45-degree diagonal lines) */}
                         <div className="absolute bottom-[0.4167vw] right-[0.4167vw] pointer-events-none select-none">
                           <svg viewBox="0 0 6 6" fill="none" className="w-[0.4167vw] h-[0.4167vw]">
@@ -349,10 +373,11 @@ export default function ServicesContactSection() {
                           </svg>
                         </div>
                       </div>
+                      <ContactFieldError id={id + 'details-error'} error={errors.details} variant="dark" />
                     </div>
 
                     {errorMessage && (
-                      <p role="alert" className="text-red-400 text-[0.6944vw] font-semibold tracking-tight">
+                      <p role="alert" className="font-beausite text-[#F87171] text-[11px] md:text-[0.6944vw] font-semibold tracking-[-0.03em]">
                         {errorMessage}
                       </p>
                     )}
@@ -364,7 +389,9 @@ export default function ServicesContactSection() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="services-form-submit-btn w-[7.5694vw] h-[1.6667vw] rounded-full bg-white text-black text-[0.6944vw] font-semibold tracking-[-0.03em] flex items-center justify-center cursor-pointer hover:bg-white/90 active:scale-95 transition-all select-none"
+                      className={`services-form-submit-btn w-[7.5694vw] h-[1.6667vw] rounded-full bg-white text-black text-[0.6944vw] font-semibold tracking-[-0.03em] flex items-center justify-center cursor-pointer hover:bg-white/90 active:scale-95 transition-all select-none ${
+                        isShaking ? 'animate-norque-shake ring-2 ring-[#F87171]/60' : ''
+                      }`}
                     >
                       {isSubmitting ? 'Sending…' : 'Submit Your Info'}
                     </button>

@@ -173,5 +173,22 @@ picture {
   text-edge: cap alphabetic;
 }
 
+/* 7. Invalid Form Submit Shake Feedback */
+@keyframes norqueShake {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  15%, 45%, 75% {
+    transform: translate3d(-5px, 0, 0);
+  }
+  30%, 60%, 90% {
+    transform: translate3d(5px, 0, 0);
+  }
+}
+
+.animate-norque-shake {
+  animation: norqueShake 0.42s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
 
 

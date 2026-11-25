@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import MaskedWordStagger from '../MaskedWordStagger';
+import ProjectGalleryImage from './ProjectGalleryImage';
 import ProjectNextOverscroll from './ProjectNextOverscroll';
 import './ProjectMobile.css';
 
@@ -28,28 +30,7 @@ import mms12 from '../../assets/projects/mms/MMS 12.webp';
 import mms13 from '../../assets/projects/mms/MMS 13.webp';
 import mms14 from '../../assets/projects/mms/MMS 14.webp';
 
-/* ========================================================================= */
-/* GALLERY IMAGE COMPONENT                                                   */
-/* - Container maintains unscaled boundary with overflow: hidden             */
-/* - Only the image inside executes scaling & unblur reveal animation        */
-/* - Zero hover animations per guidelines                                    */
-/* ========================================================================= */
-function GalleryImage({ src, alt, delay = 0, className = '' }) {
-  return (
-    <div className={`relative w-full overflow-hidden ${className}`}>
-      <motion.img 
-        src={src}
-        alt={alt}
-        className="w-full h-auto object-cover block will-change-[transform,filter]"
-        initial={{ filter: 'blur(20px)', scale: 1.12 }}
-        whileInView={{ filter: 'blur(0px)', scale: 1 }}
-        viewport={{ once: true, amount: 0.25 }}
-        transition={{ duration: 1.8, delay, ease: [0.16, 1, 0.3, 1] }}
-        loading="lazy"
-      />
-    </div>
-  );
-}
+const GalleryImage = ProjectGalleryImage;
 
 /* ========================================================================= */
 /* MMS ARCHITECTS™ SINGLE PROJECT SHOWCASE PAGE                              */
@@ -58,6 +39,8 @@ function GalleryImage({ src, alt, delay = 0, className = '' }) {
 /* ========================================================================= */
 export default function MmsProjectPage({ onNavigate }) {
   const heroRef = useRef(null);
+  const location = useLocation();
+  const seamlessEntry = Boolean(location.state?.seamlessProjectEntry);
 
   // Parallax scroll tracking for cover image: 0 at top, 1 when hero leaves viewport
   const { scrollYProgress } = useScroll({
@@ -93,10 +76,10 @@ export default function MmsProjectPage({ onNavigate }) {
               src={mmsCover} 
               alt="MMS ARCHITECTS™ Cover"
               className="project-cover-img w-full h-full object-cover object-center block will-change-[transform,opacity]"
-              initial={{ scale: 1.38, opacity: 1 }}
+              initial={{ scale: seamlessEntry ? 1.30 : 1.38, opacity: 1 }}
               animate={{ scale: 1.30, opacity: 1 }}
               transition={{
-                scale: { duration: 2.2, ease: [0.16, 1, 0.3, 1] },
+                scale: { duration: seamlessEntry ? 0.01 : 2.2, ease: [0.16, 1, 0.3, 1] },
                 opacity: { duration: 0.85, ease: [0.16, 1, 0.3, 1] },
               }}
               loading="eager"
@@ -309,15 +292,16 @@ export default function MmsProjectPage({ onNavigate }) {
           alt="MMS ARCHITECTS™ 14" 
         />
 
-        {/* ─── Threshold-triggered Overscroll (Pull-to-action) to Next Project (Axis) ─── */}
-        <ProjectNextOverscroll 
-          nextProject="project-axis"
-          nextPath="/projects/axis"
-          nextTitle="AXIS® — RE"
-          onNavigate={onNavigate}
-        />
-
       </div>
+
+      {/* ─── Seamless Peek & Overscroll Transition to Next Project (Axis) ─── */}
+      <ProjectNextOverscroll 
+        currentProject="project-mms"
+        nextProject="project-axis"
+        nextPath="/projects/axis"
+        nextTitle="AXIS® — RE"
+        onNavigate={onNavigate}
+      />
 
     </div>
   );

@@ -36,7 +36,7 @@
    - Maintained full suite in `docs/` (`HANDOVER.md`, `ARCHITECTURE.md`, `DAY_1_LOG.md`, `DAY_2_LOG.md`, `DAY_3_LOG.md`).
 
 5. **Design Alignment & Reference Adjustments (Phase 2)**:
-   - **Showcase Manifesto**: Updated contact link to `"or say hello at hello@norquestudios.com"` (`text-[#747474]`, hover white, no underline, no trailing period), matching `references/Design.png`.
+   - **Showcase Manifesto**: Updated contact link to `"or say hello at norquestudios@gmail.com"` (`text-[#747474]`, hover white, no underline, no trailing period), matching `references/Design.png`.
    - **Selected Works Counter**: Updated `(04)` counter beside `SELECTED WORKS` to a superscript alignment (`align-top`, `text-[1.3889vw]`), matching `references/Design 2.png`.
    - **News Section to Footer Spacing**: Added generous bottom spacing (`pb-[8.3333vw]`) below the news section before the footer's top border line, matching `references/Design 3.png`.
    - **News Header Uppercase**: Formatted heading to uppercase `"WHAT’S HAPPENING NOW"`, matching `references/Design 4.png`.

@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useContactForm } from '../../hooks/useContactForm';
+import { PROJECT_TYPES, BUDGET_OPTIONS, SOURCE_OPTIONS } from '../../hooks/contactOptions';
+import ContactFieldError from '../ContactFieldError';
 import './ServicesMobile.css';
 
 const base = import.meta.env.BASE_URL.endsWith('/')
@@ -29,25 +32,17 @@ const SOURCE_OPTIONS = [
   'Select your option',
   'Social Media (Instagram / LinkedIn)',
   'Behance',
-  'Google / Search',
+  'Google / AI Search',
   'Recommendation / Referral',
   'Other'
 ];
 
 export default function ServicesContactSection() {
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [company, setCompany] = useState('');
-  const [website, setWebsite] = useState('');
-  const [selectedTypes, setSelectedTypes] = useState([]);
-  const [selectedBudget, setSelectedBudget] = useState('');
-  const [source, setSource] = useState('Select your option');
+  const {
+    id, inputProps, errors, spamField, handleSubmit, isSubmitting, isSubmitted, reset,
+    selectedTypes, toggleProjectType, selectedBudget, handleBudgetSelect, source, setSource, errorMessage,
+  } = useContactForm();
   const [isSourceOpen, setIsSourceOpen] = useState(false);
-  const [details, setDetails] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-
   const dropdownRef = useRef(null);
 
   // Close dropdown on click outside
@@ -60,31 +55,6 @@ export default function ServicesContactSection() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-
-  const toggleProjectType = (type) => {
-    setSelectedTypes((prev) =>
-      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
-    );
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!name.trim()) {
-      setErrorMessage('Please enter your name');
-      return;
-    }
-    if (!phone.trim()) {
-      setErrorMessage('Please enter your phone number');
-      return;
-    }
-    if (!email.trim() || !email.includes('@')) {
-      setErrorMessage('Please enter a valid email address');
-      return;
-    }
-
-    setErrorMessage('');
-    setIsSubmitted(true);
-  };
 
   return (
     <section className="services-contact-section relative w-full min-h-[50.9722vw] py-[5.4167vw] px-[0.8333vw] bg-black text-white flex flex-col justify-center">
@@ -195,100 +165,104 @@ export default function ServicesContactSection() {
               {!isSubmitted ? (
                 <motion.form
                   key="contact-form"
+                  noValidate
                   onSubmit={handleSubmit}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   className="w-full flex flex-col justify-between h-full"
                 >
+                  <input type="text" {...spamField} hidden tabIndex={-1} autoComplete="off" aria-hidden="true" />
                   {/* Inner Form Fields (Stack Spacing: 1.25vw = 18px) */}
                   <div className="services-form-field-group w-full space-y-[1.25vw]">
                     
                     {/* Field 1: Name* */}
                     <div className="services-form-item w-full">
-                      <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                      <label htmlFor={id + 'name'} className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
                         Name*
                       </label>
                       <input
                         type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        {...inputProps('name')}
                         placeholder="e.g. John Mark"
                         required
                         className="services-form-input w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
                       />
+                      <ContactFieldError id={id + 'name-error'} error={errors.name} />
                     </div>
 
                     {/* Field 2: Phone Number* */}
                     <div className="services-form-item w-full">
-                      <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                      <label htmlFor={id + 'phone'} className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
                         Phone Number*
                       </label>
                       <input
                         type="tel"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        placeholder="e.g. +971 XX XXX XXXX"
+                        inputMode="numeric"
+                        {...inputProps('phone')}
+                        placeholder="e.g. 971501234567"
                         required
                         className="services-form-input w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
                       />
+                      <ContactFieldError id={id + 'phone-error'} error={errors.phone} />
                     </div>
 
                     {/* Field 3: Email* */}
                     <div className="services-form-item w-full">
-                      <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                      <label htmlFor={id + 'email'} className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
                         Email*
                       </label>
                       <input
                         type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        {...inputProps('email')}
                         placeholder="e.g. jo.......@gmail.com"
                         required
                         className="services-form-input w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
                       />
+                      <ContactFieldError id={id + 'email-error'} error={errors.email} />
                     </div>
 
                     {/* Field 4: Company Name */}
                     <div className="services-form-item w-full">
-                      <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                      <label htmlFor={id + 'company'} className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
                         Company Name
                       </label>
                       <input
                         type="text"
-                        value={company}
-                        onChange={(e) => setCompany(e.target.value)}
+                        {...inputProps('company')}
                         placeholder="e.g. PLATO Design House"
                         className="services-form-input w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
                       />
+                      <ContactFieldError id={id + 'company-error'} error={errors.company} />
                     </div>
 
                     {/* Field 5: Your Website Link (optional) */}
                     <div className="services-form-item w-full">
-                      <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                      <label htmlFor={id + 'website'} className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
                         Your Website Link (optional)
                       </label>
                       <input
                         type="url"
-                        value={website}
-                        onChange={(e) => setWebsite(e.target.value)}
+                        {...inputProps('website')}
                         placeholder="Add your URL here"
                         className="services-form-input w-full h-[1.6667vw] bg-[#171717] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all border-none"
                       />
+                      <ContactFieldError id={id + 'website-error'} error={errors.website} />
                     </div>
 
                     {/* Field 6: Project Type Pills */}
                     <div className="services-form-item w-full">
                       <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.6944vw] leading-none">
-                        Project Type
+                        Project Type*
                       </label>
-                      <div className="services-form-pills flex flex-wrap items-center gap-[0.6944vw]">
+                      <div role="group" aria-label="Project Type (required)" aria-describedby={errors.projectTypes ? id + 'projectTypes-error' : undefined} className="services-form-pills flex flex-wrap items-center gap-[0.6944vw]">
                         {PROJECT_TYPES.map((type) => {
                           const isSelected = selectedTypes.includes(type);
                           return (
                             <button
                               type="button"
                               key={type}
+                              aria-pressed={isSelected}
                               onClick={() => toggleProjectType(type)}
                               className={`services-pill-btn h-[1.5972vw] px-[0.8333vw] rounded-full text-[0.6944vw] font-semibold tracking-[-0.03em] flex items-center justify-center transition-colors duration-150 cursor-pointer select-none ${
                                 isSelected
@@ -301,21 +275,23 @@ export default function ServicesContactSection() {
                           );
                         })}
                       </div>
+                      <ContactFieldError id={id + 'projectTypes-error'} error={errors.projectTypes} />
                     </div>
 
                     {/* Field 7: Expected Budget Pills */}
                     <div className="services-form-item w-full">
                       <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.6944vw] leading-none">
-                        Expected Budget
+                        Expected Budget*
                       </label>
-                      <div className="services-form-pills flex flex-wrap items-center gap-[0.6944vw]">
+                      <div role="group" aria-label="Expected Budget (required)" aria-describedby={errors.budget ? id + 'budget-error' : undefined} className="services-form-pills flex flex-wrap items-center gap-[0.6944vw]">
                         {BUDGET_OPTIONS.map((opt) => {
                           const isSelected = selectedBudget === opt;
                           return (
                             <button
                               type="button"
                               key={opt}
-                              onClick={() => setSelectedBudget(selectedBudget === opt ? '' : opt)}
+                              aria-pressed={isSelected}
+                              onClick={() => handleBudgetSelect(opt)}
                               className={`services-pill-btn h-[1.5972vw] px-[0.8333vw] rounded-full text-[0.6944vw] font-semibold tracking-[-0.03em] flex items-center justify-center transition-colors duration-150 cursor-pointer select-none ${
                                 isSelected
                                   ? 'bg-white text-black'
@@ -327,6 +303,7 @@ export default function ServicesContactSection() {
                           );
                         })}
                       </div>
+                      <ContactFieldError id={id + 'budget-error'} error={errors.budget} />
                     </div>
 
                     {/* Field 8: How did you hear about us? Dropdown */}
@@ -379,17 +356,17 @@ export default function ServicesContactSection() {
 
                     {/* Field 9: Something specific you want to talk about? */}
                     <div className="services-form-item w-full">
-                      <label className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
+                      <label htmlFor={id + 'details'} className="services-form-label block text-[0.6944vw] font-semibold text-white tracking-[-0.03em] mb-[0.4167vw] leading-none">
                         Something specific you want to talk about?
                       </label>
                       <div className="relative w-full">
                         <textarea
                           rows={3}
-                          value={details}
-                          onChange={(e) => setDetails(e.target.value)}
+                          {...inputProps('details')}
                           placeholder="Add more details..."
                           className="services-form-textarea w-full h-[4.9306vw] bg-[#171717] rounded-[0.1389vw] p-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none focus:ring-1 focus:ring-white/20 transition-all resize-none border-none block"
                         />
+                        <ContactFieldError id={id + 'details-error'} error={errors.details} />
                         {/* Figma Resize Gripper Icon (Two 45-degree diagonal lines) */}
                         <div className="absolute bottom-[0.4167vw] right-[0.4167vw] pointer-events-none select-none">
                           <svg viewBox="0 0 6 6" fill="none" className="w-[0.4167vw] h-[0.4167vw]">
@@ -401,7 +378,7 @@ export default function ServicesContactSection() {
                     </div>
 
                     {errorMessage && (
-                      <p className="text-red-400 text-[0.6944vw] font-semibold tracking-tight">
+                      <p role="alert" className="text-red-400 text-[0.6944vw] font-semibold tracking-tight">
                         {errorMessage}
                       </p>
                     )}
@@ -412,9 +389,10 @@ export default function ServicesContactSection() {
                   <div className="mt-[1.6667vw] flex items-center justify-start">
                     <button
                       type="submit"
+                      disabled={isSubmitting}
                       className="services-form-submit-btn w-[7.5694vw] h-[1.6667vw] rounded-full bg-white text-black text-[0.6944vw] font-semibold tracking-[-0.03em] flex items-center justify-center cursor-pointer hover:bg-white/90 active:scale-95 transition-all select-none"
                     >
-                      Submit Your Info
+                      {isSubmitting ? 'Sending…' : 'Submit Your Info'}
                     </button>
                   </div>
                 </motion.form>
@@ -439,18 +417,7 @@ export default function ServicesContactSection() {
                   </p>
                   <button
                     type="button"
-                    onClick={() => {
-                      setIsSubmitted(false);
-                      setName('');
-                      setPhone('');
-                      setEmail('');
-                      setCompany('');
-                      setWebsite('');
-                      setSelectedTypes([]);
-                      setSelectedBudget('');
-                      setSource('Select your option');
-                      setDetails('');
-                    }}
+                    onClick={() => reset()}
                     className="mt-[1.1111vw] text-[0.7639vw] font-semibold text-white/60 hover:text-white underline cursor-pointer"
                   >
                     Submit another inquiry

@@ -559,11 +559,15 @@ export default function App() {
 
   return (
     <div className={`relative min-h-screen ${
-      currentPage === 'project-mms' 
-        ? 'bg-[#0a0e17]' 
-        : currentPage === 'project-axis' 
-          ? 'bg-[#170103]' 
-          : 'bg-black'
+      currentPage === 'project-mms'
+        ? 'bg-[#0a0e17]'
+        : currentPage === 'project-axis'
+          ? 'bg-[#170103]'
+          : currentPage === 'project-stephenson'
+            ? 'bg-[#100C0B]'
+            : currentPage === 'project-fusion-form'
+              ? 'bg-[#0a0a0b]'
+              : 'bg-black'
     } text-white font-beausite selection:bg-white selection:text-black`}>
       {/* Initial splash screen on first visit to home page */}
       {!globalIntroHasPlayed && !isDirectNonHome && (

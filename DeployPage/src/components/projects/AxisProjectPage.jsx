@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import MaskedWordStagger from '../MaskedWordStagger';
+import ProjectGalleryImage from './ProjectGalleryImage';
 import ProjectNextOverscroll from './ProjectNextOverscroll';
 import './ProjectMobile.css';
 
@@ -24,28 +25,7 @@ import axis8 from '../../assets/projects/axis/AXIS 8.webp';
 import axis9 from '../../assets/projects/axis/AXIS 9.webp';
 import axis10 from '../../assets/projects/axis/AXIS 10.webp';
 
-/* ========================================================================= */
-/* GALLERY IMAGE COMPONENT                                                   */
-/* - Container maintains unscaled boundary with overflow: hidden             */
-/* - Only the image inside executes scaling & unblur reveal animation        */
-/* - Zero hover animations per guidelines                                    */
-/* ========================================================================= */
-function GalleryImage({ src, alt, delay = 0, className = '' }) {
-  return (
-    <div className={`relative w-full overflow-hidden ${className}`}>
-      <motion.img 
-        src={src}
-        alt={alt}
-        className="w-full h-auto object-cover block will-change-[transform,filter]"
-        initial={{ filter: 'blur(20px)', scale: 1.12 }}
-        whileInView={{ filter: 'blur(0px)', scale: 1 }}
-        viewport={{ once: true, amount: 0.25 }}
-        transition={{ duration: 1.8, delay, ease: [0.16, 1, 0.3, 1] }}
-        loading="lazy"
-      />
-    </div>
-  );
-}
+const GalleryImage = ProjectGalleryImage;
 
 /* ========================================================================= */
 /* AXIS® — RE SINGLE PROJECT SHOWCASE PAGE                                   */
@@ -275,15 +255,16 @@ export default function AxisProjectPage({ onNavigate }) {
           alt="AXIS® — RE 10" 
         />
 
-        {/* ─── Threshold-triggered Overscroll (Pull-to-action) to Next Project (Stephenson) ─── */}
-        <ProjectNextOverscroll 
-          nextProject="project-stephenson"
-          nextPath="/projects/stephenson"
-          nextTitle="STEPHENSON®"
-          onNavigate={onNavigate}
-        />
-
       </div>
+
+      {/* ─── Seamless Peek & Overscroll Transition to Next Project (Stephenson) ─── */}
+      <ProjectNextOverscroll 
+        currentProject="project-axis"
+        nextProject="project-stephenson"
+        nextPath="/projects/stephenson"
+        nextTitle="STEPHENSON®"
+        onNavigate={onNavigate}
+      />
 
     </div>
   );

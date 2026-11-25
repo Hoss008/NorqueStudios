@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import MaskedWordStagger from '../MaskedWordStagger';
+import ProjectGalleryImage from './ProjectGalleryImage';
 import ProjectNextOverscroll from './ProjectNextOverscroll';
 import './ProjectMobile.css';
 
@@ -20,28 +21,7 @@ import fusion6 from '../../assets/projects/fusion/Fusion 6.png';
 import fusion71 from '../../assets/projects/fusion/Fusion 7.1.png';
 import fusion72 from '../../assets/projects/fusion/Fusion 7.2.png';
 
-/* ========================================================================= */
-/* GALLERY IMAGE COMPONENT                                                   */
-/* - Container maintains unscaled boundary with overflow: hidden             */
-/* - Only the image inside executes scaling & unblur reveal animation        */
-/* - Zero hover animations per guidelines                                    */
-/* ========================================================================= */
-function GalleryImage({ src, alt, delay = 0, className = '' }) {
-  return (
-    <div className={`relative w-full overflow-hidden ${className}`}>
-      <motion.img 
-        src={src}
-        alt={alt}
-        className="w-full h-auto object-cover block will-change-[transform,filter]"
-        initial={{ filter: 'blur(20px)', scale: 1.12 }}
-        whileInView={{ filter: 'blur(0px)', scale: 1 }}
-        viewport={{ once: true, amount: 0.25 }}
-        transition={{ duration: 1.8, delay, ease: [0.16, 1, 0.3, 1] }}
-        loading="lazy"
-      />
-    </div>
-  );
-}
+const GalleryImage = ProjectGalleryImage;
 
 /* ========================================================================= */
 /* FUSION FORM® SINGLE PROJECT SHOWCASE PAGE                                 */
@@ -61,7 +41,7 @@ export default function FusionFormProjectPage({ onNavigate }) {
   useEffect(() => {
     window.scrollTo(0, 0);
     const prevBg = document.body.style.backgroundColor;
-    document.body.style.backgroundColor = '#1B0700';
+    document.body.style.backgroundColor = '#0a0a0b';
     return () => {
       document.body.style.backgroundColor = prevBg;
     };
@@ -246,15 +226,16 @@ export default function FusionFormProjectPage({ onNavigate }) {
           />
         </div>
 
-        {/* ─── Threshold-triggered Overscroll (Pull-to-action) to Next Project (MMS) ─── */}
-        <ProjectNextOverscroll 
-          nextProject="project-mms"
-          nextPath="/projects/mms"
-          nextTitle="MMS ARCHITECTS™"
-          onNavigate={onNavigate}
-        />
-
       </div>
+
+      {/* ─── Seamless Peek & Overscroll Transition to Next Project (MMS) ─── */}
+      <ProjectNextOverscroll 
+        currentProject="project-fusion-form"
+        nextProject="project-mms"
+        nextPath="/projects/mms"
+        nextTitle="MMS ARCHITECTS™"
+        onNavigate={onNavigate}
+      />
 
     </div>
   );

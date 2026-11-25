@@ -11,32 +11,6 @@ const base = import.meta.env.BASE_URL.endsWith('/')
 const PITCH_DECK_URL = `${base}NORQUE%20STUDIOS%20-%20Pitch%20Deck.pdf`;
 const PITCH_DECK_FILENAME = 'NORQUE STUDIOS - Pitch Deck.pdf';
 
-const PROJECT_TYPES = [
-  'Full Website',
-  'Branding',
-  'UI/UX',
-  'Web Development',
-  'Social Media',
-  'Consulting'
-];
-
-const BUDGET_OPTIONS = [
-  '< $1000',
-  '$1,000 — $2,000',
-  '$2,000 — $3,000',
-  '$3,000 — $5,000',
-  '+$5,000'
-];
-
-const SOURCE_OPTIONS = [
-  'Select your option',
-  'Social Media (Instagram / LinkedIn)',
-  'Behance',
-  'Google / AI Search',
-  'Recommendation / Referral',
-  'Other'
-];
-
 export default function ServicesContactSection() {
   const {
     id, inputProps, errors, spamField, handleSubmit, isSubmitting, isSubmitted, reset,

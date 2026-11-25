@@ -2,74 +2,93 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './ServicesMobile.css';
 
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+
+/* ========================================================================= */
+/* NORQUE WORKFLOW OPTIONS CONFIGURATION ((01) to (05))                      */
+/* Format:                                                                   */
+/* - title: Option heading (e.g. "Start With Questions")                     */
+/* - headline: First line under option (rendered BOLD, animates line 1)      */
+/* - body: Array of lines (or multiline string) under headline               */
+/*         Animates strictly line by line following the bold headline        */
+/* You can edit these texts and line breaks directly below.                  */
+/* ========================================================================= */
 const WORKFLOW_STEPS = [
   {
     number: '(01)',
-    title: 'Discovery Call',
-    mobileTitle: 'Start With Questions',
-    description: 'An independent creative studio built around design, digital experiences and the ideas that connect them. We work with brands, businesses and people who care about how things look, feel and exist in the real world.',
-    lines: [
-      'An independent creative studio built around design, digital',
-      'experiences and the ideas that connect them. We work with',
-      'brands, businesses and people who care about how things look,',
-      'feel and exist in the real world.'
+    title: 'Start With Questions',
+    headline: 'Before we make anything, we make sense of everything.',
+    body: [
+      'We get to know your business, your ambitions, your audience, and',
+      "the challenges you're trying to solve. This is where questions",
+      'become clarity and ideas start finding direction.'
     ],
-    media: '/images/services/4790c2cbcd7b54c241fb7736e773d86d89980a7c.png',
-    bg: '/images/services/efcfef54d9efebe1ff712ebb452895ef316778ca.png'
+    media: `${base}images/services/workFlow/01.png`,
+    bg: `${base}images/services/workFlow/01.png`
   },
   {
     number: '(02)',
-    title: 'Strategy Planning',
-    mobileTitle: 'Find Your Direction',
-    description: 'We dissect core goals, target audiences, and market whitespace to establish a definitive creative brief. Every subsequent design decision is anchored in strategic clarity and measurable impact.',
-    lines: [
-      'We dissect core goals, target audiences, and market whitespace to',
-      'establish a definitive creative brief. Every subsequent design',
-      'decision is anchored in strategic clarity and measurable impact.'
+    title: 'Find Your Direction',
+    headline: 'Good work starts with knowing where to go.',
+    body: [
+      "We translate what we've learned into a clear strategy, defining the",
+      'creative direction, project scope, priorities, and the foundation',
+      'that will guide every decision ahead.'
     ],
-    media: '/images/services/31a01b8b963d7135d022516caec5893950da23e8.png',
-    bg: '/images/services/31a01b8b963d7135d022516caec5893950da23e8.png'
+    media: `${base}images/services/workFlow/02.png`,
+    bg: `${base}images/services/workFlow/02.png`
   },
   {
     number: '(03)',
-    title: 'Bespoke Architecture',
-    mobileTitle: 'Challenge the Obvious',
-    description: 'Crafting bespoke digital layouts, wireframes, and design architectures. We establish tactile interaction models and typography hierarchies that elevate the user journey.',
-    lines: [
-      'Crafting bespoke digital layouts, wireframes, and design',
-      'architectures. We establish tactile interaction models and',
-      'typography hierarchies that elevate the user journey.'
+    title: 'Challenge the Obvious',
+    headline: 'Where thinking takes its first tangible form.',
+    body: [
+      'Ideas turn into identities, experiences, interfaces, and visual',
+      'systems. We explore, experiment, refine, and challenge the',
+      'obvious until everything starts making sense.'
     ],
-    media: '/images/services/e8d8bb69c86062580e6ea2e9b569463105084b86.png',
-    bg: '/images/services/e8d8bb69c86062580e6ea2e9b569463105084b86.png'
+    media: `${base}images/services/workFlow/03.png`,
+    bg: `${base}images/services/workFlow/03.png`
   },
   {
     number: '(04)',
-    title: 'Execution',
-    mobileTitle: 'Make It Happen',
-    description: 'Bringing wireframes and prototypes to life with production-grade precision. High-performance code, fluid motion transitions, and pixel-perfect design-to-development fidelity.',
-    lines: [
-      'Bringing wireframes and prototypes to life with production-grade',
-      'precision. High-performance code, fluid motion transitions, and',
-      'pixel-perfect design-to-development fidelity.'
+    title: 'Make It Happen',
+    headline: 'From what looks right to what works right.',
+    body: [
+      'We bring the approved direction to life through thoughtful',
+      'development and implementation, making sure every detail',
+      'performs as beautifully as it presents itself.'
     ],
-    media: '/images/services/eb6d207b88fd65f90291715af2625e9e9808fc49.png',
-    bg: '/images/services/eb6d207b88fd65f90291715af2625e9e9808fc49.png'
+    media: `${base}images/services/workFlow/04.png`,
+    bg: `${base}images/services/workFlow/04.png`
   },
   {
     number: '(05)',
-    title: 'Project Handover',
-    mobileTitle: 'Leave It Better',
-    description: 'Seamless handover of production assets, design systems, style guides, and clean repository code. We ensure your team is empowered to scale and maintain the product effortlessly.',
-    lines: [
-      'Seamless handover of production assets, design systems, style',
-      'guides, and clean repository code. We ensure your team is',
-      'empowered to scale and maintain the product effortlessly.'
+    title: 'Leave It Better',
+    headline: "Not just finished. Ready for what's next.",
+    body: [
+      'We refine, test, prepare, and deliver everything with care.',
+      "The result is more than a completed project; it's a foundation",
+      'your business can continue building on.'
     ],
-    media: '/images/services/bef77eb0ee5df99230996515e2cc1941c59c92e0.png',
-    bg: '/images/services/bef77eb0ee5df99230996515e2cc1941c59c92e0.png'
+    media: `${base}images/services/workFlow/05.png`,
+    bg: `${base}images/services/workFlow/05.png`
   }
 ];
+
+const parseLines = (content) => {
+  if (!content) return [];
+  if (Array.isArray(content)) return content;
+  if (typeof content === 'string') {
+    if (content.includes('\n')) {
+      return content.split('\n').map((l) => l.trim()).filter(Boolean);
+    }
+    return [content.trim()];
+  }
+  return [];
+};
 
 // ─── WORKFLOW SECTION CONFIGURATION ─────────────────────────────────────────
 // Adjust the background image opacity here (0.0 to 1.0):
@@ -90,11 +109,15 @@ export default function ServicesWorkflowSection() {
   const activeStepRef = useRef(0);
   const openStepRef = useRef(0);
   openStepRef.current = openStep;
-  const isAutoScrollingRef = useRef(false);
-  const autoScrollTimeoutRef = useRef(null);
   const fallbackTimerRef = useRef(null);
   const isCooldownRef = useRef(false);
   const cooldownTimerRef = useRef(null);
+  const isLockedRef = useRef(false);
+  const unlockedDirectionRef = useRef(null); // 'up' | 'down' | null
+  const unlockThresholdRef = useRef(0);
+  const wheelDebounceTimerRef = useRef(null);
+  const previousScrollYRef = useRef(0);
+  const previousTopRef = useRef(1000);
 
   // Transition from current option to next option:
   // Previous option finishes its exit animation before next option opens
@@ -107,14 +130,19 @@ export default function ServicesWorkflowSection() {
     activeStepRef.current = newIdx;
     setActiveStep(newIdx);
 
-    // Close the current option first
-    setOpenStep(null);
-
-    // Safety fallback in case onExitComplete is interrupted
-    if (fallbackTimerRef.current) clearTimeout(fallbackTimerRef.current);
-    fallbackTimerRef.current = setTimeout(() => {
+    if (openStepRef.current === null) {
+      if (fallbackTimerRef.current) clearTimeout(fallbackTimerRef.current);
       setOpenStep(newIdx);
-    }, 450);
+    } else {
+      // Close the current option first
+      setOpenStep(null);
+
+      // Safety fallback in case onExitComplete is interrupted
+      if (fallbackTimerRef.current) clearTimeout(fallbackTimerRef.current);
+      fallbackTimerRef.current = setTimeout(() => {
+        setOpenStep(newIdx);
+      }, 450);
+    }
   };
 
   const handleExitComplete = () => {
@@ -122,128 +150,204 @@ export default function ServicesWorkflowSection() {
     setOpenStep(activeStepRef.current);
   };
 
-  // Jump to specific step
+  // Jump to specific step (direct click or wheel notch)
   const handleStepClick = (index) => {
-    if (!containerRef.current) return;
     if (index === activeStepRef.current) return;
-
     switchStep(index);
-
-    const rect = containerRef.current.getBoundingClientRect();
-    const docTop = rect.top + window.scrollY;
-    const totalDist = containerRef.current.offsetHeight - window.innerHeight;
-    const stepProgress = (index + 0.5) / WORKFLOW_STEPS.length;
-    const targetTop = docTop + stepProgress * totalDist;
-
-    isAutoScrollingRef.current = true;
-    if (autoScrollTimeoutRef.current) clearTimeout(autoScrollTimeoutRef.current);
-    autoScrollTimeoutRef.current = setTimeout(() => {
-      isAutoScrollingRef.current = false;
-    }, 1200);
-
-    if (window.lenis && typeof window.lenis.scrollTo === 'function') {
-      window.lenis.scrollTo(targetTop, {
-        duration: 0.8,
-        onComplete: () => {
-          isAutoScrollingRef.current = false;
-        }
-      });
-    } else {
-      window.scrollTo({
-        top: targetTop,
-        behavior: 'smooth'
-      });
-    }
   };
 
-  // Normal scroll: single wheel notch or swipe transitions directly to next option
+  // Wheel interaction:
+  // Catches wheel anywhere on screen ONLY when section is locked at 100% of viewport.
+  // Unlocks upwards when on option 1 and scrolling up.
+  // Unlocks downwards when on option 5 and scrolling down.
   useEffect(() => {
-    const el = stickyRef.current;
-    if (!el) return;
-
-    let wheelAcc = 0;
-
     const onWheel = (e) => {
       if (typeof window !== 'undefined' && window.innerWidth <= 768) return;
       if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      // Locked when section fills the viewport
-      const isLocked = rect.top <= 10 && rect.bottom >= window.innerHeight - 10;
-      if (!isLocked) return;
 
-      const delta = e.deltaMode === 1 ? e.deltaY * 24 : e.deltaY;
-      const cur = activeStepRef.current;
+      // Only intercept if we are locked in 100% of the viewport
+      if (!isLockedRef.current) return;
 
-      // Reaching final step downwards: release scroll to continue to next section
-      if (cur >= WORKFLOW_STEPS.length - 1 && delta > 0) {
-        return;
-      }
-
-      // Reaching first step upwards: release scroll to continue to hero section
-      if (cur <= 0 && delta < 0) {
-        return;
-      }
-
-      // Inside workflow options: scroll only transitions the options
+      // Locked in workflow section: prevent native/smooth page scroll
       e.preventDefault();
       e.stopPropagation();
 
+      if (window.lenis && typeof window.lenis.stop === 'function' && !window.lenis.isStopped) {
+        window.lenis.stop();
+      }
+
+      const delta = e.deltaMode === 1 ? e.deltaY * 24 : e.deltaY;
+      const cur = activeStepRef.current;
+      const count = WORKFLOW_STEPS.length;
+
+      // 1) On Option 1 (cur <= 0) AND scrolling UP (delta < 0):
+      // UNLOCK UPWARDS!
+      if (cur <= 0 && delta < 0) {
+        if (isCooldownRef.current) return;
+        unlockThresholdRef.current += delta;
+
+        if (wheelDebounceTimerRef.current) clearTimeout(wheelDebounceTimerRef.current);
+        wheelDebounceTimerRef.current = setTimeout(() => {
+          unlockThresholdRef.current = 0;
+        }, 250);
+
+        if (unlockThresholdRef.current <= -35) {
+          unlockThresholdRef.current = 0;
+          isLockedRef.current = false;
+          unlockedDirectionRef.current = 'up';
+          previousTopRef.current = 200;
+
+          if (window.lenis && typeof window.lenis.start === 'function') {
+            window.lenis.start();
+          }
+
+          const docTop = containerRef.current.offsetTop;
+          const target = Math.max(0, docTop - window.innerHeight * 0.4);
+          if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+            window.lenis.scrollTo(target, { immediate: false, duration: 0.8 });
+          } else {
+            window.scrollTo({ top: target, behavior: 'smooth' });
+          }
+        }
+        return;
+      }
+
+      // 2) On Option 5 (cur >= count - 1) AND scrolling DOWN (delta > 0):
+      // UNLOCK DOWNWARDS!
+      if (cur >= count - 1 && delta > 0) {
+        if (isCooldownRef.current) return;
+        unlockThresholdRef.current += delta;
+
+        if (wheelDebounceTimerRef.current) clearTimeout(wheelDebounceTimerRef.current);
+        wheelDebounceTimerRef.current = setTimeout(() => {
+          unlockThresholdRef.current = 0;
+        }, 250);
+
+        if (unlockThresholdRef.current >= 35) {
+          unlockThresholdRef.current = 0;
+          isLockedRef.current = false;
+          unlockedDirectionRef.current = 'down';
+          previousTopRef.current = -200;
+
+          if (window.lenis && typeof window.lenis.start === 'function') {
+            window.lenis.start();
+          }
+
+          const docTop = containerRef.current.offsetTop;
+          const target = docTop + containerRef.current.offsetHeight + window.innerHeight * 0.4;
+          if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+            window.lenis.scrollTo(target, { immediate: false, duration: 0.8 });
+          } else {
+            window.scrollTo({ top: target, behavior: 'smooth' });
+          }
+        }
+        return;
+      }
+
+      // 3) Within workflow options (0 to count - 1):
       if (isCooldownRef.current) return;
 
-      wheelAcc += delta;
+      unlockThresholdRef.current += delta;
 
-      // Normal scroll threshold: 45px (one standard wheel notch or light trackpad scroll)
-      if (Math.abs(wheelAcc) >= 45) {
-        const nextIdx = wheelAcc > 0 ? cur + 1 : cur - 1;
-        wheelAcc = 0;
+      if (wheelDebounceTimerRef.current) clearTimeout(wheelDebounceTimerRef.current);
+      wheelDebounceTimerRef.current = setTimeout(() => {
+        unlockThresholdRef.current = 0;
+      }, 250);
 
-        if (nextIdx >= 0 && nextIdx < WORKFLOW_STEPS.length) {
+      if (Math.abs(unlockThresholdRef.current) >= 35) {
+        const nextIdx = unlockThresholdRef.current > 0 ? cur + 1 : cur - 1;
+        unlockThresholdRef.current = 0;
+
+        if (nextIdx >= 0 && nextIdx < count) {
           isCooldownRef.current = true;
           if (cooldownTimerRef.current) clearTimeout(cooldownTimerRef.current);
           cooldownTimerRef.current = setTimeout(() => {
             isCooldownRef.current = false;
-          }, 450);
+          }, 350);
 
           handleStepClick(nextIdx);
         }
       }
     };
 
-    el.addEventListener('wheel', onWheel, { passive: false });
+    window.addEventListener('wheel', onWheel, { passive: false });
     return () => {
-      el.removeEventListener('wheel', onWheel);
+      window.removeEventListener('wheel', onWheel);
       if (cooldownTimerRef.current) clearTimeout(cooldownTimerRef.current);
+      if (wheelDebounceTimerRef.current) clearTimeout(wheelDebounceTimerRef.current);
+      if (window.lenis && typeof window.lenis.start === 'function') {
+        window.lenis.start();
+      }
     };
   }, []);
 
-  // Monitor scroll progress across the pinned container for background parallax
+  // Monitor scroll progress across the container for background parallax and 100% viewport detection
   useEffect(() => {
     const handleScroll = () => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
+      const currentScrollY = window.scrollY;
+      const scrollDir = currentScrollY >= previousScrollYRef.current ? 'down' : 'up';
+      previousScrollYRef.current = currentScrollY;
 
-      // Continuous parallax: active even before the section is 100% in viewport
-      // When scrolling down, rect.top decreases -> bgParallaxY decreases (background moves UP)
-      // When scrolling up, rect.top increases -> bgParallaxY increases (background moves DOWN)
+      // Continuous parallax
       const parallax = (rect.top - window.innerHeight * 0.25) * WORKFLOW_PARALLAX_SPEED;
       setBgParallaxY(parallax);
 
-      const totalDist = containerRef.current.offsetHeight - window.innerHeight;
-      if (totalDist <= 0) return;
+      // If we recently unlocked in a direction, do NOT re-lock while moving away in that direction
+      if (unlockedDirectionRef.current === 'up') {
+        if (rect.top > 80) {
+          unlockedDirectionRef.current = null;
+        }
+        return;
+      }
+      if (unlockedDirectionRef.current === 'down') {
+        if (rect.bottom < window.innerHeight - 80 || rect.top < -80) {
+          unlockedDirectionRef.current = null;
+        }
+        return;
+      }
 
-      const currentScroll = -rect.top;
-      const progress = Math.max(0, Math.min(1, currentScroll / totalDist));
-      setScrollProgress(progress);
+      // Check whether the section is 100% filling the viewport
+      // Section is h-screen, so offsetHeight === window.innerHeight
+      const enteredFromAbove = previousTopRef.current > 25 && rect.top <= 25 && rect.bottom >= window.innerHeight * 0.5;
+      const enteredFromBelow = previousTopRef.current < -25 && rect.top >= -25 && rect.top <= window.innerHeight * 0.5;
+      const is100Percent = Math.abs(rect.top) <= 25 || enteredFromAbove || enteredFromBelow;
 
-      if (isAutoScrollingRef.current) return;
+      if (is100Percent) {
+        if (!isLockedRef.current) {
+          isLockedRef.current = true;
 
-      const stepIdx = Math.min(
-        WORKFLOW_STEPS.length - 1,
-        Math.max(0, Math.floor(progress * WORKFLOW_STEPS.length))
-      );
+          // Determine entry step:
+          // Entering from above (scrollDir === 'down' or previousTop > 20): start at Option 1 (0)
+          // Entering from below (scrollDir === 'up' or previousTop < -20): start at Option 5 (count - 1)
+          if ((scrollDir === 'down' || previousTopRef.current > 20) && activeStepRef.current !== 0) {
+            switchStep(0);
+          } else if ((scrollDir === 'up' || previousTopRef.current < -20) && activeStepRef.current !== WORKFLOW_STEPS.length - 1) {
+            switchStep(WORKFLOW_STEPS.length - 1);
+          }
 
-      if (stepIdx !== activeStepRef.current) {
-        switchStep(stepIdx);
+          // Stop Lenis smooth scroll while locked
+          if (window.lenis && typeof window.lenis.stop === 'function') {
+            window.lenis.stop();
+          }
+
+          // Clean snap to exact section top so there's zero offset
+          const docTop = containerRef.current.offsetTop;
+          window.scrollTo({ top: docTop, behavior: 'instant' });
+          if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+            window.lenis.scrollTo(docTop, { immediate: true });
+          }
+        }
+      } else {
+        // Outside 100% of viewport
+        previousTopRef.current = rect.top;
+        if (isLockedRef.current) {
+          isLockedRef.current = false;
+        }
+        if (window.lenis && typeof window.lenis.start === 'function' && window.lenis.isStopped) {
+          window.lenis.start();
+        }
       }
     };
 
@@ -261,7 +365,9 @@ export default function ServicesWorkflowSection() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
       if (unLenis) unLenis();
-      if (autoScrollTimeoutRef.current) clearTimeout(autoScrollTimeoutRef.current);
+      if (window.lenis && typeof window.lenis.start === 'function') {
+        window.lenis.start();
+      }
       if (fallbackTimerRef.current) clearTimeout(fallbackTimerRef.current);
     };
   }, []);
@@ -288,12 +394,12 @@ export default function ServicesWorkflowSection() {
   return (
     <section
       ref={containerRef}
-      className="services-workflow-section relative w-full h-[250vh] bg-black text-white"
+      className="services-workflow-section relative w-full h-screen bg-black text-white overflow-hidden"
     >
-      {/* Sticky Viewport Container: Locks when 100% of viewport height */}
+      {/* Viewport Container: Locks when 100% of viewport height */}
       <div
         ref={stickyRef}
-        className="services-workflow-sticky sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between px-[0.8333vw] py-[2.5vw] z-10 select-none"
+        className="services-workflow-sticky relative h-screen w-full overflow-hidden flex flex-col justify-between px-[0.8333vw] py-[2.5vw] z-10 select-none"
       >
         
         {/* Full-Section Ambient Background: Previews active step media with cross-dissolve & parallax */}
@@ -335,6 +441,8 @@ export default function ServicesWorkflowSection() {
           <div className="services-workflow-steps col-start-3 col-span-4 flex flex-col justify-center space-y-[0.5vw]">
             {WORKFLOW_STEPS.map((step, idx) => {
               const isActive = activeStep === idx;
+              const headlineLines = parseLines(step.headline);
+              const bodyLines = parseLines(step.body);
 
               return (
                 <div
@@ -346,7 +454,7 @@ export default function ServicesWorkflowSection() {
                   {/* Step Header */}
                   <div className="flex items-baseline space-x-[0.6vw]">
                     <span className="services-workflow-step-title text-[1.5278vw] font-semibold tracking-[-0.03em] text-white">
-                      {step.number} <span className="hidden max-md:inline">{step.mobileTitle || step.title}</span><span className="max-md:hidden">{step.title}</span>
+                      {step.number} {step.title}
                     </span>
                   </div>
 
@@ -355,62 +463,101 @@ export default function ServicesWorkflowSection() {
                     {openStep === idx && (
                       <motion.div
                         key={step.title}
-                        initial={{ height: 0, opacity: 1 }}
+                        initial={{ height: 0, opacity: 0 }}
                         animate={{
                           height: 'auto',
                           opacity: 1,
                           transition: {
-                            height: { duration: 0.45, ease: [0.315, -0.011, 0, 0.986] },
-                            opacity: { duration: 0.35, delay: 0.1 }
+                            height: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+                            opacity: { duration: 0.35, ease: [0.22, 1, 0.36, 1] }
                           }
                         }}
                         exit={{
                           height: 0,
-                          opacity: 1,
+                          opacity: 0,
                           transition: {
-                            height: { duration: 0.35, ease: [0.315, -0.011, 0, 0.986] },
-                            opacity: { duration: 0.2 }
+                            height: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+                            opacity: { duration: 0.2, ease: [0.22, 1, 0.36, 1] }
                           }
                         }}
+                        style={{ overflow: 'hidden' }}
                         className="overflow-hidden"
                       >
-                        <div className="services-workflow-step-desc pt-[0.2vw] pb-[0.5vw] max-w-[28vw] flex flex-col space-y-[0.1vw]">
-                          {/* Masked stagger animation by line in direction of next step (top/bottom) */}
-                          {(step.lines || [step.description]).map((line, lineIdx) => {
-                            const lineCount = (step.lines || [step.description]).length;
-                            const staggerIdx = direction > 0 ? lineIdx : (lineCount - 1 - lineIdx);
-                            return (
-                              <div key={lineIdx} className="overflow-hidden pb-[0.08em] -mb-[0.08em] block">
-                                <motion.div
-                                  initial={{
-                                    y: direction > 0 ? '105%' : '-105%',
-                                    opacity: 1
-                                  }}
-                                  animate={{
-                                    y: '0%',
-                                    opacity: 1,
-                                    transition: {
-                                      duration: 0.55,
-                                      ease: [0.315, -0.011, 0, 0.986],
-                                      delay: 0.15 + staggerIdx * 0.035
-                                    }
-                                  }}
-                                  exit={{
-                                    y: direction > 0 ? '-105%' : '105%',
-                                    opacity: 1,
-                                    transition: {
-                                      duration: 0.35,
-                                      ease: [0.315, -0.011, 0, 0.986],
-                                      delay: staggerIdx * 0.02
-                                    }
-                                  }}
-                                  className="services-workflow-step-desc-line text-[0.8333vw] font-normal leading-[1] text-white/80 tracking-[-0.03em] whitespace-nowrap block"
-                                >
-                                  {line}
-                                </motion.div>
-                              </div>
-                            );
-                          })}
+                        <div className="services-workflow-step-desc pt-[0.6vw] pb-[0.8vw] max-w-[28vw] flex flex-col">
+                          {/* Bold Headline Lines (Line by Line reveal) */}
+                          {headlineLines.map((line, hIdx) => (
+                            <div key={`hl-${hIdx}`} className="overflow-hidden py-[1px] block">
+                              <motion.p
+                                initial={{
+                                  y: direction > 0 ? '100%' : '-100%',
+                                  opacity: 0
+                                }}
+                                animate={{
+                                  y: '0%',
+                                  opacity: 1,
+                                  transition: {
+                                    duration: 0.45,
+                                    ease: [0.22, 1, 0.36, 1],
+                                    delay: 0.08 + hIdx * 0.07
+                                  }
+                                }}
+                                exit={{
+                                  y: direction > 0 ? '-100%' : '100%',
+                                  opacity: 0,
+                                  transition: {
+                                    duration: 0.25,
+                                    ease: [0.22, 1, 0.36, 1],
+                                    delay: hIdx * 0.03
+                                  }
+                                }}
+                                className="services-workflow-step-headline text-[1.0417vw] font-bold text-white tracking-[-0.03em] leading-[1.3] block"
+                              >
+                                {line}
+                              </motion.p>
+                            </div>
+                          ))}
+
+                          {/* Distance between headline and body, followed by Body Lines strictly line by line */}
+                          {bodyLines.length > 0 && (
+                            <div className="flex flex-col mt-[10px] sm:mt-[0.6944vw]">
+                              {bodyLines.map((line, bIdx) => {
+                                const lineDelay = 0.08 + (headlineLines.length + bIdx) * 0.07;
+                                const exitDelay = (headlineLines.length + bIdx) * 0.03;
+
+                                return (
+                                  <div key={`b-${bIdx}`} className="overflow-hidden py-[1px] block">
+                                    <motion.p
+                                      initial={{
+                                        y: direction > 0 ? '100%' : '-100%',
+                                        opacity: 0
+                                      }}
+                                      animate={{
+                                        y: '0%',
+                                        opacity: 1,
+                                        transition: {
+                                          duration: 0.45,
+                                          ease: [0.22, 1, 0.36, 1],
+                                          delay: lineDelay
+                                        }
+                                      }}
+                                      exit={{
+                                        y: direction > 0 ? '-100%' : '100%',
+                                        opacity: 0,
+                                        transition: {
+                                          duration: 0.25,
+                                          ease: [0.22, 1, 0.36, 1],
+                                          delay: exitDelay
+                                        }
+                                      }}
+                                      className="services-workflow-step-body text-[0.8333vw] font-normal text-white/80 tracking-[-0.03em] leading-[1.4] block"
+                                    >
+                                      {line}
+                                    </motion.p>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
                         </div>
                       </motion.div>
                     )}

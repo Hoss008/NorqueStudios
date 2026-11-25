@@ -1,0 +1,50 @@
+[  728649ms] ReferenceError: handleMouseEnter is not defined
+    at ServicesWorkflowSection (http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1795541745025:295:21)
+    at renderWithHooks (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:11596:26)
+    at mountIndeterminateComponent (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:14974:21)
+    at beginWork (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:15962:22)
+    at HTMLUnknownElement.callCallback2 (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:3680:22)
+    at Object.invokeGuardedCallbackDev (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:3705:24)
+    at invokeGuardedCallback (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:3739:39)
+    at beginWork$1 (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19818:15)
+    at performUnitOfWork (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19251:20)
+    at workLoopSync (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19190:13)
+[  728653ms] ReferenceError: handleMouseEnter is not defined
+    at ServicesWorkflowSection (http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1795541745025:295:21)
+    at renderWithHooks (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:11596:26)
+    at mountIndeterminateComponent (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:14974:21)
+    at beginWork (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:15962:22)
+    at HTMLUnknownElement.callCallback2 (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:3680:22)
+    at Object.invokeGuardedCallbackDev (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:3705:24)
+    at invokeGuardedCallback (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:3739:39)
+    at beginWork$1 (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19818:15)
+    at performUnitOfWork (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19251:20)
+    at workLoopSync (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19190:13)
+[  728655ms] [ERROR] The above error occurred in the <ServicesWorkflowSection> component:
+
+    at ServicesWorkflowSection (http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1795541745025:99:24)
+    at main
+    at div
+    at ServicesPage (http://localhost:3000/src/components/ServicesPage.jsx?t=1795541007924:25:40)
+    at RenderedRoute (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:6763:26)
+    at Routes (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:7705:3)
+    at Suspense
+    at main
+    at div
+    at App (http://localhost:3000/src/App.jsx?t=1795541007924:67:20)
+    at Router (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:7644:13)
+    at BrowserRouter (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:10983:3)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries. @ http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:14080
+[  728659ms] ReferenceError: handleMouseEnter is not defined
+    at ServicesWorkflowSection (http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1795541745025:295:21)
+    at renderWithHooks (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:11596:26)
+    at mountIndeterminateComponent (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:14974:21)
+    at beginWork (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:15962:22)
+    at beginWork$1 (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19806:22)
+    at performUnitOfWork (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19251:20)
+    at workLoopSync (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19190:13)
+    at renderRootSync (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19169:15)
+    at recoverFromConcurrentError (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:18786:28)
+    at performSyncWorkOnRoot (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:18932:28)

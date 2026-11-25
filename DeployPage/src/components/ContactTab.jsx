@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+const PITCH_DECK_URL = `${base}NORQUE%20STUDIOS%20-%20Pitch%20Deck.pdf`;
+const PITCH_DECK_FILENAME = 'NORQUE STUDIOS - Pitch Deck.pdf';
+
 import { useContactForm } from '../hooks/useContactForm';
 import { PROJECT_TYPES, BUDGET_OPTIONS, SOURCE_OPTIONS } from '../hooks/contactOptions';
 import ContactFieldError from './ContactFieldError';
@@ -532,8 +538,8 @@ export default function ContactTab({ isOpen, onClose }) {
                     </div>
 
                     <a
-                      href="#"
-                      onClick={(e) => e.preventDefault()}
+                      href={PITCH_DECK_URL}
+                      download={PITCH_DECK_FILENAME}
                       className="flex items-center gap-[5px] text-[9px] md:text-[0.62vw] font-semibold text-[#737373] hover:text-black transition-colors mt-[6px] md:mt-[0.7vh]"
                     >
                       <svg width="8" height="10" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[8px] h-[10px] flex-shrink-0">

@@ -5,6 +5,38 @@ import { PROJECT_TYPES, BUDGET_OPTIONS, SOURCE_OPTIONS } from '../../hooks/conta
 import ContactFieldError from '../ContactFieldError';
 import './ServicesMobile.css';
 
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+const PITCH_DECK_URL = `${base}NORQUE%20STUDIOS%20-%20Pitch%20Deck.pdf`;
+const PITCH_DECK_FILENAME = 'NORQUE STUDIOS - Pitch Deck.pdf';
+
+const PROJECT_TYPES = [
+  'Full Website',
+  'Branding',
+  'UI/UX',
+  'Web Development',
+  'Social Media',
+  'Consulting'
+];
+
+const BUDGET_OPTIONS = [
+  '< $1000',
+  '$1,000 — $2,000',
+  '$2,000 — $3,000',
+  '$3,000 — $5,000',
+  '+$5,000'
+];
+
+const SOURCE_OPTIONS = [
+  'Select your option',
+  'Social Media (Instagram / LinkedIn)',
+  'Behance',
+  'Google / AI Search',
+  'Recommendation / Referral',
+  'Other'
+];
+
 export default function ServicesContactSection() {
   const {
     id, inputProps, errors, spamField, handleSubmit, isSubmitting, isSubmitted, reset,
@@ -43,8 +75,8 @@ export default function ServicesContactSection() {
 
           {/* 1:1 Pitch Deck Download Card (Desktop: Frame 51) */}
           <a
-            href="/Norque-Pitch-Deck.pdf"
-            download="Norque-Pitch-Deck.pdf"
+            href={PITCH_DECK_URL}
+            download={PITCH_DECK_FILENAME}
             className="group relative w-[15.4861vw] h-[6.7361vw] rounded-[0.2778vw] overflow-hidden cursor-pointer select-none block transition-transform duration-300 hover:scale-[1.02] shadow-xl mt-[2.7778vw] lg:mt-0 max-md:hidden"
             aria-label="Download Norque's Pitch Deck PDF"
           >
@@ -56,10 +88,10 @@ export default function ServicesContactSection() {
             />
             <div className="absolute inset-0 bg-black/28 group-hover:bg-black/15 transition-colors" />
 
-            {/* Top Badge: 24.6 MB (Frame 62: 54px x 19px -> 3.75vw x 1.3194vw) */}
+            {/* Top Badge: 30.1 MB (Frame 62: 54px x 19px -> 3.75vw x 1.3194vw) */}
             <div className="absolute top-[0.8333vw] left-[0.8333vw] z-10 w-[3.75vw] h-[1.3194vw] bg-black/55 backdrop-blur-[0.1389vw] rounded-[0.2778vw] flex items-center justify-center">
               <span className="text-[0.6944vw] font-semibold text-white tracking-[-0.03em] leading-none">
-                24.6 MB
+                30.1 MB
               </span>
             </div>
 
@@ -100,8 +132,8 @@ export default function ServicesContactSection() {
 
           {/* 1:1 Mobile Pitch Deck Download Card (Figma Node 26:686) */}
           <a
-            href="/Norque-Pitch-Deck.pdf"
-            download="Norque-Pitch-Deck.pdf"
+            href={PITCH_DECK_URL}
+            download={PITCH_DECK_FILENAME}
             className="services-pitch-deck-card hidden max-md:flex bg-[#3c3c3c] h-[56px] items-center justify-between px-[14px] py-[10px] rounded-[4px] w-full cursor-pointer hover:bg-[#484848] transition-colors"
             aria-label="Download Norque's Pitch Deck PDF"
           >
@@ -119,7 +151,7 @@ export default function ServicesContactSection() {
             </div>
             <div className="bg-black/50 px-[12px] py-[8px] rounded-[4px] flex items-center justify-center">
               <span className="text-[12px] font-semibold tracking-[-0.36px] text-white leading-none">
-                PDF - 24.6 MB
+                PDF - 30.1 MB
               </span>
             </div>
           </a>

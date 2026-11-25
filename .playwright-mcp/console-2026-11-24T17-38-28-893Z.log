@@ -1,0 +1,68 @@
+[     179ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:21609
+[   77104ms] ReferenceError: lastScrollYRef is not defined
+    at handleScroll (http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1795541985858:227:46)
+    at http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1795541985858:260:5
+    at commitHookEffectListMount (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:16963:34)
+    at commitPassiveMountOnFiber (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:18206:19)
+    at commitPassiveMountEffects_complete (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:18179:17)
+    at commitPassiveMountEffects_begin (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:18169:15)
+    at commitPassiveMountEffects (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:18159:11)
+    at flushPassiveEffectsImpl (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19543:11)
+    at flushPassiveEffects (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19500:22)
+    at commitRootImpl (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19469:13)
+[   77107ms] ReferenceError: lastScrollYRef is not defined
+    at handleScroll (http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1795541985858:227:46)
+    at http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1795541985858:260:5
+    at commitHookEffectListMount (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:16963:34)
+    at invokePassiveEffectMountInDEV (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:18374:19)
+    at invokeEffectsInDev (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19754:19)
+    at commitDoubleInvokeEffectsInDEV (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19739:15)
+    at flushPassiveEffectsImpl (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19556:13)
+    at flushPassiveEffects (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19500:22)
+    at commitRootImpl (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19469:13)
+    at commitRoot (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19330:13)
+[   77108ms] [ERROR] The above error occurred in the <ServicesWorkflowSection> component:
+
+    at ServicesWorkflowSection (http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1795541985858:99:24)
+    at main
+    at div
+    at ServicesPage (http://localhost:3000/src/components/ServicesPage.jsx?t=1795541902585:25:40)
+    at RenderedRoute (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:6763:26)
+    at Routes (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:7705:3)
+    at Suspense
+    at main
+    at div
+    at App (http://localhost:3000/src/App.jsx?t=1795541902585:67:20)
+    at Router (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:7644:13)
+    at BrowserRouter (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:10983:3)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries. @ http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:14080
+[   77109ms] [ERROR] The above error occurred in the <ServicesWorkflowSection> component:
+
+    at ServicesWorkflowSection (http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1795541985858:99:24)
+    at main
+    at div
+    at ServicesPage (http://localhost:3000/src/components/ServicesPage.jsx?t=1795541902585:25:40)
+    at RenderedRoute (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:6763:26)
+    at Routes (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:7705:3)
+    at Suspense
+    at main
+    at div
+    at App (http://localhost:3000/src/App.jsx?t=1795541902585:67:20)
+    at Router (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:7644:13)
+    at BrowserRouter (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=b5e445f1:10983:3)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries. @ http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:14080
+[   77110ms] ReferenceError: lastScrollYRef is not defined
+    at handleScroll (http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1795541985858:227:46)
+    at http://localhost:3000/src/components/services/ServicesWorkflowSection.jsx?t=1795541985858:260:5
+    at commitHookEffectListMount (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:16963:34)
+    at commitPassiveMountOnFiber (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:18206:19)
+    at commitPassiveMountEffects_complete (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:18179:17)
+    at commitPassiveMountEffects_begin (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:18169:15)
+    at commitPassiveMountEffects (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:18159:11)
+    at flushPassiveEffectsImpl (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19543:11)
+    at flushPassiveEffects (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19500:22)
+    at commitRootImpl (http://localhost:3000/node_modules/.vite/deps/chunk-KDCVS43I.js?v=b5e445f1:19469:13)

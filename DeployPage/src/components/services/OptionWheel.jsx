@@ -177,6 +177,18 @@ export default function OptionWheel({
 
     let accumulatedDelta = 0;
 
+    const handleMouseEnter = () => {
+      if (window.lenis && typeof window.lenis.stop === 'function') {
+        window.lenis.stop();
+      }
+    };
+
+    const handleMouseLeave = () => {
+      if (window.lenis && typeof window.lenis.start === 'function') {
+        window.lenis.start();
+      }
+    };
+
     const onWheel = (e) => {
       const cfg = cfgRef.current;
       const delta = e.deltaMode === 1 ? e.deltaY * 24 : e.deltaY;
@@ -187,21 +199,33 @@ export default function OptionWheel({
       // 1) When the hero section is NOT 100% filling the viewport (page is scrolled away),
       // allow the page to scroll freely in either direction even if hovering on the wheel
       if (!isHeroFillingViewport()) {
+        if (window.lenis && typeof window.lenis.start === 'function') {
+          window.lenis.start();
+        }
         return;
       }
 
       // 2) When loop is disabled:
       // Allow scrolling down past the final option ("Consultation")
       if (isAtFinalOption && delta > 0) {
+        if (window.lenis && typeof window.lenis.start === 'function') {
+          window.lenis.start();
+        }
         return;
       }
       // Allow scrolling up past the first option
       if (isAtFirstOption && delta < 0) {
+        if (window.lenis && typeof window.lenis.start === 'function') {
+          window.lenis.start();
+        }
         return;
       }
 
       // 3) Otherwise (hero fills viewport & moving within wheel options / loop is true):
-      // strictly scroll only the wheel and prevent page scroll
+      // strictly scroll only the wheel and disable page smooth scroll
+      if (window.lenis && typeof window.lenis.stop === 'function') {
+        window.lenis.stop();
+      }
       e.preventDefault();
       e.stopPropagation();
       if (e.stopImmediatePropagation) {
@@ -225,9 +249,16 @@ export default function OptionWheel({
       }, 120);
     };
 
+    el.addEventListener('mouseenter', handleMouseEnter);
+    el.addEventListener('mouseleave', handleMouseLeave);
     el.addEventListener('wheel', onWheel, { passive: false });
     return () => {
+      el.removeEventListener('mouseenter', handleMouseEnter);
+      el.removeEventListener('mouseleave', handleMouseLeave);
       el.removeEventListener('wheel', onWheel);
+      if (window.lenis && typeof window.lenis.start === 'function') {
+        window.lenis.start();
+      }
       if (wheelTimerRef.current) clearTimeout(wheelTimerRef.current);
     };
   }, [applyTarget]);
@@ -310,6 +341,7 @@ export default function OptionWheel({
       role="listbox"
       tabIndex={0}
       aria-label="Service wheel"
+      data-lenis-prevent="true"
       className={`service-option-wheel${side === 'right' ? ' service-option-wheel--right' : ''}${isDragging ? ' service-option-wheel--dragging' : ''}${className ? ` ${className}` : ''}`}
       style={{
         '--ow-text-color': textColor,

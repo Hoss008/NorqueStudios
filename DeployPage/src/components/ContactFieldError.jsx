@@ -6,7 +6,7 @@ export default function ContactFieldError({ id, error, variant = 'light', classN
   const toneClass =
     variant === 'dark'
       ? 'text-[#F87171] text-[11px] md:text-[0.625vw] mt-[4px] md:mt-[0.3vw]'
-      : 'text-[#DC2626] text-[9.5px] md:text-[0.62vw] mt-[3px]';
+      : 'text-[#DC2626] text-[10px] md:text-[0.625vw] mt-[4px] md:mt-[0.3vw]';
 
   return (
     <p

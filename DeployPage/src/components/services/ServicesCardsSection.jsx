@@ -57,8 +57,120 @@ export default function ServicesCardsSection() {
   const containerRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const snapTimerRef = useRef(null);
+  const snapEndTimerRef = useRef(null);
+  const isSnappingRef = useRef(false);
+
+  const getClosestCardIndex = (progress) => {
+    const curX = TRACK_START_VW - progress * (TRACK_START_VW - TRACK_END_VW);
+    const centerOffset = (EXPERIENCE_CARDS.length - 1) / 2;
+    const rawIdx = Math.round(centerOffset - curX / CARD_STEP_VW);
+    return Math.max(0, Math.min(EXPERIENCE_CARDS.length - 1, rawIdx));
+  };
+
+  const getCardTargetTop = (index) => {
+    if (!containerRef.current) return null;
+    const rect = containerRef.current.getBoundingClientRect();
+    const docTop = rect.top + window.scrollY;
+    const totalDist = containerRef.current.offsetHeight - window.innerHeight;
+    if (totalDist <= 0) return null;
+
+    const centerOffset = (EXPERIENCE_CARDS.length - 1) / 2;
+    const targetX = (centerOffset - index) * CARD_STEP_VW;
+    const targetProgress = Math.max(0, Math.min(1, (TRACK_START_VW - targetX) / (TRACK_START_VW - TRACK_END_VW)));
+    return docTop + targetProgress * totalDist;
+  };
+
+  const snapToTop = (targetTop, duration = 0.65) => {
+    if (snapTimerRef.current) {
+      clearTimeout(snapTimerRef.current);
+      snapTimerRef.current = null;
+    }
+    if (snapEndTimerRef.current) {
+      clearTimeout(snapEndTimerRef.current);
+      snapEndTimerRef.current = null;
+    }
+
+    isSnappingRef.current = true;
+    const clearSnapping = () => {
+      isSnappingRef.current = false;
+      if (snapEndTimerRef.current) {
+        clearTimeout(snapEndTimerRef.current);
+        snapEndTimerRef.current = null;
+      }
+    };
+
+    snapEndTimerRef.current = setTimeout(clearSnapping, duration * 1000 + 200);
+
+    if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+      window.lenis.scrollTo(targetTop, {
+        duration,
+        onComplete: clearSnapping,
+      });
+    } else {
+      window.scrollTo({ top: targetTop, behavior: 'smooth' });
+    }
+  };
 
   useEffect(() => {
+    const cancelPendingSnap = () => {
+      if (snapTimerRef.current) {
+        clearTimeout(snapTimerRef.current);
+        snapTimerRef.current = null;
+      }
+      if (isSnappingRef.current) {
+        isSnappingRef.current = false;
+        if (snapEndTimerRef.current) {
+          clearTimeout(snapEndTimerRef.current);
+          snapEndTimerRef.current = null;
+        }
+      }
+    };
+
+    const onKeyDown = (e) => {
+      if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Space', 'Home', 'End'].includes(e.code)) {
+        cancelPendingSnap();
+      }
+    };
+
+    const scheduleSnap = () => {
+      if (snapTimerRef.current) clearTimeout(snapTimerRef.current);
+      if (typeof window === 'undefined' || window.innerWidth <= 768) return;
+      if (isSnappingRef.current) return;
+
+      const checkAndSnap = () => {
+        if (!containerRef.current || isSnappingRef.current) return;
+        if (window.innerWidth <= 768) return;
+
+        // Let Lenis coasting inertia finish before snapping to the nearest card
+        const lenisVelocity = window.lenis && !window.lenis.isStopped
+          ? Math.abs(window.lenis.velocity || 0)
+          : 0;
+        if (lenisVelocity > 0.35) {
+          snapTimerRef.current = setTimeout(checkAndSnap, 80);
+          return;
+        }
+
+        const rect = containerRef.current.getBoundingClientRect();
+        const totalDist = containerRef.current.offsetHeight - window.innerHeight;
+        if (totalDist <= 0) return;
+
+        const currentScroll = -rect.top;
+        if (currentScroll <= 2 || currentScroll >= totalDist - 2) return;
+
+        const progress = Math.max(0, Math.min(1, currentScroll / totalDist));
+        const idx = getClosestCardIndex(progress);
+
+        const targetTop = getCardTargetTop(idx);
+        if (targetTop == null) return;
+        if (Math.abs(targetTop - window.scrollY) <= 2) return;
+
+        snapToTop(targetTop, 0.65);
+      };
+
+      snapTimerRef.current = setTimeout(checkAndSnap, 140);
+    };
+
     const handleScroll = () => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
@@ -70,14 +182,20 @@ export default function ServicesCardsSection() {
       setScrollProgress(progress);
 
       // Determine active card based on track position relative to viewport center
-      const curX = TRACK_START_VW - progress * (TRACK_START_VW - TRACK_END_VW);
-      const centerOffset = (EXPERIENCE_CARDS.length - 1) / 2;
-      const rawIdx = Math.round(centerOffset - curX / CARD_STEP_VW);
-      const idx = Math.max(0, Math.min(EXPERIENCE_CARDS.length - 1, rawIdx));
-      setActiveCardIndex(idx);
+      setActiveCardIndex(getClosestCardIndex(progress));
+
+      if (currentScroll > 2 && currentScroll < totalDist - 2) {
+        scheduleSnap();
+      } else if (snapTimerRef.current) {
+        clearTimeout(snapTimerRef.current);
+        snapTimerRef.current = null;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('wheel', cancelPendingSnap, { passive: true });
+    window.addEventListener('touchstart', cancelPendingSnap, { passive: true });
+    window.addEventListener('keydown', onKeyDown, { passive: true });
     let unLenis = null;
     if (window.lenis && typeof window.lenis.on === 'function') {
       window.lenis.on('scroll', handleScroll);
@@ -90,7 +208,12 @@ export default function ServicesCardsSection() {
     handleScroll();
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('wheel', cancelPendingSnap);
+      window.removeEventListener('touchstart', cancelPendingSnap);
+      window.removeEventListener('keydown', onKeyDown);
       if (unLenis) unLenis();
+      if (snapTimerRef.current) clearTimeout(snapTimerRef.current);
+      if (snapEndTimerRef.current) clearTimeout(snapEndTimerRef.current);
     };
   }, []);
 
@@ -98,20 +221,9 @@ export default function ServicesCardsSection() {
   const trackTranslateX = TRACK_START_VW - scrollProgress * (TRACK_START_VW - TRACK_END_VW);
 
   const handleCardClick = (index) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const docTop = rect.top + window.scrollY;
-    const totalDist = containerRef.current.offsetHeight - window.innerHeight;
-
-    const centerOffset = (EXPERIENCE_CARDS.length - 1) / 2;
-    const targetX = (centerOffset - index) * CARD_STEP_VW;
-    const targetProgress = Math.max(0, Math.min(1, (TRACK_START_VW - targetX) / (TRACK_START_VW - TRACK_END_VW)));
-    const targetTop = docTop + targetProgress * totalDist;
-
-    if (window.lenis && typeof window.lenis.scrollTo === 'function') {
-      window.lenis.scrollTo(targetTop, { duration: 0.8 });
-    } else {
-      window.scrollTo({ top: targetTop, behavior: 'smooth' });
+    const targetTop = getCardTargetTop(index);
+    if (targetTop != null) {
+      snapToTop(targetTop, 0.8);
     }
   };
 
@@ -128,7 +240,7 @@ export default function ServicesCardsSection() {
         {/* Center Title Display: Fully white, un-dimmed, centered vertically and horizontally */}
         <div className="services-cards-title-display absolute inset-0 flex items-center justify-center pointer-events-none z-0">
           <h2 className="text-[2.5vw] font-semibold tracking-[-0.03em] leading-none text-white uppercase whitespace-nowrap select-none">
-            FEEL THE EXPERIENCE
+            DESIGNED TO FEEL EFFORTLESS
           </h2>
         </div>
 

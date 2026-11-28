@@ -387,6 +387,17 @@
     color: #ffffff !important;
   }
 
+  .services-country-trigger {
+    width: auto !important;
+    min-width: 108px !important;
+    height: 46px !important;
+    border-radius: 2px !important;
+    padding: 0 12px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.48px !important;
+  }
+
   .services-form-pills {
     display: flex !important;
     flex-wrap: nowrap !important;

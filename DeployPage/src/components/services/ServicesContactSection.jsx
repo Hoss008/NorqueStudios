@@ -4,6 +4,7 @@ import { useContactForm } from '../../hooks/useContactForm';
 import { useInvalidSubmitShake } from '../../hooks/useInvalidSubmitShake';
 import { PROJECT_TYPES, BUDGET_OPTIONS, SOURCE_OPTIONS } from '../../hooks/contactOptions';
 import ContactFieldError from '../ContactFieldError';
+import CountryCodeSelect from '../CountryCodeSelect';
 import './ServicesMobile.css';
 
 const base = import.meta.env.BASE_URL.endsWith('/')
@@ -15,10 +16,12 @@ const PITCH_DECK_FILENAME = 'NORQUE STUDIOS - Pitch Deck.pdf';
 export default function ServicesContactSection() {
   const {
     id, inputProps, errors, spamField, handleSubmit, isSubmitting, isSubmitted, reset,
+    countryIso, setCountryIso,
     selectedTypes, toggleProjectType, selectedBudget, handleBudgetSelect, source, setSource, errorMessage,
   } = useContactForm();
   const { isShaking, notifySubmitAttempt } = useInvalidSubmitShake({ errors, isSubmitting, isSubmitted });
   const [isSourceOpen, setIsSourceOpen] = useState(false);
+  const [isCountryOpen, setIsCountryOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   const getLabelClass = (hasError, spacing = 'mb-[0.4167vw]') =>
@@ -26,8 +29,8 @@ export default function ServicesContactSection() {
       hasError ? 'text-[#F87171]' : 'text-white'
     }`;
 
-  const getInputClass = (hasError) =>
-    `services-form-input w-full h-[1.6667vw] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none transition-all border-none ${
+  const getInputClass = (hasError, widthClass = 'w-full') =>
+    `services-form-input ${widthClass} h-[1.6667vw] rounded-[0.1389vw] px-[0.6944vw] text-[0.6944vw] font-semibold text-white placeholder:text-[#666666] placeholder:font-semibold outline-none transition-all border-none ${
       hasError
         ? 'bg-[#261414] ring-1 ring-inset ring-[#F87171] focus:ring-[#F87171]'
         : 'bg-[#171717] focus:ring-1 focus:ring-inset focus:ring-white/20'
@@ -183,18 +186,28 @@ export default function ServicesContactSection() {
                     </div>
 
                     {/* Field 2: Phone Number* */}
-                    <div className="services-form-item w-full">
+                    <div className={`services-form-item w-full relative ${isCountryOpen ? 'z-30' : ''}`}>
                       <label htmlFor={id + 'phone'} className={getLabelClass(errors.phone)}>
                         Phone Number*
                       </label>
-                      <input
-                        type="tel"
-                        inputMode="numeric"
-                        {...inputProps('phone')}
-                        placeholder="e.g. 971501234567"
-                        required
-                        className={getInputClass(errors.phone)}
-                      />
+                      <div className="flex items-stretch gap-[8px] md:gap-[0.4167vw] w-full">
+                        <CountryCodeSelect
+                          value={countryIso}
+                          onChange={setCountryIso}
+                          onOpenChange={setIsCountryOpen}
+                          variant="dark"
+                          hasError={Boolean(errors.phone)}
+                          triggerClassName="services-country-trigger w-auto min-w-[5.2vw] h-[1.6667vw] rounded-[0.1389vw] px-[0.55vw] text-[0.6944vw] font-semibold"
+                        />
+                        <input
+                          type="tel"
+                          inputMode="numeric"
+                          {...inputProps('phone')}
+                          placeholder="e.g. 501234567"
+                          required
+                          className={getInputClass(errors.phone, 'flex-1 min-w-0')}
+                        />
+                      </div>
                       <ContactFieldError id={id + 'phone-error'} error={errors.phone} variant="dark" />
                     </div>
 
